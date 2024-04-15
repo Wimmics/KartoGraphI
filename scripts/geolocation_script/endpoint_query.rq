@@ -1,0 +1,18 @@
+PREFIX void: <http://rdfs.org/ns/void#>
+PREFIX dcat: <http://www.w3.org/ns/dcat#>
+PREFIX kgi: <http://ns.inria.fr/kg/index#>
+PREFIX sd: <http://www.w3.org/ns/sparql-service-description#>
+PREFIX pav: <http://purl.org/pav/>
+
+SELECT DISTINCT ?URL {
+    {
+        ?s ?p ?URL .
+    } UNION {
+        GRAPH ?g {
+            ?s ?p ?URL .
+        }
+    }
+    BIND(IRI(STR(?URL)) as ?sparql)
+    FILTER (?p IN (void:sparqlEndpoint, dcat:endpointURL, sd:endpoint))
+} GROUP BY ?URL
+ORDER BY ?URL

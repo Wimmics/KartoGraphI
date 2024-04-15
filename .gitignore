@@ -396,3 +396,11 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+scripts/geolocation_script/*.json.jsonld
+
+*.jar
+
+scripts/geolocation_script/jq-linux64
+
+scripts/geolocation_script/endpoints_and_ips.jsonld
