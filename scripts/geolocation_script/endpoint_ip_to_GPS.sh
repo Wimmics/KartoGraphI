@@ -36,111 +36,134 @@ function join_by {
 }
 
 
-jsonld_catalog_prefix='{ "@context": { "endpointURL": { "@id": "http://rdfs.org/ns/void#sparqlEndpoint", "@type": "@id" }, "createdAt": "http://purl.org/pav/createdAt", "lat": { "@id": "http://www.w3.org/2003/01/geo/wgs84_pos#lat", "@type": "xsd:float" }, "lon": { "@id": "http://www.w3.org/2003/01/geo/wgs84_pos#lon", "@type": "xsd:float" }, "xsd": "http://www.w3.org/2001/XMLSchema#", "ip_address": { "@id": "http://rdfs.org/sioc/ns#ip_address", "@type": "xsd:string" } }, "@graph":'
+jsonld_catalog_prefix='{
+    "@context": {
+        "endpointURL": {
+            "@id": "http://rdfs.org/ns/void#sparqlEndpoint",
+            "@type": "@id"
+        },
+        "createdAt": "http://purl.org/pav/createdAt",
+        "lat": { 
+            "@id": "http://www.w3.org/2003/01/geo/wgs84_pos#lat",
+            "@type": "xsd:string"
+        },
+        "lon": { 
+            "@id": "http://www.w3.org/2003/01/geo/wgs84_pos#lon",
+            "@type": "xsd:string"
+        },
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "ip_address": "http://rdfs.org/sioc/ns#ip_address"
+    },
+    "@graph":'
 jsonld_catalog_suffix='}'
 
 just_endpoints_csv=endpoints.csv
 just_ips_csv=endpoints_ips.csv
 endpoints_and_ips_jsonld=endpoints_and_ips.jsonld
 
-# Get the endpoints from a SPARQL query
-echo "Retrieving endpoints from the catalog"
-if [ ! -e $just_endpoints_csv ] ; then
-    echo "Previous endpoints file not found. Creating a new one."
-    echo "" > $just_endpoints_csv
-    java -jar $corese_jar sparql -q endpoint_query.rq -i $endpoint_catalog -of csv -o $just_endpoints_csv
+if [ ! -e $endpoints_and_ips_jsonld ] ; then
+
+    # Get the endpoints from a SPARQL query
+    echo "Retrieving endpoints from the catalog"
+    if [ ! -e $just_endpoints_csv ] ; then
+        echo "Previous endpoints file not found. Creating a new one."
+        echo "" > $just_endpoints_csv
+        java -jar $corese_jar sparql -q endpoint_query.rq -i $endpoint_catalog -of csv -o $just_endpoints_csv
+    fi
+    echo "Endpoints retrieved"
+
+    echo "Retrieving IPs from the endpoints"
+    # Get the IPs of the endpoints
+    if [ ! -e $just_ips_csv ] || [ ! -e $endpoints_and_ips_jsonld ] ; then
+        echo "Previous IPs file not found. Creating a new one."
+        echo "" > $just_ips_csv
+        echo "" > $endpoints_and_ips_jsonld
+        tmp_endpoint_ip_jsonld_file=$(mktemp)
+        tmp_endpoints_ips_csv=$(mktemp)
+        tmp_ips_csv=$(mktemp)
+
+        while read url; do
+            # Remove protocol from url
+            url_without_protocol="${url#*://}"
+            url_only_domain="${url_without_protocol%%/*}"
+            ip_result=`getent hosts $url_only_domain | awk '{ print $1 ; exit }'`
+            echo "$url;$ip_result" >> $tmp_endpoints_ips_csv
+            echo $ip_result >> $tmp_ips_csv
+        done < <(tail -n +2 endpoints.csv)
+
+        sort -u $tmp_ips_csv >> $just_ips_csv 
+
+        jq -Rsn '[inputs
+                | . / "\n"
+                | (.[] | select(length > 0) | . / ";") as $input
+                | {"@id": $input[0], "endpointURL": $input[0], "ip_address": $input[1]} ]
+            ' <$tmp_endpoints_ips_csv >$tmp_endpoint_ip_jsonld_file
+        cat $tmp_endpoint_ip_jsonld_file
+
+        tmp_endpoint_ip_array_content=`cat $tmp_endpoint_ip_jsonld_file`
+        echo $jsonld_catalog_prefix > $endpoints_and_ips_jsonld
+        echo $tmp_endpoint_ip_array_content >> $endpoints_and_ips_jsonld
+        echo $jsonld_catalog_suffix >> $endpoints_and_ips_jsonld
+
+        rm $tmp_endpoints_ips_csv
+        rm $tmp_ips_csv
+        rm $tmp_endpoint_ip_jsonld_file
+    fi
+    echo "IPs retrieved"
 fi
-echo "Endpoints retrieved"
-
-echo "Retrieving IPs from the endpoints"
-# Get the IPs of the endpoints
-if [ ! -e $just_ips_csv ] || [ ! -e $endpoints_and_ips_jsonld ] ; then
-    echo "Previous IPs file not found. Creating a new one."
-    echo "" > $just_ips_csv
-    echo "" > $endpoints_and_ips_jsonld
-    tmp_endpoint_ip_jsonld_file=$(mktemp)
-    tmp_endpoints_ips_csv=$(mktemp)
-    tmp_ips_csv=$(mktemp)
-
-    while read url; do
-        # Remove protocol from url
-        url_without_protocol="${url#*://}"
-        url_only_domain="${url_without_protocol%%/*}"
-        ip_result=`getent hosts $url_only_domain | awk '{ print $1 ; exit }'`
-        echo $ip_result # DEBUG
-        echo "$url;$ip_result" >> $tmp_endpoints_ips_csv
-        echo $ip_result >> $tmp_ips_csv
-    done < <(tail -n +2 endpoints.csv)
-
-    sort -u $tmp_ips_csv >> $just_ips_csv 
-
-    jq -Rsn '[inputs
-            | . / "\n"
-            | (.[] | select(length > 0) | . / ";") as $input
-            | {"@id": $input[0], "endpointURL": $input[0], "ip_address": $input[1]} ]
-        ' <$tmp_endpoints_ips_csv >$tmp_endpoint_ip_jsonld_file
-    cat $tmp_endpoint_ip_jsonld_file
-
-    tmp_endpoint_ip_array_content=`cat $tmp_endpoint_ip_jsonld_file`
-    echo $jsonld_catalog_prefix > $endpoints_and_ips_jsonld
-    echo $tmp_endpoint_ip_array_content >> $endpoints_and_ips_jsonld
-    echo $jsonld_catalog_suffix >> $endpoints_and_ips_jsonld
-
-    rm $tmp_endpoints_ips_csv
-    rm $tmp_ips_csv
-    # rm $tmp_endpoint_ip_jsonld_file
-fi
-echo "IPs retrieved"
 
 # Get the geolocation of the IPs
 echo "Retrieving geolocation of the IPs"
 
-# Separate the IP into batch of 100 because that is the limit of the geolocation service
-## Batch size
-BATCH_SIZE=100
+if ! ls result_json_*.json 1> /dev/null 2>&1 ; then
+    # Separate the IP into batch of 100 because that is the limit of the geolocation service
+    ## Batch size
+    BATCH_SIZE=100
 
-## Temporary file for batches
-BATCH_FILE=$(mktemp)
+    ## Temporary file for batches
+    BATCH_FILE=$(mktemp)
 
-## Read IPs and batch them
-i=0
-while IFS= read -r line; do
-    echo "\"$line\"" >> "$BATCH_FILE"
-    let i+=1
-    data_argument="$(join_by , $(cat $BATCH_FILE | grep .))"
-    if (( i % BATCH_SIZE == 0 )); then
+    ## Read IPs and batch them
+    i=0
+    while IFS= read -r line; do
+        echo "\"$line\"" >> "$BATCH_FILE"
+        let i+=1
+        data_argument="$(join_by , $(cat $BATCH_FILE | grep .))"
+        if (( i % BATCH_SIZE == 0 )); then
+            ith_result_json_file="result_json_$i.json"
+            if [ ! -e $ith_result_json_file ]; then
+                curl http://ip-api.com/batch?fields=status,lat,lon,query --data "[$data_argument]" > $ith_result_json_file
+                data_argument=""
+            fi
+            > "$BATCH_FILE" # Empty the file for the next batch
+        fi
+    done < endpoints_ips.csv
+
+    # Get the last batch
+    if [ -s $BATCH_FILE ]; then
         ith_result_json_file="result_json_$i.json"
         if [ ! -e $ith_result_json_file ]; then
             echo "curl http://ip-api.com/batch?fields=status,lat,lon,query --data \"[$data_argument]\" > $ith_result_json_file"
             curl http://ip-api.com/batch?fields=status,lat,lon,query --data "[$data_argument]" > $ith_result_json_file
-            data_argument=""
         fi
-        > "$BATCH_FILE" # Empty the file for the next batch
     fi
-done < endpoints_ips.csv
 
-# Get the last batch
-if [ -s $BATCH_FILE ]; then
-    ith_result_json_file="result_json_$i.json"
-    if [ ! -e $ith_result_json_file ]; then
-        echo "curl http://ip-api.com/batch?fields=status,lat,lon,query --data \"[$data_argument]\" > $ith_result_json_file"
-        curl http://ip-api.com/batch?fields=status,lat,lon,query --data "[$data_argument]" > $ith_result_json_file
-    fi
+    rm $BATCH_FILE
 fi
-
-rm $BATCH_FILE
 echo "Geolocation retrieved"
 
 # Converting the geolocation results to JSON-LD
 echo "Converting the geolocation results to JSON-LD"
-for file in `ls | grep result_json_*.json` 
+for file in `ls result_json_*.json` 
 do
+    echo $file
     result_file="$file.jsonld"
     if [ -e $result_file ]; then
         continue
     fi
     echo $jsonld_catalog_prefix > $result_file
-    jsonld_inner_content=`./$jq_executable '[ .[] | select(.status == "success") | { "createdAt": { "lat": .lat, "lon": .lon }, "ip_address": .query } ]' $file`
+    jsonld_inner_content=`./$jq_executable '[ .[] | select(.status == "success") | { "createdAt": { "lat": .lat|tostring, "lon": .lon|tostring }, "ip_address": .query } ]' $file`
+    echo "./$jq_executable '[ .[] | select(.status == "success") | { "createdAt": { "lat": .lat|tostring, "lon": .lon|tostring }, "ip_address": .query } ]' $file"
     echo $jsonld_inner_content >> $result_file
     echo $jsonld_catalog_suffix >> $result_file
     rm $file
@@ -152,4 +175,4 @@ rm $just_ips_csv
 
 # Final RDF final generation
 
-java -jar $corese_jar sparql -q final_result_generation_query.rq -i *.jsonld -of turtle -o endpoint_location.ttl
+java -jar $corese_jar sparql -q final_result_generation_query.rq -i *.jsonld -of ttl -o endpoint_location.ttl
