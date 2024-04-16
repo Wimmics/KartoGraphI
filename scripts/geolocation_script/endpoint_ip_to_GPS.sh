@@ -3,6 +3,7 @@
 if [ $# -gt 1 ]
   then
     echo "Too many arguments supplied"
+    exit 0
 fi
 
 endpoint_catalog=https://raw.githubusercontent.com/Wimmics/IndeGx/catalog_auto_refresh/catalogs/catalog.auto_refresh.ttl
@@ -35,7 +36,7 @@ function join_by {
 }
 
 
-jsonld_catalog_prefix='{ "@context": { "endpointURL": { "@id": "http://rdfs.org/ns/void#endpointURL", "@type": "@id" }, "createdAt": "http://purl.org/pav/createdAt", "lat": { "@id": "http://www.w3.org/2003/01/geo/wgs84_pos#lat", "@type": "xsd:float" }, "lon": { "@id": "http://www.w3.org/2003/01/geo/wgs84_pos#lon", "@type": "xsd:float" }, "xsd": "http://www.w3.org/2001/XMLSchema#", "ip_address": { "@id": "http://rdfs.org/sioc/ns#ip_address", "@type": "xsd:string" } }, "@graph":'
+jsonld_catalog_prefix='{ "@context": { "endpointURL": { "@id": "http://rdfs.org/ns/void#sparqlEndpoint", "@type": "@id" }, "createdAt": "http://purl.org/pav/createdAt", "lat": { "@id": "http://www.w3.org/2003/01/geo/wgs84_pos#lat", "@type": "xsd:float" }, "lon": { "@id": "http://www.w3.org/2003/01/geo/wgs84_pos#lon", "@type": "xsd:float" }, "xsd": "http://www.w3.org/2001/XMLSchema#", "ip_address": { "@id": "http://rdfs.org/sioc/ns#ip_address", "@type": "xsd:string" } }, "@graph":'
 jsonld_catalog_suffix='}'
 
 just_endpoints_csv=endpoints.csv
@@ -57,28 +58,37 @@ if [ ! -e $just_ips_csv ] || [ ! -e $endpoints_and_ips_jsonld ] ; then
     echo "Previous IPs file not found. Creating a new one."
     echo "" > $just_ips_csv
     echo "" > $endpoints_and_ips_jsonld
-    IP_JSON_TEMP_FILE=$(mktemp)
+    tmp_endpoint_ip_jsonld_file=$(mktemp)
     tmp_endpoints_ips_csv=$(mktemp)
+    tmp_ips_csv=$(mktemp)
 
     while read url; do
         # Remove protocol from url
         url_without_protocol="${url#*://}"
         url_only_domain="${url_without_protocol%%/*}"
         ip_result=`getent hosts $url_only_domain | awk '{ print $1 ; exit }'`
-        echo $ip_result >> $tmp_endpoints_ips_csv
-        echo "{ \"@id\":\"$url\", \"endpointURL\":\"$url\", \"ip_address\":\"$ip_result\" }" >> $IP_JSON_TEMP_FILE
-    done <endpoints.csv
+        echo $ip_result # DEBUG
+        echo "$url;$ip_result" >> $tmp_endpoints_ips_csv
+        echo $ip_result >> $tmp_ips_csv
+    done < <(tail -n +2 endpoints.csv)
 
-    if [ ! -e $endpoints_and_ips_jsonld ] ; then
-        echo "Previous endpoints and IPs file not found. Creating a new one."
-        endpoint_ip_array_content=`cat $IP_JSON_TEMP_FILE`
-        echo $jsonld_catalog_prefix > $endpoints_and_ips_jsonld
-        echo $endpoint_ip_array_content >> $endpoints_and_ips_jsonld
-        echo $jsonld_catalog_suffix >> $endpoints_and_ips_jsonld
-    fi
+    sort -u $tmp_ips_csv >> $just_ips_csv 
 
-    sort -u $tmp_endpoints_ips_csv >> $just_ips_csv
+    jq -Rsn '[inputs
+            | . / "\n"
+            | (.[] | select(length > 0) | . / ";") as $input
+            | {"@id": $input[0], "endpointURL": $input[0], "ip_address": $input[1]} ]
+        ' <$tmp_endpoints_ips_csv >$tmp_endpoint_ip_jsonld_file
+    cat $tmp_endpoint_ip_jsonld_file
+
+    tmp_endpoint_ip_array_content=`cat $tmp_endpoint_ip_jsonld_file`
+    echo $jsonld_catalog_prefix > $endpoints_and_ips_jsonld
+    echo $tmp_endpoint_ip_array_content >> $endpoints_and_ips_jsonld
+    echo $jsonld_catalog_suffix >> $endpoints_and_ips_jsonld
+
     rm $tmp_endpoints_ips_csv
+    rm $tmp_ips_csv
+    # rm $tmp_endpoint_ip_jsonld_file
 fi
 echo "IPs retrieved"
 
@@ -97,7 +107,7 @@ i=0
 while IFS= read -r line; do
     echo "\"$line\"" >> "$BATCH_FILE"
     let i+=1
-    data_argument="$(join_by , $(cat $BATCH_FILE))"
+    data_argument="$(join_by , $(cat $BATCH_FILE | grep .))"
     if (( i % BATCH_SIZE == 0 )); then
         ith_result_json_file="result_json_$i.json"
         if [ ! -e $ith_result_json_file ]; then
@@ -140,5 +150,6 @@ echo "Geolocation results converted to JSON-LD"
 rm $just_endpoints_csv
 rm $just_ips_csv
 
+# Final RDF final generation
 
-
+java -jar $corese_jar sparql -q final_result_generation_query.rq -i *.jsonld -of turtle -o endpoint_location.ttl

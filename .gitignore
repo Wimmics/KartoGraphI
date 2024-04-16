@@ -404,3 +404,5 @@ scripts/geolocation_script/*.json.jsonld
 scripts/geolocation_script/jq-linux64
 
 scripts/geolocation_script/endpoints_and_ips.jsonld
+
+scripts/geolocation_script/endpoint_location.ttl
