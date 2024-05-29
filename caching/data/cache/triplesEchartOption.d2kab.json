@@ -1,1 +1,0 @@
-{"title":{"left":"center","text":"Size of the datasets"},"xAxis":{"type":"time","axisLabel":{"show":true,"interval":0,"rotate":27}},"yAxis":{},"series":[{"name":"http://ontology.irstea.fr/weather/sparql","label":{"show":false},"symbolSize":5,"data":[["2022-06-09T22:00:00.000Z",15001404]],"type":"line"}],"tooltip":{"show":true}}

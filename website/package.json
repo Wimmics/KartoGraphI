@@ -15,14 +15,14 @@
       "@types/node-fetch": "^2.6.2",
       "crypto-browserify": "^3.12.0",
       "dayjs": "latest",
-      "echarts": "^5.4.2",
+      "echarts": "^5.5.0",
       "jquery": "^3.6.4",
       "leaflet": "latest",
       "parcel": "^2.3.1",
       "punycode": "^1.4.1",
       "querystring-es3": "^0.2.1",
       "stream-browserify": "^3.0.0",
-      "url": "^0.11.0"
+      "url": "^0.11.3"
    },
    "dependencies": {
       "@types/bootstrap": "^5.2.6",
@@ -41,6 +41,7 @@
       "gridjs-jquery": "^4.0.0",
       "leaflet-providers": "^1.13.0",
       "md5": "^2.3.0",
+      "npm": "^10.8.0",
       "process": "^0.11.10",
       "typescript": "^4.9.5",
       "xmlhttprequest": "^1.8.0"

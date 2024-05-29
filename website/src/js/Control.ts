@@ -1,17 +1,15 @@
 import $ from 'jquery';
 import url from 'url';
-import { blankNodesChart, blankNodesEchartsOptionFilename, classAndPropertiesContent, classNumberChart, classesEchartsOptionFilename, datasetDescriptionEchartsOptionFilename, descriptionElementChart, geolocChart, propertiesEchartsOptionFilename, propertyNumberChart, endpointVocabsChart, rdfDataStructureChart, rdfDataStructuresEchartsOptionFilename, readableLabelsChart, readableLabelsEchartsOptionFilename, shortUriChart, shortUrisEchartsOptionFilename, sparql10Chart, sparql10CoverageEchartsOptionFilename, sparql11Chart, sparql11CoverageEchartsOptionFilename, sparqlCoverCharts, sparqlCoverageEchartsOptionFilename, sparqlFeaturesContent, standardVocabCharts, tripleChart, triplesEchartsOptionFilename, vocabEndpointEchartsOptionFilename, vocabKeywordChart, keywordEndpointEchartsOptionFilename, standardVocabulariesEndpointGraphEchartsOptionFilename } from "./Charts";
-import { ClassCountDataObject, DatasetDescriptionDataObject, GeolocDataObject, PropertyCountDataObject, QualityMeasureDataObject, ShortUriDataObject, SPARQLCoverageDataObject, SPARQLFeatureDataObject, SPARQLFeatureDescriptionDataObject, TextElement, TripleCountDataObject, VocabEndpointDataObject, JSONValue, RunsetObject } from "./Datatypes";
+import * as Datatype from "./Datatypes";
 import { setButtonAsToggleCollapse } from "./ViewUtils";
 import { cachePromise, xhrJSONPromise } from "./DataConnexion";
 import { KartoChart } from './ViewClasses';
+import { blankNodesChart, blankNodesEchartsOptionFilename, classAndPropertiesContent, classNumberChart, classesEchartsOptionFilename, datasetDescriptionEchartsOptionFilename, descriptionElementChart, endpointVocabsChart, geolocChart, keywordEndpointEchartsOptionFilename, propertiesEchartsOptionFilename, propertyNumberChart, rdfDataStructureChart, rdfDataStructuresEchartsOptionFilename, readableLabelsChart, readableLabelsEchartsOptionFilename, shortUriChart, shortUrisEchartsOptionFilename, sparql10Chart, sparql10CoverageEchartsOptionFilename, sparql11Chart, sparql11CoverageEchartsOptionFilename, sparqlCoverCharts, sparqlCoverageEchartsOptionFilename, sparqlFeaturesContent, standardVocabCharts, standardVocabulariesEndpointGraphEchartsOptionFilename, tripleChart, triplesEchartsOptionFilename, vocabEndpointEchartsOptionFilename, vocabKeywordChart } from './Charts';
 
 // Cached files
-// const whiteListFilename = 'whiteLists';
 const geolocDataFilename = 'geolocData';
 const sparqlCoverCountFilename = 'sparqlCoverageData'
 const sparqlFeaturesDataFilename = 'sparqlFeaturesData'
-// const knownVocabDataFilename = 'knownVocabsData'
 const vocabEndpointDataFilename = 'vocabEndpointData'
 const endpointKeywordDataFilename = 'endpointKeywordsData'
 const classCountDataFilename = 'classCountData'
@@ -24,7 +22,6 @@ const rdfDataStructureDataFilename = "rdfDataStructureData";
 const readableLabelDataFilename = "readableLabelData";
 const blankNodesDataFilename = "blankNodesData";
 
-const runsetsFile = cachePromise('runSets.json') as Promise<Array<RunsetObject>>;
 const textElementsFile = xhrJSONPromise("https://raw.githubusercontent.com/Wimmics/dekalog/master/LODMap/src/data/cache/textElements.json");
 const sparqlFeatureDescFile = cachePromise("SPARQLFeatureDescriptions.json");
 
@@ -32,54 +29,51 @@ export class Control {
 
     static ControlInstance: Control;
 
-    geolocData(): Array<GeolocDataObject> {
-        return this.retrieveFileFromVault(geolocDataFilename, this.currentRunset) as Array<GeolocDataObject>;
+    geolocData(): Array<Datatype.GeolocDataObject> {
+        return this.retrieveFileFromVault(geolocDataFilename) as Array<Datatype.GeolocDataObject>;
     };
-    sparqlCoverCountData(): Array<SPARQLCoverageDataObject> {
-        return this.retrieveFileFromVault(sparqlCoverCountFilename, this.currentRunset) as Array<SPARQLCoverageDataObject>;
+    sparqlCoverCountData(): Array<Datatype.SPARQLCoverageDataObject> {
+        return this.retrieveFileFromVault(sparqlCoverCountFilename) as Array<Datatype.SPARQLCoverageDataObject>;
     };
-    sparqlFeaturesData(): Array<SPARQLFeatureDataObject> {
-        return this.retrieveFileFromVault(sparqlFeaturesDataFilename, this.currentRunset) as Array<SPARQLFeatureDataObject>;
+    sparqlFeaturesData(): Array<Datatype.SPARQLFeatureDataObject> {
+        return this.retrieveFileFromVault(sparqlFeaturesDataFilename) as Array<Datatype.SPARQLFeatureDataObject>;
     };
-    // knownVocabData(): Array<string> {
-    //     return this.retrieveFileFromVault(knownVocabDataFilename, this.currentRunset) as Array<string>;
-    // };
-    vocabEndpointData(): Array<VocabEndpointDataObject> {
-        return this.retrieveFileFromVault(vocabEndpointDataFilename, this.currentRunset) as Array<VocabEndpointDataObject>;
+    vocabEndpointData(): Array<Datatype.VocabEndpointDataObject> {
+        return this.retrieveFileFromVault(vocabEndpointDataFilename) as Array<Datatype.VocabEndpointDataObject>;
     };
-    endpointKeywordData(): Array<VocabKeywordsDataObject> {
-        return this.retrieveFileFromVault(endpointKeywordDataFilename, this.currentRunset) as Array<VocabKeywordsDataObject>;
+    endpointKeywordData(): Array<Datatype.VocabKeywordsDataObject> {
+        return this.retrieveFileFromVault(endpointKeywordDataFilename) as Array<Datatype.VocabKeywordsDataObject>;
     };
-    classCountData(): Array<ClassCountDataObject> {
-        return this.retrieveFileFromVault(classCountDataFilename, this.currentRunset) as Array<ClassCountDataObject>;
+    classCountData(): Array<Datatype.ClassCountDataObject> {
+        return this.retrieveFileFromVault(classCountDataFilename) as Array<Datatype.ClassCountDataObject>;
     };
-    propertyCountData(): Array<PropertyCountDataObject> {
-        return this.retrieveFileFromVault(propertyCountDataFilename, this.currentRunset) as Array<PropertyCountDataObject>;
+    propertyCountData(): Array<Datatype.PropertyCountDataObject> {
+        return this.retrieveFileFromVault(propertyCountDataFilename) as Array<Datatype.PropertyCountDataObject>;
     };
-    tripleCountData(): Array<TripleCountDataObject> {
-        return this.retrieveFileFromVault(tripleCountDataFilename, this.currentRunset) as Array<TripleCountDataObject>;
+    tripleCountData(): Array<Datatype.TripleCountDataObject> {
+        return this.retrieveFileFromVault(tripleCountDataFilename) as Array<Datatype.TripleCountDataObject>;
     };
-    classPropertyData(): any {
-        return this.retrieveFileFromVault(classPropertyDataFilename, this.currentRunset);
+    classPropertyData(): Array<Datatype.ClassPropertyDataObject> {
+        return this.retrieveFileFromVault(classPropertyDataFilename) as Array<Datatype.ClassPropertyDataObject>;
     };
-    datasetDescriptionData(): Array<DatasetDescriptionDataObject> {
-        return this.retrieveFileFromVault(datasetDescriptionDataFilename, this.currentRunset) as Array<DatasetDescriptionDataObject>;
+    datasetDescriptionData(): Array<Datatype.DatasetDescriptionDataObject> {
+        return this.retrieveFileFromVault(datasetDescriptionDataFilename) as Array<Datatype.DatasetDescriptionDataObject>;
     };
-    shortUriData(): Array<ShortUriDataObject> {
-        return this.retrieveFileFromVault(shortUriDataFilename, this.currentRunset) as Array<ShortUriDataObject>;
+    shortUriData(): Array<Datatype.ShortUriDataObject> {
+        return this.retrieveFileFromVault(shortUriDataFilename) as Array<Datatype.ShortUriDataObject>;
     };
-    rdfDataStructureData(): Array<QualityMeasureDataObject> {
-        return this.retrieveFileFromVault(rdfDataStructureDataFilename, this.currentRunset) as Array<QualityMeasureDataObject>;
+    rdfDataStructureData(): Array<Datatype.QualityMeasureDataObject> {
+        return this.retrieveFileFromVault(rdfDataStructureDataFilename) as Array<Datatype.QualityMeasureDataObject>;
     };
-    readableLabelData(): Array<QualityMeasureDataObject> {
-        return this.retrieveFileFromVault(readableLabelDataFilename, this.currentRunset) as Array<QualityMeasureDataObject>;
+    readableLabelData(): Array<Datatype.QualityMeasureDataObject> {
+        return this.retrieveFileFromVault(readableLabelDataFilename) as Array<Datatype.QualityMeasureDataObject>;
     };
-    blankNodesData(): Array<QualityMeasureDataObject> {
-        return this.retrieveFileFromVault(blankNodesDataFilename, this.currentRunset) as Array<QualityMeasureDataObject>;
+    blankNodesData(): Array<Datatype.QualityMeasureDataObject> {
+        return this.retrieveFileFromVault(blankNodesDataFilename) as Array<Datatype.QualityMeasureDataObject>;
     };
-    textElements: Array<TextElement>;
-    runsets: Array<RunsetObject>;
-    sparqlFeatureDesc: Array<SPARQLFeatureDescriptionDataObject>;
+    textElements: Array<Datatype.TextElement>;
+    runsets: Array<Datatype.RunsetObject>;
+    sparqlFeatureDesc: Array<Datatype.SPARQLFeatureDescriptionDataObject>;
 
     graphList: string[] = [];
     currentRunsetId = "all";
@@ -89,11 +83,11 @@ export class Control {
     tabContentMap = new Map();
 
 
-    geolocContent = [
+    geolocContent: KartoChart[] = [
         geolocChart
     ];
     sparqlCoverContent: KartoChart[] = [sparqlCoverCharts, sparql10Chart, sparql11Chart, sparqlFeaturesContent]
-    vocabRelatedContent: KartoChart[] = [vocabKeywordChart, /*filteredVocabChart,*/ endpointVocabsChart, standardVocabCharts];
+    vocabRelatedContent: KartoChart[] = [vocabKeywordChart, endpointVocabsChart, standardVocabCharts];
     datasetDescriptionContent: KartoChart[] = [descriptionElementChart];
     dataQualityContent: KartoChart[] = [blankNodesChart, readableLabelsChart, rdfDataStructureChart, shortUriChart];
     datasetPopulationsContent: KartoChart[] = [tripleChart, classNumberChart, propertyNumberChart, classAndPropertiesContent];
@@ -103,10 +97,8 @@ export class Control {
         .concat(this.datasetPopulationsContent)
         .concat(this.vocabRelatedContent);
 
-    // Contains the files for each runset (key: runset id, value: Map<filename, fileContent>)
-    fileBank: Map<string, Map<string, JSONValue>> = new Map();
-
-    currentRunset: RunsetObject;
+    // Contains the files for each component (key: filename, value: fileContent)
+    fileBank: Map<string, Datatype.JSONValue> = new Map();
 
 
 
@@ -181,43 +173,14 @@ export class Control {
         console.log("Initialization START");
         console.log("File loading started");
         return this.loadDataFiles().then(() => {
+
+
             console.log("File loading finished");
 
             console.log("setting up the runset ID in the URL")
             let urlParams = new URLSearchParams(url.search);
             // Set up graphs sets
-            if (urlParams.has(this.runsetIndexParameter)) {
-                const currentRunsetIndex = urlParams.get(this.runsetIndexParameter);
-                if (currentRunsetIndex !== null) {
-                    const givenRunsetIndex = currentRunsetIndex;
-                    if (this.runsets.some((item, i) => { return item.id === givenRunsetIndex })) {   // Check if the given index is valid
-                        this.currentRunsetId = givenRunsetIndex;
-                    }
-                }
-            }
-
-            console.log("Changing the current runsetId to the one found in the URL or default")
-            this.changeGraphSetIndex(this.currentRunsetId)
-
-            console.log("Setting up the runset list selection")
-            let select = $('#endpoint-list-select');
-            this.runsets.forEach((item) => {
-                let option = document.createElement('option');
-                $(option).text(item.name);
-                $(option).val(item.id);
-                if (item.id === this.currentRunsetId) {
-                    $(option).attr("selected", "true")
-                    this.graphList = item.graphs;
-                }
-                select.append(option);
-            });
-            select.on('change', function () {
-                $("#endpoint-list-select > option:selected").each(function () {
-                    console.log("runset selection changed for " + $(this).val())
-                    let selectionIndex = $(this).val();
-                    Control.getInstance().changeGraphSetIndex(selectionIndex);
-                })
-            });
+            // TODO: without runset
 
             console.log("Initialization END");
             return Promise.resolve();
@@ -232,23 +195,18 @@ export class Control {
         return Control.ControlInstance;
     }
 
-    static getCacheFileForRunset(filename, runsetObject: RunsetObject) {
+    static getCacheFileForRunset(filename, runsetObject: Datatype.RunsetObject) {
         return cachePromise(filename + "." + runsetObject.id + '.json');
     }
 
-    retrieveFileFromVault(filename: string, runset: RunsetObject = this.currentRunset) {
-        console.log("Retrieving file " + filename + " from the vault for runset " + runset.id + "")
-        const runsetBank = this.fileBank.get(runset.id);
-        if (runsetBank !== undefined) {
-            const fileFromVault = runsetBank.get(filename);
+    retrieveFileFromVault(filename: string, ): Datatype.JSONValue {
+        console.log("Retrieving file " + filename )
+            const fileFromVault = this.fileBank.get(filename);
             if (fileFromVault !== undefined) {
                 return fileFromVault;
             } else {
-                throw new Error("File " + filename + " not found in the bank for runset " + runset.id);
+                throw new Error("File " + filename + " not found in the bank");
             }
-        } else {
-            throw new Error("Runset " + runset.id + " not found in the bank");
-        }
     }
 
     insertTextElements() {
@@ -296,43 +254,26 @@ export class Control {
 
         // Loading all the data files into the bank
         return textElementsFile.then((data) => {
-            this.textElements = (data as Array<TextElement>);
+            this.textElements = (data as Array<Datatype.TextElement>);
             this.insertTextElements();
             return Promise.resolve();
         }).then(() => {
             return sparqlFeatureDescFile.then((data) => {
-                this.sparqlFeatureDesc = (data as Array<SPARQLFeatureDescriptionDataObject>);
+                this.sparqlFeatureDesc = (data as Array<Datatype.SPARQLFeatureDescriptionDataObject>);
                 return Promise.resolve();
             })
+        }).then(() => {
+            let fileRetrivalPromiseArray = filenameList.map(filename => {
+                return cachePromise(filename + ".json").then(jsonContent => {
+                    this.fileBank.set(filename, jsonContent);
+                    return ;
+                });
+            })
+            return Promise.allSettled(fileRetrivalPromiseArray)
         })
         .then(() => {
-            return runsetsFile.then((data) => {
-                this.runsets = data;
-
-                let allRunsetObject = this.runsets.find((runset) => {
-                    return runset.id === "all";
-                });
-                if (allRunsetObject !== undefined) {
-                    this.currentRunset = allRunsetObject;
-                } else {
-                    throw new Error("Runset with id 'all' not found");
-                }
-
-                this.runsets.forEach((runset) => {
-                    this.fileBank.set(runset.id, new Map());
-                })
-                return Promise.allSettled(this.runsets.map((runsetItem) => {
-                    return Promise.allSettled(filenameList.map((filename) => {
-                        return Control.getCacheFileForRunset(filename, runsetItem).then((data) => {
-                            this.fileBank.get(runsetItem.id)?.set(filename, data);
-                        })
-                    })
-                    )
-                }))
-            }).then(() => {
-                this.hideLoadingSpinner();
-                return;
-            })
+            this.hideLoadingSpinner();
+            return;
         })
     }
 
@@ -377,7 +318,7 @@ export class Control {
         return Promise.all(this.allContent.map(content => { content.redraw() }));
     }
 
-    generateGraphValueFilterClause(runset: RunsetObject) {
+    generateGraphValueFilterClause(runset: Datatype.RunsetObject) {
         let result = "FILTER( ";
         runset.graphs.forEach((item, i) => {
             if (i > 0) {
@@ -401,8 +342,6 @@ export class Control {
         if (indexRunset !== undefined) {
             let historyGraphList = indexRunset?.graphs;
             this.graphList = historyGraphList;
-            this.currentRunsetId = index;
-            this.currentRunset = indexRunset;
         } else {
             throw new Error("Graph set with id '" + index + "' not found");
         }

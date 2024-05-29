@@ -10,7 +10,8 @@ export type JSONValue =
     | number
     | boolean
     | JSONObject
-    | JSONArray;
+    | JSONArray
+    | Dayjs;
 
 interface JSONObject {
     [x: string]: JSONValue;
@@ -38,7 +39,7 @@ export type RunsetObject = {
     graphs: string[]
 }
 
-export type EndpointIpGeolocObject = {
+export interface EndpointIpGeolocObject extends JSONObject {
     key: string,
     value: {
         ip: string,
@@ -61,7 +62,7 @@ export type EndpointIpGeolocObject = {
     }
 }
 
-export type TimezoneMapObject = {
+export interface TimezoneMapObject extends JSONObject {
     key: string,
     value: {
         abbreviation: string,
@@ -82,14 +83,14 @@ export type TimezoneMapObject = {
     }
 }
 
-export type EndpointTestObject = { 
+export interface EndpointTestObject extends JSONObject { 
     endpoint: string, 
     activity: string, 
     graph: string, 
     date: Dayjs 
 }
 
-export type GeolocDataObject = {
+export interface GeolocDataObject extends JSONObject {
     sparqlTimezone: string;
     endpoint: string,
     lat: number,
@@ -102,57 +103,63 @@ export type GeolocDataObject = {
     popupHTML: string
 }
 
-export type SPARQLCoverageDataObject = {
+export interface SPARQLCoverageDataObject extends JSONObject {
     endpoint: string,
     sparql10: number,
     sparql11: number,
     sparqlTotal: number
 }
 
-export type SPARQLFeatureDataObject = {
+export interface SPARQLFeatureDataObject extends JSONObject {
     endpoint: string,
     features: Array<string>
 }
 
-export type VocabEndpointDataObject = {
+export interface VocabEndpointDataObject extends JSONObject {
     endpoint: string,
     vocabularies: Array<string>
 }
 
-export type EndpointKeywordsDataObject = {
+export interface EndpointKeywordsDataObject extends JSONObject {
     endpoint: string,
     keywords: Array<string>
 }
 
-export type ClassCountDataObject = {
+export interface VocabKeywordsDataObject extends JSONObject {
+    endpoint: string,
+    vocabulary: string,
+    keywords: Array<string>
+}
+
+export interface ClassCountDataObject extends JSONObject {
     endpoint: string,
     graph: string,
     date: Dayjs,
     classes: number
 }
 
-export type PropertyCountDataObject = {
+export interface PropertyCountDataObject extends JSONObject {
     endpoint: string,
     graph: string,
     date: Dayjs,
     properties: number
 }
 
-export type TripleCountDataObject = {
+export interface TripleCountDataObject extends JSONObject {
     endpoint: string,
     graph: string,
     date: Dayjs,
     triples: number
 }
 
-export type EndpointTestDataObject = {
+export interface EndpointTestDataObject extends JSONObject {
     endpoint: string,
     graph: string,
     date: Dayjs,
     activity: string
 }
 
-export type TotalRuntimeDataObject = {
+export interface TotalRuntimeDataObject extends JSONObject {
     graph: string,
     endpoint: string,
     date: Dayjs,
@@ -161,7 +168,7 @@ export type TotalRuntimeDataObject = {
     runtime: any
 }
 
-export type AverageRuntimeDataObject = {
+export interface AverageRuntimeDataObject extends JSONObject {
     count: number,
     start: Dayjs,
     end: Dayjs,
@@ -170,10 +177,10 @@ export type AverageRuntimeDataObject = {
     date: Dayjs
 }
 
-export type ClassPropertyDataObject = {
+export interface ClassPropertyDataObject extends JSONObject {
 }
 
-export type DatasetDescriptionDataObject = {
+export interface DatasetDescriptionDataObject extends JSONObject {
     endpoint: string,
     license: boolean,
     time: boolean,
@@ -181,21 +188,21 @@ export type DatasetDescriptionDataObject = {
     who: boolean
 }
 
-export type ShortUriDataObject = {
+export interface ShortUriDataObject extends JSONObject {
     graph: string,
     date: Dayjs,
     endpoint: string,
     measure: number
 }
 
-export type QualityMeasureDataObject = {
+export interface QualityMeasureDataObject extends JSONObject {
     graph: string,
     date: Dayjs,
     endpoint: string,
     measure: number
 }
 
-export type SPARQLFeatureDescriptionDataObject = {
+export interface SPARQLFeatureDescriptionDataObject extends JSONObject {
     feature: string,
     description: string,
     query: string

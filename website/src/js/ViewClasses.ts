@@ -1,8 +1,8 @@
-import * as echarts from "echarts";
+import * as echarts from "echarts/core";
 import L from "leaflet";
 
 export type KartoChartConfig = {
-    chartObject?: echarts.ChartView | L.Map,
+    chartObject?: echarts.ECharts | L.Map,
     option?: any,
     fillFunction: () => Promise<void>,
     redrawFunction?: () => void ,
@@ -10,11 +10,12 @@ export type KartoChartConfig = {
     hideFunction?: () => void ,
     showFunction?: () => void ,
     divId?: string,
-    filled?: boolean
+    filled?: boolean,
+    files?: string[],
 }
 
 export class KartoChart {
-    chartObject?: echarts.ChartView | L.Map;
+    chartObject?: echarts.ECharts | L.Map;
     option: any;
     filled?: boolean;
 

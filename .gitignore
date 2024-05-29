@@ -412,3 +412,5 @@ scripts/geolocation_script/save/
 website/.parcel-cache/
 
 website/dist/
+
+website/package-lock.json
