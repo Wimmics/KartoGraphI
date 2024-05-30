@@ -5,6 +5,7 @@ PREFIX kgi: <http://ns.inria.fr/kg/index#>
 PREFIX sd: <http://www.w3.org/ns/sparql-service-description#>
 PREFIX pav: <http://purl.org/pav/>
 PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+PREFIX vcard: <http://www.w3.org/2006/vcard/ns#>
 
 CONSTRUCT {
     ?endpoint void:sparqlEndpoint ?endpoint ;
@@ -13,7 +14,9 @@ CONSTRUCT {
             geo:lon ?lon
         ] ;
   		dbo:country ?country ;
-      	dbo:continent ?continent .
+      	dbo:continent ?continent ;
+        dbo:city ?city ;
+        vcard:org ?org .
 } {
     ?a void:sparqlEndpoint ?endpoint ;
         <http://rdfs.org/sioc/ns#ip_address> ?ip .
@@ -23,5 +26,7 @@ CONSTRUCT {
             geo:lon ?lon
         ] ;
   		dbo:country ?country ;
-      	dbo:continent ?continent .
+      	dbo:continent ?continent ;
+        dbo:city ?city ;
+        vcard:org ?org .
 }

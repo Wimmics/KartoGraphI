@@ -60,7 +60,7 @@ export let geolocChart = new KartoMapChart({
                     'Latitude',
                     'Longitude',
                     'Country',
-                    'Region',
+                    'Continent',
                     'City',
                     'Organization'
                 ];
@@ -82,11 +82,6 @@ export let geolocChart = new KartoMapChart({
 
             graphEndpointGeolocData.forEach(endpointGeoloc => {
                 let markerIcon = greenIcon;
-                if (endpointGeoloc.timezone != undefined
-                    && endpointGeoloc.sparqlTimezone != undefined
-                    && endpointGeoloc.timezone.localeCompare(endpointGeoloc.sparqlTimezone) != 0) {
-                    markerIcon = orangeIcon;
-                }
 
                 let endpointMarker = L.marker([endpointGeoloc.lat, endpointGeoloc.lon], { icon: markerIcon });
                 endpointMarker.on('click', clickEvent => {

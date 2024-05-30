@@ -405,8 +405,6 @@ scripts/geolocation_script/jq-linux64
 
 scripts/geolocation_script/endpoints_and_ips.jsonld
 
-scripts/geolocation_script/endpoint_location.ttl
-
 scripts/geolocation_script/save/
 
 website/.parcel-cache/
@@ -420,3 +418,7 @@ caching/.parcel-cache/
 caching/src/*.js
 
 caching/src/*.js.map
+
+caching/package-lock.json
+
+caching/log.txt

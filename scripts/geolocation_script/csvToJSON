@@ -1,0 +1,53 @@
+#!/usr/bin/env node
+let fs = require('fs')
+
+let input = ""
+let resultFilename = "output.json"
+// Parse arguments
+let args = process.argv.slice(2);
+if (args.length != 2) {
+    console.error('usage: csvToJSON <input> <output>');
+    return process.exit(1);
+} else {
+    input = args[0];
+    resultFilename = args[1];
+}
+
+/**
+ * Taken from https://stackoverflow.com/a/73759785/6270354
+ * @param text 
+ * @param quoteChar 
+ * @param delimiter 
+ * @returns 
+ */
+function csvJSON(text, quoteChar = '"', delimiter = ',') {
+    let rows = text.split("\n");
+    let headers = rows[0].split(",");
+
+    const regex = new RegExp(`\\s*(${quoteChar})?(.*?)\\1\\s*(?:${delimiter}|$)`, 'gs');
+
+    const match = line => [...line.matchAll(regex)]
+        .map(m => m[2])
+        .slice(0, -1);
+
+    let lines = text.split('\n');
+    const heads = headers ?? match(lines.shift());
+    lines = lines.slice(1);
+
+    return lines.map(line => {
+        return match(line).reduce((acc, cur, i) => {
+            // replace blank matches with `null`
+            const val = cur.length <= 0 ? null : Number(cur) || cur;
+            const key = heads[i] ?? `{i}`;
+            return { ...acc, [key]: val };
+        }, {});
+    });
+}
+
+var fileContentString = '', source = input ? fs.createReadStream(input) : process.stdin;
+source.setEncoding('utf8');
+source.on('data', function (data) { fileContentString += data; });
+source.on('end', function () {
+    let resultFileContent = JSON.stringify(csvJSON(fileContentString));
+    fs.writeFile(resultFilename, resultFileContent, { flag: "w+" }, (error) => { if (error) { console.error(error) } });
+})

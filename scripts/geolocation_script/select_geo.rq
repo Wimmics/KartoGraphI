@@ -1,0 +1,16 @@
+PREFIX vcard: <http://www.w3.org/2006/vcard/ns#>
+PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+PREFIX pav: <http://purl.org/pav/>
+PREFIX void: <http://rdfs.org/ns/void#>
+
+SELECT DISTINCT ?endpoint ?lat ?lon ?country ?continent ?city ?org {
+    ?endpoint void:sparqlEndpoint ?endpoint ;
+        pav:createdAt ?coord ;
+  		dbo:country ?country ;
+      	dbo:continent ?continent ;
+        dbo:city ?city ;
+        vcard:org ?org .
+    ?coord geo:lat ?lat ;
+            geo:lon ?lon .
+} GROUP BY ?endpoint ?lat ?lon ?country ?continent ?city ?org

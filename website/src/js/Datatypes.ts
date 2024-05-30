@@ -91,7 +91,6 @@ export interface EndpointTestObject extends JSONObject {
 }
 
 export interface GeolocDataObject extends JSONObject {
-    sparqlTimezone: string;
     endpoint: string,
     lat: number,
     lon: number,
@@ -99,7 +98,6 @@ export interface GeolocDataObject extends JSONObject {
     region: string,
     city: string,
     org: string,
-    timezone: string,
     popupHTML: string
 }
 
