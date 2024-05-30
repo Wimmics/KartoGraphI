@@ -51,6 +51,14 @@ jsonld_catalog_prefix='{
             "@id": "http://www.w3.org/2003/01/geo/wgs84_pos#lon",
             "@type": "xsd:string"
         },
+        "country": { 
+            "@id": "http://dbpedia.org/ontology/country",
+            "@type": "xsd:string"
+        },
+        "continent": { 
+            "@id": "http://dbpedia.org/ontology/continent",
+            "@type": "xsd:string"
+        },
         "xsd": "http://www.w3.org/2001/XMLSchema#",
         "ip_address": "http://rdfs.org/sioc/ns#ip_address"
     },
@@ -132,7 +140,7 @@ if ! ls result_json_*.json 1> /dev/null 2>&1 ; then
         if (( i % BATCH_SIZE == 0 )); then
             ith_result_json_file="result_json_$i.json"
             if [ ! -e $ith_result_json_file ]; then
-                curl http://ip-api.com/batch?fields=status,lat,lon,query --data "[$data_argument]" > $ith_result_json_file
+                curl http://ip-api.com/batch?fields=status,lat,lon,country,continent,query --data "[$data_argument]" > $ith_result_json_file
                 data_argument=""
             fi
             > "$BATCH_FILE" # Empty the file for the next batch
@@ -143,8 +151,7 @@ if ! ls result_json_*.json 1> /dev/null 2>&1 ; then
     if [ -s $BATCH_FILE ]; then
         ith_result_json_file="result_json_$i.json"
         if [ ! -e $ith_result_json_file ]; then
-            echo "curl http://ip-api.com/batch?fields=status,lat,lon,query --data \"[$data_argument]\" > $ith_result_json_file"
-            curl http://ip-api.com/batch?fields=status,lat,lon,query --data "[$data_argument]" > $ith_result_json_file
+            curl http://ip-api.com/batch?fields=status,lat,lon,country,continent,query --data "[$data_argument]" > $ith_result_json_file
         fi
     fi
 
@@ -162,8 +169,8 @@ do
         continue
     fi
     echo $jsonld_catalog_prefix > $result_file
-    jsonld_inner_content=`./$jq_executable '[ .[] | select(.status == "success") | { "createdAt": { "lat": .lat|tostring, "lon": .lon|tostring }, "ip_address": .query } ]' $file`
-    echo "./$jq_executable '[ .[] | select(.status == "success") | { "createdAt": { "lat": .lat|tostring, "lon": .lon|tostring }, "ip_address": .query } ]' $file"
+    jsonld_inner_content=`./$jq_executable '[ .[] | select(.status == "success") | { "createdAt": { "lat": .lat|tostring, "lon": .lon|tostring }, "ip_address": .query, "country": .country, "continent": .continent } ]' $file`
+    # echo "./$jq_executable '[ .[] | select(.status == "success") | { "createdAt": { "lat": .lat|tostring, "lon": .lon|tostring }, "ip_address": .query } ]' $file"
     echo $jsonld_inner_content >> $result_file
     echo $jsonld_catalog_suffix >> $result_file
     rm $file

@@ -414,3 +414,9 @@ website/.parcel-cache/
 website/dist/
 
 website/package-lock.json
+
+caching/.parcel-cache/
+
+caching/src/*.js
+
+caching/src/*.js.map

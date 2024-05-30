@@ -1,3 +1,4 @@
+PREFIX dbo: <http://dbpedia.org/ontology/>
 PREFIX void: <http://rdfs.org/ns/void#>
 PREFIX dcat: <http://www.w3.org/ns/dcat#>
 PREFIX kgi: <http://ns.inria.fr/kg/index#>
@@ -10,7 +11,9 @@ CONSTRUCT {
         pav:createdAt [
             geo:lat ?lat ;
             geo:lon ?lon
-        ] .
+        ] ;
+  		dbo:country ?country ;
+      	dbo:continent ?continent .
 } {
     ?a void:sparqlEndpoint ?endpoint ;
         <http://rdfs.org/sioc/ns#ip_address> ?ip .
@@ -18,5 +21,7 @@ CONSTRUCT {
         pav:createdAt [
             geo:lat ?lat ;
             geo:lon ?lon
-        ] .
+        ] ;
+  		dbo:country ?country ;
+      	dbo:continent ?continent .
 }
