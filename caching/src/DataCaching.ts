@@ -9,15 +9,14 @@ dayjs.extend(relativeTime)
 dayjs.extend(customParseFormat)
 dayjs.extend(duration)
 import md5 from 'md5';
-import * as Global from "./GlobalUtils";
-import * as Logger from "./LogUtils";
-import * as Sparql from "./SparqlUtils";
-import * as RDFUtils from "./RDFUtils";
+import * as Global from "./GlobalUtils.js";
+import * as Logger from "./LogUtils.js";
+import * as Sparql from "./SparqlUtils.js";
+import * as RDFUtils from "./RDFUtils.js";
 import { ClassCountDataObject, EndpointIpGeolocObject, EndpointItem, EndpointTestObject, JSONValue, KeywordsEndpointDataObject, RunSetObject, SPARQLJSONResult, TimezoneMapObject, TripleCountDataObject, VocabEndpointDataObject } from './DataTypes';
 
 const dataFilePrefix = "./data/";
 export const dataCachedFilePrefix = "./data/cache/";
-export const runsetList = Global.readJSONFile(dataFilePrefix + 'runSets.json') as Promise<RunSetObject[]>;
 const timezoneMap = Global.readJSONFile(dataFilePrefix + 'timezoneMap.json');
 const endpointIpMap = Global.readJSONFile(dataFilePrefix + 'endpointIpGeoloc.json');
 
@@ -91,26 +90,9 @@ export function retrieveKnownVocabularies() {
             }))
 }
 
-function generateGraphValueFilterClause(graphList: string[]) {
-    let result = "FILTER( ";
-    graphList.forEach((item, i) => {
-        if (i > 0) {
-            result += ` || REGEX( str(?g) , '${item}' )`;
-        } else {
-            result += `REGEX( str(?g) , '${item}' )`;
-        }
-    });
-    result += " )";
-    return result;
-}
-
-export function endpointMapfill(runset: RunSetObject) {
-    Logger.info("endpointMapfill", runset.id, " START")
+export function endpointMapfill() {
+    Logger.info("endpointMapfill START")
     let endpointGeolocData = [];
-    let endpointSet: Set<string> = new Set();
-    let endpointTimezoneSPARQL: Map<string, string> = new Map();
-    let endpointLabelMap: Map<string, string> = new Map();
-    let endpointIpMapArray: EndpointIpGeolocObject[] = [];
 
     // Marked map with the geoloc of each endpoint
     return endpointIpMap.then(endpointIpMap => {
@@ -119,11 +101,8 @@ export function endpointMapfill(runset: RunSetObject) {
     })
         .then(() => {
             let endpointListForRunsetQuery = `SELECT DISTINCT ?endpoint {
-            GRAPH ?g {
                 ?base <http://www.w3.org/ns/sparql-service-description#endpoint> ?endpoint .
                 ?metadata <http://ns.inria.fr/kg/index#curated> ?base .
-            }
-            ${generateGraphValueFilterClause(runset.graphs)}
         }`;
             return Sparql.paginatedSparqlQueryToIndeGxPromise(endpointListForRunsetQuery).then(jsonResponse => {
                 (jsonResponse as JSONValue[]).forEach((itemResponse, i) => {
@@ -134,12 +113,9 @@ export function endpointMapfill(runset: RunSetObject) {
         })
         .then(() => {
             let timezoneSPARQLquery = `SELECT DISTINCT ?timezone ?endpoint { 
-            GRAPH ?g { 
                 ?base <http://www.w3.org/ns/sparql-service-description#endpoint> ?endpoint . 
                 ?metadata <http://ns.inria.fr/kg/index#curated> ?base . 
                 ?base <https://schema.org/broadcastTimezone> ?timezone .
-            } 
-            ${generateGraphValueFilterClause(runset.graphs)}
         }`;
             return Sparql.paginatedSparqlQueryToIndeGxPromise(timezoneSPARQLquery)
                 .then(jsonResponse => {
@@ -153,20 +129,19 @@ export function endpointMapfill(runset: RunSetObject) {
         })
         .then(() => {
             let labelQuery = `SELECT DISTINCT ?label ?endpoint { 
-                GRAPH ?g { 
                     ?dataset <http://rdfs.org/ns/void#sparqlEndpoint> ?endpoint . 
                     { ?dataset <http://www.w3.org/2000/01/rdf-schema#label> ?label } 
                     UNION { ?dataset <http://www.w3.org/2004/02/skos/core#prefLabel> ?label } 
                     UNION { ?dataset <http://purl.org/dc/terms/title> ?label } 
                     UNION { ?dataset <http://xmlns.com/foaf/0.1/name> ?label } 
                     UNION { ?dataset <http://schema.org/name> ?label } . 
-                }  
-                ${generateGraphValueFilterClause(runset.graphs)}
             }`;
             return Sparql.sparqlQueryToIndeGxPromise(labelQuery)
                 .then(responseLabels => {
                     responseLabels = responseLabels as SPARQLJSONResult;
-                    if (responseLabels != undefined) {
+                    if (responseLabels != undefined
+                        && responseLabels.results != undefined
+                        && responseLabels.results.bindings != undefined) {
                         responseLabels.results.bindings.forEach((itemResponse, i) => {
                             endpointLabelMap.set(itemResponse["endpoint"].value, itemResponse["label"].value);
                         });
@@ -235,19 +210,6 @@ export function endpointMapfill(runset: RunSetObject) {
                 if (endpointItem.org != undefined) {
                     popupString += `<tr><td>Organization: </td><td>${endpointItem.org}</td></tr>`;
                 }
-                if (endpointItem.timezone != undefined) {
-                    popupString += `<tr><td>Timezone of endpoint URL: </td><td>${endpointItem.timezone}</td></tr>`;
-                    if (endpointItem.sparqlTimezone != undefined) {
-                        let badTimezone = endpointItem.timezone.localeCompare(endpointItem.sparqlTimezone) != 0;
-                        if (badTimezone) {
-                            popupString += `<tr><td>Timezone declared by endpoint: </td><td>${endpointItem.sparqlTimezone}</td></tr>`;
-                        }
-                    }
-                }
-                if (endpointLabelMap.get(endpoint) != undefined) {
-                    let endpointLabel = endpointLabelMap.get(endpoint);
-                    popupString += `<tr><td colspan='2'>${endpointLabel}</td></tr>`;
-                }
                 popupString += "</tbody></table>"
                 endpointItem.popupHTML = popupString;
             })
@@ -260,8 +222,8 @@ export function endpointMapfill(runset: RunSetObject) {
         .then(endpointGeolocData => {
             try {
                 let content = JSON.stringify(endpointGeolocData);
-                Logger.info("endpointMapfill for", runset.id, "END")
-                return Global.writeFile(Global.getCachedFilenameForRunset(runset.id, geolocFilename), content)
+                Logger.info("endpointMapfill END")
+                return Global.writeFile(Global.getCachedFilename(geolocFilename), content)
             } catch (err) {
                 Logger.error(err)
             }
@@ -271,11 +233,10 @@ export function endpointMapfill(runset: RunSetObject) {
         })
 }
 
-export function SPARQLCoverageFill(runset: RunSetObject) {
-    Logger.info("SPARQLCoverageFill", runset.id, " START")
+export function SPARQLCoverageFill() {
+    Logger.info("SPARQLCoverageFill START")
     // Create an histogram of the SPARQLES rules passed by endpoint.
     let sparqlesFeatureQuery = `SELECT DISTINCT ?endpoint ?sparqlNorm (COUNT(DISTINCT ?activity) AS ?count) { 
-            GRAPH ?g { 
                 { ?curated <http://www.w3.org/ns/sparql-service-description#endpoint> ?endpoint . }
                 UNION { ?curated <http://rdfs.org/ns/void#sparqlEndpoint> ?endpoint . }
                 UNION { ?curated <http://www.w3.org/ns/dcat#endpointURL> ?endpoint . }
@@ -286,8 +247,6 @@ export function SPARQLCoverageFill(runset: RunSetObject) {
                     FILTER(CONTAINS(str(?activity), ?sparqlNorm)) 
                     VALUES ?sparqlNorm { "SPARQL10" "SPARQL11" } 
                 #} 
-            } 
-            ${generateGraphValueFilterClause(runset.graphs)}
         } 
         GROUP BY ?endpoint ?sparqlNorm `;
     let jsonBaseFeatureSparqles = [];
@@ -330,7 +289,6 @@ export function SPARQLCoverageFill(runset: RunSetObject) {
         })
         .then(() => {
             const sparqlFeatureQuery = `SELECT DISTINCT ?endpoint ?activity { 
-                GRAPH ?g { 
                     { ?curated <http://www.w3.org/ns/sparql-service-description#endpoint> ?endpoint . }
                     UNION { ?curated <http://rdfs.org/ns/void#sparqlEndpoint> ?endpoint . }
                     UNION { ?curated <http://www.w3.org/ns/dcat#endpointURL> ?endpoint . }
@@ -341,8 +299,6 @@ export function SPARQLCoverageFill(runset: RunSetObject) {
                         FILTER(CONTAINS(str(?activity), ?sparqlNorm)) 
                         VALUES ?sparqlNorm { "SPARQL10" "SPARQL11" } 
                     #} 
-                } 
-                ${generateGraphValueFilterClause(runset.graphs)}
             } GROUP BY ?endpoint ?activity `;
             let endpointFeatureMap = new Map();
             let featuresShortName = new Map();
@@ -381,7 +337,7 @@ export function SPARQLCoverageFill(runset: RunSetObject) {
             if (jsonBaseFeatureSparqles.length > 0) {
                 try {
                     let content = JSON.stringify(jsonBaseFeatureSparqles);
-                    fs.writeFileSync(Global.getCachedFilenameForRunset(runset.id, sparqlCoverageFilename), content)
+                    fs.writeFileSync(Global.getCachedFilenameForRunset(sparqlCoverageFilename), content)
                 } catch (err) {
                     Logger.error(err)
                 }
@@ -389,12 +345,12 @@ export function SPARQLCoverageFill(runset: RunSetObject) {
             if (sparqlFeaturesDataArray.length > 0) {
                 try {
                     let content = JSON.stringify(sparqlFeaturesDataArray);
-                    fs.writeFileSync(Global.getCachedFilenameForRunset(runset.id, sparqlFeaturesFilename), content)
+                    fs.writeFileSync(Global.getCachedFilenameForRunset(sparqlFeaturesFilename), content)
                 } catch (err) {
                     Logger.error(err)
                 }
             }
-            Logger.info("SPARQLCoverageFill", runset.id, " END")
+            Logger.info("SPARQLCoverageFill END")
         })
         .catch(error => {
             Logger.error(error)
@@ -408,13 +364,11 @@ export function allVocabFill(): Promise<void> {
     Logger.info("allVocabFill START")
 
     let sparqlQuery = `SELECT DISTINCT ?endpointUrl ?vocabulary {
-        GRAPH ?g {
             { ?curated <http://www.w3.org/ns/sparql-service-description#endpoint> ?endpointUrl . }
             UNION { ?curated <http://rdfs.org/ns/void#sparqlEndpoint> ?endpointUrl . }
             UNION { ?curated <http://www.w3.org/ns/dcat#endpointURL> ?endpointUrl . }
             ?metadata <http://ns.inria.fr/kg/index#curated> ?curated, ?dataset .
             ?dataset <http://rdfs.org/ns/void#vocabulary> ?vocabulary .
-        }
     }`;
 
     return Sparql.paginatedSparqlQueryToIndeGxPromise(sparqlQuery).then(json => {
@@ -477,16 +431,13 @@ export function allVocabFill(): Promise<void> {
     })
 }
 
-export function vocabFill(runset: RunSetObject): Promise<void> {
-    Logger.info("vocabFill", runset.id, " START")
+export function vocabFill(): Promise<void> {
+    Logger.info("vocabFill START")
     let runsetsEndpointQuery = `SELECT DISTINCT ?endpointUrl { 
-        GRAPH ?g { 
             { ?curated <http://www.w3.org/ns/sparql-service-description#endpoint> ?endpointUrl . }
             UNION { ?curated <http://rdfs.org/ns/void#sparqlEndpoint> ?endpointUrl . } 
             UNION { ?curated <http://www.w3.org/ns/dcat#endpointURL> ?endpointUrl . }
             ?metadata <http://ns.inria.fr/kg/index#curated> ?curated .
-        } 
-        ${generateGraphValueFilterClause(runset.graphs)}
     } 
     GROUP BY ?endpointUrl ?vocabulary `;
 
@@ -518,17 +469,17 @@ export function vocabFill(runset: RunSetObject): Promise<void> {
                 endpointVocabData.push({ endpoint: endpointUrl, vocabularies: vocabArray });
             })
             let content = JSON.stringify(endpointVocabData);
-            return Global.writeFile(Global.getCachedFilenameForRunset(runset.id, vocabEndpointFilename), content)
+            return Global.writeFile(Global.getCachedFilenameForRunset(vocabEndpointFilename), content)
                 .then(() => {
                     let endpointKeywordsData: KeywordsEndpointDataObject[] = [];
                     runsetEndpointKeywords.forEach((keywordArray, endpointUrl, map) => {
                         endpointKeywordsData.push({ endpoint: endpointUrl, keywords: keywordArray });
                     })
                     let content = JSON.stringify(endpointKeywordsData);
-                    return Global.writeFile(Global.getCachedFilenameForRunset(runset.id, endpointKeywordsFilename), content)
+                    return Global.writeFile(Global.getCachedFilenameForRunset(endpointKeywordsFilename), content)
                 })
                 .then(() => {
-                    Logger.info("vocabFill", runset.id, " END")
+                    Logger.info("vocabFill END")
                     return Promise.resolve();
                 })
         } catch (err) {
@@ -539,139 +490,16 @@ export function vocabFill(runset: RunSetObject): Promise<void> {
 
 }
 
-// export function vocabFillOld(runset: RunSetObject): Promise<void> {
-//     Logger.info("vocabFill", runset.id, " START")
-//     // Create an force graph with the graph linked by co-ocurrence of vocabularies
-//     let sparqlesVocabulariesQuery = `SELECT DISTINCT ?endpointUrl ?vocabulary { 
-//         GRAPH ?g { 
-//             { ?curated <http://www.w3.org/ns/sparql-service-description#endpoint> ?endpointUrl . }
-//             UNION { ?curated <http://rdfs.org/ns/void#sparqlEndpoint> ?endpointUrl . } 
-//             UNION { ?curated <http://www.w3.org/ns/dcat#endpointURL> ?endpointUrl . }
-//             ?metadata <http://ns.inria.fr/kg/index#curated> ?curated, dataset . 
-//             ?dataset <http://rdfs.org/ns/void#vocabulary> ?vocabulary 
-//         } 
-//         ${generateGraphValueFilterClause(runset.graphs)}
-//     } 
-//     GROUP BY ?endpointUrl ?vocabulary `;
-//     let rawGatherVocab = new Map();
-//     let gatherVocabData = [];
-//     let rawVocabSet = new Set();
-//     let vocabSet = new Set();
-//     let keywordSet = new Set();
-//     let vocabKeywordData = [];
-
-//     return Sparql.paginatedSparqlQueryToIndeGxPromise(sparqlesVocabulariesQuery)
-//         .then(json => {
-
-//             let endpointSet = new Set();
-//             (json as JSONValue[]).forEach((bindingItem, i) => {
-//                 let vocabulariUri = bindingItem["vocabulary"].value;
-//                 let endpointUri = bindingItem["endpointUrl"].value;
-//                 endpointSet.add(endpointUri);
-//                 rawVocabSet.add(vocabulariUri);
-//                 if (!rawGatherVocab.has(endpointUri)) {
-//                     rawGatherVocab.set(endpointUri, new Set());
-//                 }
-//                 rawGatherVocab.get(endpointUri).add(vocabulariUri);
-//             });
-//             return Promise.resolve();
-//         })
-//         .then(() => {
-//             try {
-//                 let content = JSON.stringify([...knownVocabularies]);
-//                 return Global.writeFile(Global.getCachedFilenameForRunset(runset.id, knownVocabsFilename), content).then(() => {
-//                     return Promise.resolve(knownVocabularies);
-//                 });
-//             } catch (err) {
-//                 Logger.error(err)
-//                 return Promise.reject(err);
-//             }
-//         })
-//         .then(() => {
-//             // Filtering according to ontology repositories
-//             rawVocabSet.forEach(vocabulariUri => {
-//                 if (knownVocabularies.has(vocabulariUri)) {
-//                     vocabSet.add(vocabulariUri);
-//                 }
-//             });
-//             rawGatherVocab.forEach((vocabulariUriSet, endpointUri, map) => {
-//                 gatherVocabData.push({ endpoint: endpointUri, vocabularies: [...vocabulariUriSet] })
-//             });
-
-//             let vocabArray = [...vocabSet];
-//             let queryArray = vocabArray.map((item, i) => {
-//                 return Global.fetchJSONPromise(`https://lov.linkeddata.es/dataset/lov/api/v2/vocabulary/info?vocab=${item}`);
-//             })
-
-//             return Promise.allSettled(queryArray)
-//                 .then(jsonKeywordsArraySettled => {
-//                     let jsonKeywordsArray = Global.extractSettledPromiseValues(jsonKeywordsArraySettled);
-//                     let vocabKeywordMap = new Map();
-//                     jsonKeywordsArray.forEach(jsonKeywords => {
-//                         if (jsonKeywords !== undefined) {
-//                             let vocab = jsonKeywords.uri;
-//                             let keywordList = jsonKeywords.tags;
-
-//                             if(keywordList !== undefined) {
-//                                 if (vocabKeywordMap.get(vocab) == undefined) {
-//                                     vocabKeywordMap.set(vocab, []);
-//                                 }
-//                                 vocabKeywordMap.get(vocab).push(...keywordList);
-//                                 keywordList.forEach(keyword => {
-//                                     keywordSet.add(keyword);
-//                                 })
-
-//                             }
-//                         }
-//                     })
-//                     vocabKeywordMap.forEach((keywordList, vocab) => {
-//                         vocabKeywordData.push({ vocabulary: vocab, keywords: keywordList })
-//                     })
-//                     return Promise.resolve();
-//                 })
-//         })
-//         .finally(() => {
-//             if (gatherVocabData.length > 0) {
-//                 try {
-//                     let content = JSON.stringify(gatherVocabData);
-//                     return Global.writeFile(Global.getCachedFilenameForRunset(runset.id, vocabEndpointFilename), content)
-//                 } catch (err) {
-//                     Logger.error(err)
-//                 }
-//             }
-//         })
-//         .finally(() => {
-//             if (vocabKeywordData.length > 0) {
-//                 try {
-//                     let content = JSON.stringify(vocabKeywordData);
-//                     return Global.writeFile(Global.getCachedFilenameForRunset(runset.id, vocabKeywordsFilename), content).then(() => {
-//                         Logger.info("vocabFill", runset.id, " END");
-//                         return Promise.resolve();
-//                     });
-//                 } catch (err) {
-//                     Logger.error(err)
-//                 }
-//             }
-//         })
-//         .catch(error => {
-//             Logger.error(error);
-//             return Promise.reject(error);
-//         })
-// }
-
-export function tripleDataFill(runset: RunSetObject) {
-    Logger.info("tripleDataFill", runset.id, " START")
+export function tripleDataFill() {
+    Logger.info("tripleDataFill START")
     // Scatter plot of the number of triples through time
-    let triplesSPARQLquery = `SELECT DISTINCT ?g ?date ?endpointUrl (MAX(?rawO) AS ?o) {
-        GRAPH ?g {
+    let triplesSPARQLquery = `SELECT DISTINCT ?date ?endpointUrl (MAX(?rawO) AS ?o) {
             { ?curated <http://www.w3.org/ns/sparql-service-description#endpoint> ?endpointUrl . }
             UNION { ?curated <http://rdfs.org/ns/void#sparqlEndpoint> ?endpointUrl . }
             UNION { ?curated <http://www.w3.org/ns/dcat#endpointURL> ?endpointUrl . }
             ?metadata <http://ns.inria.fr/kg/index#curated> ?curated .
             ?curated <http://rdfs.org/ns/void#triples> ?rawO .
-        }
-        ${generateGraphValueFilterClause(runset.graphs)}
-    } GROUP BY ?g ?date ?endpointUrl`;
+    } GROUP BY ?date ?endpointUrl`;
 
     // {?metadata <http://purl.org/dc/terms/modified> ?date .}
     // UNION { ?curated <http://purl.org/dc/terms/modified> ?date . }
@@ -713,8 +541,8 @@ export function tripleDataFill(runset: RunSetObject) {
         .then(endpointTriplesData => {
             try {
                 let content = JSON.stringify(endpointTriplesData);
-                return Global.writeFile(Global.getCachedFilenameForRunset(runset.id, tripleCountFilename), content).then(() => {
-                    Logger.info("tripleDataFill", runset.id, " END");
+                return Global.writeFile(Global.getCachedFilenameForRunset(tripleCountFilename), content).then(() => {
+                    Logger.info("tripleDataFill END");
                     return Promise.resolve();
                 })
             } catch (err) {
@@ -728,19 +556,16 @@ export function tripleDataFill(runset: RunSetObject) {
         });
 }
 
-export function classDataFill(runset: RunSetObject) {
-    Logger.info("classDataFill", runset.id, " START")
+export function classDataFill() {
+    Logger.info("classDataFill START")
     // Scatter plot of the number of classes through time
-    let classesSPARQLquery = `SELECT DISTINCT ?g ?endpointUrl ?date (MAX(?rawO) AS ?o) { 
-        GRAPH ?g {
+    let classesSPARQLquery = `SELECT DISTINCT ?endpointUrl ?date (MAX(?rawO) AS ?o) { 
             { ?curated <http://www.w3.org/ns/sparql-service-description#endpoint> ?endpointUrl . }
             UNION { ?curated <http://rdfs.org/ns/void#sparqlEndpoint> ?endpointUrl . }
             UNION { ?curated <http://www.w3.org/ns/dcat#endpointURL> ?endpointUrl . }
             ?metadata <http://ns.inria.fr/kg/index#curated> ?curated .
             ?curated <http://rdfs.org/ns/void#classes> ?rawO .
-        }
-        ${generateGraphValueFilterClause(runset.graphs)}
-    } GROUP BY ?g ?endpointUrl ?date`;
+    } GROUP BY ?endpointUrl ?date`;
     // {?metadata <http://purl.org/dc/terms/modified> ?date .}
     // UNION { ?curated <http://purl.org/dc/terms/modified> ?date . }
     type EndpointClassesIndexItem = { date: Dayjs, classes: number };
@@ -780,8 +605,8 @@ export function classDataFill(runset: RunSetObject) {
         .then(endpointClassCountData => {
             try {
                 let content = JSON.stringify(endpointClassCountData);
-                return Global.writeFile(Global.getCachedFilenameForRunset(runset.id, classCountFilename), content).then(() => {
-                    Logger.info("classDataFill", runset.id, " END")
+                return Global.writeFile(Global.getCachedFilenameForRunset(classCountFilename), content).then(() => {
+                    Logger.info("classDataFill END")
                     return Promise.resolve();
                 })
             } catch (err) {
@@ -795,52 +620,38 @@ export function classDataFill(runset: RunSetObject) {
         });
 }
 
-export function propertyDataFill(runset: RunSetObject) {
-    Logger.info("propertyDataFill", runset.id, " START")
+export function propertyDataFill() {
+    Logger.info("propertyDataFill START")
     // scatter plot of the number of properties through time
-    let propertiesSPARQLquery = `SELECT DISTINCT ?g ?date ?endpointUrl (MAX(?rawO) AS ?o) {
-        GRAPH ?g {
+    let propertiesSPARQLquery = `SELECT DISTINCT ?date ?endpointUrl (MAX(?rawO) AS ?o) {
             { ?curated <http://www.w3.org/ns/sparql-service-description#endpoint> ?endpointUrl . }
             UNION { ?curated <http://rdfs.org/ns/void#sparqlEndpoint> ?endpointUrl . }
             UNION { ?curated <http://www.w3.org/ns/dcat#endpointURL> ?endpointUrl . }
             ?metadata <http://ns.inria.fr/kg/index#curated> ?curated .
             ?curated <http://rdfs.org/ns/void#properties> ?rawO .
-        }
-        ${generateGraphValueFilterClause(runset.graphs)}
-    } GROUP BY ?endpointUrl ?g ?date`;
+    } GROUP BY ?endpointUrl ?date`;
     // {?metadata <http://purl.org/dc/terms/modified> ?date .}
     // UNION { ?curated <http://purl.org/dc/terms/modified> ?date . }
     type EndpointPropertiesIndexItem = { date: Dayjs, properties: number };
-    let endpointPropertiesDataIndex = new Map();
+    let endpointPropertiesDataIndex = new Map<string, EndpointPropertiesIndexItem[]>();
     return Sparql.paginatedSparqlQueryToIndeGxPromise(propertiesSPARQLquery)
         .then(json => {
             let endpointPropertyCountData = [];
             (json as JSONValue[]).forEach((itemResult, i) => {
-                let graph = itemResult["g"].value.replace('http://ns.inria.fr/indegx#', '');
                 let endpointUrl = itemResult["endpointUrl"].value;
                 let properties = Number.parseInt(itemResult["o"].value);
-                let date: Dayjs; // = Global.parseDate(itemResult["date"].value);
-                let rawDateUnderscoreIndex = graph.lastIndexOf("_"); // Cheating on the date of the indexation
-                if (rawDateUnderscoreIndex != -1) {
-                    let rawDate = graph.substring(rawDateUnderscoreIndex, graph.length);
-                    date = Global.parseDate(rawDate, "YYYYMMDD");
-                }
+                let date: Dayjs = Global.parseDate(itemResult["date"].value);
 
                 if (endpointPropertiesDataIndex.get(endpointUrl) == undefined) {
-                    endpointPropertiesDataIndex.set(endpointUrl, new Map());
+                    endpointPropertiesDataIndex.set(endpointUrl, []);
                 }
-                if (endpointPropertiesDataIndex.get(endpointUrl).get(graph) == undefined) {
-                    endpointPropertiesDataIndex.get(endpointUrl).set(graph, { date: date, properties: properties });
-                } else {
-                    let previousDate = endpointPropertiesDataIndex.get(endpointUrl).get(graph).date;
-                    if (date.isAfter(previousDate)) {
-                        endpointPropertiesDataIndex.get(endpointUrl).set(graph, { date: date, properties: properties });
-                    }
+                if (endpointPropertiesDataIndex.get(endpointUrl) != undefined) {
+                    endpointPropertiesDataIndex.get(endpointUrl).push({ date: date, properties: properties });
                 }
             });
-            endpointPropertiesDataIndex.forEach((graphPropertiesMap, endpointUrl) => {
-                graphPropertiesMap.forEach((propertiesData, graph) => {
-                    endpointPropertyCountData.push({ endpoint: endpointUrl, graph: graph, date: propertiesData.date, properties: propertiesData.properties })
+            endpointPropertiesDataIndex.forEach((propertiesDataArray, endpointUrl) => {
+                propertiesDataArray.forEach(propertiesData => {
+                    endpointPropertyCountData.push({ endpoint: endpointUrl, date: propertiesData.date, properties: propertiesData.properties })
                 })
             });
             return Promise.resolve(endpointPropertyCountData);
@@ -848,8 +659,8 @@ export function propertyDataFill(runset: RunSetObject) {
         .then(endpointPropertyCountData => {
             try {
                 let content = JSON.stringify(endpointPropertyCountData);
-                return Global.writeFile(Global.getCachedFilenameForRunset(runset.id, propertyCountFilename), content).then(() => {
-                    Logger.info("propertyDataFill", runset.id, " END")
+                return Global.writeFile(Global.getCachedFilenameForRunset(propertyCountFilename), content).then(() => {
+                    Logger.info("propertyDataFill END")
                     return Promise.resolve();
                 })
             } catch (err) {
@@ -863,12 +674,11 @@ export function propertyDataFill(runset: RunSetObject) {
         });
 }
 
-export function categoryTestCountFill(runset: RunSetObject) {
-    Logger.info("categoryTestCountFill", runset.id, " START")
+export function categoryTestCountFill() {
+    Logger.info("categoryTestCountFill START")
     let testCategoryData = [];
     // Number of tests passed by test categories
-    let testCategoryQuery = `SELECT DISTINCT ?g ?date ?category (count(DISTINCT ?test) AS ?count) ?endpointUrl { 
-        GRAPH ?g { 
+    let testCategoryQuery = `SELECT DISTINCT ?date ?category (count(DISTINCT ?test) AS ?count) ?endpointUrl { 
             ?metadata <http://ns.inria.fr/kg/index#curated> ?curated .
             ?metadata <http://ns.inria.fr/kg/index#trace> ?trace . 
             { ?curated <http://www.w3.org/ns/sparql-service-description#endpoint> ?endpointUrl . } 
@@ -886,9 +696,7 @@ export function categoryTestCountFill(runset: RunSetObject) {
                 'https://raw.githubusercontent.com/Wimmics/dekalog/master/rules/sparqles/SPARQL10/'
                 'https://raw.githubusercontent.com/Wimmics/dekalog/master/rules/sparqles/SPARQL11/' 
             }
-        }  
-        ${generateGraphValueFilterClause(runset.graphs)}
-    } GROUP BY ?g ?date ?category ?endpointUrl`;
+    } GROUP BY ?date ?category ?endpointUrl`;
     // {?metadata <http://purl.org/dc/terms/modified> ?date .}
     // UNION { ?curated <http://purl.org/dc/terms/modified> ?date . }
     return Sparql.paginatedSparqlQueryToIndeGxPromise(testCategoryQuery)
@@ -897,14 +705,8 @@ export function categoryTestCountFill(runset: RunSetObject) {
                 let category = itemResult["category"].value;
                 let count = itemResult["count"].value;
                 let endpoint = itemResult["endpointUrl"].value;
-                let graph = itemResult["g"].value.replace('http://ns.inria.fr/indegx#', '');
-                let date: Dayjs; // = Global.parseDate(itemResult["date"].value);
-                let rawDateUnderscoreIndex = graph.lastIndexOf("_"); // Cheating on the date of the indexation
-                if (rawDateUnderscoreIndex != -1) {
-                    let rawDate = graph.substring(rawDateUnderscoreIndex, graph.length);
-                    date = Global.parseDate(rawDate, "YYYYMMDD");
-                }
-                testCategoryData.push({ category: category, graph: graph, date: date, endpoint: endpoint, count: count });
+                let date: Dayjs = Global.parseDate(itemResult["date"].value);
+                testCategoryData.push({ category: category, date: date, endpoint: endpoint, count: count });
             });
             return Promise.resolve();
         })
@@ -912,8 +714,8 @@ export function categoryTestCountFill(runset: RunSetObject) {
             if (testCategoryData.length > 0) {
                 try {
                     let content = JSON.stringify(testCategoryData);
-                    return Global.writeFile(Global.getCachedFilenameForRunset(runset.id, categoryTestCountFilename), content).then(() => {
-                        Logger.info("categoryTestCountFill", runset.id, " END")
+                    return Global.writeFile(Global.getCachedFilenameForRunset(categoryTestCountFilename), content).then(() => {
+                        Logger.info("categoryTestCountFill END")
                         return Promise.resolve();
                     });
                 } catch (err) {
@@ -927,11 +729,10 @@ export function categoryTestCountFill(runset: RunSetObject) {
         });
 }
 
-export function totalCategoryTestCountFill(runset: RunSetObject) {
-    Logger.info("totalCategoryTestCountFill", runset.id, " START")
+export function totalCategoryTestCountFill() {
+    Logger.info("totalCategoryTestCountFill START")
     // Number of tests passed by test categories
-    let testCategoryQuery = `SELECT DISTINCT ?category ?g ?date (count(DISTINCT ?test) AS ?count) ?endpointUrl { 
-        GRAPH ?g { 
+    let testCategoryQuery = `SELECT DISTINCT ?category ?date (count(DISTINCT ?test) AS ?count) ?endpointUrl { 
             ?metadata <http://ns.inria.fr/kg/index#curated> ?curated .
             ?metadata <http://ns.inria.fr/kg/index#trace> ?trace .
             { ?curated <http://www.w3.org/ns/sparql-service-description#endpoint> ?endpointUrl . }
@@ -949,10 +750,8 @@ export function totalCategoryTestCountFill(runset: RunSetObject) {
                 <https://raw.githubusercontent.com/Wimmics/dekalog/master/rules/sparqles/SPARQL10/> 
                 <https://raw.githubusercontent.com/Wimmics/dekalog/master/rules/sparqles/SPARQL11/> 
             } 
-        } 
-        ${generateGraphValueFilterClause(runset.graphs)}
     } 
-    GROUP BY ?g ?date ?category ?endpointUrl 
+    GROUP BY ?date ?category ?endpointUrl 
     ORDER BY ?category `;
     // ?metadata <http://purl.org/dc/terms/modified> ?date .
     return Sparql.paginatedSparqlQueryToIndeGxPromise(testCategoryQuery).then(json => {
@@ -961,23 +760,17 @@ export function totalCategoryTestCountFill(runset: RunSetObject) {
             let category = itemResult["category"].value;
             let count = itemResult["count"].value;
             let endpoint = itemResult["endpointUrl"].value;
-            let graph = itemResult["g"].value;
-            let date: Dayjs; // = Global.parseDate(itemResult["date"].value);
-            let rawDateUnderscoreIndex = graph.lastIndexOf("_"); // Cheating on the date of the indexation
-            if (rawDateUnderscoreIndex != -1) {
-                let rawDate = graph.substring(rawDateUnderscoreIndex, graph.length);
-                date = Global.parseDate(rawDate, "YYYYMMDD");
-            }
+            let date: Dayjs = Global.parseDate(itemResult["date"].value);
 
-            totalTestCategoryData.push({ category: category, endpoint: endpoint, graph: graph, date: date, count: count })
+            totalTestCategoryData.push({ category: category, endpoint: endpoint, date: date, count: count })
             return Promise.resolve(totalTestCategoryData);
         });
     })
         .then(totalTestCategoryData => {
             try {
                 let content = JSON.stringify(totalTestCategoryData);
-                return Global.writeFile(Global.getCachedFilenameForRunset(runset.id, totalCategoryTestCountFilename), content).then(() => {
-                    Logger.info("totalCategoryTestCountFill", runset.id, " END")
+                return Global.writeFile(Global.getCachedFilenameForRunset(totalCategoryTestCountFilename), content).then(() => {
+                    Logger.info("totalCategoryTestCountFill END")
                     return Promise.resolve();
                 })
             } catch (err) {
@@ -991,241 +784,8 @@ export function totalCategoryTestCountFill(runset: RunSetObject) {
         });
 }
 
-export function endpointTestsDataFill(runset: RunSetObject) {
-    Logger.info("endpointTestsDataFill", runset.id, " START")
-
-    let appliedTestQuery = `SELECT DISTINCT ?endpointUrl ?g ?date ?rule { 
-        GRAPH ?g { 
-            ?metadata <http://ns.inria.fr/kg/index#curated> ?curated . 
-            ?curated <http://www.w3.org/ns/prov#wasGeneratedBy> ?rule . 
-            { ?curated <http://www.w3.org/ns/sparql-service-description#endpoint> ?endpointUrl . } 
-            UNION { ?curated <http://rdfs.org/ns/void#sparqlEndpoint> ?endpointUrl . } 
-            UNION { ?curated <http://www.w3.org/ns/dcat#endpointURL> ?endpointUrl . }
-        } 
-        ${generateGraphValueFilterClause(runset.graphs)}
-    }`;
-    // {?metadata <http://purl.org/dc/terms/modified> ?date .}
-    // UNION { ?curated <http://purl.org/dc/terms/modified> ?date . }
-    type EndpointTestItem = { activity: string, date: Dayjs };
-    let endpointGraphTestsIndex: Map<string, Map<string, EndpointTestItem>> = new Map();
-    return Sparql.paginatedSparqlQueryToIndeGxPromise(appliedTestQuery)
-        .then(json => {
-            let endpointTestsData: EndpointTestObject[] = [];
-            (json as JSONValue[]).forEach((item, i) => {
-                let endpointUrl = item["endpointUrl"].value;
-                let rule = item["rule"].value;
-                let graph = item["g"].value;
-                let date: Dayjs; // = Global.parseDate(item["date"].value);
-                let rawDateUnderscoreIndex = graph.lastIndexOf("_"); // Cheating on the date of the indexation
-                if (rawDateUnderscoreIndex != -1) {
-                    let rawDate = graph.substring(rawDateUnderscoreIndex, graph.length);
-                    date = Global.parseDate(rawDate, "YYYYMMDD");
-                }
-
-                if (!endpointGraphTestsIndex.has(endpointUrl)) {
-                    endpointGraphTestsIndex.set(endpointUrl, new Map());
-                }
-                let graphTestsIndex = endpointGraphTestsIndex.get(endpointUrl);
-                if (!graphTestsIndex.has(graph)) {
-                    graphTestsIndex.set(graph, { activity: rule, date: date });
-                } else {
-                    let previousDate = endpointGraphTestsIndex.get(endpointUrl).get(graph).date;
-                    if (date.isBefore(previousDate)) {
-                        endpointGraphTestsIndex.get(endpointUrl).set(graph, { activity: rule, date: date });
-                    }
-                }
-
-                endpointGraphTestsIndex.forEach((graphTestsIndex, endpointUrl) => {
-                    graphTestsIndex.forEach((item, graph) => {
-                        endpointTestsData.push({ endpoint: endpointUrl, activity: item.activity, graph: graph, date: item.date })
-                    })
-                })
-            });
-            return Promise.resolve(endpointTestsData);
-        })
-        .then(endpointTestsData => {
-            try {
-                let content = JSON.stringify(endpointTestsData);
-                return Global.writeFile(Global.getCachedFilenameForRunset(runset.id, endpointTestsDataFilename), content).then(() => {
-                    Logger.info("endpointTestsDataFill", runset.id, " END")
-                    return Promise.resolve();
-                })
-            } catch (err) {
-                Logger.error(err)
-                return Promise.reject(err);
-            }
-        })
-        .catch(error => {
-            Logger.error(error)
-            return Promise.reject(error);
-        });
-}
-
-export function totalRuntimeDataFill(runset: RunSetObject) {
-    Logger.info("totalRuntimeDataFill ", runset.id, "START")
-    let maxMinTimeQuery = `SELECT DISTINCT ?g ?endpointUrl ?date ?startTime ?endTime { 
-        GRAPH ?g { 
-            ?metadata <http://ns.inria.fr/kg/index#curated> ?curated .
-            ?metadata <http://ns.inria.fr/kg/index#trace> ?trace . 
-            ?trace <http://www.w3.org/ns/prov#startedAtTime> ?startTime .
-            ?trace <http://www.w3.org/ns/prov#endedAtTime> ?endTime .
-            { ?curated <http://www.w3.org/ns/sparql-service-description#endpoint> ?endpointUrl . }
-            UNION { ?curated <http://www.w3.org/ns/dcat#endpointURL> ?endpointUrl . }
-            UNION { ?curated <http://rdfs.org/ns/void#sparqlEndpoint> ?endpointUrl . }
-        }
-        ${generateGraphValueFilterClause(runset.graphs)}
-    } `;
-    // ?metadata <http://purl.org/dc/terms/modified> ?date .
-    return Sparql.paginatedSparqlQueryToIndeGxPromise(maxMinTimeQuery).then(jsonResponse => {
-        let totalRuntimeData = [];
-        let graphEndpointMinStartDateMap: Map<string, Map<string, Dayjs>> = new Map();
-        let graphEndpointMaxStartDateMap: Map<string, Map<string, Dayjs>> = new Map();
-        (jsonResponse as JSONValue[]).forEach((itemResult, i) => {
-            let graph = itemResult["g"].value.replace('http://ns.inria.fr/indegx#', '');
-            let date: Dayjs// = Global.parseDate(itemResult["date"].value);
-            let rawDateUnderscoreIndex = graph.lastIndexOf("_"); // Cheating on the date of the indexation
-            if (rawDateUnderscoreIndex != -1) {
-                let rawDate = graph.substring(rawDateUnderscoreIndex, graph.length);
-                date = Global.parseDate(rawDate, "YYYYMMDD");
-            }
-            let start = Global.parseDate(itemResult["startTime"].value);
-            let end = Global.parseDate(itemResult["endTime"].value);
-            let endpointUrl = itemResult["endpointUrl"].value;
-            Logger.log("totalRuntimeDataFill", runset.id, graph, endpointUrl, date.format(), start.format(), end.format())
-            if (!graphEndpointMinStartDateMap.has(graph)) {
-                graphEndpointMinStartDateMap.set(graph, new Map());
-            }
-            if (!graphEndpointMaxStartDateMap.has(graph)) {
-                graphEndpointMaxStartDateMap.set(graph, new Map());
-            }
-            if (!graphEndpointMinStartDateMap.get(graph).has(endpointUrl)) {
-                graphEndpointMinStartDateMap.get(graph).set(endpointUrl, start);
-            } else {
-                let previousStart = graphEndpointMinStartDateMap.get(graph).get(endpointUrl);
-                if (start.isBefore(previousStart)) {
-                    graphEndpointMinStartDateMap.get(graph).set(endpointUrl, start);
-                }
-            }
-            if (!graphEndpointMaxStartDateMap.get(graph).has(endpointUrl)) {
-                graphEndpointMaxStartDateMap.get(graph).set(endpointUrl, end);
-            } else {
-                let previousEnd = graphEndpointMaxStartDateMap.get(graph).get(endpointUrl);
-                if (end.isAfter(previousEnd)) {
-                    graphEndpointMaxStartDateMap.get(graph).set(endpointUrl, end);
-                }
-            }
-        });
-
-        graphEndpointMinStartDateMap.forEach((endpointMinStartDateMap, graph) => {
-            endpointMinStartDateMap.forEach((minStartDate, endpointUrl) => {
-                let maxStartDate = graphEndpointMaxStartDateMap.get(graph).get(endpointUrl);
-                let totalRuntime = maxStartDate.diff(minStartDate, 'second');
-                totalRuntimeData.push({ graph: graph, endpoint: endpointUrl, start: minStartDate, end: maxStartDate, runtime: totalRuntime });
-            })
-        })
-        return Promise.resolve(totalRuntimeData);
-    })
-        .then(totalRuntimeData => {
-            try {
-                let content = JSON.stringify(totalRuntimeData);
-                return Global.writeFile(Global.getCachedFilenameForRunset(runset.id, totalRuntimeDataFilename), content).then(() => {
-                    Logger.info("totalRuntimeDataFill", runset.id, " END")
-                    return Promise.resolve();
-                });
-            } catch (err) {
-                Logger.error(err)
-                return Promise.reject(err);
-            }
-        })
-        .catch(error => {
-            Logger.error(error)
-            return Promise.reject(error);
-        });
-}
-
-export function averageRuntimeDataFill(runset: RunSetObject) {
-    Logger.info("averageRuntimeDataFill", runset.id, " START")
-    let maxMinTimeQuery = `SELECT DISTINCT ?g ?date (MIN(?startTime) AS ?start) (MAX(?endTime) AS ?end) { 
-        GRAPH ?g {
-            ?metadata <http://ns.inria.fr/kg/index#curated> ?data , ?endpoint .
-            ?metadata <http://ns.inria.fr/kg/index#trace> ?trace .
-            ?trace <http://www.w3.org/ns/prov#startedAtTime> ?startTime .
-            ?trace <http://www.w3.org/ns/prov#endedAtTime> ?endTime .
-        }
-        ${generateGraphValueFilterClause(runset.graphs)}
-    }`;
-    // ?metadata <http://purl.org/dc/terms/modified> ?date .
-    let numberOfEndpointQuery = `SELECT DISTINCT ?g (COUNT(?endpointUrl) AS ?count) { 
-        GRAPH ?g { 
-            ?metadata <http://ns.inria.fr/kg/index#curated> ?endpoint , ?dataset . 
-            { ?endpoint <http://www.w3.org/ns/sparql-service-description#endpoint> ?endpointUrl . } 
-            UNION { ?dataset <http://rdfs.org/ns/void#sparqlEndpoint> ?endpointUrl . }
-        } 
-        ${generateGraphValueFilterClause(runset.graphs)}
-    } GROUP BY ?g`;
-    let averageRuntimeData = [];
-    let graphStartEndMap = new Map();
-    return Promise.allSettled([
-        Sparql.paginatedSparqlQueryToIndeGxPromise(maxMinTimeQuery)
-            .then(jsonResponse => {
-                (jsonResponse as JSONValue[]).forEach((itemResult, i) => {
-                    let graph = itemResult["g"].value.replace('http://ns.inria.fr/indegx#', '');
-                    let date: Dayjs; // = Global.parseDate(itemResult["date"].value);
-                    let rawDateUnderscoreIndex = graph.lastIndexOf("_"); // Cheating on the date of the indexation
-                    if (rawDateUnderscoreIndex != -1) {
-                        let rawDate = graph.substring(rawDateUnderscoreIndex, graph.length);
-                        date = Global.parseDate(rawDate, "YYYYMMDD");
-                    }
-                    let start = Global.parseDate(itemResult["start"].value);
-                    let end = Global.parseDate(itemResult["end"].value);
-                    let runtime = dayjs.duration(end.diff(start));
-
-                    if (graphStartEndMap.get(graph) == undefined) {
-                        graphStartEndMap.set(graph, {});
-                    }
-                    graphStartEndMap.get(graph).start = start;
-                    graphStartEndMap.get(graph).end = end;
-                    graphStartEndMap.get(graph).runtime = runtime;
-                    graphStartEndMap.get(graph).graph = graph;
-                    graphStartEndMap.get(graph).date = date;
-                })
-                return Promise.resolve();
-            }),
-        Sparql.paginatedSparqlQueryToIndeGxPromise(numberOfEndpointQuery)
-            .then(numberOfEndpointJson => {
-                (numberOfEndpointJson as JSONValue[]).forEach((numberEndpointItem, i) => {
-                    let graph = numberEndpointItem["g"].value;
-                    graph = graph.replace('http://ns.inria.fr/indegx#', '');
-                    let count = numberEndpointItem["count"].value;
-                    if (graphStartEndMap.get(graph) == undefined) {
-                        graphStartEndMap.set(graph, {});
-                    }
-                    graphStartEndMap.get(graph).count = count
-                    averageRuntimeData.push(graphStartEndMap.get(graph))
-                });
-                return Promise.resolve();
-            })
-    ])
-        .then(() => {
-            if (averageRuntimeData.length > 0) {
-                try {
-                    let content = JSON.stringify(averageRuntimeData);
-                    return Global.writeFile(Global.getCachedFilenameForRunset(runset.id, averageRuntimeDataFilename), content)
-                } catch (err) {
-                    Logger.error(err)
-                }
-            }
-            Logger.info("averageRuntimeDataFill", runset.id, " END")
-            return Promise.resolve();
-        })
-        .catch(error => {
-            Logger.error(error)
-            return Promise.reject();
-        });
-}
-
-export function classAndPropertiesDataFill(runset: RunSetObject) {
-    Logger.info("classAndPropertiesDataFill ", runset.id, "START")
+export function classAndPropertiesDataFill() {
+    Logger.info("classAndPropertiesDataFill START")
     let classPartitionQuery = `CONSTRUCT { ?classPartition <http://www.w3.org/ns/sparql-service-description#endpoint> ?endpointUrl ;
             <http://rdfs.org/ns/void#class> ?c ;
             <http://rdfs.org/ns/void#triples> ?ct ;
@@ -1234,7 +794,6 @@ export function classAndPropertiesDataFill(runset: RunSetObject) {
             <http://rdfs.org/ns/void#distinctSubjects> ?cs ;
             <http://rdfs.org/ns/void#distinctObjects> ?co . 
     } WHERE { 
-        GRAPH ?g { 
             ?metadata <http://ns.inria.fr/kg/index#curated> ?curated . 
             ?curated <http://www.w3.org/ns/sparql-service-description#endpoint> ?endpointUrl . 
             ?base <http://rdfs.org/ns/void#classPartition> ?classPartition . 
@@ -1245,8 +804,6 @@ export function classAndPropertiesDataFill(runset: RunSetObject) {
             OPTIONAL { ?classPartition <http://rdfs.org/ns/void#distinctSubjects> ?cs . } 
             OPTIONAL { ?classPartition <http://rdfs.org/ns/void#distinctObjects> ?co . } 
             FILTER(! isBlank(?c)) 
-        } 
-        ${generateGraphValueFilterClause(runset.graphs)}
     }`
     let classSet = new Set();
     let classCountsEndpointsMap = new Map();
@@ -1333,7 +890,6 @@ export function classAndPropertiesDataFill(runset: RunSetObject) {
                     <http://rdfs.org/ns/void#distinctSubjects> ?ps ;
                     <http://rdfs.org/ns/void#distinctObjects> ?po .
             } { 
-                GRAPH ?g {
                     ?endpoint <http://www.w3.org/ns/sparql-service-description#endpoint> ?endpointUrl . 
                     ?metadata <http://ns.inria.fr/kg/index#curated> ?endpoint , ?base . 
                     ?base <http://rdfs.org/ns/void#classPartition> ?classPartition . 
@@ -1344,8 +900,6 @@ export function classAndPropertiesDataFill(runset: RunSetObject) {
                     OPTIONAL { ?classPropertyPartition <http://rdfs.org/ns/void#distinctSubjects> ?ps . } 
                     OPTIONAL { ?classPropertyPartition <http://rdfs.org/ns/void#distinctObjects> ?po . } 
                     FILTER(! isBlank(?c)) 
-                }
-                ${generateGraphValueFilterClause(runset.graphs)}
             }`;
             return Sparql.paginatedSparqlQueryToIndeGxPromise(classPropertyPartitionQuery).then(classPropertyStore => {
                 classPropertyStore = classPropertyStore as $rdf.Store;
@@ -1416,8 +970,8 @@ export function classAndPropertiesDataFill(runset: RunSetObject) {
             })
             try {
                 let content = JSON.stringify(classContentData);
-                return Global.writeFile(Global.getCachedFilenameForRunset(runset.id, classPropertyDataFilename), content).then(() => {
-                    Logger.info("classAndPropertiesDataFill", runset.id, " END")
+                return Global.writeFile(Global.getCachedFilenameForRunset(classPropertyDataFilename), content).then(() => {
+                    Logger.info("classAndPropertiesDataFill END")
                     return Promise.resolve();
                 })
             } catch (err) {
@@ -1431,10 +985,9 @@ export function classAndPropertiesDataFill(runset: RunSetObject) {
         })
 }
 
-export function datasetDescriptionDataFill(runset: RunSetObject) {
-    Logger.info("datasetDescriptionDataDataFill", runset.id, " START")
+export function datasetDescriptionDataFill() {
+    Logger.info("datasetDescriptionDataDataFill START")
     let provenanceWhoCheckQuery = `SELECT DISTINCT ?endpointUrl ?o { 
-        GRAPH ?g { 
             ?metadata <http://ns.inria.fr/kg/index#curated> ?dataset . 
             { ?dataset <http://www.w3.org/ns/sparql-service-description#endpoint> ?endpointUrl . } 
             UNION { ?dataset <http://www.w3.org/ns/dcat#endpointURL> ?endpointUrl }
@@ -1444,11 +997,8 @@ export function datasetDescriptionDataFill(runset: RunSetObject) {
                 UNION { ?dataset <http://purl.org/dc/terms/contributor> ?o }
                 UNION { ?dataset <http://purl.org/dc/terms/publisher> ?o }
             }
-        }
-        ${generateGraphValueFilterClause(runset.graphs)}
     }`;
     let provenanceLicenseCheckQuery = `SELECT DISTINCT ?endpointUrl ?o { 
-        GRAPH ?g {
             ?metadata <http://ns.inria.fr/kg/index#curated> ?dataset .
             { ?dataset <http://www.w3.org/ns/sparql-service-description#endpoint> ?endpointUrl . }
             UNION { ?dataset <http://www.w3.org/ns/dcat#endpointURL> ?endpointUrl } 
@@ -1457,11 +1007,8 @@ export function datasetDescriptionDataFill(runset: RunSetObject) {
                 { ?dataset <http://purl.org/dc/terms/license> ?o } 
                 UNION {?dataset <http://purl.org/dc/terms/conformsTo> ?o }
             } 
-        }
-        ${generateGraphValueFilterClause(runset.graphs)}
     } `;
     let provenanceDateCheckQuery = `SELECT DISTINCT ?endpointUrl ?o { 
-        GRAPH ?g { 
             ?metadata <http://ns.inria.fr/kg/index#curated> ?dataset . 
             { ?dataset <http://www.w3.org/ns/sparql-service-description#endpoint> ?endpointUrl . }
             UNION { ?dataset <http://www.w3.org/ns/dcat#endpointURL> ?endpointUrl }
@@ -1471,11 +1018,8 @@ export function datasetDescriptionDataFill(runset: RunSetObject) {
                 UNION { ?dataset <http://www.w3.org/ns/prov#wasGeneratedAtTime> ?o } 
                 UNION { ?dataset <http://purl.org/dc/terms/issued> ?o }
             }
-        }
-        ${generateGraphValueFilterClause(runset.graphs)}
     } `;
     let provenanceSourceCheckQuery = `SELECT DISTINCT ?endpointUrl ?o {
-        GRAPH ?g {
             ?metadata <http://ns.inria.fr/kg/index#curated> ?dataset .
             { ?dataset <http://www.w3.org/ns/sparql-service-description#endpoint> ?endpointUrl . }
             UNION { ?dataset <http://www.w3.org/ns/dcat#endpointURL> ?endpointUrl }
@@ -1485,8 +1029,6 @@ export function datasetDescriptionDataFill(runset: RunSetObject) {
                 UNION { ?dataset <http://www.w3.org/ns/prov#wasDerivedFrom> ?o }
                 UNION { ?dataset <http://purl.org/dc/terms/format> ?o }
             }
-        }
-        ${generateGraphValueFilterClause(runset.graphs)}
     } `;
     let endpointDescriptionElementMap = new Map();
     return Promise.allSettled([
@@ -1587,8 +1129,8 @@ export function datasetDescriptionDataFill(runset: RunSetObject) {
         .then(datasetDescriptionData => {
             try {
                 let content = JSON.stringify(datasetDescriptionData);
-                return Global.writeFile(Global.getCachedFilenameForRunset(runset.id, datasetDescriptionDataFilename), content).then(() => {
-                    Logger.info("datasetDescriptionDataDataFill", runset.id, " END")
+                return Global.writeFile(Global.getCachedFilenameForRunset(datasetDescriptionDataFilename), content).then(() => {
+                    Logger.info("datasetDescriptionDataDataFill END")
                     return Promise.resolve();
                 });
             } catch (err) {
@@ -1601,37 +1143,25 @@ export function datasetDescriptionDataFill(runset: RunSetObject) {
         });
 }
 
-export function shortUrisDataFill(runset: RunSetObject) {
-    Logger.info("shortUrisDataFill", runset.id, " START")
-    let shortUrisMeasureQuery = `SELECT DISTINCT ?g ?date ?endpointUrl ?measure {
-            GRAPH ?g {
+export function shortUrisDataFill() {
+    Logger.info("shortUrisDataFill START")
+    let shortUrisMeasureQuery = `SELECT DISTINCT ?date ?endpointUrl ?measure {
                 { ?curated <http://www.w3.org/ns/sparql-service-description#endpoint> ?endpointUrl . } 
                 UNION { ?curated <http://rdfs.org/ns/void#sparqlEndpoint> ?endpointUrl . } 
                 ?metadata <http://ns.inria.fr/kg/index#curated> ?curated .
                 ?metadata <http://www.w3.org/ns/dqv#hasQualityMeasurement> ?measureNode .
                 ?measureNode <http://www.w3.org/ns/dqv#isMeasurementOf> <https://raw.githubusercontent.com/Wimmics/dekalog/master/rules/check/shortUris.ttl> .
                 ?measureNode <http://www.w3.org/ns/dqv#value> ?measure .
-            }
-            ${generateGraphValueFilterClause(runset.graphs)}
-        } GROUP BY ?g ?date ?endpointUrl ?measure`;
+        } GROUP BY ?date ?endpointUrl ?measure`;
     // ?metadata <http://purl.org/dc/terms/modified> ?date . 
     return Sparql.paginatedSparqlQueryToIndeGxPromise(shortUrisMeasureQuery)
         .then(json => {
-            let shortUriData = []
-            let graphSet = new Set();
+            let shortUriData = [];
             (json as JSONValue[]).forEach((jsonItem, i) => {
                 let endpoint = jsonItem["endpointUrl"].value;
                 let shortUriMeasure = Number.parseFloat(Global.precise(Number.parseFloat(jsonItem["measure"].value) * 100));
-                let graph = jsonItem["g"].value.replace("http://ns.inria.fr/indegx#", "");
-                let date: Dayjs // = Global.parseDate(jsonItem["date"].value);
-                let rawDateUnderscoreIndex = graph.lastIndexOf("_"); // Cheating on the date of the indexation
-                if (rawDateUnderscoreIndex != -1) {
-                    let rawDate = graph.substring(rawDateUnderscoreIndex, graph.length);
-                    date = Global.parseDate(rawDate, "YYYYMMDD");
-                }
-
-                graphSet.add(graph);
-                shortUriData.push({ graph: graph, date: date, endpoint: endpoint, measure: shortUriMeasure })
+                let date: Dayjs = Global.parseDate(jsonItem["date"].value);
+                shortUriData.push({ date: date, endpoint: endpoint, measure: shortUriMeasure })
             });
             return Promise.resolve(shortUriData);
         })
@@ -1639,12 +1169,12 @@ export function shortUrisDataFill(runset: RunSetObject) {
             if (shortUriData.length > 0) {
                 try {
                     let content = JSON.stringify(shortUriData);
-                    fs.writeFileSync(Global.getCachedFilenameForRunset(runset.id, shortUriDataFilename), content)
+                    fs.writeFileSync(Global.getCachedFilenameForRunset(shortUriDataFilename), content)
                 } catch (err) {
                     Logger.error(err)
                 }
             }
-            Logger.info("shortUrisDataFill", runset.id, " END")
+            Logger.info("shortUrisDataFill END")
             return Promise.resolve();
         })
         .catch(error => {
@@ -1653,19 +1183,16 @@ export function shortUrisDataFill(runset: RunSetObject) {
         });
 }
 
-export function readableLabelsDataFill(runset: RunSetObject) {
-    Logger.info("readableLabelsDataFill", runset.id, " START")
-    let readableLabelsQuery = `SELECT DISTINCT ?g ?date ?endpointUrl ?measure { 
-            GRAPH ?g {
+export function readableLabelsDataFill() {
+    Logger.info("readableLabelsDataFill START")
+    let readableLabelsQuery = `SELECT DISTINCT ?date ?endpointUrl ?measure { 
                 { ?curated <http://www.w3.org/ns/sparql-service-description#endpoint> ?endpointUrl . }
                 UNION { ?curated <http://rdfs.org/ns/void#sparqlEndpoint> ?endpointUrl . } 
                 ?metadata <http://ns.inria.fr/kg/index#curated> ?curated . 
                 ?metadata <http://www.w3.org/ns/dqv#hasQualityMeasurement> ?measureNode . 
                 ?measureNode <http://www.w3.org/ns/dqv#isMeasurementOf> <https://raw.githubusercontent.com/Wimmics/dekalog/master/rules/check/readableLabels.ttl> . 
                 ?measureNode <http://www.w3.org/ns/dqv#value> ?measure . 
-            } 
-            ${generateGraphValueFilterClause(runset.graphs)}
-        } GROUP BY ?g ?date ?endpointUrl ?measure`;
+        } GROUP BY ?date ?endpointUrl ?measure`;
     // ?metadata <http://purl.org/dc/terms/modified> ?date . 
 
     return Sparql.paginatedSparqlQueryToIndeGxPromise(readableLabelsQuery)
@@ -1674,15 +1201,9 @@ export function readableLabelsDataFill(runset: RunSetObject) {
             (json as JSONValue[]).forEach((jsonItem, i) => {
                 let endpoint = jsonItem["endpointUrl"].value;
                 let readableLabelMeasure = Number.parseFloat(Global.precise(Number.parseFloat(jsonItem["measure"].value) * 100));
-                let graph = jsonItem["g"].value.replace("http://ns.inria.fr/indegx#", "");
-                let date: Dayjs; // = Global.parseDate(jsonItem["date"].value);
-                let rawDateUnderscoreIndex = graph.lastIndexOf("_"); // Cheating on the date of the indexation
-                if (rawDateUnderscoreIndex != -1) {
-                    let rawDate = graph.substring(rawDateUnderscoreIndex, graph.length);
-                    date = Global.parseDate(rawDate, "YYYYMMDD");
-                }
+                let date: Dayjs = Global.parseDate(jsonItem["date"].value);
 
-                readableLabelData.push({ graph: graph, date: date, endpoint: endpoint, measure: readableLabelMeasure })
+                readableLabelData.push({ date: date, endpoint: endpoint, measure: readableLabelMeasure })
             });
             return Promise.resolve(readableLabelData);
         })
@@ -1690,8 +1211,8 @@ export function readableLabelsDataFill(runset: RunSetObject) {
             if (readableLabelData.length > 0) {
                 try {
                     let content = JSON.stringify(readableLabelData);
-                    return Global.writeFile(Global.getCachedFilenameForRunset(runset.id, readableLabelDataFilename), content).then(() => {
-                        Logger.info("readableLabelsDataFill", runset.id, " END")
+                    return Global.writeFile(Global.getCachedFilenameForRunset(readableLabelDataFilename), content).then(() => {
+                        Logger.info("readableLabelsDataFill END")
                         return Promise.resolve();
                     });
                 } catch (err) {
@@ -1706,10 +1227,9 @@ export function readableLabelsDataFill(runset: RunSetObject) {
         });
 }
 
-export function rdfDataStructureDataFill(runset: RunSetObject) {
-    Logger.info("rdfDataStructureDataFill", runset.id, " START")
-    let rdfDataStructureQuery = `SELECT DISTINCT ?g ?date ?endpointUrl ?measure { 
-            GRAPH ?g {
+export function rdfDataStructureDataFill() {
+    Logger.info("rdfDataStructureDataFill START")
+    let rdfDataStructureQuery = `SELECT DISTINCT ?date ?endpointUrl ?measure { 
                 { ?curated <http://www.w3.org/ns/sparql-service-description#endpoint> ?endpointUrl . } 
                 UNION { ?curated <http://rdfs.org/ns/void#sparqlEndpoint> ?endpointUrl . } 
                 ?metadata <http://ns.inria.fr/kg/index#curated> ?curated . 
@@ -1717,9 +1237,7 @@ export function rdfDataStructureDataFill(runset: RunSetObject) {
                 ?measureNode <http://www.w3.org/ns/dqv#isMeasurementOf> <https://raw.githubusercontent.com/Wimmics/dekalog/master/rules/check/RDFDataStructures.ttl> . 
                 ?measureNode <http://www.w3.org/ns/dqv#value> ?measure . 
             }
-            ${generateGraphValueFilterClause(runset.graphs)}
-        } 
-        GROUP BY ?g ?date ?endpointUrl ?measure` ;
+        GROUP BY ?date ?endpointUrl ?measure` ;
     // ?metadata <http://purl.org/dc/terms/modified> ?date . 
 
     return Sparql.paginatedSparqlQueryToIndeGxPromise(rdfDataStructureQuery).then(json => {
@@ -1727,23 +1245,17 @@ export function rdfDataStructureDataFill(runset: RunSetObject) {
         (json as JSONValue[]).forEach((jsonItem, i) => {
             let endpoint = jsonItem["endpointUrl"].value;
             let rdfDataStructureMeasure = Number.parseFloat(Global.precise(Number.parseFloat(jsonItem["measure"].value) * 100));
-            let graph = jsonItem["g"].value.replace("http://ns.inria.fr/indegx#", "");
-            let date: Dayjs;// = Global.parseDate(jsonItem["date"].value);
-            let rawDateUnderscoreIndex = graph.lastIndexOf("_"); // Cheating on the date of the indexation
-            if (rawDateUnderscoreIndex != -1) {
-                let rawDate = graph.substring(rawDateUnderscoreIndex, graph.length);
-                date = Global.parseDate(rawDate, "YYYYMMDD");
-            }
+            let date: Dayjs = Global.parseDate(jsonItem["date"].value);
 
-            rdfDataStructureData.push({ graph: graph, date: date, endpoint: endpoint, measure: rdfDataStructureMeasure })
+            rdfDataStructureData.push({ date: date, endpoint: endpoint, measure: rdfDataStructureMeasure })
         });
         return Promise.resolve(rdfDataStructureData);
     })
         .then(rdfDataStructureData => {
             try {
                 let content = JSON.stringify(rdfDataStructureData);
-                return Global.writeFile(Global.getCachedFilenameForRunset(runset.id, rdfDataStructureDataFilename), content).then(() => {
-                    Logger.info("rdfDataStructureDataFill", runset.id, " END");
+                return Global.writeFile(Global.getCachedFilenameForRunset(rdfDataStructureDataFilename), content).then(() => {
+                    Logger.info("rdfDataStructureDataFill END");
                     return;
                 })
 
@@ -1757,16 +1269,15 @@ export function rdfDataStructureDataFill(runset: RunSetObject) {
         });
 }
 
-export function blankNodeDataFill(runset: RunSetObject) {
-    Logger.info("blankNodeDataFill", runset.id, " START")
+export function blankNodeDataFill() {
+    Logger.info("blankNodeDataFill START")
     let blankNodeQuery = `PREFIX dcat: <http://www.w3.org/ns/dcat#>
         PREFIX dct: <http://purl.org/dc/terms/>
         PREFIX sd: <http://www.w3.org/ns/sparql-service-description#>
         PREFIX void: <http://rdfs.org/ns/void#>
         PREFIX kgi: <http://ns.inria.fr/kg/index#>
         PREFIX dqv: <http://www.w3.org/ns/dqv#>
-        SELECT DISTINCT ?g ?date ?endpointUrl ?measure { 
-            GRAPH ?g {
+        SELECT DISTINCT ?date ?endpointUrl ?measure { 
                 ?metadata kgi:curated ?curated . 
                 { ?curated sd:endpoint ?endpointUrl . } 
                 UNION { ?curated void:sparqlEndpoint ?endpointUrl . } 
@@ -1775,49 +1286,38 @@ export function blankNodeDataFill(runset: RunSetObject) {
     			UNION { ?curated dqv:hasQualityMeasurement ?measureNode . }
                 ?measureNode dqv:isMeasurementOf <https://raw.githubusercontent.com/Wimmics/dekalog/master/rules/check/blankNodeUsage.ttl> . 
                 ?measureNode dqv:value ?measure . 
-            }
-            ${generateGraphValueFilterClause(runset.graphs)}
         } 
-        GROUP BY ?g ?date ?endpointUrl ?measure` ;
+        GROUP BY ?date ?endpointUrl ?measure` ;
     // { ?metadata dct:modified ?date . }
     // UNION { ?curated dct:modified ?date }
     return Sparql.sparqlQueryToIndeGxPromise(blankNodeQuery).then(json => {
 
         let blankNodeData = []
         let graphSet = new Set();
-        let graphEndpointDateMeasureMap: Map<string, Map<string, Map<string, number>>> = new Map();
-        (json as SPARQLJSONResult).results.bindings.forEach((jsonItem, i) => {
-            let endpoint = jsonItem.endpointUrl.value;
-            let blankNodeMeasure = Number.parseFloat(Global.precise(Number.parseFloat(jsonItem.measure.value) * 100));
-            let graph = jsonItem.g.value.replace("http://ns.inria.fr/indegx#", "");
-            let rawDate: Dayjs; //= Global.parseDate(jsonItem.date.value);
-            let rawDateUnderscoreIndex = graph.lastIndexOf("_"); // Cheating on the date of the indexation
-            if (rawDateUnderscoreIndex != -1) {
-                let rawRawDate = graph.substring(rawDateUnderscoreIndex, graph.length);
-                rawDate = Global.parseDate(rawRawDate, "YYYYMMDD");
-            }
-            let date = rawDate.format("YYYY-MM-DD");
+        let endpointDateMeasureMap: Map<string, Map<string, number>> = new Map();
+        let jsonResult = (json as SPARQLJSONResult);
+        if (jsonResult != undefined && jsonResult.results != undefined && jsonResult.results.bindings != undefined) {
+            jsonResult.results.bindings.forEach((jsonItem, i) => {
+                let endpoint = jsonItem.endpointUrl.value;
+                let blankNodeMeasure = Number.parseFloat(Global.precise(Number.parseFloat(jsonItem.measure.value) * 100));
+                let rawDate: Dayjs = Global.parseDate(jsonItem.date.value);
+                let date = rawDate.format("YYYY-MM-DD");
 
-            if (!graphEndpointDateMeasureMap.has(graph)) {
-                graphEndpointDateMeasureMap.set(graph, new Map());
-            }
-            if (!graphEndpointDateMeasureMap.get(graph).has(endpoint)) {
-                graphEndpointDateMeasureMap.get(graph).set(endpoint, new Map());
-            }
-            if (!graphEndpointDateMeasureMap.get(graph).get(endpoint).has(date)) {
-                graphEndpointDateMeasureMap.get(graph).get(endpoint).set(date, blankNodeMeasure);
-            }
-            if (graphEndpointDateMeasureMap.get(graph).get(endpoint).has(date) && graphEndpointDateMeasureMap.get(graph).get(endpoint).get(date) < blankNodeMeasure) {
-                graphEndpointDateMeasureMap.get(graph).get(endpoint).set(date, blankNodeMeasure);
-            }
-            graphSet.add(graph);
-        });
+                if (!endpointDateMeasureMap.has(endpoint)) {
+                    endpointDateMeasureMap.set(endpoint, new Map());
+                }
+                if (!endpointDateMeasureMap.get(endpoint).has(date)) {
+                    endpointDateMeasureMap.get(endpoint).set(date, blankNodeMeasure);
+                }
+                if (endpointDateMeasureMap.get(endpoint).has(date) && endpointDateMeasureMap.get(endpoint).get(date) < blankNodeMeasure) {
+                    endpointDateMeasureMap.get(endpoint).set(date, blankNodeMeasure);
+                }
+            });
+        }
 
-        graphEndpointDateMeasureMap.forEach((endpointDateMeasureMap, graph) => {
-            endpointDateMeasureMap.forEach((dateMeasureMap, endpoint) => {
-                dateMeasureMap.forEach((measure, date) => {
-                    blankNodeData.push({ graph: graph, date: date, endpoint: endpoint, measure: measure })
-                })
+        endpointDateMeasureMap.forEach((dateMeasureMap, endpoint) => {
+            dateMeasureMap.forEach((measure, date) => {
+                blankNodeData.push({ date: date, endpoint: endpoint, measure: measure })
             })
         })
 
@@ -1826,8 +1326,8 @@ export function blankNodeDataFill(runset: RunSetObject) {
         .then(blankNodeData => {
             try {
                 let content = JSON.stringify(blankNodeData);
-                return Global.writeFile(Global.getCachedFilenameForRunset(runset.id, blankNodesDataFilename), content).then(() => {
-                    Logger.info("blankNodeDataFill", runset.id, " END");
+                return Global.writeFile(Global.getCachedFilenameForRunset(blankNodesDataFilename), content).then(() => {
+                    Logger.info("blankNodeDataFill END");
                     return Promise.resolve();
                 })
             } catch (err) {

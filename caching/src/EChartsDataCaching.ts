@@ -1,10 +1,10 @@
 import * as echarts from "echarts";
-import * as DataCache from "./DataCaching";
+import * as DataCache from "./DataCaching.js";
 import { readFile, writeFile } from "fs/promises";
 import { AverageRuntimeDataObject, ClassCountDataObject, DatasetDescriptionDataObject, EndpointTestDataObject, GeolocDataObject, GraphListDataObject, KeywordsEndpointDataObject, PropertyCountDataObject, QualityMeasureDataObject, ShortUriDataObject, SPARQLCoverageDataObject, SPARQLFeatureDataObject, SPARQLFeatureDescriptionDataObject, TotalRuntimeDataObject, TripleCountDataObject, VocabEndpointDataObject, VocabKeywordsDataObject } from "./DataTypes";
-import * as Logger from "./LogUtils";
-import * as ChartsUtils from "./ChartsUtils";
-import * as Global from "./GlobalUtils";
+import * as Logger from "./LogUtils.js";
+import * as ChartsUtils from "./ChartsUtils.js";
+import * as Global from "./GlobalUtils.js";
 import dayjs from "dayjs";
 
 const numberOfVocabulariesLimit = 1000;
@@ -42,8 +42,8 @@ let classPropertyData: any;
 let datasetDescriptionData: Array<DatasetDescriptionDataObject>;
 let sparqlFeatureDesc: Array<SPARQLFeatureDescriptionDataObject>;
 
-export function sparqlCoverageEchartsOption(runsetId: string): Promise<void> {
-    return readFile(Global.getCachedFilenameForRunset(runsetId, DataCache.sparqlCoverageFilename), "utf8").then(sparqlCoverageCountRawData => {
+export function sparqlCoverageEchartsOption(): Promise<void> {
+    return readFile(Global.getCachedFilename(DataCache.sparqlCoverageFilename), "utf8").then(sparqlCoverageCountRawData => {
 
         const sparqlCoverageCountData: Array<SPARQLCoverageDataObject> = JSON.parse(sparqlCoverageCountRawData);
 
@@ -270,9 +270,9 @@ export function sparqlCoverageEchartsOption(runsetId: string): Promise<void> {
         };
 
         return Promise.allSettled([
-            writeFile(Global.getCachedFilenameForRunset(runsetId, sparql10CoverageEchartsOptionFilename), JSON.stringify(sparql10ChartOption)).then(() => { Logger.info("SPARQL 1.0 chart data for", runsetId, " generated"); }),
-            writeFile(Global.getCachedFilenameForRunset(runsetId, sparql11CoverageEchartsOptionFilename), JSON.stringify(sparql11ChartOption)).then(() => { Logger.info("SPARQL 1.1 chart data for", runsetId, " generated"); }),
-            writeFile(Global.getCachedFilenameForRunset(runsetId, sparqlCoverageEchartsOptionFilename), JSON.stringify(sparqlChartOption)).then(() => { Logger.info("SPARQL chart data for", runsetId, " generated"); })
+            writeFile(Global.getCachedFilename(sparql10CoverageEchartsOptionFilename), JSON.stringify(sparql10ChartOption)).then(() => { Logger.info("SPARQL 1.0 chart data generated"); }),
+            writeFile(Global.getCachedFilename(sparql11CoverageEchartsOptionFilename), JSON.stringify(sparql11ChartOption)).then(() => { Logger.info("SPARQL 1.1 chart data generated"); }),
+            writeFile(Global.getCachedFilename(sparqlCoverageEchartsOptionFilename), JSON.stringify(sparqlChartOption)).then(() => { Logger.info("SPARQL chart data generated"); })
         ]).then(() => {
             return Promise.resolve();
         });
@@ -281,8 +281,8 @@ export function sparqlCoverageEchartsOption(runsetId: string): Promise<void> {
     });
 }
 
-export function endpointVocabsGraphEchartsOption(runsetId: string): Promise<void> {
-    return readFile(Global.getCachedFilenameForRunset(runsetId, DataCache.vocabEndpointFilename), "utf-8").then(vocabEndpointRawData => {
+export function endpointVocabsGraphEchartsOption(): Promise<void> {
+    return readFile(Global.getCachedFilename(DataCache.vocabEndpointFilename), "utf-8").then(vocabEndpointRawData => {
 
         let vocabEndpointData: Array<VocabEndpointDataObject> = JSON.parse(vocabEndpointRawData);
         // Create an force graph with the graph linked by co-ocurrence of vocabularies
@@ -314,17 +314,17 @@ export function endpointVocabsGraphEchartsOption(runsetId: string): Promise<void
 
         if (nodeArray.length > 0 && linkArray.length > 0) {
             let content = JSON.stringify(ChartsUtils.getForceGraphOption('Endpoints and vocabularies*', ["Vocabulary", "Endpoint"], nodeArray, linkArray));
-            return writeFile(Global.getCachedFilenameForRunset(runsetId, vocabEndpointEchartsOptionFilename), content);
+            return writeFile(Global.getCachedFilename(vocabEndpointEchartsOptionFilename), content);
         } else {
-            return Promise.reject("No data to generate the vocabulary graph for " + runsetId);
+            return Promise.reject("No data to generate the vocabulary graph ");
         }
     }).catch((error) => {
         Logger.error("Error during vocab graph data reading", error)
     });
 }
 
-export function endpointKeywordsGraphEchartsOption(runsetId: string): Promise<void> {
-    return readFile(Global.getCachedFilenameForRunset(runsetId, DataCache.endpointKeywordsFilename), "utf-8").then(endpointKeywordsRawData => {
+export function endpointKeywordsGraphEchartsOption(): Promise<void> {
+    return readFile(Global.getCachedFilename(DataCache.endpointKeywordsFilename), "utf-8").then(endpointKeywordsRawData => {
 
         
         let endpointKeywordData: Array<KeywordsEndpointDataObject> = JSON.parse(endpointKeywordsRawData);
@@ -354,17 +354,17 @@ export function endpointKeywordsGraphEchartsOption(runsetId: string): Promise<vo
         })
         if (nodeArray.length > 0 && linkArray.length > 0) {
             let content = JSON.stringify(ChartsUtils.getForceGraphOption('Endpoints and keywords of their vocabularies', ["Keyword", "Endpoint"], nodeArray, linkArray));
-            return writeFile(Global.getCachedFilenameForRunset(runsetId, keywordEndpointEchartsOptionFilename), content);
+            return writeFile(Global.getCachedFilename(keywordEndpointEchartsOptionFilename), content);
         } else {
-            return Promise.reject("No data to generate the keyword graph for " + runsetId);
+            return Promise.reject("No data to generate the keyword graph");
         }
     }).catch((error) => {
         Logger.error("Error during keyword graph data reading", error)
     });
 }
 
-export function endpointStandardVocabulariesGraphEchartsOption(runsetId: string): Promise<void> {
-    return readFile(Global.getCachedFilenameForRunset(runsetId, DataCache.vocabEndpointFilename), "utf-8").then(vocabEndpointRawData => {
+export function endpointStandardVocabulariesGraphEchartsOption(): Promise<void> {
+    return readFile(Global.getCachedFilename( DataCache.vocabEndpointFilename), "utf-8").then(vocabEndpointRawData => {
         let vocabEndpointData: Array<VocabEndpointDataObject> = JSON.parse(vocabEndpointRawData);
 
         let vocabStandardSet: Set<string> = new Set();
@@ -403,17 +403,17 @@ export function endpointStandardVocabulariesGraphEchartsOption(runsetId: string)
             let categoryArray = [...vocabStandardSet].map(vocab => vocabStandardNameMap.get(vocab));
             categoryArray.push("Endpoint")
             let content = JSON.stringify(ChartsUtils.getCircularGraphOption('Endpoints and meta-vocabularies', categoryArray, nodeArray, linkArray));
-            return writeFile(Global.getCachedFilenameForRunset(runsetId, standardVocabulariesEndpointGraphEchartsOptionFilename), content);
+            return writeFile(Global.getCachedFilename( standardVocabulariesEndpointGraphEchartsOptionFilename), content);
         } else {
-            return Promise.reject("No data to generate the vocabulary graph for " + runsetId);
+            return Promise.reject("No data to generate the vocabulary graph ");
         }
     }).catch((error) => {
         Logger.error("Error during vocab graph data reading", error)
     });
 }
 
-export function triplesEchartsOption(runsetId: string): Promise<void> {
-    return readFile(Global.getCachedFilenameForRunset(runsetId, DataCache.tripleCountFilename), "utf-8").then(tripleCountRawData => {
+export function triplesEchartsOption(): Promise<void> {
+    return readFile(Global.getCachedFilename(DataCache.tripleCountFilename), "utf-8").then(tripleCountRawData => {
         tripleCountData = JSON.parse(tripleCountRawData);
         // Scatter plot of the number of triples through time
         let endpointDataSerieMap = new Map();
@@ -430,12 +430,12 @@ export function triplesEchartsOption(runsetId: string): Promise<void> {
 
         if (endpointDataSerieMap.size > 0) {
             let triplesSeries = ChartsUtils.getScatterDataSeriesFromMap(endpointDataSerieMap);
-            return writeFile(Global.getCachedFilenameForRunset(runsetId, triplesEchartOptionFilename), JSON.stringify(ChartsUtils.getTimeScatterOption("Size of the datasets", triplesSeries))).then(() => {
-                Logger.info("Triple chart data for", runsetId, " generated");
+            return writeFile(Global.getCachedFilename(triplesEchartOptionFilename), JSON.stringify(ChartsUtils.getTimeScatterOption("Size of the datasets", triplesSeries))).then(() => {
+                Logger.info("Triple chart data generated");
             });
 
         } else {
-            return Promise.reject("No data to generate the triple graph for " + runsetId);
+            return Promise.reject("No data to generate the triple graph");
         }
     }).catch((error) => {
         Logger.error("Error during triple data reading", error)
@@ -443,8 +443,8 @@ export function triplesEchartsOption(runsetId: string): Promise<void> {
 
 }
 
-export function classesEchartsOption(runsetId: string): Promise<void> {
-    return readFile(Global.getCachedFilenameForRunset(runsetId, DataCache.classCountFilename), "utf-8").then(classesCountRawData => {
+export function classesEchartsOption(): Promise<void> {
+    return readFile(Global.getCachedFilename(DataCache.classCountFilename), "utf-8").then(classesCountRawData => {
         classCountData = JSON.parse(classesCountRawData);
         // Scatter plot of the number of classes through time
         let endpointDataSerieMap = new Map();
@@ -461,12 +461,12 @@ export function classesEchartsOption(runsetId: string): Promise<void> {
 
         if (endpointDataSerieMap.size > 0) {
             let classesSeries = ChartsUtils.getScatterDataSeriesFromMap(endpointDataSerieMap);
-            return writeFile(Global.getCachedFilenameForRunset(runsetId, classesEchartOptionFilename), JSON.stringify(ChartsUtils.getTimeScatterOption("Number of classes in the datasets", classesSeries))).then(() => {
-                Logger.info("Class chart data for", runsetId, " generated");
+            return writeFile(Global.getCachedFilename(classesEchartOptionFilename), JSON.stringify(ChartsUtils.getTimeScatterOption("Number of classes in the datasets", classesSeries))).then(() => {
+                Logger.info("Class chart data generated");
             });
 
         } else {
-            return Promise.reject("No data to generate the classes graph for " + runsetId);
+            return Promise.reject("No data to generate the classes graph");
         }
     }).catch((error) => {
         Logger.error("Error during classes data reading", error)
@@ -474,8 +474,8 @@ export function classesEchartsOption(runsetId: string): Promise<void> {
 
 }
 
-export function propertiesEchartsOption(runsetId: string): Promise<void> {
-    return readFile(Global.getCachedFilenameForRunset(runsetId, DataCache.propertyCountFilename), "utf-8").then(propertiesCountRawData => {
+export function propertiesEchartsOption(): Promise<void> {
+    return readFile(Global.getCachedFilename(DataCache.propertyCountFilename), "utf-8").then(propertiesCountRawData => {
         propertyCountData = JSON.parse(propertiesCountRawData);
         // Scatter plot of the number of classes through time
         let endpointDataSerieMap = new Map();
@@ -492,20 +492,20 @@ export function propertiesEchartsOption(runsetId: string): Promise<void> {
 
         if (endpointDataSerieMap.size > 0) {
             let propertiesSeries = ChartsUtils.getScatterDataSeriesFromMap(endpointDataSerieMap);
-            return writeFile(Global.getCachedFilenameForRunset(runsetId, propertiesEchartOptionFilename), JSON.stringify(ChartsUtils.getTimeScatterOption("Number of properties in the datasets", propertiesSeries))).then(() => {
-                Logger.info("Property chart data for", runsetId, " generated");
+            return writeFile(Global.getCachedFilename( propertiesEchartOptionFilename), JSON.stringify(ChartsUtils.getTimeScatterOption("Number of properties in the datasets", propertiesSeries))).then(() => {
+                Logger.info("Property chart data generated");
             });
 
         } else {
-            return Promise.reject("No data to generate the properties graph for " + runsetId);
+            return Promise.reject("No data to generate the properties graph " );
         }
     }).catch((error) => {
         Logger.error("Error during properties data reading", error)
     });
 }
 
-export function shortUrisEchartsOption(runsetId: string): Promise<void> {
-    return readFile(Global.getCachedFilenameForRunset(runsetId, DataCache.shortUriDataFilename), "utf-8").then(shortUrisCountRawData => {
+export function shortUrisEchartsOption(): Promise<void> {
+    return readFile(Global.getCachedFilename(DataCache.shortUriDataFilename), "utf-8").then(shortUrisCountRawData => {
         shortUrisData = JSON.parse(shortUrisCountRawData);
         // Scatter plot of the number of classes through time
         let endpointDataSerieMap = new Map();
@@ -522,20 +522,20 @@ export function shortUrisEchartsOption(runsetId: string): Promise<void> {
 
         if (endpointDataSerieMap.size > 0) {
             let shortUrisSeries = ChartsUtils.getScatterDataSeriesFromMap(endpointDataSerieMap);
-            return writeFile(Global.getCachedFilenameForRunset(runsetId, shortUrisEchartOptionFilename), JSON.stringify(ChartsUtils.getTimeScatterOption("Proportion of short URIs in the datasets", shortUrisSeries))).then(() => {
-                Logger.info("Short URIs chart data for", runsetId, " generated");
+            return writeFile(Global.getCachedFilename(shortUrisEchartOptionFilename), JSON.stringify(ChartsUtils.getTimeScatterOption("Proportion of short URIs in the datasets", shortUrisSeries))).then(() => {
+                Logger.info("Short URIs chart data generated");
             });
 
         } else {
-            return Promise.reject("No data to generate the Short URIs graph for " + runsetId);
+            return Promise.reject("No data to generate the Short URIs graph");
         }
     }).catch((error) => {
         Logger.error("Error during Short URIs data reading", error)
     });
 }
 
-export function rdfDataStructuresEchartsOption(runsetId: string): Promise<void> {
-    return readFile(Global.getCachedFilenameForRunset(runsetId, DataCache.rdfDataStructureDataFilename), "utf-8").then(rdfDataStructuresCountRawData => {
+export function rdfDataStructuresEchartsOption(): Promise<void> {
+    return readFile(Global.getCachedFilename(DataCache.rdfDataStructureDataFilename), "utf-8").then(rdfDataStructuresCountRawData => {
         rdfDataStructureData = JSON.parse(rdfDataStructuresCountRawData);
         // Scatter plot of the number of classes through time
         let endpointDataSerieMap = new Map();
@@ -552,20 +552,20 @@ export function rdfDataStructuresEchartsOption(runsetId: string): Promise<void> 
 
         if (endpointDataSerieMap.size > 0) {
             let rdfDataStructuresSeries = ChartsUtils.getScatterDataSeriesFromMap(endpointDataSerieMap);
-            return writeFile(Global.getCachedFilenameForRunset(runsetId, rdfDataStructuresEchartOptionFilename), JSON.stringify(ChartsUtils.getTimeScatterOption("Proportion of RDF data structures in the datasets", rdfDataStructuresSeries))).then(() => {
+            return writeFile(Global.getCachedFilename(rdfDataStructuresEchartOptionFilename), JSON.stringify(ChartsUtils.getTimeScatterOption("Proportion of RDF data structures in the datasets", rdfDataStructuresSeries))).then(() => {
                 Logger.info("RDF data structures chart data generated");
             });
 
         } else {
-            return Promise.reject("No data to generate the RDF data structures chart for " + runsetId);
+            return Promise.reject("No data to generate the RDF data structures chart");
         }
     }).catch((error) => {
         Logger.error("Error during RDF data structures data reading", error)
     });
 }
 
-export function readableLabelsEchartsOption(runsetId: string): Promise<void> {
-    return readFile(Global.getCachedFilenameForRunset(runsetId, DataCache.readableLabelDataFilename), "utf-8").then(readableLabelsCountRawData => {
+export function readableLabelsEchartsOption(): Promise<void> {
+    return readFile(Global.getCachedFilename(DataCache.readableLabelDataFilename), "utf-8").then(readableLabelsCountRawData => {
         readableLabelData = JSON.parse(readableLabelsCountRawData);
         // Scatter plot of the number of classes through time
         let endpointDataSerieMap = new Map();
@@ -582,20 +582,20 @@ export function readableLabelsEchartsOption(runsetId: string): Promise<void> {
 
         if (endpointDataSerieMap.size > 0) {
             let readableLabelsSeries = ChartsUtils.getScatterDataSeriesFromMap(endpointDataSerieMap);
-            return writeFile(Global.getCachedFilenameForRunset(runsetId, readableLabelsEchartOptionFilename), JSON.stringify(ChartsUtils.getTimeScatterOption("Proportion of resources with readable labels in the datasets", readableLabelsSeries))).then(() => {
-                Logger.info("Readable labels chart data for", runsetId, " generated");
+            return writeFile(Global.getCachedFilename(readableLabelsEchartOptionFilename), JSON.stringify(ChartsUtils.getTimeScatterOption("Proportion of resources with readable labels in the datasets", readableLabelsSeries))).then(() => {
+                Logger.info("Readable labels chart data");
             });
 
         } else {
-            return Promise.reject("No data to generate the readable labels chart for " + runsetId);
+            return Promise.reject("No data to generate the readable labels chart");
         }
     }).catch((error) => {
-        Logger.error("Error during RDF data structures data reading for", runsetId, "", error)
+        Logger.error("Error during RDF data structures data", error)
     });
 }
 
-export function blankNodesEchartsOption(runsetId: string): Promise<void> {
-    return readFile(Global.getCachedFilenameForRunset(runsetId, DataCache.blankNodesDataFilename), "utf-8").then(blankNodesCountRawData => {
+export function blankNodesEchartsOption(): Promise<void> {
+    return readFile(Global.getCachedFilename( DataCache.blankNodesDataFilename), "utf-8").then(blankNodesCountRawData => {
         blankNodesData = JSON.parse(blankNodesCountRawData);
         // Scatter plot of the number of classes through time
         let endpointDataSerieMap = new Map();
@@ -612,21 +612,21 @@ export function blankNodesEchartsOption(runsetId: string): Promise<void> {
 
         if (endpointDataSerieMap.size > 0) {
             let blankNodesSeries = ChartsUtils.getScatterDataSeriesFromMap(endpointDataSerieMap);
-            return writeFile(Global.getCachedFilenameForRunset(runsetId, blankNodesEchartOptionFilename), JSON.stringify(ChartsUtils.getTimeScatterOption("Proportion of blank nodes in the datasets", blankNodesSeries))).then(() => {
-                Logger.info("Blank nodes chart data for", runsetId, " generated");
+            return writeFile(Global.getCachedFilename( blankNodesEchartOptionFilename), JSON.stringify(ChartsUtils.getTimeScatterOption("Proportion of blank nodes in the datasets", blankNodesSeries))).then(() => {
+                Logger.info("Blank nodes chart data");
             });
 
         } else {
-            return Promise.reject("No data to generate the blank nodes chart for " + runsetId);
+            return Promise.reject("No data to generate the blank nodes chart");
         }
     }).catch((error) => {
         Logger.error("Error during blank nodes data reading", error)
     });
 }
 
-export function datasetDescriptionEchartsOption(runsetId) {
-    Logger.info("Dataset description chart data for", runsetId, " generation started")
-    return readFile(Global.getCachedFilenameForRunset(runsetId, DataCache.datasetDescriptionDataFilename), "utf-8").then(datasetDescriptionRawData => {
+export function datasetDescriptionEchartsOption() {
+    Logger.info("Dataset description chart data for generation started")
+    return readFile(Global.getCachedFilename(DataCache.datasetDescriptionDataFilename), "utf-8").then(datasetDescriptionRawData => {
         datasetDescriptionData = JSON.parse(datasetDescriptionRawData);
 
         let whoDataScore = 0;
@@ -802,107 +802,9 @@ export function datasetDescriptionEchartsOption(runsetId) {
         return datasetDescriptionEchartOption;
     }).then((datasetDescriptionEchartOption) => {
         let content = JSON.stringify(datasetDescriptionEchartOption);
-        return writeFile(Global.getCachedFilenameForRunset(runsetId, datasetDescriptionEchartOptionFilename), content).then(() => {
-            Logger.info("Dataset description chart option for", runsetId, " generation ended");
+        return writeFile(Global.getCachedFilename(datasetDescriptionEchartOptionFilename), content).then(() => {
+            Logger.info("Dataset description chart option for generation ended");
             return Promise.resolve();
         });
-    });
-}
-
-// export function nonFilteredVocabChartOption(runsetId: string): Promise<void> {
-//     this.sparqlesVocabulariesQuery = `SELECT DISTINCT ?endpointUrl ?vocabulary { 
-//             GRAPH ?g {
-//                 { ?base <http://www.w3.org/ns/sparql-service-description#endpoint> ?endpointUrl . }
-//                 UNION { ?base <http://rdfs.org/ns/void#sparqlEndpoint> ?endpointUrl . }
-//                 ?metadata <http://ns.inria.fr/kg/index#curated> ?base , ?dataset .
-//                 ?dataset <http://rdfs.org/ns/void#vocabulary> ?vocabulary
-//             }
-//         }
-//         GROUP BY ?endpointUrl ?vocabulary`;
-
-//     let endpointSet = new Set();
-//     let rawVocabSet = new Set();
-//     let rawGatherVocab = new Map();
-//     vocabEndpointData.forEach((item, i) => {
-//         let endpoint = item.endpoint;
-//         let vocabularies = item.vocabularies;
-//         if (vocabularies.length < numberOfVocabulariesLimit) {
-//             endpointSet.add(endpoint);
-//             vocabularies.forEach(vocab => {
-//                 rawVocabSet.add(vocab);
-//             })
-//             if (!rawGatherVocab.has(endpoint)) {
-//                 rawGatherVocab.set(endpoint, new Set());
-//             }
-//             rawGatherVocab.set(endpoint, vocabularies);
-//         }
-//     });
-
-//     let jsonRawVocabNodes = new Set();
-//     let jsonRawVocabLinks = new Set();
-
-//     endpointSet.forEach(item => {
-//         jsonRawVocabNodes.add({ name: item, category: 'Endpoint', symbolSize: 5 });
-//     });
-//     rawVocabSet.forEach(item => {
-//         jsonRawVocabNodes.add({ name: item, category: 'Vocabulary', symbolSize: 5 })
-//     });
-//     rawGatherVocab.forEach((endpointVocabs, endpointUrl, map1) => {
-//         endpointVocabs.forEach((vocab, i) => {
-//             jsonRawVocabLinks.add({ source: endpointUrl, target: vocab })
-//         });
-//     });
-
-
-//     if (jsonRawVocabNodes.size > 0 && jsonRawVocabLinks.size > 0) {
-//         let resultOption = ChartsUtils.getForceGraphOption('Endpoints and vocabularies without filtering', ["Vocabulary", "Endpoint"], [...jsonRawVocabNodes], [...jsonRawVocabLinks]);
-//         return writeFile(Global.getCachedFilenameForRunset(runsetId, vocabEndpointEchartsOptionFilename), JSON.stringify(resultOption)).then(() => {
-//             Logger.info("Endpoints and vocabularies without filtering chart data generated");
-//             return;
-//         });
-//     } else {
-//         return Promise.reject("No data to generate the non filtered vocabularies chart");
-//     }
-// }
-
-export function totalRuntimeEchartsOption(runtimeId: string) {
-    Logger.info("Total runtime chart settings generation started");
-    return readFile(Global.getCachedFilenameForRunset(runtimeId, DataCache.totalRuntimeDataFilename), "utf-8").then(totalRuntimeRawData => {
-        let totalRuntimeData = JSON.parse(totalRuntimeRawData);
-        let runtimeDataSerie = [];
-        totalRuntimeData.forEach((itemResult, i) => {
-            let graph = itemResult.graph;
-            let start = Global.parseDate(itemResult.start);
-            let end = Global.parseDate(itemResult.end);
-            let endpoint = itemResult.endpoint;
-            let date = Global.parseDate(itemResult.date);
-            let runtime = dayjs.duration(itemResult.runtime);
-            runtimeDataSerie.push([date, runtime, endpoint])
-        });
-        let runtimeSerie = {
-            name: "Runtime in seconds",
-            label: 'show',
-            symbolSize: 5,
-            data: runtimeDataSerie.map(a => [a[0].toDate(), a[1].asSeconds()]),
-            tooltip: {
-                show: true,
-                formatter: function (value) {
-                    let source = runtimeDataSerie.filter(a => a[0].isSame(dayjs(value.value[0])))[0];
-                    let runtime = source[1];
-                    let endpoint = source[2];
-
-                    let tooltip = endpoint + " <br/>" + runtime.humanize();
-                    return tooltip;
-                }
-            },
-            type: 'scatter'
-        };
-        let totalRuntimeChartOption = ChartsUtils.getTimeScatterOption("Runtime of the framework for each run (in seconds)", [runtimeSerie]);
-        return writeFile(Global.getCachedFilenameForRunset(runtimeId, totalRuntimeEchartsOptionFilename), JSON.stringify(totalRuntimeChartOption)).then(() => {
-            Logger.info("Total runtime chart settings generated");
-        });
-
-    }).catch((error) => {
-        Logger.error("Error during total runtime data reading", error)
     });
 }

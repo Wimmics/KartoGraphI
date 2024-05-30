@@ -2,9 +2,9 @@ import fetch, { FetchError, RequestInit, Headers } from 'node-fetch';
 import * as fs from 'node:fs/promises';
 import { setTimeout } from 'node:timers/promises';
 import dayjs from "dayjs";
-import * as Logger from "./LogUtils"
-import { JSONValue } from './DataTypes';
-import * as DataCache from "./DataCaching";
+import * as Logger from "./LogUtils.js"
+import { JSONValue } from './DataTypes.js';
+import * as DataCache from "./DataCaching.js";
 
 export let nbFetchRetries = 10;
 export let millisecondsBetweenRetries = 5000;
@@ -12,8 +12,8 @@ let countConcurrentQueries = 0;
 export let maxConccurentQueries = 300;
 export let delayMillisecondsTimeForConccurentQuery = 1000
 
-export function getCachedFilenameForRunset(runsetId: string, filename: string) {
-    return DataCache.dataCachedFilePrefix + filename + "." + runsetId + ".json";
+export function getCachedFilename(filename: string) {
+    return DataCache.dataCachedFilePrefix + filename + ".json";
 }
 
 
@@ -22,13 +22,11 @@ export function parseDate(input: string, format: string = "YYYY-MM-DD'T'HH:mm:ss
     let result = dayjs(input, format);
     if((format.localeCompare("YYYY-MM-DD'T'HH:mm:ss.SSS'Z'") == 0) && ! result.isValid()) {
         result = parseDate(input, "DD-MM-YYYY'T'HH:mm:ss.SSS'Z'");
-    } else if(format.localeCompare("DD-MM-YYYY'T'HH:mm:ss.SSS'Z'") && ! result.isValid()) {
-        result = parseDate(input, "YYYY-MM-DD'T'HH:mm:ss");
-    } else if(format.localeCompare("YYYY-MM-DD'T'HH:mm:ss") && ! result.isValid()) {
+    } else if(format.localeCompare("DD-MM-YYYY'T'HH:mm:ss") == 0 && ! result.isValid()) {
         result = parseDate(input, "DD-MM-YYYY'T'HH:mm:ss");
-    } else if(format.localeCompare("DD-MM-YYYY'T'HH:mm:ss") && ! result.isValid()) { 
+    } else if(format.localeCompare("DD-MM-YYYY'T'HH:mm:ss.SSSXXX") == 0 && ! result.isValid()) { 
         result = parseDate(input, "DD-MM-YYYY'T'HH:mm:ss.SSSXXX");
-    } else if(format.localeCompare("DD-MM-YYYY'T'HH:mm:ss.SSSXXX") && ! result.isValid()) {
+    } else if(format.localeCompare("DD-MM-YYYY'T'HH:mm:ssXXX") == 0 && ! result.isValid()) {
         result = parseDate(input, "DD-MM-YYYY'T'HH:mm:ssXXX");
     }
     return result;
@@ -191,12 +189,11 @@ export function fetchJSONPromise(url: string, otherHeaders = new Map()): Promise
     })
     return fetchPromise(url, header).then(response => {
         if(response == null || response == undefined || response == "") {
-            return {};
+            throw new Error(`Unexpected ${response} response `)
         } else {
             try {
                 return JSON.parse(response);
             } catch (error) {
-                Logger.error(url, error, response)
                 throw error
             }
         }

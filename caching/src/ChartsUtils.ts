@@ -118,7 +118,6 @@ export function getTimeScatterOption(title, series): EChartsOption {
             type: 'time',
             axisLabel: {
                 show: true,
-                interval: 0,
                 rotate: 27
             }
         },

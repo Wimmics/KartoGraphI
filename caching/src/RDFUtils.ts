@@ -1,7 +1,7 @@
 import * as $rdf from "rdflib";
 import * as fs from "fs";
-import * as Global from "./GlobalUtils";
-import * as Logger from "./LogUtils"
+import * as Global from "./GlobalUtils.js";
+import * as Logger from "./LogUtils.js"
 import ttl_read from "@graphy/content.ttl.read";
 import nt_read from "@graphy/content.nt.read";
 import nq_read from "@graphy/content.nq.read";

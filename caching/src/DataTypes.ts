@@ -46,50 +46,6 @@ export type EndpointItem = {
     popupHTML: string
 }
 
-export type EndpointIpGeolocObject = {
-    key: string,
-    value: {
-        ip: string,
-        geoloc: {
-            status: string,
-            country: string,
-            countryCode: string,
-            region: string,
-            regionName: string,
-            city: string,
-            zip: string,
-            lat: number,
-            lon: number,
-            timezone: string,
-            isp: string,
-            org: string,
-            as: string,
-            query: string
-        }
-    }
-}
-
-export type TimezoneMapObject = {
-    key: string,
-    value: {
-        abbreviation: string,
-        client_ip: string,
-        datetime: string,
-        day_of_week: number,
-        day_of_year: number,
-        dst: boolean,
-        dst_from: string,
-        dst_offset: number,
-        dst_until: string,
-        raw_offset: number,
-        timezone: string,
-        unixtime: number,
-        utc_datetime: string,
-        utc_offset: string,
-        week_number: number
-    }
-}
-
 export type EndpointTestObject = { 
     endpoint: string, 
     activity: string, 
@@ -105,7 +61,6 @@ export type GeolocDataObject = {
     region: string,
     city: string,
     org: string,
-    timezone: string,
     popupHTML: string
 }
 

@@ -1,6 +1,6 @@
 import dayjs from "dayjs"
 import * as util from "node:util"
-import { appendToFile, writeFile } from "./GlobalUtils";
+import { appendToFile, writeFile } from "./GlobalUtils.js";
 
 let logFileName = "kartographicaching.log"
 

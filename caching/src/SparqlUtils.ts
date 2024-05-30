@@ -1,9 +1,9 @@
-import { fetchGETPromise, fetchJSONPromise, fetchPOSTPromise } from "./GlobalUtils";
-import * as RDFUtils from "./RDFUtils";
 import sparqljs from "sparqljs";
 import * as $rdf from "rdflib";
-import * as Logger from "./LogUtils"
-import { JSONValue, SPARQLJSONResult } from "./DataTypes";
+import { fetchGETPromise, fetchJSONPromise, fetchPOSTPromise } from "./GlobalUtils.js";
+import * as RDFUtils from "./RDFUtils.js";
+import * as Logger from "./LogUtils.js"
+import { JSONValue, SPARQLJSONResult } from "./DataTypes.js";
 
 export let defaultQueryTimeout = 60000;
 
@@ -21,11 +21,11 @@ export function sparqlQueryPromise(endpoint, query, timeout: number = defaultQue
     let jsonHeaders = new Map();
     jsonHeaders.set("Accept", "application/sparql-results+json")
     if (isSparqlSelect(query)) {
-        return fetchJSONPromise(endpoint + '?query=' + encodeURIComponent(query) + '&format=json&timeout=' + timeout, jsonHeaders).catch(error => { Logger.error(endpoint, query, error); throw error }) as Promise<SPARQLJSONResult>
+        return fetchJSONPromise(endpoint + '?query=' + encodeURIComponent(query) + '&timeout=' + timeout, jsonHeaders).catch(error => { Logger.error(endpoint, query, error); throw error }) as Promise<SPARQLJSONResult>
     } else if (isSparqlAsk(query)) {
-        return fetchJSONPromise(endpoint + '?query=' + encodeURIComponent(query) + '&format=json&timeout=' + timeout, jsonHeaders).catch(() => { return { boolean: false } }) as Promise<SPARQLJSONResult>
+        return fetchJSONPromise(endpoint + '?query=' + encodeURIComponent(query) + '&timeout=' + timeout, jsonHeaders).catch(() => { return { boolean: false } }) as Promise<SPARQLJSONResult>
     } else if (isSparqlConstruct(query)) {
-        return fetchGETPromise(endpoint + '?query=' + encodeURIComponent(query) + '&format=turtle&timeout=' + timeout)
+        return fetchGETPromise(endpoint + '?query=' + encodeURIComponent(query) + '&timeout=' + timeout)
             .then(result => {
                 result = result.replaceAll("nodeID://", "_:") // Dirty hack to fix nodeID:// from Virtuoso servers for turtle
                 return RDFUtils.parseTurtleToStore(result, RDFUtils.createStore()).catch(error => {
@@ -119,19 +119,22 @@ function paginatedSparqlQueryPromise(endpointUrl: string, query: string, pageSiz
     return sparqlQueryPromise(endpointUrl, generatedQuery, timeout).then(generatedQueryResult => {
         if (generatedQueryResult !== undefined) {
             if (isSparqlSelect(query)) {
+                let parsedSelectQueryResult: SPARQLJSONResult = generatedQueryResult as SPARQLJSONResult;
                 try {
-                let parsedSelectQueryResult: JSONValue = generatedQueryResult as JSONValue;
-                (finalResult as Array<JSONValue>) = (finalResult as Array<JSONValue>).concat(parsedSelectQueryResult["results"].bindings as JSONValue[]);
-                if ((parsedSelectQueryResult as JSONValue)["results"].bindings.length > 0) {
-                    return paginatedSparqlQueryPromise(endpointUrl, query, pageSize, iteration + 1, timeout, finalResult);
-                } else {
-                    return finalResult;
+                    if (parsedSelectQueryResult != undefined && parsedSelectQueryResult.results != undefined && parsedSelectQueryResult.results.bindings != undefined) {
+                        (finalResult as Array<JSONValue>) = (finalResult as Array<JSONValue>).concat(parsedSelectQueryResult["results"].bindings as JSONValue[]);
+                        if ((parsedSelectQueryResult as JSONValue)["results"].bindings.length > 0) {
+                            return paginatedSparqlQueryPromise(endpointUrl, query, pageSize, iteration + 1, timeout, finalResult);
+                        } else {
+                            return finalResult;
+                        }
+                    } else {
+                        throw new Error("Invalid SPARQL result" + JSON.stringify(generatedQueryResult));
+                    }
+                } catch (error) {
+                    Logger.error("Error while parsing the query result as SELECT result: ", error, generatedQueryResult);
+                    throw error;
                 }
-                    
-            } catch (error) {
-                Logger.error("Error while parsing the query result as SELECT result: ", error, generatedQueryResult);
-                throw error;
-            }
             } else if (isSparqlConstruct(query)) {
                 (finalResult as $rdf.Formula).addAll((generatedQueryResult as $rdf.Formula).statements)
                 if ((generatedQueryResult as $rdf.Formula).statements.length > 0) {
