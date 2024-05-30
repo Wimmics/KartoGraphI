@@ -1,0 +1,6967 @@
+@prefix ns480: <http://data.cervantesvirtual.com/openrdf-sesame/repositories/> .
+@prefix ns121: <http://vocabs.ardc.edu.au/repository/api/sparql/> .
+@prefix ns242: <http://sparql.datao.net/> .
+@prefix ns363: <http://de.dbpedia.org/> .
+@prefix ns484: <https://obchodní-rejstřík.stirdata.opendata.cz/> .
+@prefix ns120: <http://data.culture.fr/thesaurus/> .
+@prefix ns241: <http://famu.eagle-i.net/sparqler/> .
+@prefix ns362: <http://sparql.proconsortium.org/virtuoso/> .
+@prefix ns483: <https://data.epo.org/linked-data/> .
+@prefix ns240: <http://dbpedia-live.openlinksw.com/> .
+@prefix ns361: <http://dati.camera.it/> .
+@prefix ns482: <https://integbio.jp/rdf/> .
+@prefix ns360: <http://commons.dbpedia.org/> .
+@prefix ns481: <http://data.utpl.edu.ec/utpl/lod/> .
+@prefix ns125: <http://opencitations.net/> .
+@prefix ns246: <http://bbc.openlinksw.com/> .
+@prefix ns367: <http://live.dbpedia.org/> .
+@prefix ns488: <http://lod.knps.or.kr/main/> .
+@prefix ns124: <https://api.kunstmuseum.nl/query/proxy/wdqs/bigdata/namespace/wdq/> .
+@prefix ns245: <https://digital-agenda-data.eu/data/> .
+@prefix ns366: <https://datos.bne.es/> .
+@prefix ns487: <https://uriburner.com/> .
+@prefix ns123: <https://sibils.text-analytics.ch/> .
+@prefix ns244: <https://data.ordnancesurvey.co.uk/datasets/opennames/apis/> .
+@prefix ns365: <http://www.ebi.ac.uk/rdf/services/atlas/> .
+@prefix ns486: <https://d2kab.i3s.unice.fr/> .
+@prefix ns122: <http://eu.dbpedia.org/> .
+@prefix ns243: <https://tsu.eagle-i.net/sparqler/> .
+@prefix ns364: <https://utep.eagle-i.net/sparqler/> .
+@prefix ns485: <http://utep.eagle-i.net/sparqler/> .
+@prefix ns129: <https://metadb.riken.jp/> .
+@prefix ns128: <https://fr.dbpedia.org/> .
+@prefix ns249: <http://spatial.ucd.ie/lod/> .
+@prefix ns127: <https://api.druid.datalegend.net/datasets/dataLegend/strikes/> .
+@prefix ns248: <http://api.kasabi.com/dataset/pali-english-lexicon/apis/> .
+@prefix ns369: <https://purl.org/whonto/> .
+@prefix ns126: <https://api.druid.datalegend.net/datasets/dataLegend/deaths-1910-1920/> .
+@prefix ns247: <http://unodc.publicdata.eu/> .
+@prefix ns368: <https://api.druid.datalegend.net/datasets/IISG/Labourconflicts/> .
+@prefix ns489: <http://linguistic.linkeddata.es/> .
+@prefix ns370: <http://jsu.eagle-i.net/sparqler/> .
+@prefix ns491: <https://sophox.org/> .
+@prefix ns490: <http://taxref.mnhn.fr/> .
+@prefix ns132: <https://lod.sztaki.hu/> .
+@prefix ns253: <http://sociallink.futuro.media/> .
+@prefix ns374: <https://api.druid.datalegend.net/datasets/IISG/Images/> .
+@prefix ns495: <http://dati.senato.it/> .
+@prefix ns131: <http://vulcan.cs.uga.edu/> .
+@prefix ns252: <http://bio2rdf.org/> .
+@prefix ns373: <https://digitale.bncf.firenze.sbn.it/openrdf-workbench/repositories/NS/> .
+@prefix ns494: <https://api.druid.datalegend.net/datasets/dataLegend/jobHoard/> .
+@prefix ns130: <https://cdrewu.eagle-i.net/sparqler/> .
+@prefix ns251: <http://meducator.open.ac.uk/resourcesrestapi/rest/meducator/> .
+@prefix ns372: <https://lod.tamtamresearch.com/> .
+@prefix ns493: <https://global.eagle-i.net/sparqler/> .
+@prefix ns250: <https://linkedwiki.com/> .
+@prefix ns371: <http://kaiko.getalp.org/> .
+@prefix ns492: <http://semantic.eea.europa.eu/> .
+@prefix ns136: <https://api.druid.datalegend.net/datasets/IISG-DA/ORCID-data/> .
+@prefix ns257: <https://sparql.rhea-db.org/> .
+@prefix ns378: <https://www.ebi.ac.uk/rdf/services/reactome/> .
+@prefix ns499: <https://zbw.eu/beta/sparql/stw/> .
+@prefix ns135: <http://onto.beef.org.pl/> .
+@prefix ns256: <http://data.hnm.hu/> .
+@prefix ns377: <https://druid.datalegend.net/AdamNet/Heritage/sparql/> .
+@prefix ns498: <http://www4.wiwiss.fu-berlin.de/medicare/> .
+@prefix ns134: <https://navi.first.lifesciencedb.jp/fanavi/> .
+@prefix ns255: <https://nl.dbpedia.org/> .
+@prefix ns376: <https://data.persee.fr/> .
+@prefix ns497: <https://api.druid.datalegend.net/datasets/andb/andb/> .
+@prefix ns133: <https://opendata.mfcr.cz/lod/> .
+@prefix ns254: <https://opendata.mfcr.cz/pages/> .
+@prefix ns375: <https://xn--slovnk-7va.gov.cz/> .
+@prefix ns496: <http://genage.bio2rdf.org/> .
+@prefix ns139: <http://data.digitalculture.tw/taichung/> .
+@prefix ns138: <https://api.druid.datalegend.net/datasets/BotterK/ANDB-ADB-all/> .
+@prefix ns259: <https://data.idref.fr/> .
+@prefix ns137: <http://data.fundacionctic.org/> .
+@prefix ns258: <http://cultura.linkeddata.es/> .
+@prefix ns379: <http://lod.openaire.eu/> .
+@prefix ns220: <http://greek-lod.math.auth.gr/kalikratis/> .
+@prefix ns341: <https://www.orpha.net/> .
+@prefix ns462: <http://onto.fel.cvut.cz/rdf4j-server/repositories/> .
+@prefix ns583: <http://lov.okfn.org/dataset/lov/> .
+@prefix ns340: <https://api.druid.datalegend.net/datasets/Per-LOD-ad-Astra/Sleutelkastje/> .
+@prefix ns461: <https://data.odw.tw/> .
+@prefix ns582: <https://ldf.fi/ww1lod/> .
+@prefix ns460: <https://montana.eagle-i.net/sparqler/> .
+@prefix ns581: <https://raw.githubusercontent.com/GVogeler/bookkeeping/master/> .
+@prefix ns580: <https://www.genome.jp/sparql/> .
+@prefix ns103: <http://data.linkedmdb.org/> .
+@prefix ns224: <http://opencitations.net/index/> .
+@prefix ns345: <https://cr.eionet.europa.eu/> .
+@prefix ns466: <http://data.semanticweb.org/> .
+@prefix ns587: <https://data.ordnancesurvey.co.uk/datasets/boundary-line/apis/> .
+@prefix ns102: <http://data.archaeologydataservice.ac.uk/sparql/repositories/> .
+@prefix ns223: <https://data.dia.gov.cz/> .
+@prefix ns344: <http://data.linkededucation.org/request/lak-conference/> .
+@prefix ns465: <http://wasabi.inria.fr/> .
+@prefix ns586: <http://greek-lod.auth.gr/police/> .
+@prefix ns101: <http://www4.wiwiss.fu-berlin.de/dblp/> .
+@prefix ns222: <http://kasabi.com/api/> .
+@prefix ns343: <http://lod.hebis.de/> .
+@prefix ns464: <http://psm.eagle-i.net/sparqler/> .
+@prefix ns585: <http://lod.openlinksw.com/> .
+@prefix ns100: <http://dbtune.org/classical/> .
+@prefix ns221: <https://alaska.eagle-i.net/sparqler/> .
+@prefix ns342: <https://ideal-rdf.dbcls.jp/> .
+@prefix ns463: <http://platform.uberblic.org/api/v1/> .
+@prefix ns584: <https://api.nextprot.org/> .
+@prefix ns107: <https://sparql.uniprot.org/> .
+@prefix ns228: <https://lov.linkeddata.es/dataset/lov/> .
+@prefix ns349: <https://api.druid.datalegend.net/datasets/IISG/iisg-kg/> .
+@prefix ns106: <https://relate.racai.ro/datasets/rtasc/> .
+@prefix ns227: <https://schema.gov.it/> .
+@prefix ns348: <http://premon.fbk.eu/> .
+@prefix ns469: <http://data.aalto.fi/> .
+@prefix ns105: <http://uriburner.com/> .
+@prefix ns226: <https://api.druid.datalegend.net/datasets/IISG/sicada/> .
+@prefix ns347: <http://linkedlifedata.com/> .
+@prefix ns468: <http://pt.dbpedia.org/> .
+@prefix ns589: <http://webenemasuno.linkeddata.es/> .
+@prefix ns104: <http://www.icane.es/opendata/> .
+@prefix ns225: <http://cdrewu.eagle-i.net/sparqler/> .
+@prefix ns346: <https://zbw.eu/beta/sparql/econ_corp/> .
+@prefix ns467: <http://ldf.fi/warsa/> .
+@prefix ns588: <https://glyconnect.expasy.org/> .
+@prefix ns109: <https://dbtune.org/magnatune/> .
+@prefix ns108: <https://rdf.metanetx.org/> .
+@prefix ns229: <http://digital-agenda-data.eu/data/> .
+@prefix ns590: <http://wormbase.bio2rdf.org/> .
+@prefix ns110: <https://lod.xdams.org/> .
+@prefix ns231: <https://lod.openaire.eu/> .
+@prefix ns352: <http://www.ebi.ac.uk/rdf/services/> .
+@prefix ns473: <https://ico.iate.inra.fr/fuseki/annotation/> .
+@prefix ns594: <http://api.kasabi.com/dataset/un-hazardous-material-numbers/apis/> .
+@prefix ns230: <http://weakg.i3s.unice.fr/> .
+@prefix ns351: <http://harvard.eagle-i.net/sparqler/> .
+@prefix ns472: <https://ct-linkdata.aegean.gr/gcam/> .
+@prefix ns593: <http://clara.univ-nantes.fr/> .
+@prefix ns350: <http://data.oceandrilling.org/> .
+@prefix ns471: <https://agrold.southgreen.fr/> .
+@prefix ns592: <https://cs.dbpedia.org/> .
+@prefix ns470: <http://sparql.hegroup.org/> .
+@prefix ns591: <https://hunter-cuny.eagle-i.net/sparqler/> .
+@prefix ns114: <https://data.ordnancesurvey.co.uk/datasets/code-point-open/apis/> .
+@prefix ns235: <https://relate.racai.ro/datasets/rolex/> .
+@prefix ns356: <https://data.gesis.org/claimskg/> .
+@prefix ns477: <https://api.druid.datalegend.net/datasets/AdamNet/Heritage/> .
+@prefix ns598: <https://zbw.eu/beta/sparql/pm20/> .
+@prefix ns113: <http://dbtune.org/musicbrainz/> .
+@prefix ns234: <http://ndc.bio2rdf.org/> .
+@prefix ns355: <http://156.35.82.103/> .
+@prefix ns476: <http://mgi.bio2rdf.org/> .
+@prefix ns597: <http://patho.phenomebrowser.net/> .
+@prefix ns112: <http://lsr.bio2rdf.org/> .
+@prefix ns233: <http://enipedia.tudelft.nl/> .
+@prefix ns354: <https://data.allie.dbcls.jp/> .
+@prefix ns475: <https://data.gov.uz/en/docs/> .
+@prefix ns596: <https://api.druid.datalegend.net/datasets/dataLegend/Baghdad-to-London/> .
+@prefix ns111: <https://www.govdata.de/> .
+@prefix ns232: <https://api.druid.datalegend.net/datasets/liliana/lippische-ziegler-folia-interpretations/> .
+@prefix ns353: <https://www.data.gouv.fr/> .
+@prefix ns474: <http://data.cnr.it/> .
+@prefix ns595: <http://linkeddata.uriburner.com/> .
+@prefix ns118: <https://data.europa.eu/euodp/> .
+@prefix ns239: <https://dbmi-icode-01.dbmi.pitt.edu/> .
+@prefix ns117: <http://www.ss-framework.com/> .
+@prefix ns238: <https://coxpresdb.jp/> .
+@prefix ns359: <https://api.druid.datalegend.net/datasets/IISG/historic-maps/> .
+@prefix ns116: <https://libris.kb.se/> .
+@prefix ns237: <http://es.dbpedia.org/> .
+@prefix ns358: <http://genome.microbedb.jp/> .
+@prefix ns479: <https://api.druid.datalegend.net/datasets/nlgis/gemeentegeschiedenis/> .
+@prefix ns115: <https://api.druid.datalegend.net/datasets/andb/ANDB-ADB-all/> .
+@prefix ns236: <http://zhishi.me/> .
+@prefix ns357: <http://smartlink.open.ac.uk/smartlink/> .
+@prefix ns478: <https://api.druid.datalegend.net/datasets/HistoryOfWork/HISCO-latest/> .
+@prefix ns599: <http://www.rdfabout.com/> .
+@prefix ns119: <https://data.muziekweb.nl/MuziekwebOrganization/Muziekweb/sparql/> .
+@prefix ns161: <https://imagesnippets.com/sparql/> .
+@prefix ns282: <http://eventmedia.eurecom.fr/> .
+@prefix ns160: <http://id.sgcb.mcu.es/> .
+@prefix ns281: <https://vulcan.cs.uga.edu/> .
+@prefix ns280: <http://www4.wiwiss.fu-berlin.de/drugbank/> .
+@prefix ns165: <https://data.cssz.cz/> .
+@prefix ns286: <https://sparql.wikipathways.org/> .
+@prefix ns164: <https://el.dbpedia.org/> .
+@prefix ns285: <https://data.cinematheque.qc.ca/> .
+@prefix ns163: <https://sparql.orthodb.org/> .
+@prefix ns284: <http://edan.si.edu/saam/> .
+@prefix ns162: <http://vocabulary.wolterskluwer.de/PoolParty/sparql/> .
+@prefix ns283: <https://hu.dbpedia.org/> .
+@prefix ns169: <https://semanticweb.cs.vu.nl/iati/> .
+@prefix ns168: <http://pubmed.bio2rdf.org/> .
+@prefix ns289: <https://aopwiki.rdf.bigcat-bioinformatics.org/> .
+@prefix ns167: <http://iserve.kmi.open.ac.uk/iserve/> .
+@prefix ns288: <http://interpro.bio2rdf.org/> .
+@prefix ns166: <http://www4.wiwiss.fu-berlin.de/diseasome/> .
+@prefix ns287: <https://dati.isprambiente.it/> .
+@prefix pav: <http://purl.org/pav/> .
+@prefix ns172: <https://alma.uni.lu/> .
+@prefix ns293: <https://de.dbpedia.org/> .
+@prefix ns171: <https://data.gov.cz/> .
+@prefix ns292: <https://ts.glytoucan.org/> .
+@prefix ns170: <http://ncbigene.bio2rdf.org/> .
+@prefix ns291: <http://resource.geolba.ac.at/PoolParty/sparql/> .
+@prefix ns290: <https://data.logainm.ie/> .
+@prefix ns176: <https://lod.nl.go.kr/> .
+@prefix ns297: <http://data.plan4all.eu/> .
+@prefix ns175: <https://dati.beniculturali.it/> .
+@prefix ns296: <http://data.bib.uni-mannheim.de/> .
+@prefix ns174: <http://serendipity.utpl.edu.ec/lod/> .
+@prefix ns295: <https://smt.esante.gouv.fr/> .
+@prefix ns173: <http://taxonomy.bio2rdf.org/> .
+@prefix ns294: <http://lab.environment.data.gov.au/> .
+@prefix ns179: <http://www4.wiwiss.fu-berlin.de/eures/> .
+@prefix ns178: <https://opendata.aragon.es/> .
+@prefix ns299: <https://dbpedia.org/page/> .
+@prefix ns177: <http://ldf.fi/semparl/> .
+@prefix ns298: <http://data.europa.eu/euodp/> .
+@prefix ns260: <https://www.ebi.ac.uk/rdf/services/chembl/> .
+@prefix ns381: <http://greek-lod.auth.gr/fire-brigade/> .
+@prefix ns380: <http://datos.artium.org/> .
+@prefix ns143: <http://gendr.bio2rdf.org/> .
+@prefix ns264: <http://n-lex.publicdata.eu/> .
+@prefix ns385: <http://govwild.org/> .
+@prefix ns142: <https://tora.entryscape.net/> .
+@prefix ns263: <http://ldf.fi/kirjasampo/> .
+@prefix ns384: <https://ohsu.eagle-i.net/sparqler/> .
+@prefix ns141: <http://apps.morelab.deusto.es/labman/> .
+@prefix ns262: <http://api.finto.fi/> .
+@prefix ns383: <https://www.orkg.org/orkg/> .
+@prefix ns140: <https://digitaalerfgoed.poolparty.biz/PoolParty/sparql/term/id/> .
+@prefix ns261: <https://www.thegazette.co.uk/> .
+@prefix ns382: <http://opendatacommunities.org/> .
+@prefix ns147: <http://www.europeandataportal.eu/> .
+@prefix ns268: <http://dbtune.org/bbc/peel/> .
+@prefix ns389: <https://lingualibre.org/bigdata/namespace/wdq/> .
+@prefix ns146: <http://agencies.publicdata.eu/> .
+@prefix ns267: <https://dbtune.org/jamendo/> .
+@prefix ns388: <http://api.kasabi.com/dataset/nasa/apis/> .
+@prefix ns145: <http://fintrans.publicdata.eu/> .
+@prefix ns266: <https://linked.opendata.cz/> .
+@prefix ns387: <http://geo.linkeddata.es/> .
+@prefix ns144: <https://landportal.org/> .
+@prefix ns265: <https://digits2.mainzed.org/covid19/> .
+@prefix ns386: <https://utsa.eagle-i.net/sparqler/> .
+@prefix ns149: <https://api.druid.datalegend.net/datasets/dataLegend/Clio-Infra/> .
+@prefix ns148: <https://www.ebi.ac.uk/rdf/services/biosamples/> .
+@prefix ns269: <http://nlg.okfn.gr/> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix ns150: <http://ctd.bio2rdf.org/> .
+@prefix ns271: <https://upr.eagle-i.net/sparqler/> .
+@prefix ns392: <https://covidontheweb.inria.fr/> .
+@prefix ns270: <http://babelnet.org/> .
+@prefix ns391: <http://integbio.jp/rdf/> .
+@prefix ns390: <http://rdfabout.com/> .
+@prefix ns154: <https://hdt.lod.labs.vu.nl/> .
+@prefix ns275: <https://datos.bcn.cl/> .
+@prefix ns396: <http://digitale.bncf.firenze.sbn.it/openrdf-workbench/repositories/NS/> .
+@prefix ns153: <https://www.foodie-cloud.org/> .
+@prefix ns274: <https://meharry.eagle-i.net/sparqler/> .
+@prefix ns395: <http://ct-linkdata.aegean.gr/gcam/> .
+@prefix ns152: <http://sensormeasurement.appspot.com/dataset/> .
+@prefix ns273: <https://opencitations.net/> .
+@prefix ns394: <https://chemblmirror.rdf.bigcat-bioinformatics.org/> .
+@prefix ns151: <https://ja.dbpedia.org/> .
+@prefix ns272: <https://data.legilux.public.lu/> .
+@prefix ns393: <https://lindas-data.ch/> .
+@prefix ns158: <https://api.druid.datalegend.net/datasets/dataLegend/CEDAR-S/> .
+@prefix ns279: <https://3cixty.eurecom.fr/> .
+@prefix ns157: <https://bio2rdf.org/> .
+@prefix ns278: <http://aseg.cs.concordia.ca/secold/> .
+@prefix ns399: <http://virtuoso.plateforme.dipso.inrae.fr/> .
+@prefix ns156: <https://colil.dbcls.jp/> .
+@prefix ns277: <https://api.druid.datalegend.net/datasets/HistoryOfWork/historyOfWork-all-latest/services/historyOfWork-all-latest/> .
+@prefix ns398: <https://bittich.be/> .
+@prefix ns155: <https://idsm.elixir-czech.cz/sparql/endpoint/> .
+@prefix ns276: <http://data.rism.info/> .
+@prefix ns397: <https://linkedopendata.comune.fi.it/> .
+@prefix ns159: <http://dati.isprambiente.it/> .
+@prefix ns183: <https://api.finto.fi/rest/v1/yso-places/> .
+@prefix ns182: <https://zbw.eu/beta/sparql/stwv/> .
+@prefix ns181: <https://forum.semantic-metabolomics.fr/> .
+@prefix ns180: <https://api.druid.datalegend.net/datasets/IISG-DA/Collectie-Interviews-Wim-Kok-deel-2/> .
+@prefix ns187: <http://demo.openlinksw.com/> .
+@prefix ns186: <https://api.druid.datalegend.net/datasets/RubenS/marc21/> .
+@prefix ns185: <https://isidore.science/> .
+@prefix ns184: <http://rdf.farmbio.uu.se/chembl/> .
+@prefix ns189: <https://api.druid.datalegend.net/datasets/dataLegend/gemeentegeschiedenis/> .
+@prefix ns188: <https://data.nationallibrary.fi/bib/> .
+@prefix ns190: <https://fuseki.kupferdigital.org/demonstrator/> .
+@prefix ns194: <https://uccaribe.eagle-i.net/sparqler/> .
+@prefix ns193: <https://jpsearch.go.jp/rdf/> .
+@prefix ns192: <https://api.druid.datalegend.net/datasets/andb/andb-leden/> .
+@prefix ns191: <http://ndb.publink.lod2.eu/> .
+@prefix ns198: <https://dati.camera.it/> .
+@prefix ns197: <http://dbkwik.webdatacommons.org/> .
+@prefix ns196: <https://atted.jp/> .
+@prefix ns195: <http://europeana.ontotext.com/> .
+@prefix ns199: <https://orkg.org/> .
+@prefix void: <http://rdfs.org/ns/void#> .
+@prefix sd: <http://www.w3.org/ns/sparql-service-description#> .
+@prefix kgi: <http://ns.inria.fr/kg/index#> .
+@prefix ns602: <https://api.parliament.uk/> .
+@prefix ns601: <http://sparql.archives-ouvertes.fr/> .
+@prefix ns600: <https://joinup.ec.europa.eu/> .
+@prefix ns13: <https://data.ordnancesurvey.co.uk/datasets/50k-gazetteer/apis/> .
+@prefix ns606: <http://ohsu.eagle-i.net/sparqler/> .
+@prefix ns12: <https://landregistry.data.gov.uk/landregistry/> .
+@prefix ns605: <http://tuskegee.eagle-i.net/sparqler/> .
+@prefix ns11: <https://datos.gob.es/en/> .
+@prefix ns604: <https://www.europeandataportal.eu/> .
+@prefix ns10: <https://data.mff.cuni.cz/> .
+@prefix ns603: <http://bioportal.bio2rdf.org/> .
+@prefix ns17: <https://linkedgeodata.org/> .
+@prefix ns16: <http://vocabulary.semantic-web.at/PoolParty/sparql/> .
+@prefix ns609: <http://www.eclap.eu/> .
+@prefix ns15: <http://biomodels.bio2rdf.org/> .
+@prefix ns608: <http://linkeddata.finki.ukim.mk/> .
+@prefix ns14: <https://premon.fbk.eu/> .
+@prefix ns607: <https://ko.dbpedia.org/> .
+@prefix ns19: <http://lsd.dbcls.jp/> .
+@prefix ns18: <https://cedropendata.mfcr.cz/c3lod/cedr/> .
+@prefix ns613: <https://cau.eagle-i.net/sparqler/> .
+@prefix ns612: <http://rdf.disgenet.org/> .
+@prefix ns611: <http://utsa.eagle-i.net/sparqler/> .
+@prefix ns610: <http://www4.wiwiss.fu-berlin.de/sider/> .
+@prefix ns617: <http://biordf.net/> .
+@prefix ns616: <http://api.kasabi.com/dataset/bricklink/apis/> .
+@prefix ns615: <http://rdf.pathwaycommons.org/> .
+@prefix ns614: <http://greek-lod.math.auth.gr/intervalue/> .
+@prefix ns619: <https://eagle-i.itmat.upenn.edu/sparqler/> .
+@prefix ns618: <https://api.druid.datalegend.net/datasets/HistoryOfWork/historyOfWork-all-latest/> .
+@prefix ns31: <https://affymetrix.bio2rdf.org/> .
+@prefix ns701: <https://relate.racai.ro/datasets/simonero/> .
+@prefix ns30: <http://rdf.pubannotation.org/> .
+@prefix ns700: <https://agrovoc.uniroma2.it/> .
+@prefix ns35: <https://genome.microbedb.jp/> .
+@prefix ns34: <http://ldf.fi/corresp/> .
+@prefix ns33: <https://api.druid.datalegend.net/datasets/MiconSchorsij/OnTheWaterfront/> .
+@prefix ns32: <https://query.wikidata.org/bigdata/namespace/wdq/> .
+@prefix ns702: <http://lod.gesis.org/thesoz/> .
+@prefix ns39: <http://omim.bio2rdf.org/> .
+@prefix ns38: <https://lod.abes.fr/> .
+@prefix ns37: <http://tsu.eagle-i.net/sparqler/> .
+@prefix ns36: <https://ldf.fi/warsa/> .
+@prefix ns20: <http://howard.eagle-i.net/sparqler/> .
+@prefix ns24: <http://www.open-biomed.org.uk/sparql/endpoint/> .
+@prefix ns23: <https://api.druid.datalegend.net/datasets/AdamNet/all/> .
+@prefix ns22: <http://vocabs.ands.org.au/repository/api/sparql/> .
+@prefix ns21: <http://www.wikidata.org/.well-known/genid/> .
+@prefix ns28: <http://digital-agenda-data.eu/> .
+@prefix ns27: <http://metadb.riken.jp/> .
+@prefix ns26: <http://data.archiveshub.ac.uk/> .
+@prefix ns25: <https://clara.univ-nantes.fr/> .
+@prefix ns29: <http://geosparql.demo.openlinksw.com/> .
+@prefix ns2: <https://www.nakala.fr/> .
+@prefix ns60: <http://www4.wiwiss.fu-berlin.de/dailymed/> .
+@prefix ns400: <https://ldf.fi/kirjasampo/> .
+@prefix ns521: <https://mgkb.fiz-karlsruhe.de/> .
+@prefix ns642: <http://slod.fiz-karlsruhe.de/> .
+@prefix ns1: <https://caligraph.org/> .
+@prefix ns520: <http://statistics.data.gov.uk/> .
+@prefix ns641: <http://miuras.inf.um.es/> .
+@prefix ns4: <https://www.performing-arts.ch/> .
+@prefix ns640: <https://dbpedia.org/> .
+@prefix ns3: <https://hawaii.eagle-i.net/sparqler/> .
+@prefix ns6: <https://hamap.expasy.org/> .
+@prefix ns53: <https://dbtune.org/bbc/peel/> .
+@prefix ns404: <https://edh-www.adw.uni-heidelberg.de/data/> .
+@prefix ns525: <https://geo.linkeddata.es/> .
+@prefix ns646: <https://dbkwik.webdatacommons.org/> .
+@prefix ns5: <https://rdf.insee.fr/> .
+@prefix ns52: <http://core.kmi.open.ac.uk/> .
+@prefix ns403: <https://slod.fiz-karlsruhe.de/> .
+@prefix ns524: <https://publications.europa.eu/en/> .
+@prefix ns645: <http://www4.wiwiss.fu-berlin.de/euraxess/> .
+@prefix ns8: <http://bnb.data.bl.uk/> .
+@prefix ns51: <http://rdf.muninn-project.org/> .
+@prefix ns402: <http://visualdataweb.infor.uva.es/> .
+@prefix ns523: <https://db.project-hobbit.eu/> .
+@prefix ns644: <https://sparql.hegroup.org/> .
+@prefix ns7: <http://dbsnp.bio2rdf.org/> .
+@prefix ns50: <http://aemet.linkeddata.es/> .
+@prefix ns401: <https://linkedspending.aksw.org/> .
+@prefix ns522: <http://www.archivesdefrance.culture.gouv.fr/thesaurus/> .
+@prefix ns643: <http://sparql.nibb.ac.jp/> .
+@prefix ns57: <https://www.snik.eu/> .
+@prefix ns408: <https://ccny-cuny.eagle-i.net/sparqler/> .
+@prefix ns529: <http://kdata.kr/sparql/> .
+@prefix ns9: <http://www4.wiwiss.fu-berlin.de/factbook/> .
+@prefix ns56: <http://crtm.linkeddata.es/> .
+@prefix ns407: <https://data.norge.no/> .
+@prefix ns528: <https://api.druid.datalegend.net/datasets/dataLegend/Admissies-Haarlem/> .
+@prefix ns649: <https://api.druid.datalegend.net/datasets/dataLegend/Admissies-DH/> .
+@prefix ns55: <http://semanticquran.aksw.org/> .
+@prefix ns406: <https://ontology.inrae.fr/bsv_test/> .
+@prefix ns527: <https://query.portal.mardi4nfdi.de/proxy/wdqs/bigdata/namespace/wdq/> .
+@prefix ns648: <https://id.ndl.go.jp/auth/ndla/> .
+@prefix ns54: <http://data.bnf.fr/> .
+@prefix ns405: <https://weakg.i3s.unice.fr/> .
+@prefix ns526: <https://api.finto.fi/> .
+@prefix ns647: <https://bgee.org/> .
+@prefix ns59: <https://sparql.geo.admin.ch/> .
+@prefix ns58: <https://lod.openlinksw.com/> .
+@prefix ns409: <https://linkeddata1.calcul.u-psud.fr/> .
+@prefix ns411: <https://lingualibre.org/> .
+@prefix ns532: <https://data.gov.uz/uz/docs/do/view/> .
+@prefix ns653: <https://vocab.getty.edu/> .
+@prefix ns410: <http://data.cervantesvirtual.com/bvmc-lod/repositories/> .
+@prefix ns531: <https://linkeddata.cultureelerfgoed.nl/> .
+@prefix ns652: <https://virtuoso.plateforme.dipso.inrae.fr/> .
+@prefix ns530: <https://hitontology.eu/> .
+@prefix ns651: <http://wikidata.demo.openlinksw.com/> .
+@prefix ns650: <http://id.nlm.nih.gov/mesh/> .
+@prefix ns42: <https://ld.cultural.jp/> .
+@prefix ns415: <https://mb2.ddbj.nig.ac.jp/> .
+@prefix ns536: <http://www4.wiwiss.fu-berlin.de/gutendata/> .
+@prefix ns657: <https://api.druid.datalegend.net/datasets/andb/adb-leden/> .
+@prefix ns41: <https://data.wu.ac.at/> .
+@prefix ns414: <https://api.druid.datalegend.net/datasets/dataLegend/microHeights/> .
+@prefix ns535: <https://eagle-i.fredhutch.org/sparqler/> .
+@prefix ns656: <http://api.kasabi.com/dataset/renewable-energy-generators/apis/> .
+@prefix ns40: <http://lod.ac/bdls/> .
+@prefix ns413: <http://collection.britishmuseum.org/> .
+@prefix ns534: <https://bnb.data.bl.uk/> .
+@prefix ns655: <https://ldf.fi/mufi/> .
+@prefix ns412: <https://dydra.com/markw/polyadenylation-sites-in-magnaporthe-oryza/> .
+@prefix ns533: <https://data.library.sh.cn/> .
+@prefix ns654: <http://goa.bio2rdf.org/> .
+@prefix ns46: <https://es.dbpedia.org/> .
+@prefix ns419: <https://sparql.crssnky.xyz/spql/imas/> .
+@prefix ns45: <https://eu.dbpedia.org/> .
+@prefix ns418: <https://fuseki.gwascentral.org/gc/> .
+@prefix ns539: <https://www.ebi.ac.uk/rdf/services/biomodels/> .
+@prefix ns44: <http://zbw.eu/beta/sparql/stw/> .
+@prefix ns417: <https://rpp-opendata.egon.gov.cz/odrpp/> .
+@prefix ns538: <http://sparql.cwrc.ca/> .
+@prefix ns659: <http://www.orpha.net/> .
+@prefix ns43: <https://www.dictionnairedesfrancophones.org/> .
+@prefix ns416: <http://dati.beniculturali.it/> .
+@prefix ns537: <http://libris.kb.se/> .
+@prefix ns658: <http://data.bibliotheken.nl/> .
+@prefix ns49: <http://data.doremus.org/> .
+@prefix ns48: <http://hkcan.julac.org/lod/> .
+@prefix ns47: <http://dbtune.org/myspace/> .
+@prefix ns82: <https://api.druid.datalegend.net/datasets/HistoryOfWork/jobHoard-latest/> .
+@prefix ns620: <https://vocab.nerc.ac.uk/> .
+@prefix ns81: <http://lexinfo.net/corpora/alpino/> .
+@prefix ns80: <http://dbtune.org/magnatune/> .
+@prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix ns75: <http://linked.opendata.cz/> .
+@prefix ns503: <https://ontology.inrae.fr/weather/> .
+@prefix ns624: <http://dbpedia.org/> .
+@prefix ns74: <http://purl.org/twc/hub/> .
+@prefix ns502: <https://open.bydata.de/api/> .
+@prefix ns623: <http://canlink.library.ualberta.ca/> .
+@prefix ns73: <https://api.druid.datalegend.net/datasets/ESTA-DEMO/esta-demo-viz/> .
+@prefix ns501: <https://dba-rdf.biosciencedbc.jp/> .
+@prefix ns622: <http://eur-lex.publicdata.eu/> .
+@prefix ns72: <https://bmrbpub.pdbj.org/search/> .
+@prefix ns500: <http://wiktionary.dbpedia.org/> .
+@prefix ns621: <http://ccny-cuny.eagle-i.net/sparqler/> .
+@prefix ns79: <https://dbmi-icode-01.dbmi.pitt.edu/dikb/> .
+@prefix ns507: <https://dati.cultura.gov.it/> .
+@prefix ns628: <https://api.data.muziekweb.nl/datasets/muziekweborganization/Muziekweb/services/Muziekweb/> .
+@prefix ns78: <https://data.mimo-db.eu/> .
+@prefix ns506: <https://triplestore.iccu.sbn.it/> .
+@prefix ns627: <http://heritagedata.org/live/> .
+@prefix ns77: <https://www.scholarlydata.org/> .
+@prefix ns505: <http://data.lenka.no/> .
+@prefix ns626: <https://dbpedia-ca.upf.edu/> .
+@prefix ns76: <http://dbtune.org/jamendo/> .
+@prefix ns504: <https://data.ascdc.tw/en/> .
+@prefix ns625: <http://www4.wiwiss.fu-berlin.de/cordis/> .
+@prefix ns509: <http://chemdb.semweb.csdb.cn/> .
+@prefix ns508: <http://montana.eagle-i.net/sparqler/> .
+@prefix ns629: <https://api.druid.datalegend.net/datasets/ATM-DEMO/ATM-CLARIAH-DEMO/> .
+@prefix ns71: <https://data.bnf.fr/> .
+@prefix ns510: <http://mesh.bio2rdf.org/> .
+@prefix ns631: <https://howard.eagle-i.net/sparqler/> .
+@prefix ns70: <http://deploy.rkbexplorer.com/> .
+@prefix ns630: <http://clinicaltrials.bio2rdf.org/> .
+@prefix ns64: <http://wikiba.se/ontology#> .
+@prefix ns514: <https://linkedart.ascdc.tw/> .
+@prefix ns635: <http://www.rechercheisidore.fr/> .
+@prefix ns63: <http://13.125.246.132/> .
+@prefix ns513: <https://query.linkedopendata.eu/> .
+@prefix ns634: <http://ts.opendata.inrae.fr/> .
+@prefix ns62: <http://factforge.net/> .
+@prefix ns512: <http://helheim.deusto.es/hedatuz/> .
+@prefix ns633: <https://zbw.eu/beta/sparql/econ_pers/> .
+@prefix ns61: <https://sparql.omabrowser.org/> .
+@prefix ns511: <http://lod.kipo.kr/data/> .
+@prefix ns632: <http://issa.i3s.unice.fr/> .
+@prefix ns68: <https://serendipity.utpl.edu.ec/lod/> .
+@prefix ns518: <https://linkedlifedata.com/> .
+@prefix ns639: <https://dbtune.org/musicbrainz/> .
+@prefix ns67: <https://api.druid.datalegend.net/datasets/nlgis/mint/> .
+@prefix ns517: <https://sparql.archives-ouvertes.fr/> .
+@prefix ns638: <http://purl.org/weso/> .
+@prefix ns66: <http://statistics.gov.scot/> .
+@prefix ns516: <http://publicspending.medialab.ntua.gr/> .
+@prefix ns637: <http://data.nobelprize.org/> .
+@prefix ns65: <http://en.openei.org/> .
+@prefix ns515: <http://sgd.bio2rdf.org/> .
+@prefix ns636: <https://data.mvcr.gov.cz/> .
+@prefix ns69: <http://cs.dbpedia.org/> .
+@prefix ns519: <https://data.bnf.fr/current/> .
+@prefix ns440: <https://query.wikidata.org/> .
+@prefix ns561: <http://homologene.bio2rdf.org/> .
+@prefix ns682: <https://apps.morelab.deusto.es/labman/> .
+@prefix ns560: <http://hgnc.bio2rdf.org/> .
+@prefix ns681: <https://agrovoc.fao.org/> .
+@prefix ns680: <https://ldf.fi/folklore/> .
+@prefix ns202: <https://kaiko.getalp.org/> .
+@prefix ns323: <https://semanticweb.cs.vu.nl/dss/> .
+@prefix ns444: <http://lofd.tw.rpi.edu/> .
+@prefix ns565: <https://relate.racai.ro/datasets/parseme/> .
+@prefix ns686: <http://ldf.fi/folklore/> .
+@prefix ns201: <https://ico.iate.inra.fr/fuseki/ontology/> .
+@prefix ns322: <http://environment.data.gov.uk/sparql/bwq/> .
+@prefix ns443: <https://data.europa.eu/> .
+@prefix ns564: <http://nomisma.org/> .
+@prefix ns685: <https://ld.ncl.edu.tw/fuseki/lod/> .
+@prefix ns200: <http://dewey.info/> .
+@prefix ns321: <https://pgxlod.loria.fr/> .
+@prefix ns442: <https://rdf.pathwaycommons.org/> .
+@prefix ns563: <http://dskg.org/> .
+@prefix ns684: <http://data.ordnancesurvey.co.uk/datasets/os-linked-data/apis/> .
+@prefix ns320: <http://meharry.eagle-i.net/sparqler/> .
+@prefix ns441: <http://lod.xdams.org/> .
+@prefix ns562: <https://webisa.webdatacommons.org/> .
+@prefix ns683: <https://linkeddata.uriburner.com/> .
+@prefix ns97: <https://stirdata-semantic.ails.ece.ntua.gr/api/content/cy/> .
+@prefix ns206: <http://api.kasabi.com/dataset/ecco-tcp-eighteenth-century-collections-online-texts/apis/> .
+@prefix ns327: <http://purl.org/twc/arrayexpress/virtuoso/> .
+@prefix ns448: <https://semanticweb.cs.vu.nl/verrijktkoninkrijk/> .
+@prefix ns569: <http://linkedgeodata.org/> .
+@prefix ns96: <https://nfdi4culture.de/> .
+@prefix ns205: <http://datos.bne.es/> .
+@prefix ns326: <https://api.druid.datalegend.net/datasets/IISG/VanMeerendonk/> .
+@prefix ns447: <http://data.legilux.public.lu/> .
+@prefix ns568: <http://telegraphis.net/data/countries/> .
+@prefix ns689: <http://lod.nl.go.kr/> .
+@prefix ns95: <https://identifiers.org/services/> .
+@prefix ns204: <http://data.open.ac.uk/> .
+@prefix ns325: <http://ja.dbpedia.org/> .
+@prefix ns446: <https://id.nlm.nih.gov/mesh/> .
+@prefix ns567: <http://api.kasabi.com/dataset/foodista/apis/> .
+@prefix ns688: <http://data.mimo-db.eu/> .
+@prefix ns94: <https://famu.eagle-i.net/sparqler/> .
+@prefix ns203: <http://upr.eagle-i.net/sparqler/> .
+@prefix ns324: <https://sparql.glyconavi.org/> .
+@prefix ns445: <https://api.druid.datalegend.net/datasets/CLARIAH-VL/Ghent-Gazetteer/> .
+@prefix ns566: <https://sparql.glycoinfo.org/> .
+@prefix ns687: <https://patho.phenomebrowser.net/> .
+@prefix ns209: <https://api.druid.datalegend.net/datasets/andb/andb-leerlingen/> .
+@prefix ns99: <https://api.druid.datalegend.net/datasets/IISG/jobHoard/> .
+@prefix ns208: <http://data.logainm.ie/> .
+@prefix ns329: <http://data.persee.fr/explorer/> .
+@prefix ns98: <https://cultura.linkeddata.es/> .
+@prefix ns207: <https://msm.eagle-i.net/sparqler/> .
+@prefix ns328: <http://colil.dbcls.jp/> .
+@prefix ns449: <https://api.druid.datalegend.net/datasets/mromanello/hucit/> .
+@prefix ns330: <https://3401.biogateway.eu/> .
+@prefix ns451: <https://tuskegee.eagle-i.net/sparqler/> .
+@prefix ns572: <http://navi.first.lifesciencedb.jp/fanavi/> .
+@prefix ns693: <http://pharmgkb.bio2rdf.org/> .
+@prefix ns450: <http://data.odw.tw/> .
+@prefix ns571: <https://rdf.muninn-project.org/> .
+@prefix ns692: <https://api.druid.datalegend.net/datasets/MiconSchorsij/thesaurus/> .
+@prefix ns570: <https://api.druid.datalegend.net/datasets/nlgis/cshapes/> .
+@prefix ns691: <https://datos.gob.es/es/> .
+@prefix ns690: <http://taxref-graphdb.i3s.unice.fr/repositories/> .
+@prefix ns93: <http://msm.eagle-i.net/sparqler/> .
+@prefix ns213: <http://ws.nju.edu.cn/lark/> .
+@prefix ns334: <https://ontology.inrae.fr/bsv/> .
+@prefix ns455: <https://data.escr.fr/> .
+@prefix ns576: <https://data.nlg.gr/> .
+@prefix ns697: <http://webisa.webdatacommons.org/> .
+@prefix ns92: <http://hawaii.eagle-i.net/sparqler/> .
+@prefix ns212: <https://relate.racai.ro/datasets/legalnero/> .
+@prefix ns333: <http://www.scholarlydata.org/> .
+@prefix ns454: <http://www.genome.jp/sparql/> .
+@prefix ns575: <http://rdf.geneontology.org/blazegraph/> .
+@prefix ns696: <http://api.kasabi.com/dataset/sanskrit-english-lexicon/apis/> .
+@prefix ns91: <http://data.ox.ac.uk/> .
+@prefix ns211: <https://xula.eagle-i.net/sparqler/> .
+@prefix ns332: <http://el.dbpedia.org/> .
+@prefix ns453: <https://jsu.eagle-i.net/sparqler/> .
+@prefix ns574: <http://data.cervantesvirtual.com/> .
+@prefix ns695: <http://zbw.eu/beta/sparql/gnd/> .
+@prefix ns90: <https://ruian.linked.opendata.cz/> .
+@prefix ns210: <http://ft.rkbexplorer.com/> .
+@prefix ns331: <http://xula.eagle-i.net/sparqler/> .
+@prefix ns452: <https://integbio.jp/rdf/ebi/> .
+@prefix ns573: <http://hunter-cuny.eagle-i.net/sparqler/> .
+@prefix ns694: <https://data.culture.fr/thesaurus/> .
+@prefix dbo: <http://dbpedia.org/ontology/> .
+@prefix ns86: <https://api.druid.datalegend.net/datasets/AdamNet/Geography/> .
+@prefix ns217: <https://sparql.agroportal.lirmm.fr/> .
+@prefix ns338: <http://db.artsdata.ca/repositories/> .
+@prefix ns459: <http://linkedspending.aksw.org/> .
+@prefix ns85: <https://yago-knowledge.org/sparql/> .
+@prefix ns216: <http://prelex.publicdata.eu/> .
+@prefix ns337: <http://www4.wiwiss.fu-berlin.de/stitch/> .
+@prefix ns458: <https://data.entice.eu/> .
+@prefix ns579: <https://lingualibre.fr/bigdata/namespace/wdq/> .
+@prefix ns84: <http://opendata.aragon.es/> .
+@prefix ns215: <https://ontology.inrae.fr/frenchcropusage/> .
+@prefix ns336: <http://publications.europa.eu/webapi/rdf/> .
+@prefix ns457: <https://wasabi.inria.fr/> .
+@prefix ns578: <http://river.styx.org/> .
+@prefix ns699: <https://mmisw.org/> .
+@prefix ns83: <https://sparql.nibb.ac.jp/> .
+@prefix ns214: <https://id.ndl.go.jp/auth/> .
+@prefix ns335: <http://caligraph.org/> .
+@prefix ns456: <https://data.cervantesvirtual.com/> .
+@prefix ns577: <http://ieeevis.tw.rpi.edu/> .
+@prefix ns698: <https://linkeddata.finki.ukim.mk/> .
+@prefix ns89: <https://shared.eagle-i.net/sparqler/> .
+@prefix ns88: <http://datos.bcn.cl/> .
+@prefix ns219: <http://affymetrix.bio2rdf.org/> .
+@prefix ns87: <https://edan.si.edu/saam/> .
+@prefix ns218: <https://opendatacommunities.org/> .
+@prefix ns339: <http://data.szepmuveszeti.hu/> .
+@prefix ns660: <http://vocab.getty.edu/> .
+@prefix ns301: <http://alaska.eagle-i.net/sparqler/> .
+@prefix ns422: <http://data.utpl.edu.ec/ecuadorresearch/lod/> .
+@prefix ns543: <http://data.persee.fr/> .
+@prefix ns664: <http://orphanet.bio2rdf.org/> .
+@prefix ns300: <https://harvard.eagle-i.net/sparqler/> .
+@prefix ns421: <https://api.druid.datalegend.net/datasets/dataLegend/Catasto/> .
+@prefix ns542: <http://cr.eionet.europa.eu/> .
+@prefix ns663: <https://www.bgee.org/> .
+@prefix ns420: <https://vocabularies.unesco.org/> .
+@prefix ns541: <http://api.kasabi.com/dataset/prelinger-archives/apis/> .
+@prefix ns662: <http://irefindex.bio2rdf.org/> .
+@prefix ns540: <http://sider.bio2rdf.org/> .
+@prefix ns661: <https://integbio.jp/rdf/bioportal/> .
+@prefix ns305: <http://data.lider-project.eu/usage/> .
+@prefix ns426: <https://> .
+@prefix ns547: <https://sparql.proconsortium.org/virtuoso/> .
+@prefix ns668: <https://sparql-noipa.mef.gov.it/> .
+@prefix ns304: <https://query.wikidata.org/bigdata/namespace/dcatap/> .
+@prefix ns425: <http://dartmouth.eagle-i.net/sparqler/> .
+@prefix ns546: <http://data.consilium.europa.eu/> .
+@prefix ns667: <http://linked-data.org/> .
+@prefix ns303: <https://lsd.dbcls.jp/> .
+@prefix ns424: <http://vocabulary.curriculum.edu.au/PoolParty/sparql/> .
+@prefix ns545: <https://psm.eagle-i.net/sparqler/> .
+@prefix ns666: <https://ts.opendata.inrae.fr/> .
+@prefix ns302: <http://fr.dbpedia.org/> .
+@prefix ns423: <https://ts.glycosmos.org/> .
+@prefix ns544: <https://hkcan.julac.org/lod/> .
+@prefix ns665: <http://kegg.bio2rdf.org/> .
+@prefix ns309: <https://opendata1.opendata.u-psud.fr/> .
+@prefix ns308: <https://www.imgt.org/fuseki/ImgtKg/> .
+@prefix ns429: <http://lod.b3kat.de/> .
+@prefix ns307: <https://integbio.jp/rdf/kero/> .
+@prefix ns428: <https://publications.europa.eu/webapi/rdf/> .
+@prefix ns549: <https://api.aucklandmuseum.com/> .
+@prefix ns306: <https://ontology.inrae.fr/ppdo/> .
+@prefix ns427: <http://nl.dbpedia.org/> .
+@prefix ns548: <https://commons-query.wikimedia.org/> .
+@prefix ns669: <https://id.dbpedia.org/> .
+@prefix ns550: <https://zbw.eu/beta/sparql/gnd/> .
+@prefix ns671: <http://lov.okfn.org/endpoint/> .
+@prefix ns670: <https://lipidmaps.org/> .
+@prefix ns312: <https://ldf.fi/mmm/> .
+@prefix ns433: <http://cau.eagle-i.net/sparqler/> .
+@prefix ns554: <http://www4.wiwiss.fu-berlin.de/eurostat/> .
+@prefix ns675: <https://webenemasuno.linkeddata.es/> .
+@prefix ns311: <http://drugbank.bio2rdf.org/> .
+@prefix ns432: <http://ecb.publicdata.eu/> .
+@prefix ns553: <https://data.archiveshub.ac.uk/> .
+@prefix ns674: <https://github.com/ArchanaPatel92/IBO-Covid19/blob/main/> .
+@prefix ns310: <http://d2kab.i3s.unice.fr/> .
+@prefix ns431: <http://api.kasabi.com/dataset/yahoo-geoplanet/apis/> .
+@prefix ns552: <https://data.nobelprize.org/store/> .
+@prefix ns673: <https://lov.okfn.org/dataset/lov/> .
+@prefix ns430: <http://linkedopencommerce.com/> .
+@prefix ns551: <http://data.allie.dbcls.jp/> .
+@prefix ns672: <https://datos-abertos.galiciana.gal/pt/> .
+@prefix ns316: <https://taxref.mnhn.fr/> .
+@prefix ns437: <https://rdf.disgenet.org/> .
+@prefix ns558: <https://io.datascience-paris-saclay.fr/> .
+@prefix ns679: <http://sparql.orthodb.org/> .
+@prefix ns315: <http://dblp.l3s.de/d2r/> .
+@prefix ns436: <https://datos.gob.es/virtuoso/> .
+@prefix ns557: <https://www.icane.es/opendata/> .
+@prefix ns678: <https://id.sgcb.mcu.es/> .
+@prefix ns314: <https://lingualibre.org/bigdata/#> .
+@prefix ns435: <http://bmrbpub.protein.osaka-u.ac.jp/search/> .
+@prefix ns556: <https://knowledge.brc.riken.jp/> .
+@prefix ns677: <https://data.ordnancesurvey.co.uk/datasets/os-linked-data/apis/> .
+@prefix ns313: <http://id.eaufrance.fr/> .
+@prefix ns434: <https://www.ebi.ac.uk/rdf/services/> .
+@prefix ns555: <http://factforge.net/repositories/> .
+@prefix ns676: <http://www.imagesnippets.com/sparql/> .
+@prefix ns319: <http://www4.wiwiss.fu-berlin.de/eccompetition/> .
+@prefix ns318: <http://ldf.fi/ww1lod/> .
+@prefix ns439: <http://uccaribe.eagle-i.net/sparqler/> .
+@prefix ns317: <https://semantic.eea.europa.eu/> .
+@prefix ns438: <https://data.nobelprize.org/> .
+@prefix ns559: <http://lod.sztaki.hu/> .
+
+ns1:sparql dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b1204 ;
+  void:sparqlEndpoint ns1:sparql .
+
+ns2:sparql dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b1523 ;
+  void:sparqlEndpoint ns2:sparql .
+
+ns3:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1314 ;
+  void:sparqlEndpoint ns3:sparql .
+
+ns4:sparql dbo:continent "Europe" ;
+  dbo:country "Switzerland" ;
+  pav:createdAt _:b1526 ;
+  void:sparqlEndpoint ns4:sparql .
+
+ns5:sparql dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b1438 ;
+  void:sparqlEndpoint ns5:sparql .
+
+ns6:sparql dbo:continent "Europe" ;
+  dbo:country "Switzerland" ;
+  pav:createdAt _:b1311 ;
+  pav:createdAt _:b1312 ;
+  void:sparqlEndpoint ns6:sparql .
+
+ns7:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b858 ;
+  void:sparqlEndpoint ns7:sparql .
+
+ns8:sparql dbo:continent "Europe" ;
+  dbo:country "United Kingdom" ;
+  pav:createdAt _:b783 ;
+  void:sparqlEndpoint ns8:sparql .
+
+ns9:sparql dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b1126 ;
+  void:sparqlEndpoint ns9:sparql .
+
+ns10:sparql dbo:continent "Europe" ;
+  dbo:country "Czechia" ;
+  pav:createdAt _:b1246 ;
+  void:sparqlEndpoint ns10:sparql .
+
+ns11:sparql dbo:continent "Europe" ;
+  dbo:country "Spain" ;
+  pav:createdAt _:b1272 ;
+  void:sparqlEndpoint ns11:sparql .
+
+ns12:query dbo:continent "Europe" ;
+  dbo:country "Ireland" ;
+  pav:createdAt _:b1352 ;
+  void:sparqlEndpoint ns12:query .
+
+ns13:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1257 ;
+  void:sparqlEndpoint ns13:sparql .
+
+ns14:sparql dbo:continent "Europe" ;
+  dbo:country "Italy" ;
+  pav:createdAt _:b1420 ;
+  void:sparqlEndpoint ns14:sparql .
+
+ns15:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b779 ;
+  void:sparqlEndpoint ns15:sparql .
+
+ns16:AustrianSkiTeam dbo:continent "Europe" ;
+  dbo:country "Austria" ;
+  pav:createdAt _:b1077 ;
+  void:sparqlEndpoint ns16:AustrianSkiTeam .
+
+ns17:sparql dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b1374 ;
+  void:sparqlEndpoint ns17:sparql .
+
+ns18:sparql dbo:continent "Europe" ;
+  dbo:country "Czechia" ;
+  pav:createdAt _:b1209 ;
+  void:sparqlEndpoint ns18:sparql .
+
+ns19:sparql dbo:continent "Asia" ;
+  dbo:country "Japan" ;
+  pav:createdAt _:b967 ;
+  void:sparqlEndpoint ns19:sparql .
+
+ns20:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b912 ;
+  void:sparqlEndpoint ns20:sparql .
+
+<http://semanticweb.cs.vu.nl/verrijktkoninkrijk/sparql/> dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b1025 ;
+  void:sparqlEndpoint <http://semanticweb.cs.vu.nl/verrijktkoninkrijk/sparql/> .
+
+ns21:d43fd94af6d220b91081eca1450ecba6 dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1116 ;
+  void:sparqlEndpoint ns21:d43fd94af6d220b91081eca1450ecba6 .
+
+ns22:csiro_international-chronostratigraphic-chart_international-chronostratigraphic-chart dbo:continent "Oceania" ;
+  dbo:country "Australia" ;
+  pav:createdAt _:b1072 ;
+  void:sparqlEndpoint ns22:csiro_international-chronostratigraphic-chart_international-chronostratigraphic-chart .
+
+ns23:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b1149 ;
+  void:sparqlEndpoint ns23:sparql .
+
+ns24:flybase dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b1107 ;
+  void:sparqlEndpoint ns24:flybase .
+
+ns25:sparql dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b1211 ;
+  void:sparqlEndpoint ns25:sparql .
+
+ns26:sparql dbo:continent "Europe" ;
+  dbo:country "Ireland" ;
+  pav:createdAt _:b808 ;
+  void:sparqlEndpoint ns26:sparql .
+
+ns27:sparql dbo:continent "Asia" ;
+  dbo:country "Japan" ;
+  pav:createdAt _:b972 ;
+  void:sparqlEndpoint ns27:sparql .
+
+ns28:sparql dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b871 ;
+  void:sparqlEndpoint ns28:sparql .
+
+ns29:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b898 ;
+  void:sparqlEndpoint ns29:sparql .
+
+ns30:sparql dbo:continent "Asia" ;
+  dbo:country "Japan" ;
+  pav:createdAt _:b1014 ;
+  void:sparqlEndpoint ns30:sparql .
+
+ns31:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b1137 ;
+  void:sparqlEndpoint ns31:sparql .
+
+<https://query.wikidata.org/bigdata/namespace/wdq/sparql?query={SPARQL}> dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1434 ;
+  void:sparqlEndpoint <https://query.wikidata.org/bigdata/namespace/wdq/sparql?query={SPARQL}> .
+
+<https://catalog.digital-scriptorium.org/query/> dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b1205 ;
+  void:sparqlEndpoint <https://catalog.digital-scriptorium.org/query/> .
+
+ns33:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b1166 ;
+  void:sparqlEndpoint ns33:sparql .
+
+<http://tcga.deri.ie> dbo:continent "Europe" ;
+  dbo:country "Ireland" ;
+  pav:createdAt _:b1055 ;
+  void:sparqlEndpoint <http://tcga.deri.ie> .
+
+ns34:sparql dbo:continent "Europe" ;
+  dbo:country "Finland" ;
+  pav:createdAt _:b933 ;
+  void:sparqlEndpoint ns34:sparql .
+
+ns35:sparql dbo:continent "Asia" ;
+  dbo:country "Japan" ;
+  pav:createdAt _:b1306 ;
+  void:sparqlEndpoint ns35:sparql .
+
+ns36:sparql dbo:continent "Europe" ;
+  dbo:country "Finland" ;
+  pav:createdAt _:b1359 ;
+  void:sparqlEndpoint ns36:sparql .
+
+ns37:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1058 ;
+  void:sparqlEndpoint ns37:sparql .
+
+ns38:sparql dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b1380 ;
+  void:sparqlEndpoint ns38:sparql .
+
+ns39:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b986 ;
+  void:sparqlEndpoint ns39:sparql .
+
+ns40:sparql dbo:continent "Asia" ;
+  dbo:country "Japan" ;
+  pav:createdAt _:b952 ;
+  void:sparqlEndpoint ns40:sparql .
+
+ns41:sparql dbo:continent "Europe" ;
+  dbo:country "Austria" ;
+  pav:createdAt _:b1263 ;
+  void:sparqlEndpoint ns41:sparql .
+
+ns42:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1353 ;
+  void:sparqlEndpoint ns42:sparql .
+
+ns43:sparql dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b1511 ;
+  void:sparqlEndpoint ns43:sparql .
+
+ns44:query dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b1133 ;
+  void:sparqlEndpoint ns44:query .
+
+ns45:sparql dbo:continent "Europe" ;
+  dbo:country "Spain" ;
+  pav:createdAt _:b1300 ;
+  void:sparqlEndpoint ns45:sparql .
+
+ns46:sparql dbo:continent "Europe" ;
+  dbo:country "Spain" ;
+  pav:createdAt _:b1299 ;
+  void:sparqlEndpoint ns46:sparql .
+
+ns47:sparql dbo:continent "Europe" ;
+  dbo:country "United Kingdom" ;
+  pav:createdAt _:b864 ;
+  void:sparqlEndpoint ns47:sparql .
+
+ns48:sparql dbo:continent "Asia" ;
+  dbo:country "Hong Kong" ;
+  pav:createdAt _:b910 ;
+  void:sparqlEndpoint ns48:sparql .
+
+ns49:sparql dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b819 ;
+  void:sparqlEndpoint ns49:sparql .
+
+ns50:sparql dbo:continent "Europe" ;
+  dbo:country "Spain" ;
+  pav:createdAt _:b754 ;
+  void:sparqlEndpoint ns50:sparql .
+
+ns51:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1012 ;
+  void:sparqlEndpoint ns51:sparql .
+
+ns52:squery dbo:continent "Europe" ;
+  dbo:country "United Kingdom" ;
+  pav:createdAt _:b796 ;
+  void:sparqlEndpoint ns52:squery .
+
+ns53:sparql dbo:continent "Europe" ;
+  dbo:country "United Kingdom" ;
+  pav:createdAt _:b1283 ;
+  void:sparqlEndpoint ns53:sparql .
+
+ns54:sparql dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b811 ;
+  void:sparqlEndpoint ns54:sparql .
+
+ns55:sparql dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b1022 ;
+  void:sparqlEndpoint ns55:sparql .
+
+ns56:sparql dbo:continent "Europe" ;
+  dbo:country "Spain" ;
+  pav:createdAt _:b798 ;
+  void:sparqlEndpoint ns56:sparql .
+
+ns57:sparql dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b1529 ;
+  void:sparqlEndpoint ns57:sparql .
+
+ns58:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b1383 ;
+  void:sparqlEndpoint ns58:sparql .
+
+ns59:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1467 ;
+  void:sparqlEndpoint ns59:sparql .
+
+ns60:sparql dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b1118 ;
+  void:sparqlEndpoint ns60:sparql .
+
+ns61:sparql dbo:continent "Europe" ;
+  dbo:country "United Kingdom" ;
+  pav:createdAt _:b1473 ;
+  void:sparqlEndpoint ns61:sparql .
+
+ns62:sparql dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b889 ;
+  void:sparqlEndpoint ns62:sparql .
+
+ns63:sparql dbo:continent "Asia" ;
+  dbo:country "South Korea" ;
+  pav:createdAt _:b752 ;
+  void:sparqlEndpoint ns63:sparql .
+
+ns64:aroundmwapi dbo:continent "Europe" ;
+  dbo:country "Finland" ;
+  pav:createdAt _:b1088 ;
+  void:sparqlEndpoint ns64:aroundmwapi .
+
+ns65:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b879 ;
+  void:sparqlEndpoint ns65:sparql .
+
+ns66:sparql dbo:continent "Europe" ;
+  dbo:country "Belgium" ;
+  pav:createdAt _:b1051 ;
+  void:sparqlEndpoint ns66:sparql .
+
+ns67:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b1190 ;
+  void:sparqlEndpoint ns67:sparql .
+
+ns68:sparql dbo:continent "South America" ;
+  dbo:country "Ecuador" ;
+  pav:createdAt _:b1456 ;
+  void:sparqlEndpoint ns68:sparql .
+
+ns69:sparql dbo:continent "Europe" ;
+  dbo:country "Czechia" ;
+  pav:createdAt _:b799 ;
+  void:sparqlEndpoint ns69:sparql .
+
+ns70:sparql dbo:continent "Europe" ;
+  dbo:country "United Kingdom" ;
+  pav:createdAt _:b868 ;
+  void:sparqlEndpoint ns70:sparql .
+
+ns71:sparql dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b1226 ;
+  void:sparqlEndpoint ns71:sparql .
+
+ns72:rdf dbo:continent "Asia" ;
+  dbo:country "Japan" ;
+  pav:createdAt _:b1202 ;
+  void:sparqlEndpoint ns72:rdf .
+
+ns73:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b1152 ;
+  void:sparqlEndpoint ns73:sparql .
+
+ns74:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1006 ;
+  void:sparqlEndpoint ns74:sparql .
+
+ns75:sparql dbo:continent "Europe" ;
+  dbo:country "Czechia" ;
+  pav:createdAt _:b943 ;
+  void:sparqlEndpoint ns75:sparql .
+
+ns76:sparql dbo:continent "Europe" ;
+  dbo:country "United Kingdom" ;
+  pav:createdAt _:b861 ;
+  void:sparqlEndpoint ns76:sparql .
+
+ns77:sparql dbo:continent "Europe" ;
+  dbo:country "Italy" ;
+  pav:createdAt _:b1528 ;
+  void:sparqlEndpoint ns77:sparql .
+
+ns78:sparql dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b1247 ;
+  void:sparqlEndpoint ns78:sparql .
+
+ns79:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1278 ;
+  void:sparqlEndpoint ns79:sparql .
+
+ns80:sparql dbo:continent "Europe" ;
+  dbo:country "United Kingdom" ;
+  pav:createdAt _:b862 ;
+  void:sparqlEndpoint ns80:sparql .
+
+<http://lexinfo.net/corpora/alpino/query.php> dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b939 ;
+  void:sparqlEndpoint <http://lexinfo.net/corpora/alpino/query.php> .
+
+ns82:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b1156 ;
+  void:sparqlEndpoint ns82:sparql .
+
+ns83:sparql dbo:continent "Asia" ;
+  dbo:country "Japan" ;
+  pav:createdAt _:b1472 ;
+  void:sparqlEndpoint ns83:sparql .
+
+ns84:sparql dbo:continent "Europe" ;
+  dbo:country "Spain" ;
+  pav:createdAt _:b991 ;
+  void:sparqlEndpoint ns84:sparql .
+
+ns64:label dbo:continent "Europe" ;
+  dbo:country "Finland" ;
+  pav:createdAt _:b1090 ;
+  void:sparqlEndpoint ns64:label .
+
+ns85:query dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b1533 ;
+  void:sparqlEndpoint ns85:query .
+
+ns86:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b1147 ;
+  void:sparqlEndpoint ns86:sparql .
+
+ns87:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1296 ;
+  void:sparqlEndpoint ns87:sparql .
+
+ns88:sparql dbo:continent "South America" ;
+  dbo:country "Chile" ;
+  pav:createdAt _:b851 ;
+  void:sparqlEndpoint ns88:sparql .
+
+ns89:sparql dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b1457 ;
+  void:sparqlEndpoint ns89:sparql .
+
+ns90:sparql dbo:continent "Europe" ;
+  dbo:country "Czechia" ;
+  pav:createdAt _:b1450 ;
+  void:sparqlEndpoint ns90:sparql .
+
+ns91:sparql dbo:continent "Europe" ;
+  dbo:country "United Kingdom" ;
+  pav:createdAt _:b837 ;
+  void:sparqlEndpoint ns91:sparql .
+
+ns92:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b906 ;
+  void:sparqlEndpoint ns92:sparql .
+
+ns93:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b976 ;
+  void:sparqlEndpoint ns93:sparql .
+
+ns94:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1301 ;
+  void:sparqlEndpoint ns94:sparql .
+
+ns95:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1330 ;
+  void:sparqlEndpoint ns95:sparql .
+
+ns96:sparql dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b1399 ;
+  void:sparqlEndpoint ns96:sparql .
+
+ns97:sparql dbo:continent "Europe" ;
+  dbo:country "Greece" ;
+  pav:createdAt _:b1483 ;
+  void:sparqlEndpoint ns97:sparql .
+
+ns98:sparql dbo:continent "Europe" ;
+  dbo:country "Spain" ;
+  pav:createdAt _:b1220 ;
+  void:sparqlEndpoint ns98:sparql .
+
+ns99:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b1164 ;
+  void:sparqlEndpoint ns99:sparql .
+
+ns100:sparql dbo:continent "Europe" ;
+  dbo:country "United Kingdom" ;
+  pav:createdAt _:b860 ;
+  void:sparqlEndpoint ns100:sparql .
+
+ns101:sparql dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b1119 ;
+  void:sparqlEndpoint ns101:sparql .
+
+ns102:archives dbo:continent "Europe" ;
+  dbo:country "United Kingdom" ;
+  pav:createdAt _:b807 ;
+  void:sparqlEndpoint ns102:archives .
+
+ns103:sparql dbo:continent "North America" ;
+  dbo:country "Canada" ;
+  pav:createdAt _:b828 ;
+  void:sparqlEndpoint ns103:sparql .
+
+ns104:sparql dbo:continent "Europe" ;
+  dbo:country "Spain" ;
+  pav:createdAt _:b1103 ;
+  void:sparqlEndpoint ns104:sparql .
+
+ns105:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b1063 ;
+  void:sparqlEndpoint ns105:sparql .
+
+ns106:sparql dbo:continent "Europe" ;
+  dbo:country "Romania" ;
+  pav:createdAt _:b1447 ;
+  void:sparqlEndpoint ns106:sparql .
+
+ns107:sparql dbo:continent "Europe" ;
+  dbo:country "Switzerland" ;
+  pav:createdAt _:b1480 ;
+  pav:createdAt _:b1481 ;
+  void:sparqlEndpoint ns107:sparql .
+
+ns108:sparql dbo:continent "Europe" ;
+  dbo:country "Switzerland" ;
+  pav:createdAt _:b1440 ;
+  void:sparqlEndpoint ns108:sparql .
+
+ns109:sparql dbo:continent "Europe" ;
+  dbo:country "United Kingdom" ;
+  pav:createdAt _:b1285 ;
+  void:sparqlEndpoint ns109:sparql .
+
+ns110:sparql dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b1386 ;
+  void:sparqlEndpoint ns110:sparql .
+
+ns111:sparql dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b1520 ;
+  void:sparqlEndpoint ns111:sparql .
+
+ns112:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b968 ;
+  void:sparqlEndpoint ns112:sparql .
+
+ns113:sparql dbo:continent "Europe" ;
+  dbo:country "United Kingdom" ;
+  pav:createdAt _:b863 ;
+  void:sparqlEndpoint ns113:sparql .
+
+ns114:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1259 ;
+  void:sparqlEndpoint ns114:sparql .
+
+ns115:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b1170 ;
+  void:sparqlEndpoint ns115:sparql .
+
+ns116:sparql dbo:continent "Europe" ;
+  dbo:country "Sweden" ;
+  pav:createdAt _:b1361 ;
+  void:sparqlEndpoint ns116:sparql .
+
+ns117:sparql dbo:continent "Europe" ;
+  dbo:country "Croatia" ;
+  pav:createdAt _:b1114 ;
+  void:sparqlEndpoint ns117:sparql .
+
+ns118:sparqlep dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b1235 ;
+  void:sparqlEndpoint ns118:sparqlep .
+
+ns119:Muziekweb dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b1249 ;
+  void:sparqlEndpoint ns119:Muziekweb .
+
+ns120:sparql dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b817 ;
+  void:sparqlEndpoint ns120:sparql .
+
+ns121:csiro_international-chronostratigraphic-chart_geologic-time-scale-2020 dbo:continent "Oceania" ;
+  dbo:country "Australia" ;
+  pav:createdAt _:b1075 ;
+  void:sparqlEndpoint ns121:csiro_international-chronostratigraphic-chart_geologic-time-scale-2020 .
+
+ns122:sparql dbo:continent "Europe" ;
+  dbo:country "Spain" ;
+  pav:createdAt _:b883 ;
+  void:sparqlEndpoint ns122:sparql .
+
+ns123:sparql dbo:continent "Europe" ;
+  dbo:country "Switzerland" ;
+  pav:createdAt _:b1458 ;
+  void:sparqlEndpoint ns123:sparql .
+
+ns124:sparql dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b1193 ;
+  void:sparqlEndpoint ns124:sparql .
+
+ns125:sparql dbo:continent "Europe" ;
+  dbo:country "Italy" ;
+  pav:createdAt _:b990 ;
+  void:sparqlEndpoint ns125:sparql .
+
+ns126:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b1181 ;
+  void:sparqlEndpoint ns126:sparql .
+
+<https://sparql.string-db.org/> dbo:continent "North America" ;
+  dbo:country "Canada" ;
+  pav:createdAt _:b1478 ;
+  void:sparqlEndpoint <https://sparql.string-db.org/> .
+
+ns127:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b1185 ;
+  void:sparqlEndpoint ns127:sparql .
+
+ns128:sparql dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b1303 ;
+  void:sparqlEndpoint ns128:sparql .
+
+ns129:sparql dbo:continent "Asia" ;
+  dbo:country "Japan" ;
+  pav:createdAt _:b1393 ;
+  void:sparqlEndpoint ns129:sparql .
+
+ns130:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1208 ;
+  void:sparqlEndpoint ns130:sparql .
+
+<https://labs.onb.ac.at/en/tool/sparql/> dbo:continent "Europe" ;
+  dbo:country "Austria" ;
+  pav:createdAt _:b1350 ;
+  void:sparqlEndpoint <https://labs.onb.ac.at/en/tool/sparql/> .
+
+ns131:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1082 ;
+  void:sparqlEndpoint ns131:sparql .
+
+<http://sparql.southgreen.fr> dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b1046 ;
+  void:sparqlEndpoint <http://sparql.southgreen.fr> .
+
+ns22:csiro_international-chronostratigraphic-chart_2018 dbo:continent "Oceania" ;
+  dbo:country "Australia" ;
+  pav:createdAt _:b1071 ;
+  void:sparqlEndpoint ns22:csiro_international-chronostratigraphic-chart_2018 .
+
+ns132:sparql dbo:continent "Europe" ;
+  dbo:country "Hungary" ;
+  pav:createdAt _:b1384 ;
+  void:sparqlEndpoint ns132:sparql .
+
+ns133:sparql dbo:continent "Europe" ;
+  dbo:country "Czechia" ;
+  pav:createdAt _:b1413 ;
+  void:sparqlEndpoint ns133:sparql .
+
+ns134:sparql dbo:continent "Asia" ;
+  dbo:country "Japan" ;
+  pav:createdAt _:b1398 ;
+  void:sparqlEndpoint ns134:sparql .
+
+ns135:sparql dbo:continent "Europe" ;
+  dbo:country "Poland" ;
+  pav:createdAt _:b987 ;
+  void:sparqlEndpoint ns135:sparql .
+
+ns136:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b1158 ;
+  void:sparqlEndpoint ns136:sparql .
+
+ns137:sparql dbo:continent "Europe" ;
+  dbo:country "Spain" ;
+  pav:createdAt _:b822 ;
+  void:sparqlEndpoint ns137:sparql .
+
+ns138:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b1150 ;
+  void:sparqlEndpoint ns138:sparql .
+
+ns139:sparql dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b818 ;
+  void:sparqlEndpoint ns139:sparql .
+
+ns140:cht dbo:continent "Europe" ;
+  dbo:country "Austria" ;
+  pav:createdAt _:b1288 ;
+  void:sparqlEndpoint ns140:cht .
+
+ns141:sparql dbo:continent "Europe" ;
+  dbo:country "Spain" ;
+  pav:createdAt _:b774 ;
+  void:sparqlEndpoint ns141:sparql .
+
+ns142:snorql dbo:continent "Europe" ;
+  dbo:country "Finland" ;
+  pav:createdAt _:b1485 ;
+  void:sparqlEndpoint ns142:snorql .
+
+ns143:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b895 ;
+  void:sparqlEndpoint ns143:sparql .
+
+ns144:sparql dbo:continent "Europe" ;
+  dbo:country "Finland" ;
+  pav:createdAt _:b1351 ;
+  void:sparqlEndpoint ns144:sparql .
+
+ns145:sparql dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b891 ;
+  void:sparqlEndpoint ns145:sparql .
+
+ns146:sparql dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b756 ;
+  void:sparqlEndpoint ns146:sparql .
+
+ns147:sparql dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b1100 ;
+  void:sparqlEndpoint ns147:sparql .
+
+ns148:sparql dbo:continent "Europe" ;
+  dbo:country "United Kingdom" ;
+  pav:createdAt _:b1513 ;
+  void:sparqlEndpoint ns148:sparql .
+
+ns149:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b1180 ;
+  void:sparqlEndpoint ns149:sparql .
+
+ns24:tcm dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b1109 ;
+  void:sparqlEndpoint ns24:tcm .
+
+ns150:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b801 ;
+  void:sparqlEndpoint ns150:sparql .
+
+ns151:sparql dbo:continent "Asia" ;
+  dbo:country "Japan" ;
+  pav:createdAt _:b1343 ;
+  void:sparqlEndpoint ns151:sparql .
+
+ns152:naturopathy-dataset dbo:continent "Europe" ;
+  dbo:country "Ireland" ;
+  pav:createdAt _:b1026 ;
+  void:sparqlEndpoint ns152:naturopathy-dataset .
+
+ns153:sparql dbo:continent "Europe" ;
+  dbo:country "Poland" ;
+  pav:createdAt _:b1518 ;
+  void:sparqlEndpoint ns153:sparql .
+
+<https://hdt.lod.labs.vu.nl/?g=LOD-a-lot> dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b1315 ;
+  void:sparqlEndpoint <https://hdt.lod.labs.vu.nl/?g=LOD-a-lot> .
+
+<http://demo.spraakdata.gu.se/ltlod/test/> dbo:continent "Europe" ;
+  dbo:country "Sweden" ;
+  pav:createdAt _:b867 ;
+  void:sparqlEndpoint <http://demo.spraakdata.gu.se/ltlod/test/> .
+
+ns155:idsm dbo:continent "Europe" ;
+  dbo:country "Czechia" ;
+  pav:createdAt _:b1333 ;
+  void:sparqlEndpoint ns155:idsm .
+
+ns156:sparql dbo:continent "Asia" ;
+  dbo:country "Japan" ;
+  pav:createdAt _:b1212 ;
+  void:sparqlEndpoint ns156:sparql .
+
+ns157:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b1200 ;
+  void:sparqlEndpoint ns157:sparql .
+
+ns158:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b1178 ;
+  void:sparqlEndpoint ns158:sparql .
+
+ns159:sparql dbo:continent "Europe" ;
+  dbo:country "Italy" ;
+  pav:createdAt _:b848 ;
+  void:sparqlEndpoint ns159:sparql .
+
+ns160:sparql dbo:continent "Europe" ;
+  dbo:country "Spain" ;
+  pav:createdAt _:b918 ;
+  void:sparqlEndpoint ns160:sparql .
+
+ns161:imgtag dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1335 ;
+  void:sparqlEndpoint ns161:imgtag .
+
+ns162:court dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b1081 ;
+  void:sparqlEndpoint ns162:court .
+
+ns163:sparql dbo:continent "Europe" ;
+  dbo:country "Switzerland" ;
+  pav:createdAt _:b1474 ;
+  void:sparqlEndpoint ns163:sparql .
+
+ns164:sparql dbo:continent "Europe" ;
+  dbo:country "Greece" ;
+  pav:createdAt _:b1298 ;
+  void:sparqlEndpoint ns164:sparql .
+
+ns165:sparql dbo:continent "Europe" ;
+  dbo:country "Czechia" ;
+  pav:createdAt _:b1229 ;
+  void:sparqlEndpoint ns165:sparql .
+
+ns166:sparql dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b1120 ;
+  void:sparqlEndpoint ns166:sparql .
+
+ns167:sparql dbo:continent "Europe" ;
+  dbo:country "United Kingdom" ;
+  pav:createdAt _:b923 ;
+  void:sparqlEndpoint ns167:sparql .
+
+ns168:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b1004 ;
+  void:sparqlEndpoint ns168:sparql .
+
+ns169:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b1454 ;
+  void:sparqlEndpoint ns169:sparql .
+
+ns170:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b979 ;
+  void:sparqlEndpoint ns170:sparql .
+
+ns171:sparql dbo:continent "Europe" ;
+  dbo:country "Ireland" ;
+  pav:createdAt _:b1238 ;
+  void:sparqlEndpoint ns171:sparql .
+
+ns172:sparql dbo:continent "Europe" ;
+  dbo:country "Luxembourg" ;
+  pav:createdAt _:b1142 ;
+  void:sparqlEndpoint ns172:sparql .
+
+ns173:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b1052 ;
+  void:sparqlEndpoint ns173:sparql .
+
+ns174:sparql dbo:continent "South America" ;
+  dbo:country "Ecuador" ;
+  pav:createdAt _:b1027 ;
+  void:sparqlEndpoint ns174:sparql .
+
+ns175:sparql dbo:continent "Europe" ;
+  dbo:country "Italy" ;
+  pav:createdAt _:b1265 ;
+  void:sparqlEndpoint ns175:sparql .
+
+ns176:sparql dbo:continent "Asia" ;
+  dbo:country "South Korea" ;
+  pav:createdAt _:b1381 ;
+  void:sparqlEndpoint ns176:sparql .
+
+ns177:sparql dbo:continent "Europe" ;
+  dbo:country "Finland" ;
+  pav:createdAt _:b936 ;
+  void:sparqlEndpoint ns177:sparql .
+
+ns178:sparql dbo:continent "Europe" ;
+  dbo:country "Spain" ;
+  pav:createdAt _:b1412 ;
+  void:sparqlEndpoint ns178:sparql .
+
+ns179:sparql dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b1124 ;
+  void:sparqlEndpoint ns179:sparql .
+
+ns180:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b1157 ;
+  void:sparqlEndpoint ns180:sparql .
+
+ns181:sparql dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b1302 ;
+  void:sparqlEndpoint ns181:sparql .
+
+ns182:query dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b1539 ;
+  void:sparqlEndpoint ns182:query .
+
+ns183:data dbo:continent "Europe" ;
+  dbo:country "Finland" ;
+  pav:createdAt _:b1191 ;
+  void:sparqlEndpoint ns183:data .
+
+ns184:sparql dbo:continent "Europe" ;
+  dbo:country "Sweden" ;
+  pav:createdAt _:b1010 ;
+  void:sparqlEndpoint ns184:sparql .
+
+ns185:sqe dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b1342 ;
+  void:sparqlEndpoint ns185:sqe .
+
+ns186:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b1169 ;
+  void:sparqlEndpoint ns186:sparql .
+
+ns187:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b866 ;
+  void:sparqlEndpoint ns187:sparql .
+
+<https://beta.sparql.swisslipids.org/> dbo:continent "Europe" ;
+  dbo:country "Switzerland" ;
+  pav:createdAt _:b1198 ;
+  void:sparqlEndpoint <https://beta.sparql.swisslipids.org/> .
+
+ns188:sparql dbo:continent "Europe" ;
+  dbo:country "Finland" ;
+  pav:createdAt _:b1251 ;
+  void:sparqlEndpoint ns188:sparql .
+
+ns189:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b1182 ;
+  void:sparqlEndpoint ns189:sparql .
+
+ns190:sparql dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b1305 ;
+  void:sparqlEndpoint ns190:sparql .
+
+ns191:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b980 ;
+  void:sparqlEndpoint ns191:sparql .
+
+ns192:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b1172 ;
+  void:sparqlEndpoint ns192:sparql .
+
+ns193:sparql dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b1345 ;
+  void:sparqlEndpoint ns193:sparql .
+
+ns194:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1492 ;
+  void:sparqlEndpoint ns194:sparql .
+
+ns195:sparql dbo:continent "Europe" ;
+  dbo:country "Bulgaria" ;
+  pav:createdAt _:b885 ;
+  void:sparqlEndpoint ns195:sparql .
+
+ns196:sparql dbo:continent "Asia" ;
+  dbo:country "Japan" ;
+  pav:createdAt _:b1197 ;
+  void:sparqlEndpoint ns196:sparql .
+
+ns197:sparql dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b854 ;
+  void:sparqlEndpoint ns197:sparql .
+
+ns198:sparql dbo:continent "Europe" ;
+  dbo:country "Italy" ;
+  pav:createdAt _:b1266 ;
+  void:sparqlEndpoint ns198:sparql .
+
+ns199:triplestore dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b1417 ;
+  void:sparqlEndpoint ns199:triplestore .
+
+<http://dewey.info/sparql.php> dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b869 ;
+  void:sparqlEndpoint <http://dewey.info/sparql.php> .
+
+ns201:query dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b1323 ;
+  void:sparqlEndpoint ns201:query .
+
+ns202:sparql dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b1347 ;
+  void:sparqlEndpoint ns202:sparql .
+
+ns203:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1062 ;
+  void:sparqlEndpoint ns203:sparql .
+
+<https://www.roceeh.uni-tuebingen.de/road/> dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b1527 ;
+  void:sparqlEndpoint <https://www.roceeh.uni-tuebingen.de/road/> .
+
+ns204:query dbo:continent "Europe" ;
+  dbo:country "United Kingdom" ;
+  pav:createdAt _:b835 ;
+  void:sparqlEndpoint ns204:query .
+
+ns205:sparql dbo:continent "Europe" ;
+  dbo:country "Spain" ;
+  pav:createdAt _:b852 ;
+  void:sparqlEndpoint ns205:sparql .
+
+ns24:flyted dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b1108 ;
+  void:sparqlEndpoint ns24:flyted .
+
+ns206:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b761 ;
+  pav:createdAt _:b762 ;
+  void:sparqlEndpoint ns206:sparql .
+
+ns207:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1397 ;
+  void:sparqlEndpoint ns207:sparql .
+
+ns208:sparql dbo:continent "Europe" ;
+  dbo:country "Ireland" ;
+  pav:createdAt _:b829 ;
+  void:sparqlEndpoint ns208:sparql .
+
+ns209:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b1173 ;
+  void:sparqlEndpoint ns209:sparql .
+
+<http://sparql.europeana.eu> dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b1037 ;
+  void:sparqlEndpoint <http://sparql.europeana.eu> .
+
+<http://data.nobelprize.org/> dbo:continent "Europe" ;
+  dbo:country "Finland" ;
+  pav:createdAt _:b831 ;
+  void:sparqlEndpoint <http://data.nobelprize.org/> .
+
+ns210:sparql dbo:continent "Europe" ;
+  dbo:country "United Kingdom" ;
+  pav:createdAt _:b893 ;
+  void:sparqlEndpoint ns210:sparql .
+
+ns211:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1532 ;
+  void:sparqlEndpoint ns211:sparql .
+
+ns212:query dbo:continent "Europe" ;
+  dbo:country "Romania" ;
+  pav:createdAt _:b1444 ;
+  void:sparqlEndpoint ns212:query .
+
+ns213:sparql dbo:continent "Asia" ;
+  dbo:country "China" ;
+  pav:createdAt _:b1094 ;
+  void:sparqlEndpoint ns213:sparql .
+
+ns214:ndla dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b1325 ;
+  void:sparqlEndpoint ns214:ndla .
+
+ns215:query dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b1406 ;
+  void:sparqlEndpoint ns215:query .
+
+ns216:sparql dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b997 ;
+  void:sparqlEndpoint ns216:sparql .
+
+ns217:sparql dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b1463 ;
+  void:sparqlEndpoint ns217:sparql .
+
+ns218:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1416 ;
+  void:sparqlEndpoint ns218:sparql .
+
+ns219:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b755 ;
+  void:sparqlEndpoint ns219:sparql .
+
+ns220:sparql dbo:continent "Europe" ;
+  dbo:country "Greece" ;
+  pav:createdAt _:b904 ;
+  void:sparqlEndpoint ns220:sparql .
+
+ns221:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1141 ;
+  void:sparqlEndpoint ns221:sparql .
+
+ns222:sparql-endpoint-foodista dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b928 ;
+  void:sparqlEndpoint ns222:sparql-endpoint-foodista .
+
+ns223:sparql dbo:continent "Europe" ;
+  dbo:country "Ireland" ;
+  pav:createdAt _:b1231 ;
+  void:sparqlEndpoint ns223:sparql .
+
+ns224:sparql dbo:continent "Europe" ;
+  dbo:country "Italy" ;
+  pav:createdAt _:b989 ;
+  void:sparqlEndpoint ns224:sparql .
+
+ns225:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b788 ;
+  void:sparqlEndpoint ns225:sparql .
+
+ns226:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b1165 ;
+  void:sparqlEndpoint ns226:sparql .
+
+ns22:anzsrc-for dbo:continent "Oceania" ;
+  dbo:country "Australia" ;
+  pav:createdAt _:b1070 ;
+  void:sparqlEndpoint ns22:anzsrc-for .
+
+ns227:sparql dbo:continent "Europe" ;
+  dbo:country "Netherlands" ;
+  pav:createdAt _:b1451 ;
+  void:sparqlEndpoint ns227:sparql .
+
+ns228:sparql dbo:continent "Europe" ;
+  dbo:country "Spain" ;
+  pav:createdAt _:b1387 ;
+  void:sparqlEndpoint ns228:sparql .
+
+ns229:sparql dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b870 ;
+  void:sparqlEndpoint ns229:sparql .
+
+ns230:sparql dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b1084 ;
+  void:sparqlEndpoint ns230:sparql .
+
+ns231:sparql dbo:continent "Europe" ;
+  dbo:country "Poland" ;
+  pav:createdAt _:b1382 ;
+  void:sparqlEndpoint ns231:sparql .
+
+ns232:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b1186 ;
+  void:sparqlEndpoint ns232:sparql .
+
+ns233:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b880 ;
+  void:sparqlEndpoint ns233:sparql .
+
+ns234:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b981 ;
+  void:sparqlEndpoint ns234:sparql .
+
+ns235:query dbo:continent "Europe" ;
+  dbo:country "Romania" ;
+  pav:createdAt _:b1446 ;
+  void:sparqlEndpoint ns235:query .
+
+ns236:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1134 ;
+  void:sparqlEndpoint ns236:sparql .
+
+ns237:sparql dbo:continent "Europe" ;
+  dbo:country "Spain" ;
+  pav:createdAt _:b882 ;
+  void:sparqlEndpoint ns237:sparql .
+
+ns238:sparql dbo:continent "Asia" ;
+  dbo:country "Japan" ;
+  pav:createdAt _:b1216 ;
+  void:sparqlEndpoint ns238:sparql .
+
+ns239:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1279 ;
+  void:sparqlEndpoint ns239:sparql .
+
+ns240:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b856 ;
+  void:sparqlEndpoint ns240:sparql .
+
+ns241:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b890 ;
+  void:sparqlEndpoint ns241:sparql .
+
+ns242:sparql dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b1036 ;
+  void:sparqlEndpoint ns242:sparql .
+
+ns243:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1490 ;
+  void:sparqlEndpoint ns243:sparql .
+
+<https://query.mimotext.uni-trier.de/> dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b1429 ;
+  void:sparqlEndpoint <https://query.mimotext.uni-trier.de/> .
+
+ns244:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1260 ;
+  void:sparqlEndpoint ns244:sparql .
+
+ns245:sparql dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b1289 ;
+  void:sparqlEndpoint ns245:sparql .
+
+ns246:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b777 ;
+  void:sparqlEndpoint ns246:sparql .
+
+<http://sparql.kpath.khaos.uma.es/> dbo:continent "Europe" ;
+  dbo:country "Spain" ;
+  pav:createdAt _:b1039 ;
+  void:sparqlEndpoint <http://sparql.kpath.khaos.uma.es/> .
+
+ns247:sparql dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b1061 ;
+  void:sparqlEndpoint ns247:sparql .
+
+ns248:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b766 ;
+  void:sparqlEndpoint ns248:sparql .
+
+ns249:sparql dbo:continent "Europe" ;
+  dbo:country "Ireland" ;
+  pav:createdAt _:b1049 ;
+  void:sparqlEndpoint ns249:sparql .
+
+ns250:sparql dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b1378 ;
+  void:sparqlEndpoint ns250:sparql .
+
+ns251:sparql dbo:continent "Europe" ;
+  dbo:country "United Kingdom" ;
+  pav:createdAt _:b969 ;
+  void:sparqlEndpoint ns251:sparql .
+
+ns252:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b778 ;
+  void:sparqlEndpoint ns252:sparql .
+
+ns253:sparql dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b1032 ;
+  void:sparqlEndpoint ns253:sparql .
+
+ns254:sparql dbo:continent "Europe" ;
+  dbo:country "Czechia" ;
+  pav:createdAt _:b1414 ;
+  void:sparqlEndpoint ns254:sparql .
+
+ns255:sparql dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b1400 ;
+  void:sparqlEndpoint ns255:sparql .
+
+ns256:sparql dbo:continent "Europe" ;
+  dbo:country "Hungary" ;
+  pav:createdAt _:b823 ;
+  void:sparqlEndpoint ns256:sparql .
+
+ns257:sparql dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  dbo:country "Switzerland" ;
+  pav:createdAt _:b1476 ;
+  pav:createdAt _:b1477 ;
+  void:sparqlEndpoint ns257:sparql .
+
+ns258:sparql dbo:continent "Europe" ;
+  dbo:country "Spain" ;
+  pav:createdAt _:b802 ;
+  void:sparqlEndpoint ns258:sparql .
+
+ns259:sparql dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b1242 ;
+  void:sparqlEndpoint ns259:sparql .
+
+ns260:sparql dbo:continent "Europe" ;
+  dbo:country "United Kingdom" ;
+  pav:createdAt _:b1514 ;
+  void:sparqlEndpoint ns260:sparql .
+
+<https://idsm.elixir-czech.cz/sparql/> dbo:continent "Europe" ;
+  dbo:country "Czechia" ;
+  pav:createdAt _:b1331 ;
+  void:sparqlEndpoint <https://idsm.elixir-czech.cz/sparql/> .
+
+ns261:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1530 ;
+  void:sparqlEndpoint ns261:sparql .
+
+ns262:sparql dbo:continent "Europe" ;
+  dbo:country "Finland" ;
+  pav:createdAt _:b758 ;
+  void:sparqlEndpoint ns262:sparql .
+
+ns263:sparql dbo:continent "Europe" ;
+  dbo:country "Finland" ;
+  pav:createdAt _:b935 ;
+  void:sparqlEndpoint ns263:sparql .
+
+<https://data.mpsv.cz/sparql/> dbo:continent "Europe" ;
+  dbo:country "Czechia" ;
+  pav:createdAt _:b1248 ;
+  void:sparqlEndpoint <https://data.mpsv.cz/sparql/> .
+
+ns264:sparql dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b977 ;
+  void:sparqlEndpoint ns264:sparql .
+
+ns265:sparql dbo:continent "Europe" ;
+  dbo:country "Denmark" ;
+  pav:createdAt _:b1291 ;
+  void:sparqlEndpoint ns265:sparql .
+
+ns266:sparql dbo:continent "Europe" ;
+  dbo:country "Czechia" ;
+  pav:createdAt _:b1368 ;
+  void:sparqlEndpoint ns266:sparql .
+
+ns267:sparql dbo:continent "Europe" ;
+  dbo:country "United Kingdom" ;
+  pav:createdAt _:b1284 ;
+  void:sparqlEndpoint ns267:sparql .
+
+ns268:sparql dbo:continent "Europe" ;
+  dbo:country "United Kingdom" ;
+  pav:createdAt _:b859 ;
+  void:sparqlEndpoint ns268:sparql .
+
+<https://wcqs-beta.wmflabs.org/> dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1505 ;
+  void:sparqlEndpoint <https://wcqs-beta.wmflabs.org/> .
+
+ns269:sparql dbo:continent "Europe" ;
+  dbo:country "United Kingdom" ;
+  pav:createdAt _:b983 ;
+  void:sparqlEndpoint ns269:sparql .
+
+<https://mediag.bunka.go.jp/madb_lab/lod/sparql/> dbo:continent "Asia" ;
+  dbo:country "Japan" ;
+  pav:createdAt _:b1391 ;
+  void:sparqlEndpoint <https://mediag.bunka.go.jp/madb_lab/lod/sparql/> .
+
+ns270:sparql dbo:continent "Europe" ;
+  dbo:country "Italy" ;
+  pav:createdAt _:b776 ;
+  void:sparqlEndpoint ns270:sparql .
+
+ns271:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1493 ;
+  void:sparqlEndpoint ns271:sparql .
+
+ns272:sparql dbo:continent "Europe" ;
+  dbo:country "Luxembourg" ;
+  pav:createdAt _:b1243 ;
+  void:sparqlEndpoint ns272:sparql .
+
+ns273:sparql dbo:continent "Europe" ;
+  dbo:country "Italy" ;
+  pav:createdAt _:b1411 ;
+  void:sparqlEndpoint ns273:sparql .
+
+ns274:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1392 ;
+  void:sparqlEndpoint ns274:sparql .
+
+ns275:sparql dbo:continent "South America" ;
+  dbo:country "Chile" ;
+  pav:createdAt _:b1270 ;
+  void:sparqlEndpoint ns275:sparql .
+
+ns276:sparql dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b841 ;
+  void:sparqlEndpoint ns276:sparql .
+
+ns277:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b1154 ;
+  void:sparqlEndpoint ns277:sparql .
+
+ns278:sparqlendpoint dbo:continent "North America" ;
+  dbo:country "Canada" ;
+  pav:createdAt _:b775 ;
+  void:sparqlEndpoint ns278:sparqlendpoint .
+
+ns279:sparql dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b1136 ;
+  void:sparqlEndpoint ns279:sparql .
+
+ns280:sparql dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b1121 ;
+  void:sparqlEndpoint ns280:sparql .
+
+ns281:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1503 ;
+  void:sparqlEndpoint ns281:sparql .
+
+ns282:sparql dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b886 ;
+  void:sparqlEndpoint ns282:sparql .
+
+ns283:sparql dbo:continent "Europe" ;
+  dbo:country "Hungary" ;
+  pav:createdAt _:b1320 ;
+  void:sparqlEndpoint ns283:sparql .
+
+ns284:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b877 ;
+  void:sparqlEndpoint ns284:sparql .
+
+ns16:semweb dbo:continent "Europe" ;
+  dbo:country "Austria" ;
+  pav:createdAt _:b1079 ;
+  void:sparqlEndpoint ns16:semweb .
+
+ns285:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1228 ;
+  void:sparqlEndpoint ns285:sparql .
+
+ns286:sparql dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b1482 ;
+  void:sparqlEndpoint ns286:sparql .
+
+ns287:sparql dbo:continent "Europe" ;
+  dbo:country "Italy" ;
+  pav:createdAt _:b1268 ;
+  void:sparqlEndpoint ns287:sparql .
+
+ns288:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b921 ;
+  void:sparqlEndpoint ns288:sparql .
+
+ns289:sparql dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b1143 ;
+  void:sparqlEndpoint ns289:sparql .
+
+ns290:sparql dbo:continent "Europe" ;
+  dbo:country "Ireland" ;
+  pav:createdAt _:b1245 ;
+  void:sparqlEndpoint ns290:sparql .
+
+ns291:GeologicUnit dbo:continent "Europe" ;
+  dbo:country "Austria" ;
+  pav:createdAt _:b1017 ;
+  void:sparqlEndpoint ns291:GeologicUnit .
+
+ns292:sparql dbo:continent "Asia" ;
+  dbo:country "Japan" ;
+  pav:createdAt _:b1488 ;
+  void:sparqlEndpoint ns292:sparql .
+
+ns293:sparql dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b1287 ;
+  void:sparqlEndpoint ns293:sparql .
+
+<http://id.ndl.go.jp/auth/ndla/> dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b915 ;
+  void:sparqlEndpoint <http://id.ndl.go.jp/auth/ndla/> .
+
+ns294:sparql dbo:continent "Oceania" ;
+  dbo:country "Australia" ;
+  pav:createdAt _:b932 ;
+  void:sparqlEndpoint ns294:sparql .
+
+ns295:sparql dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b1460 ;
+  void:sparqlEndpoint ns295:sparql .
+
+ns296:sparql dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b809 ;
+  void:sparqlEndpoint ns296:sparql .
+
+ns297:sparql dbo:continent "Europe" ;
+  dbo:country "Czechia" ;
+  pav:createdAt _:b840 ;
+  void:sparqlEndpoint ns297:sparql .
+
+ns298:sparqlep dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b820 ;
+  void:sparqlEndpoint ns298:sparqlep .
+
+ns299:Summer_Olympic_Games dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b1281 ;
+  void:sparqlEndpoint ns299:Summer_Olympic_Games .
+
+ns300:sparql dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b1313 ;
+  void:sparqlEndpoint ns300:sparql .
+
+ns301:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b757 ;
+  void:sparqlEndpoint ns301:sparql .
+
+ns302:sparql dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b892 ;
+  void:sparqlEndpoint ns302:sparql .
+
+ns303:sparql dbo:continent "Asia" ;
+  dbo:country "Japan" ;
+  pav:createdAt _:b1389 ;
+  void:sparqlEndpoint ns303:sparql .
+
+<http://km.aifb.kit.edu/services/xlike-lexicon/> dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b931 ;
+  void:sparqlEndpoint <http://km.aifb.kit.edu/services/xlike-lexicon/> .
+
+ns304:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1432 ;
+  void:sparqlEndpoint ns304:sparql .
+
+ns305:sparql dbo:continent "Europe" ;
+  dbo:country "Spain" ;
+  pav:createdAt _:b826 ;
+  void:sparqlEndpoint ns305:sparql .
+
+ns306:sparql dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b1408 ;
+  void:sparqlEndpoint ns306:sparql .
+
+ns307:sparql dbo:continent "Asia" ;
+  dbo:country "Japan" ;
+  pav:createdAt _:b1338 ;
+  void:sparqlEndpoint ns307:sparql .
+
+ns308:sparql dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b1522 ;
+  void:sparqlEndpoint ns308:sparql .
+
+ns155:chebi dbo:continent "Europe" ;
+  dbo:country "Czechia" ;
+  pav:createdAt _:b1332 ;
+  void:sparqlEndpoint ns155:chebi .
+
+ns309:sparql dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b1415 ;
+  void:sparqlEndpoint ns309:sparql .
+
+ns310:sparql dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b803 ;
+  void:sparqlEndpoint ns310:sparql .
+
+ns311:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b873 ;
+  void:sparqlEndpoint ns311:sparql .
+
+ns162:arbeitsrecht dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b1080 ;
+  void:sparqlEndpoint ns162:arbeitsrecht .
+
+ns312:sparql dbo:continent "Europe" ;
+  dbo:country "Finland" ;
+  pav:createdAt _:b1357 ;
+  void:sparqlEndpoint ns312:sparql .
+
+ns313:sparql dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b914 ;
+  void:sparqlEndpoint ns313:sparql .
+
+ns314:query dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b1365 ;
+  void:sparqlEndpoint ns314:query .
+
+ns315:sparql dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b855 ;
+  void:sparqlEndpoint ns315:sparql .
+
+ns16:OpenData dbo:continent "Europe" ;
+  dbo:country "Austria" ;
+  pav:createdAt _:b1078 ;
+  void:sparqlEndpoint ns16:OpenData .
+
+ns316:sparql dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b1484 ;
+  void:sparqlEndpoint ns316:sparql .
+
+ns317:sparql dbo:continent "Europe" ;
+  dbo:country "Denmark" ;
+  pav:createdAt _:b1452 ;
+  void:sparqlEndpoint ns317:sparql .
+
+ns318:sparql dbo:continent "Europe" ;
+  dbo:country "Finland" ;
+  pav:createdAt _:b938 ;
+  void:sparqlEndpoint ns318:sparql .
+
+ns319:sparql dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b1122 ;
+  void:sparqlEndpoint ns319:sparql .
+
+ns320:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b970 ;
+  void:sparqlEndpoint ns320:sparql .
+
+ns321:sparql dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b1419 ;
+  void:sparqlEndpoint ns321:sparql .
+
+ns322:query dbo:continent "Europe" ;
+  dbo:country "Ireland" ;
+  pav:createdAt _:b881 ;
+  void:sparqlEndpoint ns322:query .
+
+ns323:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b1453 ;
+  void:sparqlEndpoint ns323:sparql .
+
+<http://lobid.org/sparql/> dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b951 ;
+  void:sparqlEndpoint <http://lobid.org/sparql/> .
+
+<https://data.idref.fr/endpoint.html> dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b1241 ;
+  void:sparqlEndpoint <https://data.idref.fr/endpoint.html> .
+
+ns324:sparql dbo:continent "Asia" ;
+  dbo:country "Japan" ;
+  pav:createdAt _:b1469 ;
+  void:sparqlEndpoint ns324:sparql .
+
+ns325:sparql dbo:continent "Asia" ;
+  dbo:country "Japan" ;
+  pav:createdAt _:b925 ;
+  void:sparqlEndpoint ns325:sparql .
+
+ns326:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b1161 ;
+  void:sparqlEndpoint ns326:sparql .
+
+<http://sparql.reegle.info/> dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b1045 ;
+  void:sparqlEndpoint <http://sparql.reegle.info/> .
+
+ns327:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1005 ;
+  void:sparqlEndpoint ns327:sparql .
+
+ns328:sparql dbo:continent "Asia" ;
+  dbo:country "Japan" ;
+  pav:createdAt _:b792 ;
+  void:sparqlEndpoint ns328:sparql .
+
+ns329:sparql-endpoint dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b838 ;
+  void:sparqlEndpoint ns329:sparql-endpoint .
+
+ns330:sparql dbo:continent "Europe" ;
+  dbo:country "Norway" ;
+  pav:createdAt _:b1135 ;
+  void:sparqlEndpoint ns330:sparql .
+
+ns331:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1131 ;
+  void:sparqlEndpoint ns331:sparql .
+
+ns332:sparql dbo:continent "Europe" ;
+  dbo:country "Greece" ;
+  pav:createdAt _:b878 ;
+  void:sparqlEndpoint ns332:sparql .
+
+ns333:sparql dbo:continent "Europe" ;
+  dbo:country "Italy" ;
+  pav:createdAt _:b1113 ;
+  void:sparqlEndpoint ns333:sparql .
+
+ns334:sparql dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b1404 ;
+  void:sparqlEndpoint ns334:sparql .
+
+ns335:sparql dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b784 ;
+  void:sparqlEndpoint ns335:sparql .
+
+ns336:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1001 ;
+  pav:createdAt _:b1002 ;
+  void:sparqlEndpoint ns336:sparql .
+
+ns337:sparql dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b1130 ;
+  void:sparqlEndpoint ns337:sparql .
+
+ns338:artsdata dbo:continent "North America" ;
+  dbo:country "Canada" ;
+  pav:createdAt _:b853 ;
+  void:sparqlEndpoint ns338:artsdata .
+
+ns339:sparql dbo:continent "Europe" ;
+  dbo:country "Hungary" ;
+  pav:createdAt _:b843 ;
+  void:sparqlEndpoint ns339:sparql .
+
+ns340:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b1168 ;
+  void:sparqlEndpoint ns340:sparql .
+
+ns341:sparql dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b1525 ;
+  void:sparqlEndpoint ns341:sparql .
+
+ns342:sparql dbo:continent "Asia" ;
+  dbo:country "Japan" ;
+  pav:createdAt _:b1329 ;
+  void:sparqlEndpoint ns342:sparql .
+
+ns343:sparql dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b955 ;
+  void:sparqlEndpoint ns343:sparql .
+
+ns344:sparql dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b827 ;
+  void:sparqlEndpoint ns344:sparql .
+
+ns345:sparql dbo:continent "Europe" ;
+  dbo:country "Denmark" ;
+  pav:createdAt _:b1217 ;
+  void:sparqlEndpoint ns345:sparql .
+
+ns346:query dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b1534 ;
+  void:sparqlEndpoint ns346:query .
+
+<https://rdf.metanetx.org/> dbo:continent "Europe" ;
+  dbo:country "Switzerland" ;
+  pav:createdAt _:b1439 ;
+  void:sparqlEndpoint <https://rdf.metanetx.org/> .
+
+ns347:sparql dbo:continent "Europe" ;
+  dbo:country "Bulgaria" ;
+  pav:createdAt _:b947 ;
+  void:sparqlEndpoint ns347:sparql .
+
+ns348:sparql dbo:continent "Europe" ;
+  dbo:country "Italy" ;
+  pav:createdAt _:b998 ;
+  void:sparqlEndpoint ns348:sparql .
+
+ns349:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b1163 ;
+  void:sparqlEndpoint ns349:sparql .
+
+ns350:sparql dbo:continent "North America" ;
+  dbo:country "Canada" ;
+  pav:createdAt _:b833 ;
+  void:sparqlEndpoint ns350:sparql .
+
+ns351:sparql dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b905 ;
+  void:sparqlEndpoint ns351:sparql .
+
+ns352:sparql dbo:continent "Europe" ;
+  dbo:country "United Kingdom" ;
+  pav:createdAt _:b1098 ;
+  void:sparqlEndpoint ns352:sparql .
+
+<https://www.data.gouv.fr/catalog.rdf> dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b1510 ;
+  void:sparqlEndpoint <https://www.data.gouv.fr/catalog.rdf> .
+
+ns354:sparql dbo:continent "Asia" ;
+  dbo:country "Japan" ;
+  pav:createdAt _:b1222 ;
+  void:sparqlEndpoint ns354:sparql .
+
+ns355:sparql dbo:continent "Europe" ;
+  dbo:country "Spain" ;
+  pav:createdAt _:b753 ;
+  void:sparqlEndpoint ns355:sparql .
+
+ns356:sparql dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b1237 ;
+  void:sparqlEndpoint ns356:sparql .
+
+ns357:sparql dbo:continent "Europe" ;
+  dbo:country "United Kingdom" ;
+  pav:createdAt _:b1031 ;
+  void:sparqlEndpoint ns357:sparql .
+
+ns358:sparql dbo:continent "Asia" ;
+  dbo:country "Japan" ;
+  pav:createdAt _:b896 ;
+  void:sparqlEndpoint ns358:sparql .
+
+ns359:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b1162 ;
+  void:sparqlEndpoint ns359:sparql .
+
+ns360:sparql dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b795 ;
+  void:sparqlEndpoint ns360:sparql .
+
+<https://regulatorycircuits-lod.genouest.org/sparql/> dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b1443 ;
+  void:sparqlEndpoint <https://regulatorycircuits-lod.genouest.org/sparql/> .
+
+<http://dutchshipsandsailors.nl/data/sparql/> dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b875 ;
+  void:sparqlEndpoint <http://dutchshipsandsailors.nl/data/sparql/> .
+
+ns361:sparql dbo:continent "Europe" ;
+  dbo:country "Italy" ;
+  pav:createdAt _:b847 ;
+  void:sparqlEndpoint ns361:sparql .
+
+ns362:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1044 ;
+  void:sparqlEndpoint ns362:sparql .
+
+ns363:sparql dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b865 ;
+  void:sparqlEndpoint ns363:sparql .
+
+ns364:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1495 ;
+  void:sparqlEndpoint ns364:sparql .
+
+ns365:sparql dbo:continent "Europe" ;
+  dbo:country "United Kingdom" ;
+  pav:createdAt _:b1097 ;
+  void:sparqlEndpoint ns365:sparql .
+
+ns366:sparql dbo:continent "Europe" ;
+  dbo:country "Spain" ;
+  pav:createdAt _:b1271 ;
+  void:sparqlEndpoint ns366:sparql .
+
+ns367:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b950 ;
+  void:sparqlEndpoint ns367:sparql .
+
+ns368:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b1160 ;
+  void:sparqlEndpoint ns368:sparql .
+
+ns369:onto dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1426 ;
+  void:sparqlEndpoint ns369:onto .
+
+ns370:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b926 ;
+  void:sparqlEndpoint ns370:sparql .
+
+ns371:sparql dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b927 ;
+  void:sparqlEndpoint ns371:sparql .
+
+ns372:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b1385 ;
+  void:sparqlEndpoint ns372:sparql .
+
+ns373:query dbo:continent "Europe" ;
+  dbo:country "Italy" ;
+  pav:createdAt _:b1290 ;
+  void:sparqlEndpoint ns373:query .
+
+<http://semanticweb.cs.vu.nl/dss/sparql/> dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b1023 ;
+  void:sparqlEndpoint <http://semanticweb.cs.vu.nl/dss/sparql/> .
+
+ns374:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b1159 ;
+  void:sparqlEndpoint ns374:sparql .
+
+ns375:sparql dbo:continent "Europe" ;
+  dbo:country "Ireland" ;
+  pav:createdAt _:b1531 ;
+  void:sparqlEndpoint ns375:sparql .
+
+ns376:sparql dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b1262 ;
+  void:sparqlEndpoint ns376:sparql .
+
+ns377:Heritage dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b1292 ;
+  void:sparqlEndpoint ns377:Heritage .
+
+ns378:sparql dbo:continent "Europe" ;
+  dbo:country "United Kingdom" ;
+  pav:createdAt _:b1515 ;
+  void:sparqlEndpoint ns378:sparql .
+
+ns379:endpoint dbo:continent "Europe" ;
+  dbo:country "Poland" ;
+  pav:createdAt _:b959 ;
+  void:sparqlEndpoint ns379:endpoint .
+
+ns380:sparql dbo:continent "Europe" ;
+  dbo:country "Spain" ;
+  pav:createdAt _:b850 ;
+  void:sparqlEndpoint ns380:sparql .
+
+ns381:sparql dbo:continent "Europe" ;
+  dbo:country "Greece" ;
+  pav:createdAt _:b901 ;
+  void:sparqlEndpoint ns381:sparql .
+
+ns382:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b992 ;
+  void:sparqlEndpoint ns382:sparql .
+
+ns383:triplestore dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b1524 ;
+  void:sparqlEndpoint ns383:triplestore .
+
+ns384:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1403 ;
+  void:sparqlEndpoint ns384:sparql .
+
+ns291:tectonicunit dbo:continent "Europe" ;
+  dbo:country "Austria" ;
+  pav:createdAt _:b1019 ;
+  void:sparqlEndpoint ns291:tectonicunit .
+
+ns385:sparql dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b900 ;
+  void:sparqlEndpoint ns385:sparql .
+
+ns386:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1496 ;
+  void:sparqlEndpoint ns386:sparql .
+
+ns387:sparql dbo:continent "Europe" ;
+  dbo:country "Spain" ;
+  pav:createdAt _:b897 ;
+  void:sparqlEndpoint ns387:sparql .
+
+ns388:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b764 ;
+  pav:createdAt _:b765 ;
+  void:sparqlEndpoint ns388:sparql .
+
+ns389:sparql dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b1366 ;
+  void:sparqlEndpoint ns389:sparql .
+
+<https://hoathinhphatgroup.com/lien-he/> dbo:continent "Asia" ;
+  dbo:country "Vietnam" ;
+  pav:createdAt _:b1318 ;
+  void:sparqlEndpoint <https://hoathinhphatgroup.com/lien-he/> .
+
+ns390:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1015 ;
+  void:sparqlEndpoint ns390:sparql .
+
+ns391:sparql dbo:continent "Asia" ;
+  dbo:country "Japan" ;
+  pav:createdAt _:b920 ;
+  void:sparqlEndpoint ns391:sparql .
+
+ns392:sparql dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b1215 ;
+  void:sparqlEndpoint ns392:sparql .
+
+ns393:sparql-ui dbo:continent "Europe" ;
+  dbo:country "Switzerland" ;
+  pav:createdAt _:b1363 ;
+  void:sparqlEndpoint ns393:sparql-ui .
+
+ns394:sparql dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b1210 ;
+  void:sparqlEndpoint ns394:sparql .
+
+ns395:sparql dbo:continent "Europe" ;
+  dbo:country "Greece" ;
+  pav:createdAt _:b800 ;
+  void:sparqlEndpoint ns395:sparql .
+
+ns396:query dbo:continent "Europe" ;
+  dbo:country "Italy" ;
+  pav:createdAt _:b872 ;
+  void:sparqlEndpoint ns396:query .
+
+ns397:sparql dbo:continent "Europe" ;
+  dbo:country "Italy" ;
+  pav:createdAt _:b1376 ;
+  void:sparqlEndpoint ns397:sparql .
+
+ns398:sparql dbo:continent "North America" ;
+  dbo:country "Canada" ;
+  pav:createdAt _:b1201 ;
+  void:sparqlEndpoint ns398:sparql .
+
+ns399:sparql dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b1066 ;
+  void:sparqlEndpoint ns399:sparql .
+
+ns400:sparql dbo:continent "Europe" ;
+  dbo:country "Finland" ;
+  pav:createdAt _:b1356 ;
+  void:sparqlEndpoint ns400:sparql .
+
+ns401:sparql dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b1377 ;
+  void:sparqlEndpoint ns401:sparql .
+
+ns402:sparql dbo:continent "Europe" ;
+  dbo:country "Spain" ;
+  pav:createdAt _:b1067 ;
+  void:sparqlEndpoint ns402:sparql .
+
+ns403:sparql dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b1459 ;
+  void:sparqlEndpoint ns403:sparql .
+
+ns404:sparql dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b1297 ;
+  void:sparqlEndpoint ns404:sparql .
+
+ns405:sparql dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b1506 ;
+  void:sparqlEndpoint ns405:sparql .
+
+ns406:sparql dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b1405 ;
+  void:sparqlEndpoint ns406:sparql .
+
+ns407:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1255 ;
+  void:sparqlEndpoint ns407:sparql .
+
+ns408:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1207 ;
+  void:sparqlEndpoint ns408:sparql .
+
+ns409:sparql dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b1373 ;
+  void:sparqlEndpoint ns409:sparql .
+
+ns410:data dbo:continent "Europe" ;
+  dbo:country "Spain" ;
+  pav:createdAt _:b812 ;
+  void:sparqlEndpoint ns410:data .
+
+ns411:sparql dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b1367 ;
+  void:sparqlEndpoint ns411:sparql .
+
+ns412:sparql dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b1293 ;
+  void:sparqlEndpoint ns412:sparql .
+
+ns413:sparql dbo:continent "Europe" ;
+  dbo:country "United Kingdom" ;
+  pav:createdAt _:b794 ;
+  void:sparqlEndpoint ns413:sparql .
+
+ns414:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b1184 ;
+  void:sparqlEndpoint ns414:sparql .
+
+ns415:sparql dbo:continent "Asia" ;
+  dbo:country "Japan" ;
+  pav:createdAt _:b1390 ;
+  void:sparqlEndpoint ns415:sparql .
+
+ns416:sparql dbo:continent "Europe" ;
+  dbo:country "Italy" ;
+  pav:createdAt _:b846 ;
+  void:sparqlEndpoint ns416:sparql .
+
+ns417:sparql dbo:continent "Europe" ;
+  dbo:country "Czechia" ;
+  pav:createdAt _:b1449 ;
+  void:sparqlEndpoint ns417:sparql .
+
+ns418:query dbo:continent "Europe" ;
+  dbo:country "United Kingdom" ;
+  pav:createdAt _:b1304 ;
+  void:sparqlEndpoint ns418:query .
+
+ns419:query dbo:continent "Asia" ;
+  dbo:country "Japan" ;
+  pav:createdAt _:b1465 ;
+  void:sparqlEndpoint ns419:query .
+
+ns420:sparql-form dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b1502 ;
+  void:sparqlEndpoint ns420:sparql-form .
+
+ns421:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b1179 ;
+  void:sparqlEndpoint ns421:sparql .
+
+ns422:sparql dbo:continent "South America" ;
+  dbo:country "Ecuador" ;
+  pav:createdAt _:b844 ;
+  void:sparqlEndpoint ns422:sparql .
+
+ns423:sparql dbo:continent "Asia" ;
+  dbo:country "Japan" ;
+  pav:createdAt _:b1487 ;
+  void:sparqlEndpoint ns423:sparql .
+
+ns424:scot dbo:continent "Oceania" ;
+  dbo:country "Australia" ;
+  pav:createdAt _:b1076 ;
+  void:sparqlEndpoint ns424:scot .
+
+ns425:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b804 ;
+  void:sparqlEndpoint ns425:sparql .
+
+<https://query.inventaire.io> dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b1427 ;
+  void:sparqlEndpoint <https://query.inventaire.io> .
+
+ns427:sparql dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b982 ;
+  void:sparqlEndpoint ns427:sparql .
+
+ns428:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1424 ;
+  pav:createdAt _:b1425 ;
+  void:sparqlEndpoint ns428:sparql .
+
+ns429:sparql dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b953 ;
+  void:sparqlEndpoint ns429:sparql .
+
+ns430:sparql dbo:continent "Europe" ;
+  dbo:country "United Kingdom" ;
+  pav:createdAt _:b948 ;
+  void:sparqlEndpoint ns430:sparql .
+
+ns431:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b773 ;
+  void:sparqlEndpoint ns431:sparql .
+
+ns432:sparql dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b876 ;
+  void:sparqlEndpoint ns432:sparql .
+
+ns433:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b786 ;
+  void:sparqlEndpoint ns433:sparql .
+
+ns434:sparql dbo:continent "Europe" ;
+  dbo:country "United Kingdom" ;
+  pav:createdAt _:b1516 ;
+  void:sparqlEndpoint ns434:sparql .
+
+ns435:rdf dbo:continent "Asia" ;
+  dbo:country "Japan" ;
+  pav:createdAt _:b782 ;
+  void:sparqlEndpoint ns435:rdf .
+
+ns436:sparql dbo:continent "Europe" ;
+  dbo:country "Spain" ;
+  pav:createdAt _:b1274 ;
+  void:sparqlEndpoint ns436:sparql .
+
+ns437:sparql dbo:continent "Europe" ;
+  dbo:country "Spain" ;
+  pav:createdAt _:b1437 ;
+  void:sparqlEndpoint ns437:sparql .
+
+<http://sparql.odw.tw> dbo:continent "Asia" ;
+  dbo:country "Taiwan" ;
+  pav:createdAt _:b1042 ;
+  void:sparqlEndpoint <http://sparql.odw.tw> .
+
+<https://vocabs.ardc.edu.au/repository/api/sparql/> dbo:continent "Oceania" ;
+  dbo:country "Australia" ;
+  pav:createdAt _:b1500 ;
+  void:sparqlEndpoint <https://vocabs.ardc.edu.au/repository/api/sparql/> .
+
+ns438:sparql dbo:continent "Europe" ;
+  dbo:country "Finland" ;
+  pav:createdAt _:b1253 ;
+  void:sparqlEndpoint ns438:sparql .
+
+ns439:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1060 ;
+  void:sparqlEndpoint ns439:sparql .
+
+ns440:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1435 ;
+  void:sparqlEndpoint ns440:sparql .
+
+ns441:sparql dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b962 ;
+  void:sparqlEndpoint ns441:sparql .
+
+ns442:sparql dbo:continent "North America" ;
+  dbo:country "Canada" ;
+  pav:createdAt _:b1442 ;
+  void:sparqlEndpoint ns442:sparql .
+
+ns443:sparql dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b1236 ;
+  void:sparqlEndpoint ns443:sparql .
+
+ns444:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b963 ;
+  void:sparqlEndpoint ns444:sparql .
+
+ns445:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b1151 ;
+  void:sparqlEndpoint ns445:sparql .
+
+ns446:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1327 ;
+  void:sparqlEndpoint ns446:sparql .
+
+ns447:sparql dbo:continent "Europe" ;
+  dbo:country "Luxembourg" ;
+  pav:createdAt _:b824 ;
+  void:sparqlEndpoint ns447:sparql .
+
+ns448:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b1455 ;
+  void:sparqlEndpoint ns448:sparql .
+
+ns24:bdgp_20081030 dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b1105 ;
+  void:sparqlEndpoint ns24:bdgp_20081030 .
+
+ns413:Sparql dbo:continent "Europe" ;
+  dbo:country "United Kingdom" ;
+  pav:createdAt _:b793 ;
+  void:sparqlEndpoint ns413:Sparql .
+
+ns121:aas_the-unified-astronomy-thesaurus_4-0-1 dbo:continent "Oceania" ;
+  dbo:country "Australia" ;
+  pav:createdAt _:b1074 ;
+  void:sparqlEndpoint ns121:aas_the-unified-astronomy-thesaurus_4-0-1 .
+
+ns449:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b1187 ;
+  void:sparqlEndpoint ns449:sparql .
+
+ns32:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1433 ;
+  void:sparqlEndpoint ns32:sparql .
+
+ns450:sparql dbo:continent "Asia" ;
+  dbo:country "Taiwan" ;
+  pav:createdAt _:b834 ;
+  void:sparqlEndpoint ns450:sparql .
+
+ns451:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1491 ;
+  void:sparqlEndpoint ns451:sparql .
+
+ns452:sparql dbo:continent "Asia" ;
+  dbo:country "Japan" ;
+  pav:createdAt _:b1337 ;
+  void:sparqlEndpoint ns452:sparql .
+
+ns453:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1346 ;
+  void:sparqlEndpoint ns453:sparql .
+
+ns454:linkdb dbo:continent "Asia" ;
+  dbo:country "Japan" ;
+  pav:createdAt _:b1102 ;
+  void:sparqlEndpoint ns454:linkdb .
+
+ns455:sparql dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b1234 ;
+  void:sparqlEndpoint ns455:sparql .
+
+<https://sparql.crssnky.xyz/spql/imas/query?query=> dbo:continent "Asia" ;
+  dbo:country "Japan" ;
+  pav:createdAt _:b1466 ;
+  void:sparqlEndpoint <https://sparql.crssnky.xyz/spql/imas/query?query=> .
+
+ns456:sparql dbo:continent "Europe" ;
+  dbo:country "Spain" ;
+  pav:createdAt _:b1227 ;
+  void:sparqlEndpoint ns456:sparql .
+
+ns457:sparql dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b1504 ;
+  void:sparqlEndpoint ns457:sparql .
+
+ns458:sparql dbo:continent "Europe" ;
+  dbo:country "Greece" ;
+  pav:createdAt _:b1232 ;
+  void:sparqlEndpoint ns458:sparql .
+
+ns459:sparql dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b949 ;
+  void:sparqlEndpoint ns459:sparql .
+
+<http://vocab.nerc.ac.uk/sparql/> dbo:continent "Europe" ;
+  dbo:country "United Kingdom" ;
+  pav:createdAt _:b1069 ;
+  void:sparqlEndpoint <http://vocab.nerc.ac.uk/sparql/> .
+
+ns460:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1396 ;
+  void:sparqlEndpoint ns460:sparql .
+
+ns461:sparql dbo:continent "Asia" ;
+  dbo:country "Taiwan" ;
+  pav:createdAt _:b1256 ;
+  void:sparqlEndpoint ns461:sparql .
+
+ns462:ufo-current dbo:continent "Europe" ;
+  dbo:country "Czechia" ;
+  pav:createdAt _:b988 ;
+  void:sparqlEndpoint ns462:ufo-current .
+
+ns463:sparql dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b996 ;
+  void:sparqlEndpoint ns463:sparql .
+
+ns464:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b999 ;
+  void:sparqlEndpoint ns464:sparql .
+
+ns465:sparql dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b1083 ;
+  void:sparqlEndpoint ns465:sparql .
+
+ns466:sparql dbo:continent "Europe" ;
+  dbo:country "Ireland" ;
+  pav:createdAt _:b842 ;
+  void:sparqlEndpoint ns466:sparql .
+
+ns467:sparql dbo:continent "Europe" ;
+  dbo:country "Finland" ;
+  pav:createdAt _:b937 ;
+  void:sparqlEndpoint ns467:sparql .
+
+ns468:sparql dbo:continent "South America" ;
+  dbo:country "Brazil" ;
+  pav:createdAt _:b1000 ;
+  void:sparqlEndpoint ns468:sparql .
+
+<http://sparql.lynx-project.eu> dbo:continent "Europe" ;
+  dbo:country "Spain" ;
+  pav:createdAt _:b1040 ;
+  void:sparqlEndpoint <http://sparql.lynx-project.eu> .
+
+ns469:sparql dbo:continent "Europe" ;
+  dbo:country "Finland" ;
+  pav:createdAt _:b805 ;
+  void:sparqlEndpoint ns469:sparql .
+
+ns470:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1038 ;
+  void:sparqlEndpoint ns470:sparql .
+
+ns471:sparql dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b1138 ;
+  void:sparqlEndpoint ns471:sparql .
+
+ns472:sparql dbo:continent "Europe" ;
+  dbo:country "Greece" ;
+  pav:createdAt _:b1219 ;
+  void:sparqlEndpoint ns472:sparql .
+
+ns473:query dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b1322 ;
+  void:sparqlEndpoint ns473:query .
+
+ns474:sparql-proxy dbo:continent "Europe" ;
+  dbo:country "Italy" ;
+  pav:createdAt _:b815 ;
+  void:sparqlEndpoint ns474:sparql-proxy .
+
+ns475:do dbo:continent "Asia" ;
+  dbo:country "Uzbekistan" ;
+  pav:createdAt _:b1239 ;
+  void:sparqlEndpoint ns475:do .
+
+<https://sparql.nextprot.org> dbo:continent "Europe" ;
+  dbo:country "Switzerland" ;
+  pav:createdAt _:b1471 ;
+  void:sparqlEndpoint <https://sparql.nextprot.org> .
+
+ns476:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b973 ;
+  void:sparqlEndpoint ns476:sparql .
+
+ns477:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b1148 ;
+  void:sparqlEndpoint ns477:sparql .
+
+<https://lila-erc.eu/sparql/> dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b1362 ;
+  void:sparqlEndpoint <https://lila-erc.eu/sparql/> .
+
+ns291:lithology dbo:continent "Europe" ;
+  dbo:country "Austria" ;
+  pav:createdAt _:b1018 ;
+  void:sparqlEndpoint ns291:lithology .
+
+ns478:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b1153 ;
+  void:sparqlEndpoint ns478:sparql .
+
+ns479:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b1189 ;
+  void:sparqlEndpoint ns479:sparql .
+
+ns480:data dbo:continent "Europe" ;
+  dbo:country "Spain" ;
+  pav:createdAt _:b813 ;
+  void:sparqlEndpoint ns480:data .
+
+ns481:sparql dbo:continent "South America" ;
+  dbo:country "Ecuador" ;
+  pav:createdAt _:b845 ;
+  void:sparqlEndpoint ns481:sparql .
+
+ns482:sparql dbo:continent "Asia" ;
+  dbo:country "Japan" ;
+  pav:createdAt _:b1339 ;
+  void:sparqlEndpoint ns482:sparql .
+
+ns483:query dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1233 ;
+  void:sparqlEndpoint ns483:query .
+
+ns484:sparql dbo:continent "Europe" ;
+  dbo:country "Czechia" ;
+  pav:createdAt _:b1401 ;
+  void:sparqlEndpoint ns484:sparql .
+
+ns485:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1064 ;
+  void:sparqlEndpoint ns485:sparql .
+
+ns486:sparql dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b1221 ;
+  void:sparqlEndpoint ns486:sparql .
+
+ns487:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b1494 ;
+  void:sparqlEndpoint ns487:sparql .
+
+<http://lod.knps.or.kr/main/sparql.do> dbo:continent "Asia" ;
+  dbo:country "South Korea" ;
+  pav:createdAt _:b957 ;
+  void:sparqlEndpoint <http://lod.knps.or.kr/main/sparql.do> .
+
+ns489:sparql dbo:continent "Europe" ;
+  dbo:country "Spain" ;
+  pav:createdAt _:b941 ;
+  void:sparqlEndpoint ns489:sparql .
+
+<http://id.ndl.go.jp/auth/ndlsh/> dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b916 ;
+  void:sparqlEndpoint <http://id.ndl.go.jp/auth/ndlsh/> .
+
+ns490:sparql dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b1054 ;
+  void:sparqlEndpoint ns490:sparql .
+
+ns491:sparql dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b1461 ;
+  void:sparqlEndpoint ns491:sparql .
+
+ns492:sparql dbo:continent "Europe" ;
+  dbo:country "Denmark" ;
+  pav:createdAt _:b1021 ;
+  void:sparqlEndpoint ns492:sparql .
+
+ns493:sparql dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b1309 ;
+  void:sparqlEndpoint ns493:sparql .
+
+ns494:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b1183 ;
+  void:sparqlEndpoint ns494:sparql .
+
+ns495:sparql dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b849 ;
+  void:sparqlEndpoint ns495:sparql .
+
+ns496:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b894 ;
+  void:sparqlEndpoint ns496:sparql .
+
+ns497:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b1174 ;
+  void:sparqlEndpoint ns497:sparql .
+
+ns161:images dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1334 ;
+  void:sparqlEndpoint ns161:images .
+
+<http://query.wikidata.org> dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1008 ;
+  void:sparqlEndpoint <http://query.wikidata.org> .
+
+ns498:sparql dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b1128 ;
+  void:sparqlEndpoint ns498:sparql .
+
+ns499:query dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b1538 ;
+  void:sparqlEndpoint ns499:query .
+
+ns500:sparql dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b1092 ;
+  void:sparqlEndpoint ns500:sparql .
+
+ns501:sparql dbo:continent "Asia" ;
+  dbo:country "Japan" ;
+  pav:createdAt _:b1276 ;
+  void:sparqlEndpoint ns501:sparql .
+
+ns502:sparql dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b1410 ;
+  void:sparqlEndpoint ns502:sparql .
+
+ns503:sparql dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b1409 ;
+  void:sparqlEndpoint ns503:sparql .
+
+<https://data.ascdc.tw/en/sparql.php> dbo:continent "Asia" ;
+  dbo:country "Taiwan" ;
+  pav:createdAt _:b1224 ;
+  void:sparqlEndpoint <https://data.ascdc.tw/en/sparql.php> .
+
+ns505:sparql dbo:continent "Europe" ;
+  dbo:country "Norway" ;
+  pav:createdAt _:b825 ;
+  void:sparqlEndpoint ns505:sparql .
+
+ns506:sparql dbo:continent "Europe" ;
+  dbo:country "Italy" ;
+  pav:createdAt _:b1486 ;
+  void:sparqlEndpoint ns506:sparql .
+
+ns507:sparql dbo:continent "Europe" ;
+  dbo:country "Italy" ;
+  pav:createdAt _:b1267 ;
+  void:sparqlEndpoint ns507:sparql .
+
+ns508:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b975 ;
+  void:sparqlEndpoint ns508:sparql .
+
+ns509:sparql dbo:continent "Asia" ;
+  dbo:country "China" ;
+  pav:createdAt _:b789 ;
+  void:sparqlEndpoint ns509:sparql .
+
+ns510:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b971 ;
+  void:sparqlEndpoint ns510:sparql .
+
+ns511:sparql dbo:continent "Asia" ;
+  dbo:country "South Korea" ;
+  pav:createdAt _:b956 ;
+  void:sparqlEndpoint ns511:sparql .
+
+ns512:sparql dbo:continent "Europe" ;
+  dbo:country "Spain" ;
+  pav:createdAt _:b907 ;
+  void:sparqlEndpoint ns512:sparql .
+
+ns513:sparql dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b1428 ;
+  void:sparqlEndpoint ns513:sparql .
+
+<https://query.wikidata.org> dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1431 ;
+  void:sparqlEndpoint <https://query.wikidata.org> .
+
+<https://linkedart.ascdc.tw/live_sparql.php> dbo:continent "Asia" ;
+  dbo:country "Taiwan" ;
+  pav:createdAt _:b1369 ;
+  void:sparqlEndpoint <https://linkedart.ascdc.tw/live_sparql.php> .
+
+ns515:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b1028 ;
+  void:sparqlEndpoint ns515:sparql .
+
+ns516:sparql dbo:continent "Europe" ;
+  dbo:country "Greece" ;
+  pav:createdAt _:b1003 ;
+  void:sparqlEndpoint ns516:sparql .
+
+ns517:sparql dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b1464 ;
+  void:sparqlEndpoint ns517:sparql .
+
+ns518:sparql dbo:continent "Europe" ;
+  dbo:country "Bulgaria" ;
+  pav:createdAt _:b1375 ;
+  void:sparqlEndpoint ns518:sparql .
+
+<https://data.bnf.fr/current/sparql.html> dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b1225 ;
+  void:sparqlEndpoint <https://data.bnf.fr/current/sparql.html> .
+
+ns520:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1050 ;
+  void:sparqlEndpoint ns520:sparql .
+
+ns521:sparql dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b1394 ;
+  void:sparqlEndpoint ns521:sparql .
+
+<https://sparql.uniprot.org/> dbo:continent "Europe" ;
+  dbo:country "Switzerland" ;
+  pav:createdAt _:b1479 ;
+  void:sparqlEndpoint <https://sparql.uniprot.org/> .
+
+ns291:GeologicTimeScale dbo:continent "Europe" ;
+  dbo:country "Austria" ;
+  pav:createdAt _:b1016 ;
+  void:sparqlEndpoint ns291:GeologicTimeScale .
+
+ns522:sparql dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b1095 ;
+  void:sparqlEndpoint ns522:sparql .
+
+ns523:sparql dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b1275 ;
+  void:sparqlEndpoint ns523:sparql .
+
+<http://example.org> dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b887 ;
+  void:sparqlEndpoint <http://example.org> .
+
+ns524:advanced-sparql-query-editor dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1422 ;
+  pav:createdAt _:b1423 ;
+  void:sparqlEndpoint ns524:advanced-sparql-query-editor .
+
+<http://semanticweb.cs.vu.nl/iati/sparql/> dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b1024 ;
+  void:sparqlEndpoint <http://semanticweb.cs.vu.nl/iati/sparql/> .
+
+ns525:sparql dbo:continent "Europe" ;
+  dbo:country "Spain" ;
+  pav:createdAt _:b1307 ;
+  void:sparqlEndpoint ns525:sparql .
+
+ns526:sparql dbo:continent "Europe" ;
+  dbo:country "Finland" ;
+  pav:createdAt _:b1192 ;
+  void:sparqlEndpoint ns526:sparql .
+
+ns527:sparql dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b1430 ;
+  void:sparqlEndpoint ns527:sparql .
+
+ns21:a302edbaa0a8fae7307769ce7ec8a908 dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1115 ;
+  void:sparqlEndpoint ns21:a302edbaa0a8fae7307769ce7ec8a908 .
+
+ns528:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b1176 ;
+  void:sparqlEndpoint ns528:sparql .
+
+<http://kdata.kr/sparql/endpoint.jsp> dbo:continent "Asia" ;
+  dbo:country "South Korea" ;
+  pav:createdAt _:b929 ;
+  void:sparqlEndpoint <http://kdata.kr/sparql/endpoint.jsp> .
+
+ns530:sparql dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b1316 ;
+  void:sparqlEndpoint ns530:sparql .
+
+ns531:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b1370 ;
+  void:sparqlEndpoint ns531:sparql .
+
+<https://database.factgrid.de/query/> dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b1264 ;
+  void:sparqlEndpoint <https://database.factgrid.de/query/> .
+
+ns532:usage dbo:continent "Asia" ;
+  dbo:country "Uzbekistan" ;
+  pav:createdAt _:b1240 ;
+  void:sparqlEndpoint ns532:usage .
+
+ns533:sparql dbo:continent "Asia" ;
+  dbo:country "China" ;
+  pav:createdAt _:b1244 ;
+  void:sparqlEndpoint ns533:sparql .
+
+ns534:sparql dbo:continent "Europe" ;
+  dbo:country "United Kingdom" ;
+  pav:createdAt _:b1203 ;
+  void:sparqlEndpoint ns534:sparql .
+
+ns535:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1294 ;
+  void:sparqlEndpoint ns535:sparql .
+
+ns536:sparql dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b1127 ;
+  void:sparqlEndpoint ns536:sparql .
+
+ns537:sparql dbo:continent "Europe" ;
+  dbo:country "Sweden" ;
+  pav:createdAt _:b940 ;
+  void:sparqlEndpoint ns537:sparql .
+
+ns538:sparql dbo:continent "North America" ;
+  dbo:country "Canada" ;
+  pav:createdAt _:b1034 ;
+  void:sparqlEndpoint ns538:sparql .
+
+ns539:sparql dbo:continent "Europe" ;
+  dbo:country "United Kingdom" ;
+  pav:createdAt _:b1512 ;
+  void:sparqlEndpoint ns539:sparql .
+
+ns540:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b1029 ;
+  void:sparqlEndpoint ns540:sparql .
+
+ns541:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b767 ;
+  void:sparqlEndpoint ns541:sparql .
+
+ns542:sparql dbo:continent "Europe" ;
+  dbo:country "Denmark" ;
+  pav:createdAt _:b797 ;
+  void:sparqlEndpoint ns542:sparql .
+
+ns543:sparql dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b839 ;
+  void:sparqlEndpoint ns543:sparql .
+
+ns544:sparql dbo:continent "Asia" ;
+  dbo:country "Hong Kong" ;
+  pav:createdAt _:b1317 ;
+  void:sparqlEndpoint ns544:sparql .
+
+ns545:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1421 ;
+  void:sparqlEndpoint ns545:sparql .
+
+ns546:sparql dbo:continent "Europe" ;
+  dbo:country "Belgium" ;
+  pav:createdAt _:b816 ;
+  void:sparqlEndpoint ns546:sparql .
+
+ns547:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1475 ;
+  void:sparqlEndpoint ns547:sparql .
+
+ns548:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1214 ;
+  void:sparqlEndpoint ns548:sparql .
+
+ns549:sparql dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b1144 ;
+  void:sparqlEndpoint ns549:sparql .
+
+ns550:query dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b1536 ;
+  void:sparqlEndpoint ns550:query .
+
+ns551:sparql dbo:continent "Asia" ;
+  dbo:country "Japan" ;
+  pav:createdAt _:b806 ;
+  void:sparqlEndpoint ns551:sparql .
+
+ns552:sparql dbo:continent "Europe" ;
+  dbo:country "Finland" ;
+  pav:createdAt _:b1254 ;
+  void:sparqlEndpoint ns552:sparql .
+
+ns553:sparql dbo:continent "Europe" ;
+  dbo:country "Ireland" ;
+  pav:createdAt _:b1223 ;
+  void:sparqlEndpoint ns553:sparql .
+
+ns64:box dbo:continent "Europe" ;
+  dbo:country "Finland" ;
+  pav:createdAt _:b1089 ;
+  void:sparqlEndpoint ns64:box .
+
+ns24:flyatlas dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b1106 ;
+  void:sparqlEndpoint ns24:flyatlas .
+
+ns554:sparql dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b1125 ;
+  void:sparqlEndpoint ns554:sparql .
+
+ns555:ff-news dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b888 ;
+  void:sparqlEndpoint ns555:ff-news .
+
+ns556:sparql dbo:continent "Asia" ;
+  dbo:country "Japan" ;
+  pav:createdAt _:b1348 ;
+  void:sparqlEndpoint ns556:sparql .
+
+ns557:sparql dbo:continent "Europe" ;
+  dbo:country "Spain" ;
+  pav:createdAt _:b1521 ;
+  void:sparqlEndpoint ns557:sparql .
+
+ns558:sparql dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b1340 ;
+  void:sparqlEndpoint ns558:sparql .
+
+ns559:sparql dbo:continent "Europe" ;
+  dbo:country "Hungary" ;
+  pav:createdAt _:b961 ;
+  void:sparqlEndpoint ns559:sparql .
+
+ns560:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b909 ;
+  void:sparqlEndpoint ns560:sparql .
+
+ns22:ga_geologic-unit-type_v0-1 dbo:continent "Oceania" ;
+  dbo:country "Australia" ;
+  pav:createdAt _:b1073 ;
+  void:sparqlEndpoint ns22:ga_geologic-unit-type_v0-1 .
+
+<http://data.fondazionezeri.unibo.it/sparql/> dbo:continent "Europe" ;
+  dbo:country "Italy" ;
+  pav:createdAt _:b821 ;
+  void:sparqlEndpoint <http://data.fondazionezeri.unibo.it/sparql/> .
+
+ns561:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b911 ;
+  void:sparqlEndpoint ns561:sparql .
+
+ns562:sparql dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b1508 ;
+  void:sparqlEndpoint ns562:sparql .
+
+ns563:sparql dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b874 ;
+  void:sparqlEndpoint ns563:sparql .
+
+ns564:query dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b984 ;
+  void:sparqlEndpoint ns564:query .
+
+ns565:query dbo:continent "Europe" ;
+  dbo:country "Romania" ;
+  pav:createdAt _:b1445 ;
+  void:sparqlEndpoint ns565:query .
+
+ns566:sparql dbo:continent "Asia" ;
+  dbo:country "Japan" ;
+  pav:createdAt _:b1468 ;
+  void:sparqlEndpoint ns566:sparql .
+
+ns567:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b763 ;
+  void:sparqlEndpoint ns567:sparql .
+
+ns568:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1056 ;
+  void:sparqlEndpoint ns568:sparql .
+
+ns569:sparql dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b946 ;
+  void:sparqlEndpoint ns569:sparql .
+
+ns570:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b1188 ;
+  void:sparqlEndpoint ns570:sparql .
+
+ns571:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1441 ;
+  void:sparqlEndpoint ns571:sparql .
+
+ns572:sparql dbo:continent "Asia" ;
+  dbo:country "Japan" ;
+  pav:createdAt _:b978 ;
+  void:sparqlEndpoint ns572:sparql .
+
+ns573:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b913 ;
+  void:sparqlEndpoint ns573:sparql .
+
+ns574:sparql dbo:continent "Europe" ;
+  dbo:country "Spain" ;
+  pav:createdAt _:b814 ;
+  void:sparqlEndpoint ns574:sparql .
+
+ns575:sparql dbo:continent "North America" ;
+  dbo:country "Canada" ;
+  pav:createdAt _:b1011 ;
+  void:sparqlEndpoint ns575:sparql .
+
+ns576:query dbo:continent "Europe" ;
+  dbo:country "Greece" ;
+  pav:createdAt _:b1252 ;
+  void:sparqlEndpoint ns576:query .
+
+ns577:nosparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b919 ;
+  void:sparqlEndpoint ns577:nosparql .
+
+ns578:sparql dbo:continent "Europe" ;
+  dbo:country "United Kingdom" ;
+  pav:createdAt _:b1020 ;
+  void:sparqlEndpoint ns578:sparql .
+
+ns579:sparql dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b1364 ;
+  void:sparqlEndpoint ns579:sparql .
+
+ns580:linkdb dbo:continent "Asia" ;
+  dbo:country "Japan" ;
+  pav:createdAt _:b1519 ;
+  void:sparqlEndpoint ns580:linkdb .
+
+<https://raw.githubusercontent.com/GVogeler/bookkeeping/master/bookkeeping.ttl> dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1436 ;
+  void:sparqlEndpoint <https://raw.githubusercontent.com/GVogeler/bookkeeping/master/bookkeeping.ttl> .
+
+ns582:sparql dbo:continent "Europe" ;
+  dbo:country "Finland" ;
+  pav:createdAt _:b1360 ;
+  void:sparqlEndpoint ns582:sparql .
+
+ns583:sparql dbo:continent "North America" ;
+  dbo:country "Canada" ;
+  pav:createdAt _:b964 ;
+  void:sparqlEndpoint ns583:sparql .
+
+ns584:sparql dbo:continent "Europe" ;
+  dbo:country "Switzerland" ;
+  pav:createdAt _:b1194 ;
+  void:sparqlEndpoint ns584:sparql .
+
+ns585:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b960 ;
+  void:sparqlEndpoint ns585:sparql .
+
+ns586:sparql dbo:continent "Europe" ;
+  dbo:country "Greece" ;
+  pav:createdAt _:b902 ;
+  void:sparqlEndpoint ns586:sparql .
+
+<http://www.example.org> dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1101 ;
+  void:sparqlEndpoint <http://www.example.org> .
+
+ns587:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1258 ;
+  void:sparqlEndpoint ns587:sparql .
+
+ns588:sparql dbo:continent "Europe" ;
+  dbo:country "Switzerland" ;
+  pav:createdAt _:b1310 ;
+  void:sparqlEndpoint ns588:sparql .
+
+ns589:sparql dbo:continent "Europe" ;
+  dbo:country "Spain" ;
+  pav:createdAt _:b1085 ;
+  void:sparqlEndpoint ns589:sparql .
+
+ns590:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b1093 ;
+  void:sparqlEndpoint ns590:sparql .
+
+ns591:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1321 ;
+  void:sparqlEndpoint ns591:sparql .
+
+ns592:sparql dbo:continent "Europe" ;
+  dbo:country "Czechia" ;
+  pav:createdAt _:b1218 ;
+  void:sparqlEndpoint ns592:sparql .
+
+ns593:sparql dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b790 ;
+  void:sparqlEndpoint ns593:sparql .
+
+ns594:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b771 ;
+  pav:createdAt _:b772 ;
+  void:sparqlEndpoint ns594:sparql .
+
+ns595:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b945 ;
+  void:sparqlEndpoint ns595:sparql .
+
+ns596:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b1177 ;
+  void:sparqlEndpoint ns596:sparql .
+
+ns597:sparql dbo:continent "Asia" ;
+  dbo:country "Singapore" ;
+  pav:createdAt _:b994 ;
+  void:sparqlEndpoint ns597:sparql .
+
+ns598:query dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b1537 ;
+  void:sparqlEndpoint ns598:query .
+
+ns599:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1111 ;
+  void:sparqlEndpoint ns599:sparql .
+
+ns600:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1344 ;
+  void:sparqlEndpoint ns600:sparql .
+
+ns601:sparql dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b1033 ;
+  void:sparqlEndpoint ns601:sparql .
+
+ns602:sparql dbo:continent "North America" ;
+  dbo:country "Canada" ;
+  pav:createdAt _:b1195 ;
+  void:sparqlEndpoint ns602:sparql .
+
+ns603:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b780 ;
+  void:sparqlEndpoint ns603:sparql .
+
+ns604:sparql dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b1517 ;
+  void:sparqlEndpoint ns604:sparql .
+
+ns605:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1059 ;
+  void:sparqlEndpoint ns605:sparql .
+
+ns606:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b985 ;
+  void:sparqlEndpoint ns606:sparql .
+
+ns607:sparql dbo:continent "Asia" ;
+  dbo:country "South Korea" ;
+  pav:createdAt _:b1349 ;
+  void:sparqlEndpoint ns607:sparql .
+
+ns484:vsparql dbo:continent "Europe" ;
+  dbo:country "Czechia" ;
+  pav:createdAt _:b1402 ;
+  void:sparqlEndpoint ns484:vsparql .
+
+ns608:sparql dbo:continent "Europe" ;
+  dbo:country "North Macedonia" ;
+  pav:createdAt _:b944 ;
+  void:sparqlEndpoint ns608:sparql .
+
+ns609:sparql dbo:continent "Europe" ;
+  dbo:country "Italy" ;
+  pav:createdAt _:b1099 ;
+  void:sparqlEndpoint ns609:sparql .
+
+ns610:sparql dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b1129 ;
+  void:sparqlEndpoint ns610:sparql .
+
+ns611:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1065 ;
+  void:sparqlEndpoint ns611:sparql .
+
+ns612:sparql dbo:continent "Europe" ;
+  dbo:country "Spain" ;
+  pav:createdAt _:b1009 ;
+  void:sparqlEndpoint ns612:sparql .
+
+ns613:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1206 ;
+  void:sparqlEndpoint ns613:sparql .
+
+ns614:sparql dbo:continent "Europe" ;
+  dbo:country "Greece" ;
+  pav:createdAt _:b903 ;
+  void:sparqlEndpoint ns614:sparql .
+
+ns420:sparql dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b1501 ;
+  void:sparqlEndpoint ns420:sparql .
+
+ns615:sparql dbo:continent "North America" ;
+  dbo:country "Canada" ;
+  pav:createdAt _:b1013 ;
+  void:sparqlEndpoint ns615:sparql .
+
+ns616:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b759 ;
+  pav:createdAt _:b760 ;
+  void:sparqlEndpoint ns616:sparql .
+
+ns617:sparql dbo:continent "North America" ;
+  dbo:country "Canada" ;
+  pav:createdAt _:b781 ;
+  void:sparqlEndpoint ns617:sparql .
+
+ns618:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b1155 ;
+  void:sparqlEndpoint ns618:sparql .
+
+ns619:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1295 ;
+  void:sparqlEndpoint ns619:sparql .
+
+ns620:sparql dbo:continent "Europe" ;
+  dbo:country "United Kingdom" ;
+  pav:createdAt _:b1499 ;
+  void:sparqlEndpoint ns620:sparql .
+
+ns621:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b787 ;
+  void:sparqlEndpoint ns621:sparql .
+
+ns622:sparql dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b884 ;
+  void:sparqlEndpoint ns622:sparql .
+
+ns623:sparql dbo:continent "North America" ;
+  dbo:country "Canada" ;
+  pav:createdAt _:b785 ;
+  void:sparqlEndpoint ns623:sparql .
+
+ns624:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b857 ;
+  void:sparqlEndpoint ns624:sparql .
+
+ns625:sparql dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b1117 ;
+  void:sparqlEndpoint ns625:sparql .
+
+ns626:sparql dbo:continent "Europe" ;
+  dbo:country "Spain" ;
+  pav:createdAt _:b1280 ;
+  void:sparqlEndpoint ns626:sparql .
+
+ns627:sparql dbo:continent "Europe" ;
+  dbo:country "United Kingdom" ;
+  pav:createdAt _:b908 ;
+  void:sparqlEndpoint ns627:sparql .
+
+ns628:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b1145 ;
+  void:sparqlEndpoint ns628:sparql .
+
+ns629:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b1146 ;
+  void:sparqlEndpoint ns629:sparql .
+
+ns630:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b791 ;
+  void:sparqlEndpoint ns630:sparql .
+
+ns631:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1319 ;
+  void:sparqlEndpoint ns631:sparql .
+
+ns632:sparql dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b924 ;
+  void:sparqlEndpoint ns632:sparql .
+
+ns633:query dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b1535 ;
+  void:sparqlEndpoint ns633:query .
+
+ns634:sparql dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b1057 ;
+  void:sparqlEndpoint ns634:sparql .
+
+ns635:sparql dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b1112 ;
+  void:sparqlEndpoint ns635:sparql .
+
+ns636:sparql dbo:continent "Europe" ;
+  dbo:country "Czechia" ;
+  pav:createdAt _:b1250 ;
+  void:sparqlEndpoint ns636:sparql .
+
+ns637:sparql dbo:continent "Europe" ;
+  dbo:country "Finland" ;
+  pav:createdAt _:b832 ;
+  void:sparqlEndpoint ns637:sparql .
+
+ns638:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1007 ;
+  void:sparqlEndpoint ns638:sparql .
+
+ns639:sparql dbo:continent "Europe" ;
+  dbo:country "United Kingdom" ;
+  pav:createdAt _:b1286 ;
+  void:sparqlEndpoint ns639:sparql .
+
+ns640:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b1282 ;
+  void:sparqlEndpoint ns640:sparql .
+
+ns641:sparql dbo:continent "Europe" ;
+  dbo:country "Spain" ;
+  pav:createdAt _:b974 ;
+  void:sparqlEndpoint ns641:sparql .
+
+ns642:sparql dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b1030 ;
+  void:sparqlEndpoint ns642:sparql .
+
+ns643:sparql dbo:continent "Asia" ;
+  dbo:country "Japan" ;
+  pav:createdAt _:b1041 ;
+  void:sparqlEndpoint ns643:sparql .
+
+ns644:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1470 ;
+  void:sparqlEndpoint ns644:sparql .
+
+ns645:sparql dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b1123 ;
+  void:sparqlEndpoint ns645:sparql .
+
+ns646:sparql dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b1277 ;
+  void:sparqlEndpoint ns646:sparql .
+
+ns647:sparql dbo:continent "Europe" ;
+  dbo:country "Switzerland" ;
+  pav:createdAt _:b1199 ;
+  void:sparqlEndpoint ns647:sparql .
+
+ns648:sparql dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b1326 ;
+  void:sparqlEndpoint ns648:sparql .
+
+ns649:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b1175 ;
+  void:sparqlEndpoint ns649:sparql .
+
+ns650:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b917 ;
+  void:sparqlEndpoint ns650:sparql .
+
+ns651:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b1091 ;
+  void:sparqlEndpoint ns651:sparql .
+
+ns652:sparql dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b1497 ;
+  void:sparqlEndpoint ns652:sparql .
+
+ns653:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1498 ;
+  void:sparqlEndpoint ns653:sparql .
+
+ns654:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b899 ;
+  void:sparqlEndpoint ns654:sparql .
+
+ns655:sparql dbo:continent "Europe" ;
+  dbo:country "Finland" ;
+  pav:createdAt _:b1358 ;
+  void:sparqlEndpoint ns655:sparql .
+
+ns656:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b768 ;
+  pav:createdAt _:b769 ;
+  void:sparqlEndpoint ns656:sparql .
+
+ns657:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b1171 ;
+  void:sparqlEndpoint ns657:sparql .
+
+ns658:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b810 ;
+  void:sparqlEndpoint ns658:sparql .
+
+ns659:sparql dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b1110 ;
+  void:sparqlEndpoint ns659:sparql .
+
+ns660:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1068 ;
+  void:sparqlEndpoint ns660:sparql .
+
+ns661:sparql dbo:continent "Asia" ;
+  dbo:country "Japan" ;
+  pav:createdAt _:b1336 ;
+  void:sparqlEndpoint ns661:sparql .
+
+ns662:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b922 ;
+  void:sparqlEndpoint ns662:sparql .
+
+ns663:sparql dbo:continent "Europe" ;
+  dbo:country "Switzerland" ;
+  pav:createdAt _:b1509 ;
+  void:sparqlEndpoint ns663:sparql .
+
+<http://sparql.data.southampton.ac.uk/> dbo:continent "Europe" ;
+  dbo:country "United Kingdom" ;
+  pav:createdAt _:b1035 ;
+  void:sparqlEndpoint <http://sparql.data.southampton.ac.uk/> .
+
+ns664:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b993 ;
+  void:sparqlEndpoint ns664:sparql .
+
+ns665:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b930 ;
+  void:sparqlEndpoint ns665:sparql .
+
+ns666:sparql dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b1489 ;
+  void:sparqlEndpoint ns666:sparql .
+
+ns667:sparql dbo:continent "Europe" ;
+  dbo:country "United Kingdom" ;
+  pav:createdAt _:b942 ;
+  void:sparqlEndpoint ns667:sparql .
+
+ns668:sparql dbo:continent "Europe" ;
+  dbo:country "Italy" ;
+  pav:createdAt _:b1462 ;
+  void:sparqlEndpoint ns668:sparql .
+
+ns669:sparql dbo:continent "Asia" ;
+  dbo:country "Indonesia" ;
+  pav:createdAt _:b1324 ;
+  void:sparqlEndpoint ns669:sparql .
+
+ns670:sparql dbo:continent "Europe" ;
+  dbo:country "United Kingdom" ;
+  pav:createdAt _:b1379 ;
+  void:sparqlEndpoint ns670:sparql .
+
+ns64:around dbo:continent "Europe" ;
+  dbo:country "Finland" ;
+  pav:createdAt _:b1087 ;
+  void:sparqlEndpoint ns64:around .
+
+ns671:lov dbo:continent "North America" ;
+  dbo:country "Canada" ;
+  pav:createdAt _:b965 ;
+  pav:createdAt _:b966 ;
+  void:sparqlEndpoint ns671:lov .
+
+ns215:sparql dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b1407 ;
+  void:sparqlEndpoint ns215:sparql .
+
+ns672:sparql dbo:continent "Europe" ;
+  dbo:country "Spain" ;
+  pav:createdAt _:b1269 ;
+  void:sparqlEndpoint ns672:sparql .
+
+<https://commons-query.wikimedia.org/> dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1213 ;
+  void:sparqlEndpoint <https://commons-query.wikimedia.org/> .
+
+<http://sparql.wikipathways.org> dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b1048 ;
+  void:sparqlEndpoint <http://sparql.wikipathways.org> .
+
+ns673:sparql dbo:continent "North America" ;
+  dbo:country "Canada" ;
+  pav:createdAt _:b1388 ;
+  void:sparqlEndpoint ns673:sparql .
+
+<https://github.com/ArchanaPatel92/IBO-Covid19/blob/main/1.5%20Covid19-IBO.owl> dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b1308 ;
+  void:sparqlEndpoint <https://github.com/ArchanaPatel92/IBO-Covid19/blob/main/1.5%20Covid19-IBO.owl> .
+
+ns675:sparql dbo:continent "Europe" ;
+  dbo:country "Spain" ;
+  pav:createdAt _:b1507 ;
+  void:sparqlEndpoint ns675:sparql .
+
+ns676:images dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1104 ;
+  void:sparqlEndpoint ns676:images .
+
+ns677:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1261 ;
+  void:sparqlEndpoint ns677:sparql .
+
+ns678:sparql dbo:continent "Europe" ;
+  dbo:country "Spain" ;
+  pav:createdAt _:b1328 ;
+  void:sparqlEndpoint ns678:sparql .
+
+ns679:sparql dbo:continent "Europe" ;
+  dbo:country "Switzerland" ;
+  pav:createdAt _:b1043 ;
+  void:sparqlEndpoint ns679:sparql .
+
+ns680:sparql dbo:continent "Europe" ;
+  dbo:country "Finland" ;
+  pav:createdAt _:b1355 ;
+  void:sparqlEndpoint ns680:sparql .
+
+ns681:sparql dbo:continent "Europe" ;
+  dbo:country "Italy" ;
+  pav:createdAt _:b1139 ;
+  void:sparqlEndpoint ns681:sparql .
+
+ns682:sparql dbo:continent "Europe" ;
+  dbo:country "Spain" ;
+  pav:createdAt _:b1196 ;
+  void:sparqlEndpoint ns682:sparql .
+
+ns683:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b1372 ;
+  void:sparqlEndpoint ns683:sparql .
+
+ns684:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b836 ;
+  void:sparqlEndpoint ns684:sparql .
+
+ns685:query dbo:continent "Asia" ;
+  dbo:country "Taiwan" ;
+  pav:createdAt _:b1354 ;
+  void:sparqlEndpoint ns685:query .
+
+ns686:sparql dbo:continent "Europe" ;
+  dbo:country "Finland" ;
+  pav:createdAt _:b934 ;
+  void:sparqlEndpoint ns686:sparql .
+
+<http://www.bgee.org/> dbo:continent "Europe" ;
+  dbo:country "Switzerland" ;
+  pav:createdAt _:b1096 ;
+  void:sparqlEndpoint <http://www.bgee.org/> .
+
+ns687:sparql dbo:continent "Asia" ;
+  dbo:country "Singapore" ;
+  pav:createdAt _:b1418 ;
+  void:sparqlEndpoint ns687:sparql .
+
+ns688:sparql dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b830 ;
+  void:sparqlEndpoint ns688:sparql .
+
+ns689:sparql dbo:continent "Asia" ;
+  dbo:country "South Korea" ;
+  pav:createdAt _:b958 ;
+  void:sparqlEndpoint ns689:sparql .
+
+ns690:geco dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b1053 ;
+  void:sparqlEndpoint ns690:geco .
+
+ns691:sparql dbo:continent "Europe" ;
+  dbo:country "Spain" ;
+  pav:createdAt _:b1273 ;
+  void:sparqlEndpoint ns691:sparql .
+
+ns692:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b1167 ;
+  void:sparqlEndpoint ns692:sparql .
+
+ns693:sparql dbo:continent "Europe" ;
+  dbo:country "The Netherlands" ;
+  pav:createdAt _:b995 ;
+  void:sparqlEndpoint ns693:sparql .
+
+ns694:sparql dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b1230 ;
+  void:sparqlEndpoint ns694:sparql .
+
+ns185:sparql dbo:continent "Europe" ;
+  dbo:country "France" ;
+  pav:createdAt _:b1341 ;
+  void:sparqlEndpoint ns185:sparql .
+
+ns695:query dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b1132 ;
+  void:sparqlEndpoint ns695:query .
+
+ns696:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b770 ;
+  void:sparqlEndpoint ns696:sparql .
+
+ns697:sparql dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b1086 ;
+  void:sparqlEndpoint ns697:sparql .
+
+ns698:sparql dbo:continent "Europe" ;
+  dbo:country "North Macedonia" ;
+  pav:createdAt _:b1371 ;
+  void:sparqlEndpoint ns698:sparql .
+
+ns699:sparql dbo:continent "North America" ;
+  dbo:country "United States" ;
+  pav:createdAt _:b1395 ;
+  void:sparqlEndpoint ns699:sparql .
+
+ns700:sparql dbo:continent "Europe" ;
+  dbo:country "Italy" ;
+  pav:createdAt _:b1140 ;
+  void:sparqlEndpoint ns700:sparql .
+
+ns701:query dbo:continent "Europe" ;
+  dbo:country "Romania" ;
+  pav:createdAt _:b1448 ;
+  void:sparqlEndpoint ns701:query .
+
+<http://sparql.uniprot.org> dbo:continent "Europe" ;
+  dbo:country "Switzerland" ;
+  pav:createdAt _:b1047 ;
+  void:sparqlEndpoint <http://sparql.uniprot.org> .
+
+ns702:sparql dbo:continent "Europe" ;
+  dbo:country "Germany" ;
+  pav:createdAt _:b954 ;
+  void:sparqlEndpoint ns702:sparql .
+
+_:b1059 geo:lat "32.3895" ;
+  geo:lon "-89.9562" .
+
+_:b1058 geo:lat "32.3895" ;
+  geo:lon "-89.9562" .
+
+_:b1057 geo:lat "48.8033" ;
+  geo:lon "2.2679" .
+
+_:b1056 geo:lat "37.5625" ;
+  geo:lon "-122.0004" .
+
+_:b1055 geo:lat "53.2689" ;
+  geo:lon "-9.0533" .
+
+_:b1054 geo:lat "48.8434" ;
+  geo:lon "2.36349" .
+
+_:b1053 geo:lat "43.5866" ;
+  geo:lon "7.1242" .
+
+_:b1052 geo:lat "50.8268" ;
+  geo:lon "5.7116" .
+
+_:b1051 geo:lat "50.9009" ;
+  geo:lon "4.4855" .
+
+_:b1050 geo:lat "39.0997" ;
+  geo:lon "-94.5785" .
+
+_:b879 geo:lat "45.5235" ;
+  geo:lon "-122.676" .
+
+_:b878 geo:lat "40.6439" ;
+  geo:lon "22.9358" .
+
+_:b877 geo:lat "38.8863" ;
+  geo:lon "-77.0209" .
+
+_:b876 geo:lat "50.1187" ;
+  geo:lon "8.6842" .
+
+_:b875 geo:lat "51.3692" ;
+  geo:lon "5.2208" .
+
+_:b874 geo:lat "52.5234" ;
+  geo:lon "13.3224" .
+
+_:b873 geo:lat "50.8268" ;
+  geo:lon "5.7116" .
+
+_:b872 geo:lat "41.4616" ;
+  geo:lon "15.5564" .
+
+_:b871 geo:lat "48.8566" ;
+  geo:lon "2.35222" .
+
+_:b870 geo:lat "48.8566" ;
+  geo:lon "2.35222" .
+
+_:b1049 geo:lat "53.3097" ;
+  geo:lon "-6.2853" .
+
+_:b1048 geo:lat "52.5234" ;
+  geo:lon "13.3224" .
+
+_:b1047 geo:lat "46.1986" ;
+  geo:lon "6.14277" .
+
+_:b1046 geo:lat "43.6108" ;
+  geo:lon "3.87672" .
+
+_:b1045 geo:lat "51.2392" ;
+  geo:lon "6.72489" .
+
+_:b1044 geo:lat "39.7552" ;
+  geo:lon "-75.5312" .
+
+_:b1043 geo:lat "46.1911" ;
+  geo:lon "6.1404" .
+
+_:b1042 geo:lat "25.0104" ;
+  geo:lon "121.4684" .
+
+_:b1041 geo:lat "35.179" ;
+  geo:lon "136.8939" .
+
+_:b1040 geo:lat "40.43" ;
+  geo:lon "-3.6691" .
+
+_:b869 geo:lat "40.0181" ;
+  geo:lon "-83.0117" .
+
+_:b868 geo:lat "51.5072" ;
+  geo:lon "-0.127586" .
+
+_:b867 geo:lat "57.7065" ;
+  geo:lon "11.967" .
+
+_:b866 geo:lat "52.3676" ;
+  geo:lon "4.90414" .
+
+_:b865 geo:lat "49.0917" ;
+  geo:lon "8.42838" .
+
+_:b864 geo:lat "51.6486" ;
+  geo:lon "0.0495" .
+
+_:b863 geo:lat "51.6486" ;
+  geo:lon "0.0495" .
+
+_:b862 geo:lat "51.6486" ;
+  geo:lon "0.0495" .
+
+_:b861 geo:lat "51.6486" ;
+  geo:lon "0.0495" .
+
+_:b860 geo:lat "51.6486" ;
+  geo:lon "0.0495" .
+
+_:b1039 geo:lat "37.1757" ;
+  geo:lon "-3.5975" .
+
+_:b1399 geo:lat "51.4556" ;
+  geo:lon "7.01156" .
+
+_:b1038 geo:lat "42.3068" ;
+  geo:lon "-83.7059" .
+
+_:b1398 geo:lat "35.6916" ;
+  geo:lon "139.768" .
+
+_:b1037 geo:lat "50.475" ;
+  geo:lon "12.365" .
+
+_:b1397 geo:lat "32.3895" ;
+  geo:lon "-89.9562" .
+
+_:b1036 geo:lat "50.9871" ;
+  geo:lon "2.12554" .
+
+_:b1396 geo:lat "32.3895" ;
+  geo:lon "-89.9562" .
+
+_:b1035 geo:lat "50.9321" ;
+  geo:lon "-1.3892" .
+
+_:b1395 geo:lat "37.3931" ;
+  geo:lon "-121.962" .
+
+_:b1034 geo:lat "48.4265" ;
+  geo:lon "-123.362" .
+
+_:b1394 geo:lat "49.0917" ;
+  geo:lon "8.42838" .
+
+_:b1033 geo:lat "45.5674" ;
+  geo:lon "5.9275" .
+
+_:b1393 geo:lat "35.7907" ;
+  geo:lon "139.6203" .
+
+_:b1032 geo:lat "50.1109" ;
+  geo:lon "8.68213" .
+
+_:b1392 geo:lat "32.3895" ;
+  geo:lon "-89.9562" .
+
+_:b1031 geo:lat "52.0361" ;
+  geo:lon "-0.7006" .
+
+_:b1391 geo:lat "35.6895" ;
+  geo:lon "139.692" .
+
+_:b1030 geo:lat "49.0917" ;
+  geo:lon "8.42838" .
+
+_:b1390 geo:lat "35.6916" ;
+  geo:lon "139.768" .
+
+_:b859 geo:lat "51.6486" ;
+  geo:lon "0.0495" .
+
+_:b858 geo:lat "50.8268" ;
+  geo:lon "5.7116" .
+
+_:b857 geo:lat "52.3667" ;
+  geo:lon "4.89454" .
+
+_:b856 geo:lat "52.3667" ;
+  geo:lon "4.89454" .
+
+_:b855 geo:lat "52.3872" ;
+  geo:lon "9.7054" .
+
+_:b854 geo:lat "49.4922" ;
+  geo:lon "8.464" .
+
+_:b853 geo:lat "43.6532" ;
+  geo:lon "-79.3832" .
+
+_:b852 geo:lat "40.4519" ;
+  geo:lon "-3.711" .
+
+_:b851 geo:lat "-33.0479" ;
+  geo:lon "-71.6055" .
+
+_:b850 geo:lat "40.4272" ;
+  geo:lon "-3.71347" .
+
+_:b1029 geo:lat "50.8268" ;
+  geo:lon "5.7116" .
+
+_:b1389 geo:lat "35.6916" ;
+  geo:lon "139.768" .
+
+_:b1028 geo:lat "50.8268" ;
+  geo:lon "5.7116" .
+
+_:b1388 geo:lat "43.6532" ;
+  geo:lon "-79.3832" .
+
+_:b1027 geo:lat "-3.9909" ;
+  geo:lon "-79.202" .
+
+_:b1387 geo:lat "40.3765" ;
+  geo:lon "-3.7592" .
+
+_:b1026 geo:lat "53.3498" ;
+  geo:lon "-6.26031" .
+
+_:b1386 geo:lat "50.475" ;
+  geo:lon "12.365" .
+
+_:b1025 geo:lat "52.3111" ;
+  geo:lon "4.861" .
+
+_:b1385 geo:lat "52.352" ;
+  geo:lon "4.9392" .
+
+_:b1024 geo:lat "52.3111" ;
+  geo:lon "4.861" .
+
+_:b1384 geo:lat "47.5636" ;
+  geo:lon "19.0947" .
+
+_:b1023 geo:lat "52.3111" ;
+  geo:lon "4.861" .
+
+_:b1383 geo:lat "52.3676" ;
+  geo:lon "4.90414" .
+
+_:b1022 geo:lat "50.6811" ;
+  geo:lon "10.9238" .
+
+_:b1382 geo:lat "52.2403" ;
+  geo:lon "21.0186" .
+
+_:b1021 geo:lat "56.0843" ;
+  geo:lon "12.1451" .
+
+_:b1381 geo:lat "37.6468" ;
+  geo:lon "126.8843" .
+
+_:b1020 geo:lat "55.9403" ;
+  geo:lon "-3.18244" .
+
+_:b1380 geo:lat "48.8323" ;
+  geo:lon "2.4075" .
+
+_:b849 geo:lat "43.2965" ;
+  geo:lon "5.36978" .
+
+_:b848 geo:lat "41.8904" ;
+  geo:lon "12.5126" .
+
+_:b847 geo:lat "41.8904" ;
+  geo:lon "12.5126" .
+
+_:b846 geo:lat "41.8904" ;
+  geo:lon "12.5126" .
+
+_:b845 geo:lat "-3.9909" ;
+  geo:lon "-79.202" .
+
+_:b844 geo:lat "-3.9909" ;
+  geo:lon "-79.202" .
+
+_:b843 geo:lat "47.5636" ;
+  geo:lon "19.0947" .
+
+_:b842 geo:lat "53.2689" ;
+  geo:lon "-9.0533" .
+
+_:b841 geo:lat "48.1663" ;
+  geo:lon "11.5683" .
+
+_:b840 geo:lat "50.0883" ;
+  geo:lon "14.4124" .
+
+_:b1019 geo:lat "48.1992" ;
+  geo:lon "16.3856" .
+
+_:b1379 geo:lat "52.1312" ;
+  geo:lon "0.205" .
+
+_:b1018 geo:lat "48.1992" ;
+  geo:lon "16.3856" .
+
+_:b1378 geo:lat "48.8219" ;
+  geo:lon "2.3709" .
+
+_:b1017 geo:lat "48.1992" ;
+  geo:lon "16.3856" .
+
+_:b1377 geo:lat "50.6811" ;
+  geo:lon "10.9238" .
+
+_:b1016 geo:lat "48.1992" ;
+  geo:lon "16.3856" .
+
+_:b1376 geo:lat "43.7298" ;
+  geo:lon "10.803" .
+
+_:b1015 geo:lat "40.0992" ;
+  geo:lon "-83.1141" .
+
+_:b1375 geo:lat "42.6977" ;
+  geo:lon "23.3219" .
+
+_:b1014 geo:lat "35.6916" ;
+  geo:lon "139.768" .
+
+_:b1374 geo:lat "50.6811" ;
+  geo:lon "10.9238" .
+
+_:b1013 geo:lat "43.6426" ;
+  geo:lon "-79.4002" .
+
+_:b1373 geo:lat "48.8323" ;
+  geo:lon "2.4075" .
+
+_:b1012 geo:lat "40.8229" ;
+  geo:lon "-74.4592" .
+
+_:b1372 geo:lat "52.3676" ;
+  geo:lon "4.90414" .
+
+_:b1011 geo:lat "45.5019" ;
+  geo:lon "-73.5674" .
+
+_:b1371 geo:lat "42.0041" ;
+  geo:lon "21.4095" .
+
+_:b1010 geo:lat "59.8551" ;
+  geo:lon "17.6343" .
+
+_:b1370 geo:lat "52.1827" ;
+  geo:lon "4.4975" .
+
+_:b839 geo:lat "45.748" ;
+  geo:lon "4.85" .
+
+_:b838 geo:lat "45.748" ;
+  geo:lon "4.85" .
+
+_:b837 geo:lat "51.7665" ;
+  geo:lon "-1.2829" .
+
+_:b836 geo:lat "40.7128" ;
+  geo:lon "-74.006" .
+
+_:b835 geo:lat "52.0361" ;
+  geo:lon "-0.7006" .
+
+_:b834 geo:lat "25.0104" ;
+  geo:lon "121.4684" .
+
+_:b833 geo:lat "43.6532" ;
+  geo:lon "-79.3832" .
+
+_:b832 geo:lat "60.342" ;
+  geo:lon "25.0293" .
+
+_:b831 geo:lat "60.342" ;
+  geo:lon "25.0293" .
+
+_:b830 geo:lat "48.855" ;
+  geo:lon "2.4836" .
+
+_:b1009 geo:lat "41.387" ;
+  geo:lon "2.1701" .
+
+_:b1369 geo:lat "25.0504" ;
+  geo:lon "121.5324" .
+
+_:b1008 geo:lat "37.7892" ;
+  geo:lon "-122.402" .
+
+_:b1368 geo:lat "50.7748" ;
+  geo:lon "14.9508" .
+
+_:b1007 geo:lat "37.7823" ;
+  geo:lon "-122.472" .
+
+_:b1367 geo:lat "50.9871" ;
+  geo:lon "2.12554" .
+
+_:b1006 geo:lat "37.7823" ;
+  geo:lon "-122.472" .
+
+_:b1366 geo:lat "50.9871" ;
+  geo:lon "2.12554" .
+
+_:b1005 geo:lat "37.7823" ;
+  geo:lon "-122.472" .
+
+_:b1365 geo:lat "50.9871" ;
+  geo:lon "2.12554" .
+
+_:b1004 geo:lat "50.8268" ;
+  geo:lon "5.7116" .
+
+_:b1364 geo:lat "50.9871" ;
+  geo:lon "2.12554" .
+
+_:b1003 geo:lat "37.9842" ;
+  geo:lon "23.7353" .
+
+_:b1363 geo:lat "47.3682" ;
+  geo:lon "8.5671" .
+
+_:b1002 geo:lat "47.6222" ;
+  geo:lon "-122.337" .
+
+_:b1362 geo:lat "50.1169" ;
+  geo:lon "8.6837" .
+
+_:b1001 geo:lat "47.6222" ;
+  geo:lon "-122.337" .
+
+_:b1361 geo:lat "59.3382" ;
+  geo:lon "18.0721" .
+
+_:b1000 geo:lat "-16.561" ;
+  geo:lon "-49.2063" .
+
+_:b1360 geo:lat "62.8357" ;
+  geo:lon "27.6763" .
+
+_:b829 geo:lat "53.3598" ;
+  geo:lon "-6.4905" .
+
+_:b828 geo:lat "43.6387" ;
+  geo:lon "-79.4262" .
+
+_:b827 geo:lat "52.3872" ;
+  geo:lon "9.7054" .
+
+_:b826 geo:lat "40.43" ;
+  geo:lon "-3.6691" .
+
+_:b825 geo:lat "59.8348" ;
+  geo:lon "10.4277" .
+
+_:b824 geo:lat "49.6113" ;
+  geo:lon "6.1294" .
+
+_:b823 geo:lat "47.5636" ;
+  geo:lon "19.0947" .
+
+_:b822 geo:lat "43.3549" ;
+  geo:lon "-5.8529" .
+
+_:b821 geo:lat "44.2251" ;
+  geo:lon "12.047" .
+
+_:b820 geo:lat "43.2965" ;
+  geo:lon "5.36978" .
+
+_:b1359 geo:lat "62.8357" ;
+  geo:lon "27.6763" .
+
+_:b1358 geo:lat "62.8357" ;
+  geo:lon "27.6763" .
+
+_:b1357 geo:lat "62.8357" ;
+  geo:lon "27.6763" .
+
+_:b1356 geo:lat "62.8357" ;
+  geo:lon "27.6763" .
+
+_:b1355 geo:lat "62.8357" ;
+  geo:lon "27.6763" .
+
+_:b1354 geo:lat "25.0504" ;
+  geo:lon "121.5324" .
+
+_:b1353 geo:lat "39.0438" ;
+  geo:lon "-77.4874" .
+
+_:b1352 geo:lat "53.3498" ;
+  geo:lon "-6.26031" .
+
+_:b1351 geo:lat "60.1719" ;
+  geo:lon "24.9347" .
+
+_:b1350 geo:lat "47.9972" ;
+  geo:lon "16.0453" .
+
+_:b819 geo:lat "43.6319" ;
+  geo:lon "7.0043" .
+
+_:b818 geo:lat "48.1446" ;
+  geo:lon "11.5895" .
+
+_:b817 geo:lat "48.9105" ;
+  geo:lon "2.36801" .
+
+_:b816 geo:lat "50.8344" ;
+  geo:lon "4.368" .
+
+_:b815 geo:lat "41.8904" ;
+  geo:lon "12.5126" .
+
+_:b814 geo:lat "37.5599" ;
+  geo:lon "-1.8075" .
+
+_:b813 geo:lat "37.5599" ;
+  geo:lon "-1.8075" .
+
+_:b812 geo:lat "37.5599" ;
+  geo:lon "-1.8075" .
+
+_:b811 geo:lat "48.8323" ;
+  geo:lon "2.4075" .
+
+_:b810 geo:lat "53.2567" ;
+  geo:lon "6.45972" .
+
+_:b1349 geo:lat "36.416" ;
+  geo:lon "127.3664" .
+
+_:b1348 geo:lat "35.7907" ;
+  geo:lon "139.6203" .
+
+_:b1347 geo:lat "45.1885" ;
+  geo:lon "5.72452" .
+
+_:b1346 geo:lat "32.3895" ;
+  geo:lon "-89.9562" .
+
+_:b1345 geo:lat "43.2965" ;
+  geo:lon "5.36978" .
+
+_:b1344 geo:lat "47.6157" ;
+  geo:lon "-122.336" .
+
+_:b1343 geo:lat "35.6916" ;
+  geo:lon "139.768" .
+
+_:b1342 geo:lat "45.1766" ;
+  geo:lon "5.7205" .
+
+_:b1341 geo:lat "45.1766" ;
+  geo:lon "5.7205" .
+
+_:b1340 geo:lat "45.7826" ;
+  geo:lon "4.86519" .
+
+_:b809 geo:lat "47.9863" ;
+  geo:lon "8.819" .
+
+_:b808 geo:lat "53.3498" ;
+  geo:lon "-6.26031" .
+
+_:b807 geo:lat "53.9573" ;
+  geo:lon "-1.0837" .
+
+_:b806 geo:lat "35.6916" ;
+  geo:lon "139.768" .
+
+_:b805 geo:lat "62.8357" ;
+  geo:lon "27.6763" .
+
+_:b804 geo:lat "43.7019" ;
+  geo:lon "-72.2827" .
+
+_:b803 geo:lat "43.5866" ;
+  geo:lon "7.1242" .
+
+_:b802 geo:lat "40.43" ;
+  geo:lon "-3.6691" .
+
+_:b801 geo:lat "50.8268" ;
+  geo:lon "5.7116" .
+
+_:b800 geo:lat "39.0974" ;
+  geo:lon "26.5463" .
+
+_:b1339 geo:lat "35.6906" ;
+  geo:lon "139.77" .
+
+_:b1338 geo:lat "35.6906" ;
+  geo:lon "139.77" .
+
+_:b1337 geo:lat "35.6906" ;
+  geo:lon "139.77" .
+
+_:b1336 geo:lat "35.6906" ;
+  geo:lon "139.77" .
+
+_:b1335 geo:lat "42.6898" ;
+  geo:lon "-84.6427" .
+
+_:b1334 geo:lat "42.6898" ;
+  geo:lon "-84.6427" .
+
+_:b1333 geo:lat "49.9661" ;
+  geo:lon "15.8104" .
+
+_:b1332 geo:lat "49.9661" ;
+  geo:lon "15.8104" .
+
+_:b1331 geo:lat "49.9661" ;
+  geo:lon "15.8104" .
+
+_:b1330 geo:lat "39.0997" ;
+  geo:lon "-94.5785" .
+
+_:b1329 geo:lat "35.6916" ;
+  geo:lon "139.768" .
+
+_:b1328 geo:lat "40.4519" ;
+  geo:lon "-3.711" .
+
+_:b1327 geo:lat "39.0015" ;
+  geo:lon "-77.0961" .
+
+_:b1326 geo:lat "43.2965" ;
+  geo:lon "5.36978" .
+
+_:b1325 geo:lat "43.2965" ;
+  geo:lon "5.36978" .
+
+_:b1324 geo:lat "-6.3966" ;
+  geo:lon "106.8164" .
+
+_:b1323 geo:lat "48.8033" ;
+  geo:lon "2.2679" .
+
+_:b1322 geo:lat "48.8033" ;
+  geo:lon "2.2679" .
+
+_:b1321 geo:lat "32.3895" ;
+  geo:lon "-89.9562" .
+
+_:b1320 geo:lat "47.5636" ;
+  geo:lon "19.0947" .
+
+_:b1319 geo:lat "32.3895" ;
+  geo:lon "-89.9562" .
+
+_:b1318 geo:lat "10.7771" ;
+  geo:lon "106.689" .
+
+_:b1317 geo:lat "22.3361" ;
+  geo:lon "114.1999" .
+
+_:b1316 geo:lat "51.382" ;
+  geo:lon "12.36" .
+
+_:b1315 geo:lat "52.3111" ;
+  geo:lon "4.861" .
+
+_:b1314 geo:lat "32.3895" ;
+  geo:lon "-89.9562" .
+
+_:b1313 geo:lat "43.2965" ;
+  geo:lon "5.36978" .
+
+_:b1312 geo:lat "46.1986" ;
+  geo:lon "6.14277" .
+
+_:b1311 geo:lat "46.1986" ;
+  geo:lon "6.14277" .
+
+_:b1310 geo:lat "46.1986" ;
+  geo:lon "6.14277" .
+
+_:b1309 geo:lat "43.2965" ;
+  geo:lon "5.36978" .
+
+_:b1308 geo:lat "50.1187" ;
+  geo:lon "8.6842" .
+
+_:b1307 geo:lat "40.43" ;
+  geo:lon "-3.6691" .
+
+_:b1306 geo:lat "35.6916" ;
+  geo:lon "139.768" .
+
+_:b1305 geo:lat "51.3235" ;
+  geo:lon "12.4266" .
+
+_:b1304 geo:lat "52.6049" ;
+  geo:lon "-1.1488" .
+
+_:b1303 geo:lat "48.837" ;
+  geo:lon "2.10292" .
+
+_:b1302 geo:lat "48.8609" ;
+  geo:lon "2.30617" .
+
+_:b1301 geo:lat "32.3895" ;
+  geo:lon "-89.9562" .
+
+_:b1300 geo:lat "42.8198" ;
+  geo:lon "-1.6374" .
+
+_:b1199 geo:lat "46.5184" ;
+  geo:lon "6.6436" .
+
+_:b1198 geo:lat "46.1986" ;
+  geo:lon "6.14277" .
+
+_:b1197 geo:lat "38.2988" ;
+  geo:lon "141.0028" .
+
+_:b1196 geo:lat "42.8198" ;
+  geo:lon "-1.6374" .
+
+_:b1195 geo:lat "45.5019" ;
+  geo:lon "-73.5674" .
+
+_:b1194 geo:lat "46.1986" ;
+  geo:lon "6.14277" .
+
+_:b1193 geo:lat "49.4071" ;
+  geo:lon "8.6879" .
+
+_:b1192 geo:lat "60.1797" ;
+  geo:lon "24.9344" .
+
+_:b1191 geo:lat "60.1797" ;
+  geo:lon "24.9344" .
+
+_:b1190 geo:lat "52.1827" ;
+  geo:lon "4.4975" .
+
+_:b1189 geo:lat "52.1827" ;
+  geo:lon "4.4975" .
+
+_:b1188 geo:lat "52.1827" ;
+  geo:lon "4.4975" .
+
+_:b1187 geo:lat "52.1827" ;
+  geo:lon "4.4975" .
+
+_:b1186 geo:lat "52.1827" ;
+  geo:lon "4.4975" .
+
+_:b1185 geo:lat "52.1827" ;
+  geo:lon "4.4975" .
+
+_:b1184 geo:lat "52.1827" ;
+  geo:lon "4.4975" .
+
+_:b1183 geo:lat "52.1827" ;
+  geo:lon "4.4975" .
+
+_:b1182 geo:lat "52.1827" ;
+  geo:lon "4.4975" .
+
+_:b1181 geo:lat "52.1827" ;
+  geo:lon "4.4975" .
+
+_:b1180 geo:lat "52.1827" ;
+  geo:lon "4.4975" .
+
+_:b1179 geo:lat "52.1827" ;
+  geo:lon "4.4975" .
+
+_:b1178 geo:lat "52.1827" ;
+  geo:lon "4.4975" .
+
+_:b1177 geo:lat "52.1827" ;
+  geo:lon "4.4975" .
+
+_:b1176 geo:lat "52.1827" ;
+  geo:lon "4.4975" .
+
+_:b1175 geo:lat "52.1827" ;
+  geo:lon "4.4975" .
+
+_:b1174 geo:lat "52.1827" ;
+  geo:lon "4.4975" .
+
+_:b1173 geo:lat "52.1827" ;
+  geo:lon "4.4975" .
+
+_:b1172 geo:lat "52.1827" ;
+  geo:lon "4.4975" .
+
+_:b1171 geo:lat "52.1827" ;
+  geo:lon "4.4975" .
+
+_:b1170 geo:lat "52.1827" ;
+  geo:lon "4.4975" .
+
+_:b999 geo:lat "32.3895" ;
+  geo:lon "-89.9562" .
+
+_:b998 geo:lat "46.0682" ;
+  geo:lon "11.114" .
+
+_:b997 geo:lat "50.1187" ;
+  geo:lon "8.6842" .
+
+_:b996 geo:lat "50.475" ;
+  geo:lon "12.365" .
+
+_:b995 geo:lat "50.8268" ;
+  geo:lon "5.7116" .
+
+_:b994 geo:lat "1.35208" ;
+  geo:lon "103.82" .
+
+_:b993 geo:lat "50.8268" ;
+  geo:lon "5.7116" .
+
+_:b992 geo:lat "39.0997" ;
+  geo:lon "-94.5785" .
+
+_:b991 geo:lat "41.6319" ;
+  geo:lon "-0.8957" .
+
+_:b990 geo:lat "44.497" ;
+  geo:lon "11.3565" .
+
+_:b1169 geo:lat "52.1827" ;
+  geo:lon "4.4975" .
+
+_:b1168 geo:lat "52.1827" ;
+  geo:lon "4.4975" .
+
+_:b1167 geo:lat "52.1827" ;
+  geo:lon "4.4975" .
+
+_:b1166 geo:lat "52.1827" ;
+  geo:lon "4.4975" .
+
+_:b1165 geo:lat "52.1827" ;
+  geo:lon "4.4975" .
+
+_:b1164 geo:lat "52.1827" ;
+  geo:lon "4.4975" .
+
+_:b1163 geo:lat "52.1827" ;
+  geo:lon "4.4975" .
+
+_:b1162 geo:lat "52.1827" ;
+  geo:lon "4.4975" .
+
+_:b1161 geo:lat "52.1827" ;
+  geo:lon "4.4975" .
+
+_:b1160 geo:lat "52.1827" ;
+  geo:lon "4.4975" .
+
+_:b989 geo:lat "44.497" ;
+  geo:lon "11.3565" .
+
+_:b988 geo:lat "50.0853" ;
+  geo:lon "14.4614" .
+
+_:b987 geo:lat "52.2297" ;
+  geo:lon "21.0122" .
+
+_:b986 geo:lat "50.8268" ;
+  geo:lon "5.7116" .
+
+_:b985 geo:lat "32.3895" ;
+  geo:lon "-89.9562" .
+
+_:b984 geo:lat "40.0992" ;
+  geo:lon "-83.1141" .
+
+_:b983 geo:lat "51.5072" ;
+  geo:lon "-0.127586" .
+
+_:b982 geo:lat "51.342" ;
+  geo:lon "12.3819" .
+
+_:b981 geo:lat "50.8268" ;
+  geo:lon "5.7116" .
+
+_:b980 geo:lat "51.5309" ;
+  geo:lon "4.45292" .
+
+_:b1159 geo:lat "52.1827" ;
+  geo:lon "4.4975" .
+
+_:b1158 geo:lat "52.1827" ;
+  geo:lon "4.4975" .
+
+_:b1157 geo:lat "52.1827" ;
+  geo:lon "4.4975" .
+
+_:b1156 geo:lat "52.1827" ;
+  geo:lon "4.4975" .
+
+_:b1155 geo:lat "52.1827" ;
+  geo:lon "4.4975" .
+
+_:b1154 geo:lat "52.1827" ;
+  geo:lon "4.4975" .
+
+_:b1153 geo:lat "52.1827" ;
+  geo:lon "4.4975" .
+
+_:b1152 geo:lat "52.1827" ;
+  geo:lon "4.4975" .
+
+_:b1151 geo:lat "52.1827" ;
+  geo:lon "4.4975" .
+
+_:b1150 geo:lat "52.1827" ;
+  geo:lon "4.4975" .
+
+_:b979 geo:lat "50.8268" ;
+  geo:lon "5.7116" .
+
+_:b978 geo:lat "35.6916" ;
+  geo:lon "139.768" .
+
+_:b977 geo:lat "50.1187" ;
+  geo:lon "8.6842" .
+
+_:b976 geo:lat "32.3895" ;
+  geo:lon "-89.9562" .
+
+_:b975 geo:lat "32.3895" ;
+  geo:lon "-89.9562" .
+
+_:b974 geo:lat "37.942" ;
+  geo:lon "-1.1377" .
+
+_:b973 geo:lat "50.8268" ;
+  geo:lon "5.7116" .
+
+_:b972 geo:lat "35.7907" ;
+  geo:lon "139.6203" .
+
+_:b971 geo:lat "50.8268" ;
+  geo:lon "5.7116" .
+
+_:b970 geo:lat "32.3895" ;
+  geo:lon "-89.9562" .
+
+_:b1149 geo:lat "52.1827" ;
+  geo:lon "4.4975" .
+
+_:b1148 geo:lat "52.1827" ;
+  geo:lon "4.4975" .
+
+_:b1147 geo:lat "52.1827" ;
+  geo:lon "4.4975" .
+
+_:b1146 geo:lat "52.1827" ;
+  geo:lon "4.4975" .
+
+_:b1145 geo:lat "52.1827" ;
+  geo:lon "4.4975" .
+
+_:b1144 geo:lat "43.2965" ;
+  geo:lon "5.36978" .
+
+_:b1143 geo:lat "52.5234" ;
+  geo:lon "13.3224" .
+
+_:b1142 geo:lat "49.6113" ;
+  geo:lon "6.1294" .
+
+_:b1141 geo:lat "32.3895" ;
+  geo:lon "-89.9562" .
+
+_:b1140 geo:lat "41.7092" ;
+  geo:lon "12.6936" .
+
+_:b969 geo:lat "52.0361" ;
+  geo:lon "-0.7006" .
+
+_:b968 geo:lat "50.8268" ;
+  geo:lon "5.7116" .
+
+_:b967 geo:lat "35.6916" ;
+  geo:lon "139.768" .
+
+_:b966 geo:lat "43.6532" ;
+  geo:lon "-79.3832" .
+
+_:b965 geo:lat "43.6532" ;
+  geo:lon "-79.3832" .
+
+_:b964 geo:lat "43.6532" ;
+  geo:lon "-79.3832" .
+
+_:b963 geo:lat "42.6397" ;
+  geo:lon "-73.5553" .
+
+_:b962 geo:lat "50.475" ;
+  geo:lon "12.365" .
+
+_:b961 geo:lat "47.5636" ;
+  geo:lon "19.0947" .
+
+_:b960 geo:lat "52.3676" ;
+  geo:lon "4.90414" .
+
+_:b1139 geo:lat "41.7092" ;
+  geo:lon "12.6936" .
+
+_:b1499 geo:lat "51.2707" ;
+  geo:lon "-0.7171" .
+
+_:b1138 geo:lat "43.6108" ;
+  geo:lon "3.87672" .
+
+_:b1498 geo:lat "45.5235" ;
+  geo:lon "-122.676" .
+
+_:b1137 geo:lat "50.8268" ;
+  geo:lon "5.7116" .
+
+_:b1497 geo:lat "48.8033" ;
+  geo:lon "2.2679" .
+
+_:b1136 geo:lat "43.6319" ;
+  geo:lon "7.0043" .
+
+_:b1496 geo:lat "32.3895" ;
+  geo:lon "-89.9562" .
+
+_:b1135 geo:lat "63.4277" ;
+  geo:lon "10.4012" .
+
+_:b1495 geo:lat "32.3895" ;
+  geo:lon "-89.9562" .
+
+_:b1134 geo:lat "32.7203" ;
+  geo:lon "-117.1552" .
+
+_:b1494 geo:lat "52.3676" ;
+  geo:lon "4.90414" .
+
+_:b1133 geo:lat "54.3308" ;
+  geo:lon "10.1368" .
+
+_:b1493 geo:lat "32.3895" ;
+  geo:lon "-89.9562" .
+
+_:b1132 geo:lat "54.3308" ;
+  geo:lon "10.1368" .
+
+_:b1492 geo:lat "32.3895" ;
+  geo:lon "-89.9562" .
+
+_:b1131 geo:lat "32.3895" ;
+  geo:lon "-89.9562" .
+
+_:b1491 geo:lat "32.3895" ;
+  geo:lon "-89.9562" .
+
+_:b1130 geo:lat "52.5422" ;
+  geo:lon "13.3495" .
+
+_:b1490 geo:lat "32.3895" ;
+  geo:lon "-89.9562" .
+
+_:b959 geo:lat "52.2403" ;
+  geo:lon "21.0186" .
+
+_:b958 geo:lat "37.6468" ;
+  geo:lon "126.8843" .
+
+_:b957 geo:lat "37.4723" ;
+  geo:lon "126.6594" .
+
+_:b956 geo:lat "37.4818" ;
+  geo:lon "127.1392" .
+
+_:b955 geo:lat "50.1235" ;
+  geo:lon "8.6648" .
+
+_:b954 geo:lat "51.4295" ;
+  geo:lon "7.3297" .
+
+_:b953 geo:lat "48.1663" ;
+  geo:lon "11.5683" .
+
+_:b952 geo:lat "35.6916" ;
+  geo:lon "139.768" .
+
+_:b951 geo:lat "50.9341" ;
+  geo:lon "6.93547" .
+
+_:b950 geo:lat "52.3667" ;
+  geo:lon "4.89454" .
+
+_:b1129 geo:lat "52.5422" ;
+  geo:lon "13.3495" .
+
+_:b1489 geo:lat "48.8033" ;
+  geo:lon "2.2679" .
+
+_:b1128 geo:lat "52.5422" ;
+  geo:lon "13.3495" .
+
+_:b1488 geo:lat "35.6517" ;
+  geo:lon "139.3221" .
+
+_:b1127 geo:lat "52.5422" ;
+  geo:lon "13.3495" .
+
+_:b1487 geo:lat "35.6517" ;
+  geo:lon "139.3221" .
+
+_:b1126 geo:lat "52.5422" ;
+  geo:lon "13.3495" .
+
+_:b1486 geo:lat "41.906" ;
+  geo:lon "12.5078" .
+
+_:b1125 geo:lat "52.5422" ;
+  geo:lon "13.3495" .
+
+_:b1485 geo:lat "60.342" ;
+  geo:lon "25.0293" .
+
+_:b1124 geo:lat "52.5422" ;
+  geo:lon "13.3495" .
+
+_:b1484 geo:lat "48.8434" ;
+  geo:lon "2.36349" .
+
+_:b1123 geo:lat "52.5422" ;
+  geo:lon "13.3495" .
+
+_:b1483 geo:lat "37.9842" ;
+  geo:lon "23.7353" .
+
+_:b1122 geo:lat "52.5422" ;
+  geo:lon "13.3495" .
+
+_:b1482 geo:lat "52.5234" ;
+  geo:lon "13.3224" .
+
+_:b1121 geo:lat "52.5422" ;
+  geo:lon "13.3495" .
+
+_:b1481 geo:lat "46.1986" ;
+  geo:lon "6.14277" .
+
+_:b1120 geo:lat "52.5422" ;
+  geo:lon "13.3495" .
+
+_:b1480 geo:lat "46.1986" ;
+  geo:lon "6.14277" .
+
+_:b949 geo:lat "50.6811" ;
+  geo:lon "10.9238" .
+
+_:b948 geo:lat "51.5072" ;
+  geo:lon "-0.127586" .
+
+_:b947 geo:lat "42.6977" ;
+  geo:lon "23.3219" .
+
+_:b946 geo:lat "50.6811" ;
+  geo:lon "10.9238" .
+
+_:b945 geo:lat "52.3676" ;
+  geo:lon "4.90414" .
+
+_:b944 geo:lat "42.0041" ;
+  geo:lon "21.4095" .
+
+_:b943 geo:lat "50.7748" ;
+  geo:lon "14.9508" .
+
+_:b942 geo:lat "51.8615" ;
+  geo:lon "-2.25094" .
+
+_:b941 geo:lat "40.43" ;
+  geo:lon "-3.6691" .
+
+_:b940 geo:lat "59.3382" ;
+  geo:lon "18.0721" .
+
+_:b1119 geo:lat "52.5422" ;
+  geo:lon "13.3495" .
+
+_:b1479 geo:lat "46.1986" ;
+  geo:lon "6.14277" .
+
+_:b1118 geo:lat "52.5422" ;
+  geo:lon "13.3495" .
+
+_:b1478 geo:lat "45.5019" ;
+  geo:lon "-73.5674" .
+
+_:b1117 geo:lat "52.5422" ;
+  geo:lon "13.3495" .
+
+_:b1477 geo:lat "50.1187" ;
+  geo:lon "8.6842" .
+
+_:b1116 geo:lat "37.7892" ;
+  geo:lon "-122.402" .
+
+_:b1476 geo:lat "46.1986" ;
+  geo:lon "6.14277" .
+
+_:b1115 geo:lat "37.7892" ;
+  geo:lon "-122.402" .
+
+_:b1475 geo:lat "39.7552" ;
+  geo:lon "-75.5312" .
+
+_:b1114 geo:lat "45.7148" ;
+  geo:lon "16.069" .
+
+_:b1474 geo:lat "46.1911" ;
+  geo:lon "6.1404" .
+
+_:b1113 geo:lat "43.4631" ;
+  geo:lon "11.8783" .
+
+_:b1473 geo:lat "51.5224" ;
+  geo:lon "-0.132647" .
+
+_:b1112 geo:lat "45.1766" ;
+  geo:lon "5.7205" .
+
+_:b1472 geo:lat "35.179" ;
+  geo:lon "136.8939" .
+
+_:b1111 geo:lat "40.0992" ;
+  geo:lon "-83.1141" .
+
+_:b1471 geo:lat "46.1986" ;
+  geo:lon "6.14277" .
+
+_:b1110 geo:lat "47.219" ;
+  geo:lon "4.9968" .
+
+_:b1470 geo:lat "42.3068" ;
+  geo:lon "-83.7059" .
+
+_:b939 geo:lat "37.7823" ;
+  geo:lon "-122.391" .
+
+_:b938 geo:lat "62.8357" ;
+  geo:lon "27.6763" .
+
+_:b937 geo:lat "62.8357" ;
+  geo:lon "27.6763" .
+
+_:b936 geo:lat "62.8357" ;
+  geo:lon "27.6763" .
+
+_:b935 geo:lat "62.8357" ;
+  geo:lon "27.6763" .
+
+_:b934 geo:lat "62.8357" ;
+  geo:lon "27.6763" .
+
+_:b933 geo:lat "62.8357" ;
+  geo:lon "27.6763" .
+
+_:b932 geo:lat "-28.0167" ;
+  geo:lon "153.4" .
+
+_:b931 geo:lat "48.9946" ;
+  geo:lon "8.3758" .
+
+_:b930 geo:lat "50.8268" ;
+  geo:lon "5.7116" .
+
+_:b1109 geo:lat "48.1446" ;
+  geo:lon "11.5895" .
+
+_:b1469 geo:lat "35.6837" ;
+  geo:lon "139.6805" .
+
+_:b1108 geo:lat "48.1446" ;
+  geo:lon "11.5895" .
+
+_:b1468 geo:lat "35.6837" ;
+  geo:lon "139.6805" .
+
+_:b1107 geo:lat "48.1446" ;
+  geo:lon "11.5895" .
+
+_:b1467 geo:lat "47.6157" ;
+  geo:lon "-122.336" .
+
+_:b1106 geo:lat "48.1446" ;
+  geo:lon "11.5895" .
+
+_:b1466 geo:lat "34.7005" ;
+  geo:lon "135.498" .
+
+_:b1105 geo:lat "48.1446" ;
+  geo:lon "11.5895" .
+
+_:b1465 geo:lat "34.7005" ;
+  geo:lon "135.498" .
+
+_:b1104 geo:lat "42.6898" ;
+  geo:lon "-84.6427" .
+
+_:b1464 geo:lat "45.5674" ;
+  geo:lon "5.9275" .
+
+_:b1103 geo:lat "43.4637" ;
+  geo:lon "-3.79731" .
+
+_:b1463 geo:lat "42.4842" ;
+  geo:lon "2.7526" .
+
+_:b1102 geo:lat "35.6916" ;
+  geo:lon "139.768" .
+
+_:b1462 geo:lat "41.8904" ;
+  geo:lon "12.5126" .
+
+_:b1101 geo:lat "40.7128" ;
+  geo:lon "-74.006" .
+
+_:b1461 geo:lat "50.475" ;
+  geo:lon "12.365" .
+
+_:b1100 geo:lat "43.2965" ;
+  geo:lon "5.36978" .
+
+_:b1460 geo:lat "43.2965" ;
+  geo:lon "5.36978" .
+
+_:b929 geo:lat "37.561" ;
+  geo:lon "126.995" .
+
+_:b928 geo:lat "47.6222" ;
+  geo:lon "-122.337" .
+
+_:b927 geo:lat "45.1885" ;
+  geo:lon "5.72452" .
+
+_:b926 geo:lat "32.3895" ;
+  geo:lon "-89.9562" .
+
+_:b925 geo:lat "35.6916" ;
+  geo:lon "139.768" .
+
+_:b924 geo:lat "43.5866" ;
+  geo:lon "7.1242" .
+
+_:b923 geo:lat "52.0361" ;
+  geo:lon "-0.7006" .
+
+_:b922 geo:lat "50.8268" ;
+  geo:lon "5.7116" .
+
+_:b921 geo:lat "50.8268" ;
+  geo:lon "5.7116" .
+
+_:b920 geo:lat "35.6906" ;
+  geo:lon "139.77" .
+
+_:b1459 geo:lat "49.0917" ;
+  geo:lon "8.42838" .
+
+_:b1458 geo:lat "46.2261" ;
+  geo:lon "6.1258" .
+
+_:b1457 geo:lat "43.2965" ;
+  geo:lon "5.36978" .
+
+_:b1456 geo:lat "-3.9909" ;
+  geo:lon "-79.202" .
+
+_:b1455 geo:lat "52.3111" ;
+  geo:lon "4.861" .
+
+_:b1454 geo:lat "52.3111" ;
+  geo:lon "4.861" .
+
+_:b1453 geo:lat "52.3111" ;
+  geo:lon "4.861" .
+
+_:b1452 geo:lat "56.0843" ;
+  geo:lon "12.1451" .
+
+_:b1451 geo:lat "52.3667" ;
+  geo:lon "4.9" .
+
+_:b1450 geo:lat "50.7748" ;
+  geo:lon "14.9508" .
+
+_:b919 geo:lat "42.6397" ;
+  geo:lon "-73.5553" .
+
+_:b918 geo:lat "40.4519" ;
+  geo:lon "-3.711" .
+
+_:b917 geo:lat "39.0015" ;
+  geo:lon "-77.0961" .
+
+_:b916 geo:lat "43.2965" ;
+  geo:lon "5.36978" .
+
+_:b915 geo:lat "43.2965" ;
+  geo:lon "5.36978" .
+
+_:b914 geo:lat "48.8323" ;
+  geo:lon "2.4075" .
+
+_:b913 geo:lat "32.3895" ;
+  geo:lon "-89.9562" .
+
+_:b912 geo:lat "32.3895" ;
+  geo:lon "-89.9562" .
+
+_:b911 geo:lat "50.8268" ;
+  geo:lon "5.7116" .
+
+_:b910 geo:lat "22.3361" ;
+  geo:lon "114.1999" .
+
+_:b1449 geo:lat "50.1133" ;
+  geo:lon "14.4068" .
+
+_:b1448 geo:lat "47.1281" ;
+  geo:lon "22.9826" .
+
+_:b1447 geo:lat "47.1281" ;
+  geo:lon "22.9826" .
+
+_:b1446 geo:lat "47.1281" ;
+  geo:lon "22.9826" .
+
+_:b1445 geo:lat "47.1281" ;
+  geo:lon "22.9826" .
+
+_:b1444 geo:lat "47.1281" ;
+  geo:lon "22.9826" .
+
+_:b1443 geo:lat "48.11" ;
+  geo:lon "-1.6744" .
+
+_:b1442 geo:lat "43.6426" ;
+  geo:lon "-79.4002" .
+
+_:b1441 geo:lat "40.8229" ;
+  geo:lon "-74.4592" .
+
+_:b1440 geo:lat "46.5267" ;
+  geo:lon "6.6243" .
+
+_:b909 geo:lat "50.8268" ;
+  geo:lon "5.7116" .
+
+_:b908 geo:lat "51.8613" ;
+  geo:lon "-2.25056" .
+
+_:b907 geo:lat "42.8198" ;
+  geo:lon "-1.6374" .
+
+_:b906 geo:lat "32.3895" ;
+  geo:lon "-89.9562" .
+
+_:b905 geo:lat "43.2965" ;
+  geo:lon "5.36978" .
+
+_:b904 geo:lat "40.6439" ;
+  geo:lon "22.9358" .
+
+_:b903 geo:lat "40.6439" ;
+  geo:lon "22.9358" .
+
+_:b902 geo:lat "40.6439" ;
+  geo:lon "22.9358" .
+
+_:b901 geo:lat "40.6439" ;
+  geo:lon "22.9358" .
+
+_:b900 geo:lat "52.3826" ;
+  geo:lon "13.0934" .
+
+_:b1439 geo:lat "46.5267" ;
+  geo:lon "6.6243" .
+
+_:b1438 geo:lat "48.8566" ;
+  geo:lon "2.35222" .
+
+_:b1437 geo:lat "41.387" ;
+  geo:lon "2.1701" .
+
+_:b1436 geo:lat "37.7823" ;
+  geo:lon "-122.391" .
+
+_:b1435 geo:lat "37.7892" ;
+  geo:lon "-122.402" .
+
+_:b1434 geo:lat "37.7892" ;
+  geo:lon "-122.402" .
+
+_:b1433 geo:lat "37.7892" ;
+  geo:lon "-122.402" .
+
+_:b1432 geo:lat "37.7892" ;
+  geo:lon "-122.402" .
+
+_:b1431 geo:lat "37.7892" ;
+  geo:lon "-122.402" .
+
+_:b1430 geo:lat "52.4561" ;
+  geo:lon "13.2983" .
+
+_:b1429 geo:lat "49.748" ;
+  geo:lon "6.6263" .
+
+_:b1428 geo:lat "50.1109" ;
+  geo:lon "8.68213" .
+
+_:b1427 geo:lat "49.4521" ;
+  geo:lon "11.0767" .
+
+_:b1426 geo:lat "37.7823" ;
+  geo:lon "-122.472" .
+
+_:b1425 geo:lat "47.6222" ;
+  geo:lon "-122.337" .
+
+_:b1424 geo:lat "47.6222" ;
+  geo:lon "-122.337" .
+
+_:b1423 geo:lat "47.6222" ;
+  geo:lon "-122.337" .
+
+_:b1422 geo:lat "47.6222" ;
+  geo:lon "-122.337" .
+
+_:b1421 geo:lat "32.3895" ;
+  geo:lon "-89.9562" .
+
+_:b1420 geo:lat "46.0682" ;
+  geo:lon "11.114" .
+
+_:b1419 geo:lat "48.837" ;
+  geo:lon "2.10312" .
+
+_:b1418 geo:lat "1.35208" ;
+  geo:lon "103.82" .
+
+_:b1417 geo:lat "50.9965" ;
+  geo:lon "11.0144" .
+
+_:b1416 geo:lat "39.0997" ;
+  geo:lon "-94.5785" .
+
+_:b1415 geo:lat "48.8323" ;
+  geo:lon "2.4075" .
+
+_:b1414 geo:lat "50.0761" ;
+  geo:lon "14.4479" .
+
+_:b1413 geo:lat "50.0761" ;
+  geo:lon "14.4479" .
+
+_:b1412 geo:lat "41.6319" ;
+  geo:lon "-0.8957" .
+
+_:b1411 geo:lat "44.497" ;
+  geo:lon "11.3565" .
+
+_:b1410 geo:lat "50.1109" ;
+  geo:lon "8.6821" .
+
+_:b1409 geo:lat "45.7838" ;
+  geo:lon "3.0966" .
+
+_:b799 geo:lat "50.7748" ;
+  geo:lon "14.9508" .
+
+_:b1408 geo:lat "45.7838" ;
+  geo:lon "3.0966" .
+
+_:b798 geo:lat "40.3765" ;
+  geo:lon "-3.7592" .
+
+_:b1407 geo:lat "45.7838" ;
+  geo:lon "3.0966" .
+
+_:b797 geo:lat "56.0843" ;
+  geo:lon "12.1451" .
+
+_:b1406 geo:lat "45.7838" ;
+  geo:lon "3.0966" .
+
+_:b796 geo:lat "52.0361" ;
+  geo:lon "-0.7006" .
+
+_:b1405 geo:lat "45.7838" ;
+  geo:lon "3.0966" .
+
+_:b795 geo:lat "52.3826" ;
+  geo:lon "13.0934" .
+
+_:b1404 geo:lat "45.7838" ;
+  geo:lon "3.0966" .
+
+_:b794 geo:lat "51.5153" ;
+  geo:lon "-0.10931" .
+
+_:b1403 geo:lat "32.3895" ;
+  geo:lon "-89.9562" .
+
+_:b793 geo:lat "51.5153" ;
+  geo:lon "-0.10931" .
+
+_:b1402 geo:lat "50.7748" ;
+  geo:lon "14.9508" .
+
+_:b792 geo:lat "35.6916" ;
+  geo:lon "139.768" .
+
+_:b1401 geo:lat "50.7748" ;
+  geo:lon "14.9508" .
+
+_:b791 geo:lat "50.8268" ;
+  geo:lon "5.7116" .
+
+_:b1400 geo:lat "51.342" ;
+  geo:lon "12.3819" .
+
+_:b790 geo:lat "47.2145" ;
+  geo:lon "-1.5512" .
+
+_:b789 geo:lat "39.1488" ;
+  geo:lon "117.1762" .
+
+_:b788 geo:lat "32.3895" ;
+  geo:lon "-89.9562" .
+
+_:b787 geo:lat "32.3895" ;
+  geo:lon "-89.9562" .
+
+_:b786 geo:lat "32.3895" ;
+  geo:lon "-89.9562" .
+
+_:b785 geo:lat "45.5048" ;
+  geo:lon "-73.5749" .
+
+_:b784 geo:lat "49.5006" ;
+  geo:lon "8.4944" .
+
+_:b783 geo:lat "53.4113" ;
+  geo:lon "-2.9759" .
+
+_:b782 geo:lat "34.8598" ;
+  geo:lon "135.4675" .
+
+_:b781 geo:lat "43.4643" ;
+  geo:lon "-80.5204" .
+
+_:b780 geo:lat "50.8268" ;
+  geo:lon "5.7116" .
+
+_:b779 geo:lat "50.8268" ;
+  geo:lon "5.7116" .
+
+_:b778 geo:lat "50.8268" ;
+  geo:lon "5.7116" .
+
+_:b777 geo:lat "52.3676" ;
+  geo:lon "4.90414" .
+
+_:b776 geo:lat "42.4477" ;
+  geo:lon "14.2212" .
+
+_:b775 geo:lat "45.5075" ;
+  geo:lon "-73.5887" .
+
+_:b774 geo:lat "42.8198" ;
+  geo:lon "-1.6374" .
+
+_:b773 geo:lat "47.6222" ;
+  geo:lon "-122.337" .
+
+_:b772 geo:lat "47.6229" ;
+  geo:lon "-122.337" .
+
+_:b771 geo:lat "47.6222" ;
+  geo:lon "-122.337" .
+
+_:b770 geo:lat "47.6222" ;
+  geo:lon "-122.337" .
+
+_:b769 geo:lat "47.6229" ;
+  geo:lon "-122.337" .
+
+_:b768 geo:lat "47.6222" ;
+  geo:lon "-122.337" .
+
+_:b767 geo:lat "47.6222" ;
+  geo:lon "-122.337" .
+
+_:b766 geo:lat "47.6229" ;
+  geo:lon "-122.337" .
+
+_:b765 geo:lat "47.6229" ;
+  geo:lon "-122.337" .
+
+_:b764 geo:lat "47.6222" ;
+  geo:lon "-122.337" .
+
+_:b763 geo:lat "47.6222" ;
+  geo:lon "-122.337" .
+
+_:b762 geo:lat "47.6229" ;
+  geo:lon "-122.337" .
+
+_:b761 geo:lat "47.6222" ;
+  geo:lon "-122.337" .
+
+_:b760 geo:lat "47.6229" ;
+  geo:lon "-122.337" .
+
+_:b1299 geo:lat "40.43" ;
+  geo:lon "-3.6691" .
+
+_:b1298 geo:lat "40.6439" ;
+  geo:lon "22.9358" .
+
+_:b1297 geo:lat "49.4193" ;
+  geo:lon "8.7318" .
+
+_:b1296 geo:lat "38.8863" ;
+  geo:lon "-77.0209" .
+
+_:b1295 geo:lat "39.9315" ;
+  geo:lon "-75.3345" .
+
+_:b1294 geo:lat "47.6144" ;
+  geo:lon "-122.3447" .
+
+_:b1293 geo:lat "50.475" ;
+  geo:lon "12.365" .
+
+_:b1292 geo:lat "52.1827" ;
+  geo:lon "4.4975" .
+
+_:b1291 geo:lat "55.6802" ;
+  geo:lon "12.5892" .
+
+_:b1290 geo:lat "41.4616" ;
+  geo:lon "15.5564" .
+
+_:b759 geo:lat "47.6222" ;
+  geo:lon "-122.337" .
+
+_:b758 geo:lat "60.1797" ;
+  geo:lon "24.9344" .
+
+_:b757 geo:lat "32.3895" ;
+  geo:lon "-89.9562" .
+
+_:b756 geo:lat "50.1187" ;
+  geo:lon "8.6842" .
+
+_:b755 geo:lat "50.8268" ;
+  geo:lon "5.7116" .
+
+_:b754 geo:lat "40.43" ;
+  geo:lon "-3.6691" .
+
+_:b753 geo:lat "43.4065" ;
+  geo:lon "-5.8213" .
+
+_:b752 geo:lat "37.5665" ;
+  geo:lon "126.978" .
+
+_:b1289 geo:lat "48.8566" ;
+  geo:lon "2.35222" .
+
+_:b1288 geo:lat "48.1951" ;
+  geo:lon "16.3483" .
+
+_:b1287 geo:lat "49.0917" ;
+  geo:lon "8.42838" .
+
+_:b1286 geo:lat "51.6486" ;
+  geo:lon "0.0495" .
+
+_:b1285 geo:lat "51.6486" ;
+  geo:lon "0.0495" .
+
+_:b1284 geo:lat "51.6486" ;
+  geo:lon "0.0495" .
+
+_:b1283 geo:lat "51.6486" ;
+  geo:lon "0.0495" .
+
+_:b1282 geo:lat "52.3667" ;
+  geo:lon "4.89454" .
+
+_:b1281 geo:lat "52.3667" ;
+  geo:lon "4.89454" .
+
+_:b1280 geo:lat "41.387" ;
+  geo:lon "2.1701" .
+
+_:b1279 geo:lat "40.4442" ;
+  geo:lon "-79.9557" .
+
+_:b1278 geo:lat "40.4442" ;
+  geo:lon "-79.9557" .
+
+_:b1277 geo:lat "49.4922" ;
+  geo:lon "8.464" .
+
+_:b1276 geo:lat "35.6906" ;
+  geo:lon "139.77" .
+
+_:b1275 geo:lat "51.7324" ;
+  geo:lon "8.771" .
+
+_:b1274 geo:lat "40.4479" ;
+  geo:lon "-3.69409" .
+
+_:b1273 geo:lat "40.4479" ;
+  geo:lon "-3.69409" .
+
+_:b1272 geo:lat "40.4479" ;
+  geo:lon "-3.69409" .
+
+_:b1271 geo:lat "40.4519" ;
+  geo:lon "-3.711" .
+
+_:b1270 geo:lat "-33.0479" ;
+  geo:lon "-71.6055" .
+
+_:b1269 geo:lat "42.8769" ;
+  geo:lon "-8.5471" .
+
+_:b1268 geo:lat "41.8904" ;
+  geo:lon "12.5126" .
+
+_:b1267 geo:lat "41.8904" ;
+  geo:lon "12.5126" .
+
+_:b1266 geo:lat "41.8904" ;
+  geo:lon "12.5126" .
+
+_:b1265 geo:lat "41.8904" ;
+  geo:lon "12.5126" .
+
+_:b1264 geo:lat "50.9965" ;
+  geo:lon "11.0144" .
+
+_:b1263 geo:lat "48.2372" ;
+  geo:lon "16.3771" .
+
+_:b1262 geo:lat "45.748" ;
+  geo:lon "4.85" .
+
+_:b1261 geo:lat "40.7128" ;
+  geo:lon "-74.006" .
+
+_:b1260 geo:lat "40.7128" ;
+  geo:lon "-74.006" .
+
+_:b1259 geo:lat "40.7128" ;
+  geo:lon "-74.006" .
+
+_:b1258 geo:lat "40.7128" ;
+  geo:lon "-74.006" .
+
+_:b1257 geo:lat "40.7128" ;
+  geo:lon "-74.006" .
+
+_:b1256 geo:lat "25.0104" ;
+  geo:lon "121.4684" .
+
+_:b1255 geo:lat "39.0997" ;
+  geo:lon "-94.5785" .
+
+_:b1254 geo:lat "60.342" ;
+  geo:lon "25.0293" .
+
+_:b1253 geo:lat "60.342" ;
+  geo:lon "25.0293" .
+
+_:b1252 geo:lat "37.9875" ;
+  geo:lon "23.7618" .
+
+_:b1251 geo:lat "60.2018" ;
+  geo:lon "25.0512" .
+
+_:b1250 geo:lat "50.0695" ;
+  geo:lon "14.4633" .
+
+_:b1249 geo:lat "52.1827" ;
+  geo:lon "4.4975" .
+
+_:b1248 geo:lat "50.039" ;
+  geo:lon "14.4759" .
+
+_:b1247 geo:lat "48.855" ;
+  geo:lon "2.4836" .
+
+_:b1246 geo:lat "50.7748" ;
+  geo:lon "14.9508" .
+
+_:b1245 geo:lat "53.3598" ;
+  geo:lon "-6.4905" .
+
+_:b1244 geo:lat "31.2222" ;
+  geo:lon "121.4581" .
+
+_:b1243 geo:lat "49.6113" ;
+  geo:lon "6.1294" .
+
+_:b1242 geo:lat "48.8323" ;
+  geo:lon "2.4075" .
+
+_:b1241 geo:lat "48.8323" ;
+  geo:lon "2.4075" .
+
+_:b1240 geo:lat "41.2952" ;
+  geo:lon "69.2271" .
+
+_:b1239 geo:lat "41.2952" ;
+  geo:lon "69.2271" .
+
+_:b1238 geo:lat "53.3478" ;
+  geo:lon "-6.2597" .
+
+_:b1237 geo:lat "51.4295" ;
+  geo:lon "7.3297" .
+
+_:b1236 geo:lat "43.2965" ;
+  geo:lon "5.36978" .
+
+_:b1235 geo:lat "43.2965" ;
+  geo:lon "5.36978" .
+
+_:b1234 geo:lat "48.8219" ;
+  geo:lon "2.3709" .
+
+_:b1233 geo:lat "39.0997" ;
+  geo:lon "-94.5785" .
+
+_:b1232 geo:lat "40.6439" ;
+  geo:lon "22.9358" .
+
+_:b1231 geo:lat "53.3478" ;
+  geo:lon "-6.2597" .
+
+_:b1230 geo:lat "48.9105" ;
+  geo:lon "2.36801" .
+
+_:b1229 geo:lat "50.039" ;
+  geo:lon "14.4759" .
+
+_:b1228 geo:lat "40.8364" ;
+  geo:lon "-74.1403" .
+
+_:b1227 geo:lat "37.5599" ;
+  geo:lon "-1.8075" .
+
+_:b1226 geo:lat "48.8323" ;
+  geo:lon "2.4075" .
+
+_:b1225 geo:lat "48.8323" ;
+  geo:lon "2.4075" .
+
+_:b1224 geo:lat "25.0504" ;
+  geo:lon "121.5324" .
+
+_:b1223 geo:lat "53.3498" ;
+  geo:lon "-6.26031" .
+
+_:b1222 geo:lat "35.6916" ;
+  geo:lon "139.768" .
+
+_:b1221 geo:lat "43.5866" ;
+  geo:lon "7.1242" .
+
+_:b1220 geo:lat "40.43" ;
+  geo:lon "-3.6691" .
+
+_:b1219 geo:lat "39.0974" ;
+  geo:lon "26.5463" .
+
+_:b1218 geo:lat "50.7748" ;
+  geo:lon "14.9508" .
+
+_:b1217 geo:lat "56.0843" ;
+  geo:lon "12.1451" .
+
+_:b1216 geo:lat "38.2988" ;
+  geo:lon "141.0028" .
+
+_:b1215 geo:lat "48.837" ;
+  geo:lon "2.10292" .
+
+_:b1214 geo:lat "37.7892" ;
+  geo:lon "-122.402" .
+
+_:b1213 geo:lat "37.7892" ;
+  geo:lon "-122.402" .
+
+_:b1212 geo:lat "35.6916" ;
+  geo:lon "139.768" .
+
+_:b1211 geo:lat "47.2145" ;
+  geo:lon "-1.5512" .
+
+_:b1210 geo:lat "52.5234" ;
+  geo:lon "13.3224" .
+
+_:b1209 geo:lat "50.0892" ;
+  geo:lon "14.4072" .
+
+_:b1208 geo:lat "32.3895" ;
+  geo:lon "-89.9562" .
+
+_:b1207 geo:lat "32.3895" ;
+  geo:lon "-89.9562" .
+
+_:b1206 geo:lat "32.3895" ;
+  geo:lon "-89.9562" .
+
+_:b1205 geo:lat "50.1109" ;
+  geo:lon "8.6821" .
+
+_:b1204 geo:lat "49.5006" ;
+  geo:lon "8.4944" .
+
+_:b1203 geo:lat "53.4113" ;
+  geo:lon "-2.9759" .
+
+_:b1202 geo:lat "34.8598" ;
+  geo:lon "135.4675" .
+
+_:b1201 geo:lat "43.6532" ;
+  geo:lon "-79.3832" .
+
+_:b1200 geo:lat "50.8268" ;
+  geo:lon "5.7116" .
+
+_:b1539 geo:lat "54.3308" ;
+  geo:lon "10.1368" .
+
+_:b1538 geo:lat "54.3308" ;
+  geo:lon "10.1368" .
+
+_:b1537 geo:lat "54.3308" ;
+  geo:lon "10.1368" .
+
+_:b1536 geo:lat "54.3308" ;
+  geo:lon "10.1368" .
+
+_:b1535 geo:lat "54.3308" ;
+  geo:lon "10.1368" .
+
+_:b1534 geo:lat "54.3308" ;
+  geo:lon "10.1368" .
+
+_:b1533 geo:lat "48.7144" ;
+  geo:lon "2.2463" .
+
+_:b1532 geo:lat "32.3895" ;
+  geo:lon "-89.9562" .
+
+_:b1531 geo:lat "53.3478" ;
+  geo:lon "-6.2597" .
+
+_:b1530 geo:lat "47.6157" ;
+  geo:lon "-122.336" .
+
+_:b1099 geo:lat "43.8828" ;
+  geo:lon "11.1008" .
+
+_:b1098 geo:lat "52.1932" ;
+  geo:lon "0.1426" .
+
+_:b1097 geo:lat "52.1932" ;
+  geo:lon "0.1426" .
+
+_:b1096 geo:lat "46.5184" ;
+  geo:lon "6.6436" .
+
+_:b1095 geo:lat "48.9105" ;
+  geo:lon "2.36801" .
+
+_:b1094 geo:lat "32.0568" ;
+  geo:lon "118.779" .
+
+_:b1093 geo:lat "50.8268" ;
+  geo:lon "5.7116" .
+
+_:b1092 geo:lat "51.342" ;
+  geo:lon "12.3819" .
+
+_:b1091 geo:lat "52.3676" ;
+  geo:lon "4.90414" .
+
+_:b1090 geo:lat "60.1719" ;
+  geo:lon "24.9347" .
+
+_:b1529 geo:lat "51.382" ;
+  geo:lon "12.36" .
+
+_:b1528 geo:lat "43.4631" ;
+  geo:lon "11.8783" .
+
+_:b1527 geo:lat "48.5169" ;
+  geo:lon "9.0536" .
+
+_:b1526 geo:lat "47.3566" ;
+  geo:lon "8.55707" .
+
+_:b1525 geo:lat "47.219" ;
+  geo:lon "4.9968" .
+
+_:b1524 geo:lat "50.9965" ;
+  geo:lon "11.0144" .
+
+_:b1523 geo:lat "45.1766" ;
+  geo:lon "5.7205" .
+
+_:b1522 geo:lat "49.4429" ;
+  geo:lon "1.1003" .
+
+_:b1521 geo:lat "43.4637" ;
+  geo:lon "-3.79731" .
+
+_:b1520 geo:lat "49.4521" ;
+  geo:lon "11.0767" .
+
+_:b1089 geo:lat "60.1719" ;
+  geo:lon "24.9347" .
+
+_:b1088 geo:lat "60.1719" ;
+  geo:lon "24.9347" .
+
+_:b1087 geo:lat "60.1719" ;
+  geo:lon "24.9347" .
+
+_:b1086 geo:lat "49.4922" ;
+  geo:lon "8.464" .
+
+_:b1085 geo:lat "40.43" ;
+  geo:lon "-3.6691" .
+
+_:b1084 geo:lat "43.5866" ;
+  geo:lon "7.1242" .
+
+_:b1083 geo:lat "48.837" ;
+  geo:lon "2.10292" .
+
+_:b1082 geo:lat "33.9588" ;
+  geo:lon "-83.4384" .
+
+_:b1081 geo:lat "48.4245" ;
+  geo:lon "9.93958" .
+
+_:b1080 geo:lat "48.4245" ;
+  geo:lon "9.93958" .
+
+_:b1519 geo:lat "35.6916" ;
+  geo:lon "139.768" .
+
+_:b1518 geo:lat "52.4064" ;
+  geo:lon "16.9252" .
+
+_:b1517 geo:lat "43.2965" ;
+  geo:lon "5.36978" .
+
+_:b1516 geo:lat "52.1932" ;
+  geo:lon "0.1426" .
+
+_:b1515 geo:lat "52.1932" ;
+  geo:lon "0.1426" .
+
+_:b1514 geo:lat "52.1932" ;
+  geo:lon "0.1426" .
+
+_:b1513 geo:lat "52.1932" ;
+  geo:lon "0.1426" .
+
+_:b1512 geo:lat "52.1932" ;
+  geo:lon "0.1426" .
+
+_:b1511 geo:lat "45.1766" ;
+  geo:lon "5.7205" .
+
+_:b1510 geo:lat "50.9871" ;
+  geo:lon "2.12554" .
+
+_:b1079 geo:lat "48.1951" ;
+  geo:lon "16.3483" .
+
+_:b1078 geo:lat "48.1951" ;
+  geo:lon "16.3483" .
+
+_:b1077 geo:lat "48.1951" ;
+  geo:lon "16.3483" .
+
+_:b1076 geo:lat "-37.8171" ;
+  geo:lon "144.96" .
+
+_:b1075 geo:lat "-35.2828" ;
+  geo:lon "149.1283" .
+
+_:b1074 geo:lat "-35.2828" ;
+  geo:lon "149.1283" .
+
+_:b1073 geo:lat "-35.2828" ;
+  geo:lon "149.1283" .
+
+_:b1072 geo:lat "-35.2828" ;
+  geo:lon "149.1283" .
+
+_:b1071 geo:lat "-35.2828" ;
+  geo:lon "149.1283" .
+
+_:b1070 geo:lat "-35.2828" ;
+  geo:lon "149.1283" .
+
+_:b1509 geo:lat "46.5184" ;
+  geo:lon "6.6436" .
+
+_:b899 geo:lat "50.8268" ;
+  geo:lon "5.7116" .
+
+_:b1508 geo:lat "49.4922" ;
+  geo:lon "8.464" .
+
+_:b898 geo:lat "52.3676" ;
+  geo:lon "4.90414" .
+
+_:b1507 geo:lat "40.43" ;
+  geo:lon "-3.6691" .
+
+_:b897 geo:lat "40.43" ;
+  geo:lon "-3.6691" .
+
+_:b1506 geo:lat "43.5866" ;
+  geo:lon "7.1242" .
+
+_:b896 geo:lat "35.6916" ;
+  geo:lon "139.768" .
+
+_:b1505 geo:lat "39.0438" ;
+  geo:lon "-77.4874" .
+
+_:b895 geo:lat "50.8268" ;
+  geo:lon "5.7116" .
+
+_:b1504 geo:lat "48.837" ;
+  geo:lon "2.10292" .
+
+_:b894 geo:lat "50.8268" ;
+  geo:lon "5.7116" .
+
+_:b1503 geo:lat "33.9588" ;
+  geo:lon "-83.4384" .
+
+_:b893 geo:lat "51.5072" ;
+  geo:lon "-0.127586" .
+
+_:b1502 geo:lat "47.6489" ;
+  geo:lon "3.30527" .
+
+_:b892 geo:lat "48.837" ;
+  geo:lon "2.10292" .
+
+_:b1501 geo:lat "47.6489" ;
+  geo:lon "3.30527" .
+
+_:b891 geo:lat "50.1187" ;
+  geo:lon "8.6842" .
+
+_:b1500 geo:lat "-35.2828" ;
+  geo:lon "149.1283" .
+
+_:b890 geo:lat "32.3895" ;
+  geo:lon "-89.9562" .
+
+_:b1069 geo:lat "51.2707" ;
+  geo:lon "-0.7171" .
+
+_:b1068 geo:lat "45.5235" ;
+  geo:lon "-122.676" .
+
+_:b1067 geo:lat "41.6547" ;
+  geo:lon "-4.7344" .
+
+_:b1066 geo:lat "48.8033" ;
+  geo:lon "2.2679" .
+
+_:b1065 geo:lat "32.3895" ;
+  geo:lon "-89.9562" .
+
+_:b1064 geo:lat "32.3895" ;
+  geo:lon "-89.9562" .
+
+_:b1063 geo:lat "52.3676" ;
+  geo:lon "4.90414" .
+
+_:b1062 geo:lat "32.3895" ;
+  geo:lon "-89.9562" .
+
+_:b1061 geo:lat "50.1187" ;
+  geo:lon "8.6842" .
+
+_:b1060 geo:lat "32.3895" ;
+  geo:lon "-89.9562" .
+
+_:b889 geo:lat "50.475" ;
+  geo:lon "12.365" .
+
+_:b888 geo:lat "50.475" ;
+  geo:lon "12.365" .
+
+_:b887 geo:lat "40.7128" ;
+  geo:lon "-74.006" .
+
+_:b886 geo:lat "43.6319" ;
+  geo:lon "7.0043" .
+
+_:b885 geo:lat "42.6977" ;
+  geo:lon "23.3219" .
+
+_:b884 geo:lat "50.1187" ;
+  geo:lon "8.6842" .
+
+_:b883 geo:lat "42.8198" ;
+  geo:lon "-1.6374" .
+
+_:b882 geo:lat "40.43" ;
+  geo:lon "-3.6691" .
+
+_:b881 geo:lat "53.3478" ;
+  geo:lon "-6.2597" .
+
+_:b880 geo:lat "27.9433" ;
+  geo:lon "-82.526" .
+
