@@ -49,8 +49,7 @@ export let geolocChart = new KartoMapChart({
             this.chartObject.invalidateSize();
             $('#map').width(getMainContentColWidth());
 
-            let graphEndpointGeolocData = Control.getInstance().geolocData();
-            console.log("graphEndpointGeolocData", graphEndpointGeolocData)
+            let endpointGeolocData = Control.getInstance().geolocData();
 
             function endpointGeolocTableFill() {
                 let endpointGeolocTable = $('#endpointGeolocTable');
@@ -64,7 +63,7 @@ export let geolocChart = new KartoMapChart({
                     'City',
                     'Organization'
                 ];
-                let gridJSData = graphEndpointGeolocData.map(item => {
+                let gridJSData = endpointGeolocData.map(item => {
                     return [item.endpoint, item.lat, item.lon, item.country, item.region, item.city, item.org];
                 });
                 let gridJS = new gridjs.Grid({
@@ -80,7 +79,8 @@ export let geolocChart = new KartoMapChart({
                 gridJS.render(endpointGeolocTable[0]);
             }
 
-            graphEndpointGeolocData.forEach(endpointGeoloc => {
+            endpointGeolocData.forEach(endpointGeoloc => {
+                try {
                 let markerIcon = greenIcon;
 
                 let endpointMarker = L.marker([endpointGeoloc.lat, endpointGeoloc.lon], { icon: markerIcon });
@@ -89,6 +89,9 @@ export let geolocChart = new KartoMapChart({
                 });
                 endpointMarker.addTo(this.chartObject);
                 this.markerArray.push(endpointMarker);
+            } catch(error) {
+                console.error(error, endpointGeoloc)
+            }
             });
             endpointGeolocTableFill();
             this.redraw();

@@ -177,13 +177,13 @@ export class Control {
 
             console.log("File loading finished");
 
-            console.log("setting up the runset ID in the URL")
             let urlParams = new URLSearchParams(url.search);
             // Set up graphs sets
             // TODO: without runset
 
             console.log("Initialization END");
-            return Promise.resolve();
+            
+            return this.refresh();
 
         })
     }
@@ -264,7 +264,8 @@ export class Control {
             })
         }).then(() => {
             let fileRetrivalPromiseArray = filenameList.map(filename => {
-                return cachePromise(filename + ".json").then(jsonContent => {
+                return cachePromise(filename + ".json")
+                .then(jsonContent => {
                     this.fileBank.set(filename, jsonContent);
                     return ;
                 });
@@ -330,25 +331,6 @@ export class Control {
         result += " )";
         return result;
     }
-
-    changeGraphSetIndex(index) {
-        console.log("changeGraphSetIndex", index);
-
-        let urlParams = new URLSearchParams(window.location.search);
-        urlParams.delete(this.runsetIndexParameter);
-        urlParams.append(this.runsetIndexParameter, index);
-        history.pushState(null, "", '?' + urlParams.toString());
-        let indexRunset = this.runsets.find(runsetObject => runsetObject.id === index);
-        if (indexRunset !== undefined) {
-            let historyGraphList = indexRunset?.graphs;
-            this.graphList = historyGraphList;
-        } else {
-            throw new Error("Graph set with id '" + index + "' not found");
-        }
-        return this.refresh();
-    }
-
-
 
     hideLoadingSpinner() {
         this.tabButtonArray.forEach(item => {
