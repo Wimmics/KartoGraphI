@@ -7,11 +7,11 @@ export type JSONValue =
     | JSONObject
     | JSONArray;
 
-interface JSONObject {
+export interface JSONObject {
     [x: string]: JSONValue;
 }
 
-interface JSONArray extends Array<JSONValue> { }
+export interface JSONArray extends Array<JSONValue> { }
 
 export type SPARQLJSONResult = {
     head: {
@@ -41,9 +41,9 @@ export type EndpointItem = {
     region: string
     city: string
     org: string
-    timezone: string
-    sparqlTimezone: string
-    popupHTML: string
+    timezone?: string
+    sparqlTimezone?: string
+    popupHTML?: string
 }
 
 export type EndpointTestObject = { 
