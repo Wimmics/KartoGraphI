@@ -3,13 +3,12 @@
         "allowJs": true,
         "sourceMap": true,
         "target": "ES2022",
-        "moduleResolution": "node",
-        "module": "System",
+        "moduleResolution": "Node16",
+        "module": "Node16",
         "esModuleInterop": true,
         "allowSyntheticDefaultImports": true,
         "pretty": true,
-        "outFile": "script.js",
-        // "allowImportingTsExtensions": true,
+        // "outFile": "script.js",
         "typeRoots": [
           "./node_modules/sparqljs-legacy-type/"
         ]
