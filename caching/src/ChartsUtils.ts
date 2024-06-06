@@ -1,10 +1,23 @@
-import { EChartsOption } from "echarts";
+import { JSONObject } from "./DataTypes.js";
+import * as echarts from "echarts"
 
+// echarts.GraphEdgeItemOption is not reachable, so we redefine a basic type for Graph links in a Graph chart
+export type EchartsGraphLink = {
+    source: string,
+    target: string
+};
 
-export function getForceGraphOption(title, legendData, dataNodes, dataLinks): EChartsOption {
-    let categories: any[] = [];
-    legendData.forEach((item, i) => {
-        categories.push({ name: item });
+// echarts.GraphNodeItemOption is not reachable, so we redefine a basic type for Graph nodes in a Graph chart
+export type EchartsGraphNode = {
+    name: string,
+    category: string,
+    symbolSize: number
+}
+
+export function getForceGraphOption(title: string, categoryArray: string[], dataNodes: EchartsGraphNode[], dataLinks: EchartsGraphLink[]): echarts.EChartsOption {
+    let serieCategories: JSONObject[] = [];
+    categoryArray.forEach((item, i) => {
+        serieCategories.push({ name: item });
     });
     return {
         title: {

@@ -91,10 +91,10 @@ export class Control {
     datasetDescriptionContent: KartoChart[] = [descriptionElementChart];
     dataQualityContent: KartoChart[] = [blankNodesChart, readableLabelsChart, rdfDataStructureChart, shortUriChart];
     datasetPopulationsContent: KartoChart[] = [tripleChart, classNumberChart, propertyNumberChart, classAndPropertiesContent];
-    allContent: KartoChart[] = this.geolocContent.concat(this.sparqlCoverContent)
-        .concat(this.datasetDescriptionContent)
-        .concat(this.dataQualityContent)
-        .concat(this.datasetPopulationsContent)
+    allContent: KartoChart[] = this.geolocContent//.concat(this.sparqlCoverContent)
+        // .concat(this.datasetDescriptionContent)
+        // .concat(this.dataQualityContent)
+        // .concat(this.datasetPopulationsContent)
         .concat(this.vocabRelatedContent);
 
     // Contains the files for each component (key: filename, value: fileContent)
@@ -221,35 +221,35 @@ export class Control {
 
         let filenameList = [
             geolocDataFilename,
-            sparqlCoverCountFilename,
-            sparqlFeaturesDataFilename,
+            // sparqlCoverCountFilename,
+            // sparqlFeaturesDataFilename,
             vocabEndpointDataFilename,
             endpointKeywordDataFilename,
             classCountDataFilename,
             propertyCountDataFilename,
             tripleCountDataFilename,
-            classPropertyDataFilename,
-            datasetDescriptionDataFilename,
-            shortUriDataFilename,
-            rdfDataStructureDataFilename,
-            readableLabelDataFilename,
-            blankNodesDataFilename,
+            // classPropertyDataFilename,
+            // datasetDescriptionDataFilename,
+            // shortUriDataFilename,
+            // rdfDataStructureDataFilename,
+            // readableLabelDataFilename,
+            // blankNodesDataFilename,
 
-            // Echarts options
-            sparqlCoverageEchartsOptionFilename,
-            sparql10CoverageEchartsOptionFilename,
-            sparql11CoverageEchartsOptionFilename,
+            // // Echarts options
             vocabEndpointEchartsOptionFilename,
-            triplesEchartsOptionFilename,
-            classesEchartsOptionFilename,
-            propertiesEchartsOptionFilename,
-            shortUrisEchartsOptionFilename,
-            rdfDataStructuresEchartsOptionFilename,
-            readableLabelsEchartsOptionFilename,
-            blankNodesEchartsOptionFilename,
-            datasetDescriptionEchartsOptionFilename,
             keywordEndpointEchartsOptionFilename,
             standardVocabulariesEndpointGraphEchartsOptionFilename
+            // sparqlCoverageEchartsOptionFilename,
+            // sparql10CoverageEchartsOptionFilename,
+            // sparql11CoverageEchartsOptionFilename,
+            // triplesEchartsOptionFilename,
+            // classesEchartsOptionFilename,
+            // propertiesEchartsOptionFilename,
+            // shortUrisEchartsOptionFilename,
+            // rdfDataStructuresEchartsOptionFilename,
+            // readableLabelsEchartsOptionFilename,
+            // blankNodesEchartsOptionFilename,
+            // datasetDescriptionEchartsOptionFilename,
         ];
 
         // Loading all the data files into the bank

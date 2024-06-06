@@ -13,7 +13,7 @@ import * as Global from "./GlobalUtils.js";
 import * as Logger from "./LogUtils.js";
 import * as Sparql from "./SparqlUtils.js";
 import * as RDFUtils from "./RDFUtils.js";
-import { ClassCountDataObject, EndpointItem, EndpointTestObject, JSONValue, JSONObject, JSONArray, KeywordsEndpointDataObject, RunSetObject, SPARQLJSONResult, TripleCountDataObject, VocabEndpointDataObject } from './DataTypes.js';
+import { ClassCountDataObject, EndpointItem, EndpointTestObject, JSONValue, JSONObject, JSONArray, KeywordsEndpointDataObject, SPARQLJSONResult, TripleCountDataObject, VocabEndpointDataObject } from './DataTypes.js';
 
 const dataFilePrefix = "./data/";
 export const dataCachedFilePrefix = "./data/cache/";
@@ -21,11 +21,10 @@ const timezoneMap = Global.readJSONFile(dataFilePrefix + 'timezoneMap.json');
 const endpointIpMap = Global.readJSONFile(dataFilePrefix + 'endpointIpGeoloc.json');
 
 export const geolocFilename = "geolocData";
+export const vocabEndpointFilename = "vocabEndpointData";
+export const endpointKeywordsFilename = "endpointKeywordsData";
 export const sparqlCoverageFilename = "sparqlCoverageData";
 export const sparqlFeaturesFilename = "sparqlFeaturesData";
-export const vocabEndpointFilename = "vocabEndpointData";
-// export const knownVocabsFilename = "knownVocabsData";
-export const endpointKeywordsFilename = "endpointKeywordsData";
 export const tripleCountFilename = "tripleCountData";
 export const classCountFilename = "classCountData";
 export const propertyCountFilename = "propertyCountData";
@@ -40,55 +39,13 @@ export const shortUriDataFilename = "shortUriData";
 export const rdfDataStructureDataFilename = "rdfDataStructureData";
 export const readableLabelDataFilename = "readableLabelData";
 export const blankNodesDataFilename = "blankNodesData";
+const vocabKeywordsMapFilename = dataFilePrefix + "vocabularyKeywordMap.json";
+const endpointKeywordsMapFilename = dataFilePrefix + "endpointKeywordMap.json";
 
-export const LOVFilename = dataFilePrefix + "knownVocabulariesLOV.json"
-let knownVocabularies = new Set();
-
-
-// https://obofoundry.org/ // No ontology URL available in ontology description
-// http://prefix.cc/context // done
-// http://data.bioontology.org/resource_index/resources?apikey=b86b12d8-dc46-4528-82e3-13fbdabf5191 // No ontology URL available in ontology description
-// https://lov.linkeddata.es/dataset/lov/api/v2/vocabulary/list // done
-
-// Retrieval of the list of LOV vocabularies to filter the ones retrieved in the index
-export function retrieveKnownVocabularies() {
-    return Global.fetchJSONPromise("https://lov.linkeddata.es/dataset/lov/api/v2/vocabulary/list")
-        .then(responseLOV => {
-            if (responseLOV !== undefined) {
-                (responseLOV as JSONValue[]).forEach((item) => {
-                    knownVocabularies.add(item["uri"])
-                });
-                try {
-                    let content = JSON.stringify(responseLOV);
-                    return Global.writeFile(LOVFilename, content).then(() => {
-                        return Promise.resolve(knownVocabularies);
-                    });
-                } catch (err) {
-                    Logger.error(err)
-                    return Promise.reject(err);
-                }
-            } else {
-                return Promise.reject("LOV response is undefined");
-            }
-        })
-        .then(knownVocabularies => Global.fetchJSONPromise("http://prefix.cc/context")
-            .then(responsePrefixCC => {
-                for (let prefix of Object.keys(responsePrefixCC['@context'])) {
-                    knownVocabularies.add(responsePrefixCC['@context'][prefix])
-                };
-                return Promise.resolve(knownVocabularies);
-            }))
-        .then(knownVocabularies => Global.fetchJSONPromise("https://www.ebi.ac.uk/ols/api/ontologies?page=0&size=1000")
-            .then(responseOLS => {
-                responseOLS["_embedded"].ontologies.forEach(ontologyItem => {
-                    if (ontologyItem.config.baseUris.length > 0) {
-                        let ontology = ontologyItem.config.baseUris[0]
-                        knownVocabularies.add(ontology);
-                    }
-                });
-                return Promise.resolve(knownVocabularies);
-            }))
-}
+export const LOVFilename = dataFilePrefix + "knownVocabulariesLOV.json";
+export const prefixccFilename = dataFilePrefix + "knownVocabulariesPrefixcc.json"
+export const ebiFilename = dataFilePrefix + "knownVocabulariesEBIac.json"
+export const knownVocabulariesFilename = dataFilePrefix + "knowVocabularies.json";
 
 export function endpointMapfill() {
     Logger.info("endpointMapfill START")
@@ -115,11 +72,11 @@ export function endpointMapfill() {
         .then(endpointItemMap => {
             endpointItemMap.forEach((endpointItem, endpoint) => {
                 let popupString = `<table> <thead> <tr> <th colspan='2'> <a href='${endpointItem.endpoint}' >${endpointItem.endpoint}</a> </th> </tr> </thead></body>`;
+                if (endpointItem.region != undefined) {
+                    popupString += `<tr><td>Continent: </td><td>${endpointItem.region}</td></tr>`;
+                }
                 if (endpointItem.country != undefined) {
                     popupString += `<tr><td>Country: </td><td>${endpointItem.country}</td></tr>`;
-                }
-                if (endpointItem.region != undefined) {
-                    popupString += `<tr><td>Region: </td><td>${endpointItem.region}</td></tr>`;
                 }
                 if (endpointItem.city != undefined) {
                     popupString += `<tr><td>City: </td><td>${endpointItem.city}</td></tr>`;
@@ -146,6 +103,230 @@ export function endpointMapfill() {
             }
         })
         .catch(error => {
+            Logger.error(error)
+        })
+}
+
+
+// https://obofoundry.org/ // No ontology URL available in ontology description
+// http://prefix.cc/context // done
+// http://data.bioontology.org/resource_index/resources?apikey=b86b12d8-dc46-4528-82e3-13fbdabf5191 // No ontology URL available in ontology description
+// https://lov.linkeddata.es/dataset/lov/api/v2/vocabulary/list // done
+
+// Retrieval of the list of LOV vocabularies to filter the ones retrieved in the index
+export function retrieveKnownVocabularies(): Promise<Set<JSONObject>> {
+    Logger.log("retrieveKnownVocabularies START")
+    let knownVocabularies = new Set<JSONObject>();
+    return Global.readJSONFile(knownVocabulariesFilename)
+        .catch(error => {
+            Logger.error(error);
+            return [];
+        })
+        .then(existingKnowVocabularies => {
+            knownVocabularies = new Set(existingKnowVocabularies as Array<JSONObject>);
+            Logger.log(knownVocabularies.size, "vocabularies in existing file")
+            if (knownVocabularies.size == 0) {
+                return Global.readJSONFile(LOVFilename)
+                    .catch(error => {
+                        Logger.error(error);
+                        return [];
+                    })
+                    .then(existingLOVResponse => {
+                        Logger.log((existingLOVResponse as JSONArray).length, "element in existing LOV response file")
+                        if ((existingLOVResponse as JSONArray).length == 0) {
+                            return Global.fetchJSONPromise("https://lov.linkeddata.es/dataset/lov/api/v2/vocabulary/list");
+                        }
+                        return existingLOVResponse;
+                    })
+                    .then(responseLOV => {
+                        Logger.log((responseLOV as JSONArray).length, "element in LOV response file")
+                        if (responseLOV !== undefined) {
+                            (responseLOV as JSONValue[]).forEach((item) => {
+                                knownVocabularies.add(item["uri"])
+                            });
+                            Logger.log(knownVocabularies.size, "known vocabularies after LOV treatment")
+                            let content = JSON.stringify(responseLOV);
+                            return Global.writeFile(LOVFilename, content);
+                        } else {
+                            return Promise.reject("LOV response is undefined");
+                        }
+                    })
+                    .then(() => {
+                        return Global.readJSONFile(prefixccFilename)
+                            .catch(error => {
+                                Logger.error(error);
+                                return {}
+                            })
+                    })
+                    .then(prefixccJSON => {
+                        let prefixCCanswerPromise = Promise.resolve(prefixccJSON);
+                        if (Object.keys(prefixccJSON).length == 0) {
+                            prefixCCanswerPromise = Global.fetchJSONPromise("http://prefix.cc/context")
+                        }
+                        return prefixCCanswerPromise
+                            .then(responsePrefixCC => {
+                                Logger.log(Object.keys(responsePrefixCC['@context']).length, "elements from Prefix.cc")
+                                for (let prefix of Object.keys(responsePrefixCC['@context'])) {
+                                    knownVocabularies.add(responsePrefixCC['@context'][prefix])
+                                };
+                                Logger.log(knownVocabularies.size, "known vocabularies after Prefix.cc treatment")
+                                return Global.writeFile(prefixccFilename, JSON.stringify(responsePrefixCC))
+                            })
+                    })
+                    .then(() => Global.writeFile(knownVocabulariesFilename, JSON.stringify([...knownVocabularies])))
+                    .then(() => Promise.resolve(knownVocabularies))
+            }
+            Logger.log("retrieveKnownVocabularies END")
+            return knownVocabularies
+        })
+}
+
+export function allVocabFill(): Promise<void> {
+    Logger.info("allVocabFill START")
+    let endpointVocabMap: Map<string, string[]> = new Map();
+    let vocabKeywords: Map<string, string[]> = new Map();
+    let endpointKeywords: Map<string, string[]> = new Map();
+
+    let knownVocabularies: Set<JSONObject> = new Set<JSONObject>();
+    let vocabSet = new Set<string>()
+    return retrieveKnownVocabularies()
+        .then(retrievedKnownVocabularies => {
+            knownVocabularies = retrievedKnownVocabularies;
+            return Sparql.paginatedSparqlQueryToIndeGxPromise(`SELECT DISTINCT ?endpointUrl ?vocabulary {
+            { ?dataset <http://www.w3.org/ns/sparql-service-description#endpoint> ?endpointUrl . }
+            UNION { ?dataset <http://rdfs.org/ns/void#sparqlEndpoint> ?endpointUrl . }
+            UNION { ?dataset <http://www.w3.org/ns/dcat#endpointURL> ?endpointUrl . }
+            ?dataset <http://rdfs.org/ns/void#vocabulary> ?vocabulary .
+        }`)
+        })
+        .then(json => {
+            (json as JSONValue[]).forEach(bindingItem => {
+                const endpointUrl = bindingItem["endpointUrl"].value;
+                const vocabulary = bindingItem["vocabulary"].value;
+                if (!endpointVocabMap.has(endpointUrl)) {
+                    endpointVocabMap.set(endpointUrl, []);
+                }
+                if (knownVocabularies.has(vocabulary)) {
+                    endpointVocabMap.get(endpointUrl).push(vocabulary);
+                    vocabSet.add(vocabulary);
+                }
+            });
+            return;
+        })
+        .then(() => {
+            Logger.log(vocabSet.size, "vocabularies")
+            return Global.readFile(vocabKeywordsMapFilename)
+                .then(existingVocabKeywordMapString => {
+                    vocabKeywords = Global.mapFromJSON(JSON.parse(existingVocabKeywordMapString));
+                    Logger.log(vocabKeywords.size, "existing vocab/keywords associations")
+                    return;
+                })
+                .catch(error => {
+                    Logger.error(error);
+                    vocabKeywords = new Map<string, string[]>();
+                    return;
+                })
+        })
+        .then(() => {
+            return Global.readFile(endpointKeywordsMapFilename)
+                .then(existingEndpointKeywordsMapString => {
+                    endpointKeywords = Global.mapFromJSON(JSON.parse(existingEndpointKeywordsMapString))
+                    Logger.log(endpointKeywords.size, "existing endpoint/keywords associations")
+                    return;
+                })
+                .catch(error => {
+                    Logger.error(error);
+                    endpointKeywords = new Map<string, string[]>();
+                    return;
+                })
+        })
+        .then(() => {
+            if (vocabKeywords.size == 0) {
+                let queryArray = [...vocabSet].map((item, i) => {
+                    Logger.log(`Querying LOV for ${item}`)
+                    return Global.fetchJSONPromise(`https://lov.linkeddata.es/dataset/lov/api/v2/vocabulary/info?vocab=${item}`);
+                })
+
+                return Promise.allSettled(queryArray)
+                    .then(jsonKeywordsArraySettled => {
+                        let jsonKeywordsArray = Global.extractSettledPromiseValues(jsonKeywordsArraySettled);
+                        jsonKeywordsArray.forEach(jsonKeywords => {
+                            if (jsonKeywords !== undefined && jsonKeywords.nsp !== undefined && jsonKeywords.tags !== undefined) {
+                                let vocab = jsonKeywords.nsp;
+                                let keywordList = jsonKeywords.tags;
+
+                                if (keywordList !== undefined) {
+                                    keywordList.forEach(keyword => {
+                                        if (!vocabKeywords.has(vocab)) {
+                                            vocabKeywords.set(vocab, []);
+                                        }
+                                        vocabKeywords.get(vocab).push(keyword);
+                                    })
+                                }
+                            }
+                        })
+                        return Global.writeFile(vocabKeywordsMapFilename, Global.mapToJSON(vocabKeywords));
+                    })
+            }
+            return;
+        })
+        .then(() => {
+            endpointVocabMap.forEach((vocabArray, endpointUrl, map) => {
+                let keywordSet: Set<string> = new Set();
+                vocabArray.forEach(vocab => {
+                    if (vocabKeywords.has(vocab)) {
+                        vocabKeywords.get(vocab).forEach(keyword => {
+                            keywordSet.add(keyword);
+                        })
+                    }
+                })
+                endpointKeywords.set(endpointUrl, [...keywordSet]);
+            })
+            return;
+        })
+        .then(() => Global.writeFile(endpointKeywordsMapFilename, Global.mapToJSON(endpointKeywords)))
+        .then(() => {
+            Logger.info("vocabFill START")
+            let endpointQuery = `SELECT DISTINCT ?endpointUrl { 
+                        { ?curated <http://www.w3.org/ns/sparql-service-description#endpoint> ?endpointUrl . }
+                        UNION { ?curated <http://rdfs.org/ns/void#sparqlEndpoint> ?endpointUrl . } 
+                        UNION { ?curated <http://www.w3.org/ns/dcat#endpointURL> ?endpointUrl . }
+                } 
+                GROUP BY ?endpointUrl`;
+
+            return Sparql.paginatedSparqlQueryToIndeGxPromise(endpointQuery).then(json => {
+                if (json !== undefined) {
+                    let endpointSet: Set<string> = new Set();
+                    (json as JSONValue[]).forEach(bindingItem => {
+                        const endpointUrl = bindingItem["endpointUrl"].value;
+                        endpointSet.add(endpointUrl);
+                    });
+                    return endpointSet;
+                } else {
+                    return Promise.resolve(new Set<string>());
+                }
+            }).then(() => {
+                let endpointVocabData: VocabEndpointDataObject[] = [];
+                endpointVocabMap.forEach((vocabArray, endpointUrl, map) => {
+                    endpointVocabData.push({ endpoint: endpointUrl, vocabularies: vocabArray });
+                })
+                let content = JSON.stringify(endpointVocabData);
+                return Global.writeFile(Global.getCachedFilename(vocabEndpointFilename), content)
+                    .then(() => {
+                        let endpointKeywordsData: KeywordsEndpointDataObject[] = [];
+                        endpointKeywords.forEach((keywordArray, endpointUrl, map) => {
+                            endpointKeywordsData.push({ endpoint: endpointUrl, keywords: keywordArray });
+                        })
+                        let content = JSON.stringify(endpointKeywordsData);
+                        return Global.writeFile(Global.getCachedFilename(endpointKeywordsFilename), content)
+                    })
+                    .then(() => {
+                        Logger.info("vocabFill END")
+                        return Promise.resolve();
+                    })
+
+            })
+        }).catch(error => {
             Logger.error(error)
         })
 }
@@ -274,204 +455,50 @@ export function endpointMapfill() {
 //         })
 // }
 
-// let endpointVocabMap: Map<string, string[]> = new Map();
-// let vocabKeywords: Map<string, string[]> = new Map();
-// let endpointKeywords: Map<string, string[]> = new Map();
-// export function allVocabFill(): Promise<void> {
-//     Logger.info("allVocabFill START")
+export function tripleDataFill() {
+    Logger.info("tripleDataFill START")
+    // Scatter plot of the number of triples through time
+    let triplesSPARQLquery = `SELECT DISTINCT ?endpointUrl (MAX(?rawO) AS ?triples) {
+            { ?curated <http://www.w3.org/ns/sparql-service-description#endpoint> ?endpointUrl . }
+            UNION { ?curated <http://rdfs.org/ns/void#sparqlEndpoint> ?endpointUrl . }
+            UNION { ?curated <http://www.w3.org/ns/dcat#endpointURL> ?endpointUrl . }
+            ?metadata <http://ns.inria.fr/kg/index#curated> ?curated .
+            ?curated <http://rdfs.org/ns/void#triples> ?rawO .
+    } GROUP BY ?endpointUrl`;
 
-//     let sparqlQuery = `SELECT DISTINCT ?endpointUrl ?vocabulary {
-//             { ?curated <http://www.w3.org/ns/sparql-service-description#endpoint> ?endpointUrl . }
-//             UNION { ?curated <http://rdfs.org/ns/void#sparqlEndpoint> ?endpointUrl . }
-//             UNION { ?curated <http://www.w3.org/ns/dcat#endpointURL> ?endpointUrl . }
-//             ?metadata <http://ns.inria.fr/kg/index#curated> ?curated, ?dataset .
-//             ?dataset <http://rdfs.org/ns/void#vocabulary> ?vocabulary .
-//     }`;
+    type EndpointTripleIndexItem = { triples: number };
+    return Sparql.paginatedSparqlQueryToIndeGxPromise(triplesSPARQLquery)
+        .then(json => {
+            let endpointTriplesDataIndex: Map<string, EndpointTripleIndexItem> = new Map();
+            let endpointTriplesData: TripleCountDataObject[] = [];
+            (json as JSONValue[]).forEach((itemResult, i) => {
+                let endpointUrl = itemResult["endpointUrl"].value;
+                let triples = Number.parseInt(itemResult["triples"].value);
 
-//     return Sparql.paginatedSparqlQueryToIndeGxPromise(sparqlQuery).then(json => {
-//         let vocabSet = new Set();
-//         (json as JSONValue[]).forEach(bindingItem => {
-//             const endpointUrl = bindingItem["endpointUrl"].value;
-//             const vocabulary = bindingItem["vocabulary"].value;
-//             if (!endpointVocabMap.has(endpointUrl)) {
-//                 endpointVocabMap.set(endpointUrl, []);
-//             }
-//             if (knownVocabularies.has(vocabulary)) {
-//                 endpointVocabMap.get(endpointUrl).push(vocabulary);
-//                 vocabSet.add(vocabulary);
-//             }
-//         });
-//         return vocabSet;
-//     }).then(vocabSet => {
-
-//         let vocabArray = [...vocabSet];
-//         let queryArray = vocabArray.map((item, i) => {
-//             return Global.fetchJSONPromise(`https://lov.linkeddata.es/dataset/lov/api/v2/vocabulary/info?vocab=${item}`);
-//         })
-
-//         return Promise.allSettled(queryArray)
-//             .then(jsonKeywordsArraySettled => {
-//                 let jsonKeywordsArray = Global.extractSettledPromiseValues(jsonKeywordsArraySettled);
-//                 jsonKeywordsArray.forEach(jsonKeywords => {
-//                     Logger.log(jsonKeywords)
-//                     if (jsonKeywords !== undefined) {
-//                         let vocab = jsonKeywords.uri;
-//                         let keywordList = jsonKeywords.tags;
-
-//                         if (keywordList !== undefined) {
-//                             keywordList.forEach(keyword => {
-//                                 if (!vocabKeywords.has(vocab)) {
-//                                     vocabKeywords.set(vocab, []);
-//                                 }
-//                                 vocabKeywords.get(vocab).push(keyword);
-//                             })
-//                         }
-//                     }
-//                 })
-//                 return Promise.resolve();
-//             }).then(() => {
-//                 endpointVocabMap.forEach((vocabArray, endpointUrl, map) => {
-//                     let keywordSet: Set<string> = new Set();
-//                     vocabArray.forEach(vocab => {
-//                         if (vocabKeywords.has(vocab)) {
-//                             vocabKeywords.get(vocab).forEach(keyword => {
-//                                 keywordSet.add(keyword);
-//                             })
-//                         }
-//                     })
-//                     endpointKeywords.set(endpointUrl, [...keywordSet]);
-//                 })
-//                 return Promise.resolve();
-//             })
-//     }).catch(error => {
-//         Logger.error(error)
-//     })
-// }
-
-// export function vocabFill(): Promise<void> {
-//     Logger.info("vocabFill START")
-//     let runsetsEndpointQuery = `SELECT DISTINCT ?endpointUrl { 
-//             { ?curated <http://www.w3.org/ns/sparql-service-description#endpoint> ?endpointUrl . }
-//             UNION { ?curated <http://rdfs.org/ns/void#sparqlEndpoint> ?endpointUrl . } 
-//             UNION { ?curated <http://www.w3.org/ns/dcat#endpointURL> ?endpointUrl . }
-//             ?metadata <http://ns.inria.fr/kg/index#curated> ?curated .
-//     } 
-//     GROUP BY ?endpointUrl ?vocabulary `;
-
-//     return Sparql.paginatedSparqlQueryToIndeGxPromise(runsetsEndpointQuery).then(json => {
-//         if (json !== undefined) {
-//             let endpointSet: Set<string> = new Set();
-//             (json as JSONValue[]).forEach(bindingItem => {
-//                 const endpointUrl = bindingItem["endpointUrl"].value;
-//                 endpointSet.add(endpointUrl);
-//             });
-//             return endpointSet;
-//         } else {
-//             return Promise.resolve(new Set<string>());
-//         }
-//     }).then(endpointSet => {
-//         let runsetEndpointVocabulary: Map<string, string[]> = new Map();
-//         endpointSet.forEach(endpointUrl => {
-//             runsetEndpointVocabulary.set(endpointUrl, endpointVocabMap.get(endpointUrl));
-//         })
-
-//         let runsetEndpointKeywords: Map<string, string[]> = new Map();
-//         endpointSet.forEach(endpointUrl => {
-//             runsetEndpointKeywords.set(endpointUrl, endpointKeywords.get(endpointUrl));
-//         });
-
-//         try {
-//             let endpointVocabData: VocabEndpointDataObject[] = [];
-//             runsetEndpointVocabulary.forEach((vocabArray, endpointUrl, map) => {
-//                 endpointVocabData.push({ endpoint: endpointUrl, vocabularies: vocabArray });
-//             })
-//             let content = JSON.stringify(endpointVocabData);
-//             return Global.writeFile(Global.getCachedFilenameForRunset(vocabEndpointFilename), content)
-//                 .then(() => {
-//                     let endpointKeywordsData: KeywordsEndpointDataObject[] = [];
-//                     runsetEndpointKeywords.forEach((keywordArray, endpointUrl, map) => {
-//                         endpointKeywordsData.push({ endpoint: endpointUrl, keywords: keywordArray });
-//                     })
-//                     let content = JSON.stringify(endpointKeywordsData);
-//                     return Global.writeFile(Global.getCachedFilenameForRunset(endpointKeywordsFilename), content)
-//                 })
-//                 .then(() => {
-//                     Logger.info("vocabFill END")
-//                     return Promise.resolve();
-//                 })
-//         } catch (err) {
-//             Logger.error(err)
-//         }
-
-//     })
-
-// }
-
-// export function tripleDataFill() {
-//     Logger.info("tripleDataFill START")
-//     // Scatter plot of the number of triples through time
-//     let triplesSPARQLquery = `SELECT DISTINCT ?date ?endpointUrl (MAX(?rawO) AS ?o) {
-//             { ?curated <http://www.w3.org/ns/sparql-service-description#endpoint> ?endpointUrl . }
-//             UNION { ?curated <http://rdfs.org/ns/void#sparqlEndpoint> ?endpointUrl . }
-//             UNION { ?curated <http://www.w3.org/ns/dcat#endpointURL> ?endpointUrl . }
-//             ?metadata <http://ns.inria.fr/kg/index#curated> ?curated .
-//             ?curated <http://rdfs.org/ns/void#triples> ?rawO .
-//     } GROUP BY ?date ?endpointUrl`;
-
-//     // {?metadata <http://purl.org/dc/terms/modified> ?date .}
-//     // UNION { ?curated <http://purl.org/dc/terms/modified> ?date . }
-//     type EndpointTripleIndexItem = { date: Dayjs, triples: number };
-//     return Sparql.paginatedSparqlQueryToIndeGxPromise(triplesSPARQLquery)
-//         .then(json => {
-//             let endpointTriplesDataIndex: Map<string, Map<string, EndpointTripleIndexItem>> = new Map();
-//             let endpointTriplesData: TripleCountDataObject[] = [];
-//             (json as JSONValue[]).forEach((itemResult, i) => {
-//                 let graph: string = itemResult["g"].value.replace('http://ns.inria.fr/indegx#', '');
-//                 let date: Dayjs; //= Global.parseDate(itemResult["date"].value);
-//                 let rawDateUnderscoreIndex = graph.lastIndexOf("_"); // Cheating on the date of the indexation
-//                 if (rawDateUnderscoreIndex != -1) {
-//                     let rawDate = graph.substring(rawDateUnderscoreIndex, graph.length);
-//                     date = Global.parseDate(rawDate, "YYYYMMDD");
-//                 }
-//                 let endpointUrl = itemResult["endpointUrl"].value;
-//                 let triples = Number.parseInt(itemResult["o"].value);
-
-//                 if (endpointTriplesDataIndex.get(endpointUrl) == undefined) {
-//                     endpointTriplesDataIndex.set(endpointUrl, new Map());
-//                 }
-//                 if (endpointTriplesDataIndex.get(endpointUrl).get(graph) == undefined) {
-//                     endpointTriplesDataIndex.get(endpointUrl).set(graph, { date: date, triples: triples });
-//                 } else {
-//                     let previousDate = endpointTriplesDataIndex.get(endpointUrl).get(graph).date;
-//                     if (date.isBefore(previousDate) && date.year() != previousDate.year() && date.month() != previousDate.month() && date.date() != previousDate.date()) {
-//                         endpointTriplesDataIndex.get(endpointUrl).set(graph, { date: date, triples: triples });
-//                     }
-//                 }
-//             });
-//             endpointTriplesDataIndex.forEach((graphTripleMap, endpointUrl) => {
-//                 graphTripleMap.forEach((tripleData, graph) => {
-//                     endpointTriplesData.push({ endpoint: endpointUrl, graph: graph, date: tripleData.date, triples: tripleData.triples })
-//                 })
-//             });
-//             return Promise.resolve(endpointTriplesData);
-//         })
-//         .then(endpointTriplesData => {
-//             try {
-//                 let content = JSON.stringify(endpointTriplesData);
-//                 return Global.writeFile(Global.getCachedFilenameForRunset(tripleCountFilename), content).then(() => {
-//                     Logger.info("tripleDataFill END");
-//                     return Promise.resolve();
-//                 })
-//             } catch (err) {
-//                 Logger.error(err)
-//                 return Promise.reject(err);
-//             }
-//         })
-//         .catch(error => {
-//             Logger.error(error)
-//             return Promise.reject(error);
-//         });
-// }
+                endpointTriplesDataIndex.set(endpointUrl, {triples: triples})
+            });
+            endpointTriplesDataIndex.forEach((tripleData, endpointUrl) => {
+                    endpointTriplesData.push({ endpoint: endpointUrl, triples: tripleData.triples })
+            });
+            return Promise.resolve(endpointTriplesData);
+        })
+        .then(endpointTriplesData => {
+            try {
+                let content = JSON.stringify(endpointTriplesData);
+                return Global.writeFile(Global.getCachedFilename(tripleCountFilename), content).then(() => {
+                    Logger.info("tripleDataFill END");
+                    return Promise.resolve();
+                })
+            } catch (err) {
+                Logger.error(err)
+                return Promise.reject(err);
+            }
+        })
+        .catch(error => {
+            Logger.error(error)
+            return Promise.reject(error);
+        });
+}
 
 // export function classDataFill() {
 //     Logger.info("classDataFill START")

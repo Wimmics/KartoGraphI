@@ -13,11 +13,11 @@ export type JSONValue =
     | JSONArray
     | Dayjs;
 
-interface JSONObject {
+export interface JSONObject {
     [x: string]: JSONValue;
 }
 
-interface JSONArray extends Array<JSONValue> { }
+export interface JSONArray extends Array<JSONValue> { }
 
 export type SPARQLJSONResult = {
     head: {
@@ -59,27 +59,6 @@ export interface EndpointIpGeolocObject extends JSONObject {
             as: string,
             query: string
         }
-    }
-}
-
-export interface TimezoneMapObject extends JSONObject {
-    key: string,
-    value: {
-        abbreviation: string,
-        client_ip: string,
-        datetime: string,
-        day_of_week: number,
-        day_of_year: number,
-        dst: boolean,
-        dst_from: string,
-        dst_offset: number,
-        dst_until: string,
-        raw_offset: number,
-        timezone: string,
-        unixtime: number,
-        utc_datetime: string,
-        utc_offset: string,
-        week_number: number
     }
 }
 

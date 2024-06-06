@@ -3,7 +3,7 @@ import * as fs from 'node:fs/promises';
 import { setTimeout } from 'node:timers/promises';
 import dayjs from "dayjs";
 import * as Logger from "./LogUtils.js"
-import { JSONValue } from './DataTypes.js';
+import { JSONObject, JSONValue } from './DataTypes.js';
 import * as DataCache from "./DataCaching.js";
 
 export let nbFetchRetries = 10;
@@ -217,4 +217,12 @@ export function unicodeToUrlendcode(text: string): string {
 // Set the precision of a float
 export function precise(x: number, n = 2): string {
     return x.toPrecision(n);
+}
+
+export function mapToJSON(map: Map<any, any>): string {
+    return JSON.stringify(Object.fromEntries(map));
+}
+
+export function mapFromJSON(jsonString: JSONObject): Map<any, any> {
+    return new Map<any, any>(Object.entries(jsonString));
 }
