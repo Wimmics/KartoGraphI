@@ -1,4 +1,3 @@
-import * as echarts from "echarts";
 import * as DataCache from "./DataCaching.js";
 import { readFile, writeFile } from "fs/promises";
 import { AverageRuntimeDataObject, ClassCountDataObject, DatasetDescriptionDataObject, EndpointTestDataObject, GeolocDataObject, GraphListDataObject, KeywordsEndpointDataObject, PropertyCountDataObject, QualityMeasureDataObject, ShortUriDataObject, SPARQLCoverageDataObject, SPARQLFeatureDataObject, SPARQLFeatureDescriptionDataObject, TotalRuntimeDataObject, TripleCountDataObject, VocabEndpointDataObject, VocabKeywordsDataObject } from "./DataTypes.js";
@@ -6,6 +5,7 @@ import * as Logger from "./LogUtils.js";
 import * as ChartsUtils from "./ChartsUtils.js";
 import * as Global from "./GlobalUtils.js";
 import dayjs from "dayjs";
+import * as echarts from "echarts";
 
 const numberOfVocabulariesLimit = 1000;
 
@@ -43,7 +43,7 @@ let datasetDescriptionData: Array<DatasetDescriptionDataObject>;
 let sparqlFeatureDesc: Array<SPARQLFeatureDescriptionDataObject>;
 
 export function sparqlCoverageEchartsOption(): Promise<void> {
-    return readFile(Global.getCachedFilename(DataCache.sparqlCoverageFilename), "utf8").then(sparqlCoverageCountRawData => {
+    return readFile(DataCache.sparqlCoverageFilename, "utf8").then(sparqlCoverageCountRawData => {
 
         const sparqlCoverageCountData: Array<SPARQLCoverageDataObject> = JSON.parse(sparqlCoverageCountRawData);
 
@@ -270,9 +270,9 @@ export function sparqlCoverageEchartsOption(): Promise<void> {
         };
 
         return Promise.allSettled([
-            writeFile(Global.getCachedFilename(sparql10CoverageEchartsOptionFilename), JSON.stringify(sparql10ChartOption)).then(() => { Logger.info("SPARQL 1.0 chart data generated"); }),
-            writeFile(Global.getCachedFilename(sparql11CoverageEchartsOptionFilename), JSON.stringify(sparql11ChartOption)).then(() => { Logger.info("SPARQL 1.1 chart data generated"); }),
-            writeFile(Global.getCachedFilename(sparqlCoverageEchartsOptionFilename), JSON.stringify(sparqlChartOption)).then(() => { Logger.info("SPARQL chart data generated"); })
+            writeFile(sparql10CoverageEchartsOptionFilename, JSON.stringify(sparql10ChartOption)).then(() => { Logger.info("SPARQL 1.0 chart data generated"); }),
+            writeFile(sparql11CoverageEchartsOptionFilename, JSON.stringify(sparql11ChartOption)).then(() => { Logger.info("SPARQL 1.1 chart data generated"); }),
+            writeFile(sparqlCoverageEchartsOptionFilename, JSON.stringify(sparqlChartOption)).then(() => { Logger.info("SPARQL chart data generated"); })
         ]).then(() => {
             return Promise.resolve();
         });
@@ -282,14 +282,14 @@ export function sparqlCoverageEchartsOption(): Promise<void> {
 }
 
 export function endpointVocabsGraphEchartsOption(): Promise<void> {
-    return readFile(Global.getCachedFilename(DataCache.vocabEndpointFilename), "utf-8").then(vocabEndpointRawData => {
+    return readFile(DataCache.vocabEndpointFilename, "utf-8").then(vocabEndpointRawData => {
 
         let vocabEndpointData: Array<VocabEndpointDataObject> = JSON.parse(vocabEndpointRawData);
         // Create an force graph with the graph linked by co-ocurrence of vocabularies
 
         // Endpoint and vocabularies graph
-        let linkArray = [];
-        let nodeArray = [];
+        let linkArray: ChartsUtils.EchartsGraphLink[] = [];
+        let nodeArray: ChartsUtils.EchartsGraphNode[] = [];
         let vocabularySet: Set<string> = new Set();
         let endpointSet: Set<string> = new Set();
         vocabEndpointData.forEach((item, i) => {
@@ -313,8 +313,8 @@ export function endpointVocabsGraphEchartsOption(): Promise<void> {
         })
 
         if (nodeArray.length > 0 && linkArray.length > 0) {
-            let content = JSON.stringify(ChartsUtils.getForceGraphOption('Endpoints and vocabularies*', ["Vocabulary", "Endpoint"], nodeArray, linkArray));
-            return writeFile(Global.getCachedFilename(vocabEndpointEchartsOptionFilename), content);
+            let content = JSON.stringify(ChartsUtils.getForceGraphOption('Endpoints and vocabularies*', [ "Vocabulary", "Endpoint"], nodeArray, linkArray));
+            return writeFile(vocabEndpointEchartsOptionFilename, content);
         } else {
             return Promise.reject("No data to generate the vocabulary graph ");
         }
@@ -324,13 +324,13 @@ export function endpointVocabsGraphEchartsOption(): Promise<void> {
 }
 
 export function endpointKeywordsGraphEchartsOption(): Promise<void> {
-    return readFile(Global.getCachedFilename(DataCache.endpointKeywordsFilename), "utf-8").then(endpointKeywordsRawData => {
+    return readFile(DataCache.endpointKeywordsFilename, "utf-8").then(endpointKeywordsRawData => {
 
         
         let endpointKeywordData: Array<KeywordsEndpointDataObject> = JSON.parse(endpointKeywordsRawData);
         // Endpoint and keywords graph
-        let linkArray = [];
-        let nodeArray = [];
+        let linkArray: ChartsUtils.EchartsGraphLink[] = [];
+        let nodeArray: ChartsUtils.EchartsGraphNode[] = [];
         let keywordSet: Set<string> = new Set();
         let endpointSet: Set<string> = new Set();
         endpointKeywordData.forEach((item, i) => {
@@ -353,8 +353,8 @@ export function endpointKeywordsGraphEchartsOption(): Promise<void> {
             nodeArray.push({ name: vocab, category: 'Keyword', symbolSize: 5 })
         })
         if (nodeArray.length > 0 && linkArray.length > 0) {
-            let content = JSON.stringify(ChartsUtils.getForceGraphOption('Endpoints and keywords of their vocabularies', ["Keyword", "Endpoint"], nodeArray, linkArray));
-            return writeFile(Global.getCachedFilename(keywordEndpointEchartsOptionFilename), content);
+            let content = JSON.stringify(ChartsUtils.getForceGraphOption('Endpoints and keywords of their vocabularies', [ "Keyword", "Endpoint" ], nodeArray, linkArray));
+            return writeFile(keywordEndpointEchartsOptionFilename, content);
         } else {
             return Promise.reject("No data to generate the keyword graph");
         }
@@ -364,7 +364,7 @@ export function endpointKeywordsGraphEchartsOption(): Promise<void> {
 }
 
 export function endpointStandardVocabulariesGraphEchartsOption(): Promise<void> {
-    return readFile(Global.getCachedFilename( DataCache.vocabEndpointFilename), "utf-8").then(vocabEndpointRawData => {
+    return readFile(DataCache.vocabEndpointFilename, "utf-8").then(vocabEndpointRawData => {
         let vocabEndpointData: Array<VocabEndpointDataObject> = JSON.parse(vocabEndpointRawData);
 
         let vocabStandardSet: Set<string> = new Set();
@@ -373,8 +373,8 @@ export function endpointStandardVocabulariesGraphEchartsOption(): Promise<void> 
             vocabStandardSet.add(key);
         });
         // Endpoint and vocabularies graph
-        let linkArray = [];
-        let nodeArray = [];
+        let linkArray: ChartsUtils.EchartsGraphLink[] = [];
+        let nodeArray: ChartsUtils.EchartsGraphNode[] = [];
         let vocabSet: Set<string> = new Set();
         let endpointSet: Set<string> = new Set();
         vocabEndpointData.forEach((item, i) => {
@@ -403,7 +403,7 @@ export function endpointStandardVocabulariesGraphEchartsOption(): Promise<void> 
             let categoryArray = [...vocabStandardSet].map(vocab => vocabStandardNameMap.get(vocab));
             categoryArray.push("Endpoint")
             let content = JSON.stringify(ChartsUtils.getCircularGraphOption('Endpoints and meta-vocabularies', categoryArray, nodeArray, linkArray));
-            return writeFile(Global.getCachedFilename( standardVocabulariesEndpointGraphEchartsOptionFilename), content);
+            return writeFile(standardVocabulariesEndpointGraphEchartsOptionFilename, content);
         } else {
             return Promise.reject("No data to generate the vocabulary graph ");
         }
@@ -413,10 +413,10 @@ export function endpointStandardVocabulariesGraphEchartsOption(): Promise<void> 
 }
 
 export function triplesEchartsOption(): Promise<void> {
-    return readFile(Global.getCachedFilename(DataCache.tripleCountFilename), "utf-8").then(tripleCountRawData => {
+    return readFile(DataCache.tripleCountFilename, "utf-8").then(tripleCountRawData => {
         tripleCountData = JSON.parse(tripleCountRawData);
         // Scatter plot of the number of triples through time
-        let endpointDataSerieMap = new Map();
+        let endpointDataSerieMap = new Map<string, Map<string, Number[]>>();
         tripleCountData.forEach((itemResult, i) => {
             let endpointUrl = itemResult.endpoint;
             endpointDataSerieMap.set(endpointUrl, []);
@@ -430,7 +430,7 @@ export function triplesEchartsOption(): Promise<void> {
 
         if (endpointDataSerieMap.size > 0) {
             let triplesSeries = ChartsUtils.getScatterDataSeriesFromMap(endpointDataSerieMap);
-            return writeFile(Global.getCachedFilename(triplesEchartOptionFilename), JSON.stringify(ChartsUtils.getTimeScatterOption("Size of the datasets", triplesSeries))).then(() => {
+            return writeFile(triplesEchartOptionFilename, JSON.stringify(ChartsUtils.getTimeScatterOption("Size of the datasets", triplesSeries))).then(() => {
                 Logger.info("Triple chart data generated");
             });
 
@@ -444,7 +444,7 @@ export function triplesEchartsOption(): Promise<void> {
 }
 
 export function classesEchartsOption(): Promise<void> {
-    return readFile(Global.getCachedFilename(DataCache.classCountFilename), "utf-8").then(classesCountRawData => {
+    return readFile(DataCache.classCountFilename, "utf-8").then(classesCountRawData => {
         classCountData = JSON.parse(classesCountRawData);
         // Scatter plot of the number of classes through time
         let endpointDataSerieMap = new Map();
@@ -461,7 +461,7 @@ export function classesEchartsOption(): Promise<void> {
 
         if (endpointDataSerieMap.size > 0) {
             let classesSeries = ChartsUtils.getScatterDataSeriesFromMap(endpointDataSerieMap);
-            return writeFile(Global.getCachedFilename(classesEchartOptionFilename), JSON.stringify(ChartsUtils.getTimeScatterOption("Number of classes in the datasets", classesSeries))).then(() => {
+            return writeFile(classesEchartOptionFilename, JSON.stringify(ChartsUtils.getTimeScatterOption("Number of classes in the datasets", classesSeries))).then(() => {
                 Logger.info("Class chart data generated");
             });
 
@@ -475,7 +475,7 @@ export function classesEchartsOption(): Promise<void> {
 }
 
 export function propertiesEchartsOption(): Promise<void> {
-    return readFile(Global.getCachedFilename(DataCache.propertyCountFilename), "utf-8").then(propertiesCountRawData => {
+    return readFile(DataCache.propertyCountFilename, "utf-8").then(propertiesCountRawData => {
         propertyCountData = JSON.parse(propertiesCountRawData);
         // Scatter plot of the number of classes through time
         let endpointDataSerieMap = new Map();
@@ -492,7 +492,7 @@ export function propertiesEchartsOption(): Promise<void> {
 
         if (endpointDataSerieMap.size > 0) {
             let propertiesSeries = ChartsUtils.getScatterDataSeriesFromMap(endpointDataSerieMap);
-            return writeFile(Global.getCachedFilename( propertiesEchartOptionFilename), JSON.stringify(ChartsUtils.getTimeScatterOption("Number of properties in the datasets", propertiesSeries))).then(() => {
+            return writeFile(propertiesEchartOptionFilename, JSON.stringify(ChartsUtils.getTimeScatterOption("Number of properties in the datasets", propertiesSeries))).then(() => {
                 Logger.info("Property chart data generated");
             });
 
@@ -505,7 +505,7 @@ export function propertiesEchartsOption(): Promise<void> {
 }
 
 export function shortUrisEchartsOption(): Promise<void> {
-    return readFile(Global.getCachedFilename(DataCache.shortUriDataFilename), "utf-8").then(shortUrisCountRawData => {
+    return readFile(DataCache.shortUriDataFilename, "utf-8").then(shortUrisCountRawData => {
         shortUrisData = JSON.parse(shortUrisCountRawData);
         // Scatter plot of the number of classes through time
         let endpointDataSerieMap = new Map();
@@ -522,7 +522,7 @@ export function shortUrisEchartsOption(): Promise<void> {
 
         if (endpointDataSerieMap.size > 0) {
             let shortUrisSeries = ChartsUtils.getScatterDataSeriesFromMap(endpointDataSerieMap);
-            return writeFile(Global.getCachedFilename(shortUrisEchartOptionFilename), JSON.stringify(ChartsUtils.getTimeScatterOption("Proportion of short URIs in the datasets", shortUrisSeries))).then(() => {
+            return writeFile(shortUrisEchartOptionFilename, JSON.stringify(ChartsUtils.getTimeScatterOption("Proportion of short URIs in the datasets", shortUrisSeries))).then(() => {
                 Logger.info("Short URIs chart data generated");
             });
 
@@ -535,7 +535,7 @@ export function shortUrisEchartsOption(): Promise<void> {
 }
 
 export function rdfDataStructuresEchartsOption(): Promise<void> {
-    return readFile(Global.getCachedFilename(DataCache.rdfDataStructureDataFilename), "utf-8").then(rdfDataStructuresCountRawData => {
+    return readFile(DataCache.rdfDataStructureDataFilename, "utf-8").then(rdfDataStructuresCountRawData => {
         rdfDataStructureData = JSON.parse(rdfDataStructuresCountRawData);
         // Scatter plot of the number of classes through time
         let endpointDataSerieMap = new Map();
@@ -552,7 +552,7 @@ export function rdfDataStructuresEchartsOption(): Promise<void> {
 
         if (endpointDataSerieMap.size > 0) {
             let rdfDataStructuresSeries = ChartsUtils.getScatterDataSeriesFromMap(endpointDataSerieMap);
-            return writeFile(Global.getCachedFilename(rdfDataStructuresEchartOptionFilename), JSON.stringify(ChartsUtils.getTimeScatterOption("Proportion of RDF data structures in the datasets", rdfDataStructuresSeries))).then(() => {
+            return writeFile(rdfDataStructuresEchartOptionFilename, JSON.stringify(ChartsUtils.getTimeScatterOption("Proportion of RDF data structures in the datasets", rdfDataStructuresSeries))).then(() => {
                 Logger.info("RDF data structures chart data generated");
             });
 
@@ -565,7 +565,7 @@ export function rdfDataStructuresEchartsOption(): Promise<void> {
 }
 
 export function readableLabelsEchartsOption(): Promise<void> {
-    return readFile(Global.getCachedFilename(DataCache.readableLabelDataFilename), "utf-8").then(readableLabelsCountRawData => {
+    return readFile(DataCache.readableLabelDataFilename, "utf-8").then(readableLabelsCountRawData => {
         readableLabelData = JSON.parse(readableLabelsCountRawData);
         // Scatter plot of the number of classes through time
         let endpointDataSerieMap = new Map();
@@ -582,7 +582,7 @@ export function readableLabelsEchartsOption(): Promise<void> {
 
         if (endpointDataSerieMap.size > 0) {
             let readableLabelsSeries = ChartsUtils.getScatterDataSeriesFromMap(endpointDataSerieMap);
-            return writeFile(Global.getCachedFilename(readableLabelsEchartOptionFilename), JSON.stringify(ChartsUtils.getTimeScatterOption("Proportion of resources with readable labels in the datasets", readableLabelsSeries))).then(() => {
+            return writeFile(readableLabelsEchartOptionFilename, JSON.stringify(ChartsUtils.getTimeScatterOption("Proportion of resources with readable labels in the datasets", readableLabelsSeries))).then(() => {
                 Logger.info("Readable labels chart data");
             });
 
@@ -595,7 +595,7 @@ export function readableLabelsEchartsOption(): Promise<void> {
 }
 
 export function blankNodesEchartsOption(): Promise<void> {
-    return readFile(Global.getCachedFilename( DataCache.blankNodesDataFilename), "utf-8").then(blankNodesCountRawData => {
+    return readFile(DataCache.blankNodesDataFilename, "utf-8").then(blankNodesCountRawData => {
         blankNodesData = JSON.parse(blankNodesCountRawData);
         // Scatter plot of the number of classes through time
         let endpointDataSerieMap = new Map();
@@ -612,7 +612,7 @@ export function blankNodesEchartsOption(): Promise<void> {
 
         if (endpointDataSerieMap.size > 0) {
             let blankNodesSeries = ChartsUtils.getScatterDataSeriesFromMap(endpointDataSerieMap);
-            return writeFile(Global.getCachedFilename( blankNodesEchartOptionFilename), JSON.stringify(ChartsUtils.getTimeScatterOption("Proportion of blank nodes in the datasets", blankNodesSeries))).then(() => {
+            return writeFile(blankNodesEchartOptionFilename, JSON.stringify(ChartsUtils.getTimeScatterOption("Proportion of blank nodes in the datasets", blankNodesSeries))).then(() => {
                 Logger.info("Blank nodes chart data");
             });
 
@@ -626,7 +626,7 @@ export function blankNodesEchartsOption(): Promise<void> {
 
 export function datasetDescriptionEchartsOption() {
     Logger.info("Dataset description chart data for generation started")
-    return readFile(Global.getCachedFilename(DataCache.datasetDescriptionDataFilename), "utf-8").then(datasetDescriptionRawData => {
+    return readFile(DataCache.datasetDescriptionDataFilename, "utf-8").then(datasetDescriptionRawData => {
         datasetDescriptionData = JSON.parse(datasetDescriptionRawData);
 
         let whoDataScore = 0;
@@ -802,7 +802,7 @@ export function datasetDescriptionEchartsOption() {
         return datasetDescriptionEchartOption;
     }).then((datasetDescriptionEchartOption) => {
         let content = JSON.stringify(datasetDescriptionEchartOption);
-        return writeFile(Global.getCachedFilename(datasetDescriptionEchartOptionFilename), content).then(() => {
+        return writeFile(datasetDescriptionEchartOptionFilename, content).then(() => {
             Logger.info("Dataset description chart option for generation ended");
             return Promise.resolve();
         });
