@@ -8,11 +8,13 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 dayjs.extend(relativeTime)
 dayjs.extend(customParseFormat)
 dayjs.extend(duration)
-import { greenIcon, orangeIcon } from "./leaflet-color-markers";
 import * as Control from './Control';
 import * as View from './ViewUtils';
 import * as Datatype from "./Datatypes";
-import * as Plotly from 'plotly.js-dist'
+import * as Plotly from 'plotly.js-dist';
+import Graph from "graphology";
+import ForceSupervisor from "graphology-layout-force/worker";
+import Sigma from "sigma";
 
 window.onload = (() => {
 
@@ -81,7 +83,7 @@ window.onload = (() => {
                     'City',
                     'Organization'
                 ];
-                let gridJSData = endpointGeolocData.map(item => {
+                let gridJSData = (endpointGeolocData as Datatype.GeolocDataObject[]).map(item => {
                     return [item.endpoint, item.lat, item.lon, item.country, item.region, item.city, item.org];
                 });
                 let gridJS = new gridjs.Grid({
@@ -101,6 +103,53 @@ window.onload = (() => {
     })
 
     // Vocabulary Graph
+    Control.Control.getCacheFile(Control.vocabEndpointDataFilename).then(vocabEndpointData => {
+        vocabEndpointData = vocabEndpointData as Datatype.VocabEndpointDataObject[];
+        let vocabEndpointsElement = document.getElementById("vocabs");
+        if(vocabEndpointsElement) {
+            let endpointSet = new Set<string>();
+            let vocabularySet = new Set<string>();
+            let nodeIdMap = new Map<string, Number>();
+            let edgeArray: Set<Datatype.JSONObject> = new Set<Datatype.JSONObject>;
+
+            (vocabEndpointData as Datatype.VocabEndpointDataObject[]).forEach(vocabEndpointDataElement => {
+                endpointSet.add(vocabEndpointDataElement.endpoint);
+                if(vocabEndpointDataElement.vocabularies) {
+                    (new Set(vocabEndpointDataElement.vocabularies)).forEach(vocabulary => {
+                        vocabularySet.add(vocabulary);
+                        edgeArray.add({endpoint: vocabEndpointDataElement.endpoint, vocabulary:vocabulary})
+                    });
+                }
+            })
+            const graph = new Graph();
+            let idNumber = 0;
+            endpointSet.forEach(endpointName => {
+                nodeIdMap.set(endpointName, idNumber);
+                graph.addNode(idNumber.toString(), { label: endpointName, x: idNumber, y: idNumber % 100, size: 10, color: "blue" });
+                idNumber++;
+            })
+            vocabularySet.forEach(vocabularyName => {
+                nodeIdMap.set(vocabularyName, idNumber);
+                graph.addNode(idNumber.toString(), { label: vocabularyName, x: idNumber, y: idNumber % 100, size: 10, color: "green" });
+                idNumber++;
+            })
+            edgeArray.forEach(edgeObject => {
+                let endpointId = nodeIdMap.get(edgeObject.endpoint as string);
+                let vocabularyId = nodeIdMap.get(edgeObject.vocabulary as string);
+                graph.addEdge(endpointId?.toString(), vocabularyId?.toString(), { size: 5, color: "grey" });
+            })
+        
+            
+            const layout = new ForceSupervisor(graph, {
+                maxIterations: 50,
+                settings: {
+                  gravity: 10
+                }
+              });
+            layout.start();
+            const sigmaInstance = new Sigma(graph, vocabEndpointsElement);
+        }
+    })
 
     // Vocabulary Table
 
@@ -114,8 +163,7 @@ window.onload = (() => {
     
         console.log("Triples chart filled");
     })
-
-    // Triple Table
+    
 
 
 });
