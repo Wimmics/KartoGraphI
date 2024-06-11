@@ -1,7 +1,5 @@
-import $ from 'jquery';
-
 export function getMainContentColWidth(): number {
-    let result = $('#mainContentCol').width();
+    let result = document.querySelector('#mainContentCol')?.clientWidth;
     if(result == undefined) {
         return 0;
     } else {
@@ -10,8 +8,8 @@ export function getMainContentColWidth(): number {
 }
 
 export function setButtonAsToggleCollapse(buttonId, tableId) {
-    $('#' + buttonId).on('click', function () {
-        if ($('#' + tableId).hasClass("show")) {
+    document.querySelector('#' + buttonId)?.addEventListener('click', function () {
+        if (document.querySelector('#' + tableId)?.classList.contains("show")) {
             collapseHtml(tableId);
         } else {
             unCollapseHtml(tableId);
@@ -20,13 +18,9 @@ export function setButtonAsToggleCollapse(buttonId, tableId) {
 }
 
 export function collapseHtml(htmlId) {
-    let jQuerySelect = $('#' + htmlId);
-    jQuerySelect.removeClass('show');
-    jQuerySelect.addClass('collapse');
+    document.querySelector('#' + htmlId)?.classList.replace('show', 'collapse');
 }
 
 export function unCollapseHtml(htmlId) {
-    let jQuerySelect = $('#' + htmlId);
-    jQuerySelect.removeClass('collapse');
-    jQuerySelect.addClass('show');
+    document.querySelector('#' + htmlId)?.classList.replace('collapse', 'show');
 }

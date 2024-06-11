@@ -1,5 +1,4 @@
 import dayjs from 'dayjs';
-import $ from 'jquery';
 
 export function intersection(setA, setB) {
     let intersection = new Set();

@@ -1,5 +1,3 @@
-import * as fs from 'node:fs';
-import * as $rdf from "rdflib";
 import dayjs, { Dayjs } from "dayjs";
 import duration from 'dayjs/plugin/duration.js';
 import customParseFormat from 'dayjs/plugin/customParseFormat.js';
@@ -12,7 +10,6 @@ import md5 from 'md5';
 import * as Global from "./GlobalUtils.js";
 import * as Logger from "./LogUtils.js";
 import * as Sparql from "./SparqlUtils.js";
-import * as RDFUtils from "./RDFUtils.js";
 import { ClassCountDataObject, EndpointItem, EndpointTestObject, JSONValue, JSONObject, JSONArray, KeywordsEndpointDataObject, SPARQLJSONResult, TripleCountDataObject, VocabEndpointDataObject } from './DataTypes.js';
 
 const dataFilePrefix = "./data/";
@@ -71,20 +68,19 @@ export function endpointMapfill() {
     })
         .then(endpointItemMap => {
             endpointItemMap.forEach((endpointItem, endpoint) => {
-                let popupString = `<table> <thead> <tr> <th colspan='2'> <a href='${endpointItem.endpoint}' >${endpointItem.endpoint}</a> </th> </tr> </thead></body>`;
+                let popupString = `${endpointItem.endpoint},\n`;
                 if (endpointItem.region != undefined) {
-                    popupString += `<tr><td>Continent: </td><td>${endpointItem.region}</td></tr>`;
+                    popupString += `Continent: ${endpointItem.region},\n`;
                 }
                 if (endpointItem.country != undefined) {
-                    popupString += `<tr><td>Country: </td><td>${endpointItem.country}</td></tr>`;
+                    popupString += `Country: ${endpointItem.country},\n`;
                 }
                 if (endpointItem.city != undefined) {
-                    popupString += `<tr><td>City: </td><td>${endpointItem.city}</td></tr>`;
+                    popupString += `City: ${endpointItem.city},\n`;
                 }
                 if (endpointItem.org != undefined) {
-                    popupString += `<tr><td>Organization: </td><td>${endpointItem.org}</td></tr>`;
+                    popupString += `Organization: ${endpointItem.org}\n`;
                 }
-                popupString += "</tbody></table>"
                 endpointItem.popupHTML = popupString;
             })
 
@@ -97,7 +93,7 @@ export function endpointMapfill() {
             try {
                 let content = JSON.stringify(endpointGeolocData);
                 Logger.info("endpointMapfill END")
-                return Global.writeFile(Global.getCachedFilename(geolocFilename), content)
+                return Global.writeFile(geolocFilename, content)
             } catch (err) {
                 Logger.error(err)
             }
@@ -311,14 +307,14 @@ export function allVocabFill(): Promise<void> {
                     endpointVocabData.push({ endpoint: endpointUrl, vocabularies: vocabArray });
                 })
                 let content = JSON.stringify(endpointVocabData);
-                return Global.writeFile(Global.getCachedFilename(vocabEndpointFilename), content)
+                return Global.writeFile(vocabEndpointFilename, content)
                     .then(() => {
                         let endpointKeywordsData: KeywordsEndpointDataObject[] = [];
                         endpointKeywords.forEach((keywordArray, endpointUrl, map) => {
                             endpointKeywordsData.push({ endpoint: endpointUrl, keywords: keywordArray });
                         })
                         let content = JSON.stringify(endpointKeywordsData);
-                        return Global.writeFile(Global.getCachedFilename(endpointKeywordsFilename), content)
+                        return Global.writeFile(endpointKeywordsFilename, content)
                     })
                     .then(() => {
                         Logger.info("vocabFill END")
@@ -462,7 +458,6 @@ export function tripleDataFill() {
             { ?curated <http://www.w3.org/ns/sparql-service-description#endpoint> ?endpointUrl . }
             UNION { ?curated <http://rdfs.org/ns/void#sparqlEndpoint> ?endpointUrl . }
             UNION { ?curated <http://www.w3.org/ns/dcat#endpointURL> ?endpointUrl . }
-            ?metadata <http://ns.inria.fr/kg/index#curated> ?curated .
             ?curated <http://rdfs.org/ns/void#triples> ?rawO .
     } GROUP BY ?endpointUrl`;
 
@@ -475,17 +470,17 @@ export function tripleDataFill() {
                 let endpointUrl = itemResult["endpointUrl"].value;
                 let triples = Number.parseInt(itemResult["triples"].value);
 
-                endpointTriplesDataIndex.set(endpointUrl, {triples: triples})
+                endpointTriplesDataIndex.set(endpointUrl, { triples: triples })
             });
             endpointTriplesDataIndex.forEach((tripleData, endpointUrl) => {
-                    endpointTriplesData.push({ endpoint: endpointUrl, triples: tripleData.triples })
+                endpointTriplesData.push({ endpoint: endpointUrl, triples: tripleData.triples })
             });
             return Promise.resolve(endpointTriplesData);
         })
         .then(endpointTriplesData => {
             try {
                 let content = JSON.stringify(endpointTriplesData);
-                return Global.writeFile(Global.getCachedFilename(tripleCountFilename), content).then(() => {
+                return Global.writeFile(tripleCountFilename, content).then(() => {
                     Logger.info("tripleDataFill END");
                     return Promise.resolve();
                 })

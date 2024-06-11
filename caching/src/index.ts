@@ -1,14 +1,23 @@
 import * as DataCache from './DataCaching.js';
 import * as Logger from './LogUtils.js';
 import * as EChartsCache from './EChartsDataCaching.js';
+import * as PlotlyCache from './PlotlyDataCaching.js';
 
 
 Promise.allSettled([
-    // DataCache.allVocabFill(),
+    DataCache.allVocabFill().then(() =>
+        Promise.allSettled([
+            EChartsCache.endpointVocabsGraphEchartsOption(),
+            EChartsCache.endpointKeywordsGraphEchartsOption(),
+            EChartsCache.endpointStandardVocabulariesGraphEchartsOption()
+        ])
+    ),
     DataCache.endpointMapfill(),
 
     DataCache.tripleDataFill().then(() =>
-        EChartsCache.triplesEchartsOption()
+        // EChartsCache.triplesEchartsOption().then(() => 
+            PlotlyCache.triplesEchartsOption()
+        // )
     ),
     // DataCache.classDataFill().then(() =>
     //     EChartsCache.classesEchartsOption()
@@ -30,13 +39,6 @@ Promise.allSettled([
     // ),
     // DataCache.SPARQLCoverageFill().then(() =>
     //     EChartsCache.sparqlCoverageEchartsOption()
-    // ),
-    // DataCache.allVocabFill().then(() =>
-    //     Promise.allSettled([
-    //         EChartsCache.endpointVocabsGraphEchartsOption(),
-    //         EChartsCache.endpointKeywordsGraphEchartsOption(),
-    //         EChartsCache.endpointStandardVocabulariesGraphEchartsOption()
-    //     ])
     // ),
     // DataCache.datasetDescriptionDataFill().then(() =>
     //     EChartsCache.datasetDescriptionEchartsOption()
