@@ -9,21 +9,21 @@ import * as echarts from "echarts";
 
 const numberOfVocabulariesLimit = 1000;
 
-export const sparqlCoverageEchartsOptionFilename = DataCache.dataCachedFilePrefix + "sparqlCoverageEchartsOption.json";
-export const sparql10CoverageEchartsOptionFilename = DataCache.dataCachedFilePrefix + "sparql10CoverageEchartsOption.json";
-export const sparql11CoverageEchartsOptionFilename = DataCache.dataCachedFilePrefix + "sparql11CoverageEchartsOption.json";
-export const vocabEndpointEchartsOptionFilename = DataCache.dataCachedFilePrefix + "vocabEndpointEchartsOption.json";
-export const triplesEchartOptionFilename = DataCache.dataCachedFilePrefix + "triplesEchartOption.json";
-export const classesEchartOptionFilename = DataCache.dataCachedFilePrefix + "classesEchartOption.json";
-export const propertiesEchartOptionFilename = DataCache.dataCachedFilePrefix + "propertiesEchartOption.json";
-export const shortUrisEchartOptionFilename = DataCache.dataCachedFilePrefix + "shortUrisEchartOption.json";
-export const rdfDataStructuresEchartOptionFilename = DataCache.dataCachedFilePrefix + "rdfDataStructuresEchartOption.json";
-export const readableLabelsEchartOptionFilename = DataCache.dataCachedFilePrefix + "readableLabelsEchartOption.json";
-export const blankNodesEchartOptionFilename = DataCache.dataCachedFilePrefix + "blankNodesEchartOption.json";
-export const datasetDescriptionEchartOptionFilename = DataCache.dataCachedFilePrefix + "datasetDescriptionEchartOption.json";
-export const totalRuntimeEchartsOptionFilename = DataCache.dataCachedFilePrefix + "totalRuntimeEchartsOption.json";
-export const keywordEndpointEchartsOptionFilename = DataCache.dataCachedFilePrefix + "keywordEndpointEchartsOption.json";
-export const standardVocabulariesEndpointGraphEchartsOptionFilename = DataCache.dataCachedFilePrefix + "standardVocabulariesEndpointGraphEchartsOption.json";
+export const sparqlCoverageOptionFilename = DataCache.dataCachedFilePrefix + "sparqlCoverageOption.json";
+export const sparql10CoverageOptionFilename = DataCache.dataCachedFilePrefix + "sparql10CoverageOption.json";
+export const sparql11CoverageOptionFilename = DataCache.dataCachedFilePrefix + "sparql11CoverageOption.json";
+export const vocabEndpointOptionFilename = DataCache.dataCachedFilePrefix + "vocabEndpointOption.json";
+export const triplesOptionFilename = DataCache.dataCachedFilePrefix + "triplesOption.json";
+export const classesOptionFilename = DataCache.dataCachedFilePrefix + "classesOption.json";
+export const propertiesOptionFilename = DataCache.dataCachedFilePrefix + "propertiesOption.json";
+export const shortUrisOptionFilename = DataCache.dataCachedFilePrefix + "shortUrisOption.json";
+export const rdfDataStructuresOptionFilename = DataCache.dataCachedFilePrefix + "rdfDataStructuresOption.json";
+export const readableLabelsOptionFilename = DataCache.dataCachedFilePrefix + "readableLabelsOption.json";
+export const blankNodesOptionFilename = DataCache.dataCachedFilePrefix + "blankNodesOption.json";
+export const datasetDescriptionOptionFilename = DataCache.dataCachedFilePrefix + "datasetDescriptionOption.json";
+export const totalRuntimeOptionFilename = DataCache.dataCachedFilePrefix + "totalRuntimeOption.json";
+export const keywordEndpointOptionFilename = DataCache.dataCachedFilePrefix + "keywordEndpointOption.json";
+export const standardVocabulariesEndpointGraphOptionFilename = DataCache.dataCachedFilePrefix + "standardVocabulariesEndpointGraphOption.json";
 
 
 let whiteListData: Map<string, Array<string>>;
@@ -42,388 +42,53 @@ let classPropertyData: any;
 let datasetDescriptionData: Array<DatasetDescriptionDataObject>;
 let sparqlFeatureDesc: Array<SPARQLFeatureDescriptionDataObject>;
 
+
 export function sparqlCoverageEchartsOption(): Promise<void> {
-    return readFile(DataCache.sparqlCoverageFilename, "utf8").then(sparqlCoverageCountRawData => {
-
-        const sparqlCoverageCountData: Array<SPARQLCoverageDataObject> = JSON.parse(sparqlCoverageCountRawData);
-
-        let maxSparql10 = 25;
-        let maxSparql11 = 19;
-        let maxSparqlTotal = maxSparql10 + maxSparql11;
-
-        let chart10ValueMap = new Map();
-        let chart11ValueMap = new Map();
-        let chartSPARQLValueMap = new Map();
-
-        for (let i = -1; i < 10; i++) {
-            chart10ValueMap.set(i, 0);
-            chart11ValueMap.set(i, 0);
-            chartSPARQLValueMap.set(i, 0);
-        }
-        let sparql10Step = maxSparql10 / 10;
-        let sparql11Step = maxSparql11 / 10;
-        let sparqlTotalStep = maxSparqlTotal / 10;
-        sparqlCoverageCountData.forEach((item) => {
-            let itemBinSparql10 = -1;
-            if (item.sparql10 > 0) {
-                itemBinSparql10 = Math.floor(item.sparql10 / sparql10Step);
-                if (itemBinSparql10 == 10) {
-                    itemBinSparql10 = 9;
-                }
-            }
-            chart10ValueMap.set(itemBinSparql10, chart10ValueMap.get(itemBinSparql10) + 1);
-            let itemBinSparql11 = -1;
-            if (item.sparql11 > 0) {
-                itemBinSparql11 = Math.floor(item.sparql11 / sparql11Step);
-                if (itemBinSparql11 == 10) {
-                    itemBinSparql11 = 9;
-                }
-            }
-            chart11ValueMap.set(itemBinSparql11, chart11ValueMap.get(itemBinSparql11) + 1);
-            let itemBinSparqlTotal = -1;
-            if (item.sparql11 > 0 || item.sparql10 > 0) {
-                itemBinSparqlTotal = Math.floor(item.sparqlTotal / sparqlTotalStep);
-                if (itemBinSparqlTotal == 10) {
-                    itemBinSparqlTotal = 9;
-                }
-            }
-            chartSPARQLValueMap.set(itemBinSparqlTotal, chartSPARQLValueMap.get(itemBinSparqlTotal) + 1);
-        });
-
-        let chart10DataMap = new Map();
-        let chart11DataMap = new Map();
-        let chartSPARQLDataMap = new Map();
-        let categorySet = new Set<string>();
-        chart10ValueMap.forEach((binCount, itemBin, map) => {
-            let categoryName = "[ " + ((itemBin) * 10).toString() + "%, " + ((itemBin + 1) * 10).toString() + " % ]";
-            if (itemBin == 0) {
-                categoryName = "] " + ((itemBin) * 10).toString() + "%, " + ((itemBin + 1) * 10).toString() + " % ]";
-            }
-            if (itemBin == -1) {
-                categoryName = "[ 0% ]";
-            }
-            categorySet.add(categoryName);
-            chart10DataMap.set(categoryName, binCount);
-        });
-        chart11ValueMap.forEach((binCount, itemBin, map) => {
-            let categoryName = "[ " + ((itemBin) * 10).toString() + "%, " + ((itemBin + 1) * 10).toString() + " % ]";
-            if (itemBin == 0) {
-                categoryName = "] " + ((itemBin) * 10).toString() + "%, " + ((itemBin + 1) * 10).toString() + " % ]";
-            }
-            if (itemBin == -1) {
-                categoryName = "[ 0% ]";
-            }
-            categorySet.add(categoryName);
-            chart11DataMap.set(categoryName, binCount);
-        });
-        chartSPARQLValueMap.forEach((binCount, itemBin, map) => {
-            let categoryName = "[ " + ((itemBin) * 10).toString() + "%, " + ((itemBin + 1) * 10).toString() + " % ]";
-            if (itemBin == 0) {
-                categoryName = "] " + ((itemBin) * 10).toString() + "%, " + ((itemBin + 1) * 10).toString() + " % ]";
-            }
-            if (itemBin == -1) {
-                categoryName = "[ 0% ]";
-            }
-            categorySet.add(categoryName);
-            chartSPARQLDataMap.set(categoryName, binCount);
-        });
-        // let categories = ([...categorySet]).sort((a, b) => a.localeCompare(b));
-
-        let sparql10Series: any[] = [];
-        chart10DataMap.forEach((percentage, category, map) => {
-            sparql10Series.push({
-                name: category,
-                type: 'bar',
-                data: [percentage],
-                label: {
-                    show: true,
-                    formatter: "{a}",
-                    verticalAlign: "bottom",
-                    position: "top"
-                }
+    return Global.readJSONFile(DataCache.sparqlFeaturesFilename).then(sparqlFeaturesData => {
+        if((sparqlFeaturesData as Array<SPARQLFeatureDataObject>).length) {
+            sparqlFeaturesData = (sparqlFeaturesData as Array<SPARQLFeatureDataObject>).sort((to1, to2) => (to1.features.length - to2.features.length));
+            let featureCountXArray: number[] = [];
+            let featureCountYArray: number[] = [];
+            let featureCountTextArray: string[] = [];
+            (sparqlFeaturesData as Array<SPARQLFeatureDataObject>).forEach((featureObject, index) => {
+                featureCountXArray.push(index);
+                featureCountYArray.push(featureObject.features.length);
+                featureCountTextArray.push(featureObject.endpoint);
             })
-        });
-        let sparql11Series: any[] = [];
-        chart11DataMap.forEach((percentage, category, map) => {
-            sparql11Series.push({
-                name: category,
-                type: 'bar',
-                data: [percentage],
-                label: {
-                    show: true,
-                    formatter: "{a}",
-                    verticalAlign: "bottom",
-                    position: "top"
+            let featureCountChartOption = {
+                mode: 'lines+markers',
+                type: 'scatter',
+                x: featureCountXArray,
+                y: featureCountYArray,
+                text: featureCountTextArray,
+                xaxis: {
+                    type: "linear",
+                    showticklabels: false,
+                    ticks: "",
+                    autorange: true
+                },
+                yaxis: {
+                    type: 'linear',
+                    autorange: true
                 }
-            })
-        });
-        let sparqlCategorySeries: any[] = [];
-        chartSPARQLDataMap.forEach((percentage, category, map) => {
-            sparqlCategorySeries.push({
-                name: category,
-                type: 'bar',
-                data: [percentage],
-                label: {
-                    show: true,
-                    formatter: "{a}",
-                    verticalAlign: "bottom",
-                    position: "top"
-                }
-            })
-        });
-
-        let sparql10ChartOption = {
-            title: {
-                left: 'center',
-                text: "Number of endpoints according to\n their coverage of SPARQL 1.0 features",
-                textStyle: {
-                    overflow: 'breakAll',
-                    width: "80%"
-                }
-            },
-            legend: {
-                show: false,
-            },
-            toolbox: {
-                show: false
-            },
-            tooltip: {
-                show: true
-            },
-            xAxis: {
-                type: 'category',
-                data: ["Endpoints supporting SPARQL 1.0 features"],
-                show: false,
-                splitLine: { show: false },
-                splitArea: { show: false }
-            },
-            yAxis: {
-                type: 'value',
-                max: 'dataMax',
-            },
-            color: ["#060705ff", "#10200Eff", "#1A3917ff", "#245121ff", "#2E6A2Aff", "#388333ff", "#419C3Cff", "#4BB545ff", "#55CD4Fff", "#5FE658ff", "#69FF61ff"],
-            series: sparql10Series,
-        };
-        let sparql11ChartOption = {
-            title: {
-                left: 'center',
-                text: "Number of endpoints according to\n their coverage of SPARQL 1.1 features",
-                textStyle: {
-                    overflow: 'breakAll',
-                    width: "80%"
-                }
-            },
-            legend: {
-                show: false,
-            },
-            toolbox: {
-                show: false
-            },
-            tooltip: {
-                show: true
-            },
-            xAxis: {
-                type: 'category',
-                data: ["Endpoints supporting SPARQL 1.1 features"],
-                show: false,
-                splitLine: { show: false },
-                splitArea: { show: false }
-            },
-            yAxis: {
-                type: 'value',
-                max: 'dataMax',
-            },
-            color: ["#060705ff", "#10200Eff", "#1A3917ff", "#245121ff", "#2E6A2Aff", "#388333ff", "#419C3Cff", "#4BB545ff", "#55CD4Fff", "#5FE658ff", "#69FF61ff"],
-            series: sparql11Series,
-        };
-        let sparqlChartOption = {
-            title: {
-                left: 'center',
-                text: "Number of endpoints according to\n their coverage of all SPARQL features",
-                textStyle: {
-                    overflow: 'breakAll',
-                    width: "80%"
-                }
-            },
-            legend: {
-                show: false,
-            },
-            toolbox: {
-                show: false
-            },
-            tooltip: {
-                show: true
-            },
-            xAxis: {
-                type: 'category',
-                data: ["Endpoints supporting SPARQL 1.0 and 1.1 features"],
-                splitLine: { show: false },
-                splitArea: { show: false },
-                show: false
-            },
-            yAxis: {
-                type: 'value',
-                max: 'dataMax',
-            },
-            color: ["#060705ff", "#10200Eff", "#1A3917ff", "#245121ff", "#2E6A2Aff", "#388333ff", "#419C3Cff", "#4BB545ff", "#55CD4Fff", "#5FE658ff", "#69FF61ff"],
-            series: sparqlCategorySeries,
-        };
-
-        return Promise.allSettled([
-            writeFile(sparql10CoverageEchartsOptionFilename, JSON.stringify(sparql10ChartOption)).then(() => { Logger.info("SPARQL 1.0 chart data generated"); }),
-            writeFile(sparql11CoverageEchartsOptionFilename, JSON.stringify(sparql11ChartOption)).then(() => { Logger.info("SPARQL 1.1 chart data generated"); }),
-            writeFile(sparqlCoverageEchartsOptionFilename, JSON.stringify(sparqlChartOption)).then(() => { Logger.info("SPARQL chart data generated"); })
-        ]).then(() => {
-            return Promise.resolve();
-        });
-    }).catch((error) => {
-        Logger.error("Error during sparql cached data reading", error)
-    });
-}
-
-export function endpointVocabsGraphEchartsOption(): Promise<void> {
-    return readFile(DataCache.vocabEndpointFilename, "utf-8").then(vocabEndpointRawData => {
-
-        let vocabEndpointData: Array<VocabEndpointDataObject> = JSON.parse(vocabEndpointRawData);
-        // Create an force graph with the graph linked by co-ocurrence of vocabularies
-
-        // Endpoint and vocabularies graph
-        let linkArray: ChartsUtils.EchartsGraphLink[] = [];
-        let nodeArray: ChartsUtils.EchartsGraphNode[] = [];
-        let vocabularySet: Set<string> = new Set();
-        let endpointSet: Set<string> = new Set();
-        vocabEndpointData.forEach((item, i) => {
-            let endpoint = item.endpoint;
-            let vocabularies = item.vocabularies;
-            if (vocabularies !== undefined) {
-                endpointSet.add(endpoint);
-                vocabularies.forEach(vocab => {
-                    vocabularySet.add(vocab)
-
-                    linkArray.push({ source: endpoint, target: vocab })
-                })
-            }
-        });
-
-        endpointSet.forEach(endpoint => {
-            nodeArray.push({ name: endpoint, category: 'Endpoint', symbolSize: 5 })
-        })
-        vocabularySet.forEach(vocab => {
-            nodeArray.push({ name: vocab, category: 'Vocabulary', symbolSize: 5 })
-        })
-
-        if (nodeArray.length > 0 && linkArray.length > 0) {
-            let content = JSON.stringify(ChartsUtils.getForceGraphOption('Endpoints and vocabularies*', [ "Vocabulary", "Endpoint"], nodeArray, linkArray));
-            return writeFile(vocabEndpointEchartsOptionFilename, content);
+            };
+            return Global.writeFile(sparqlCoverageOptionFilename, JSON.stringify(featureCountChartOption));
         } else {
-            return Promise.reject("No data to generate the vocabulary graph ");
+            return Promise.reject("No data to generate the SPARQL coverage graph");
         }
-    }).catch((error) => {
-        Logger.error("Error during vocab graph data reading", error)
+    })
+    .catch((error) => {
+        Logger.error("Error during SPARQL coverage data reading", error)
     });
 }
 
-export function endpointKeywordsGraphEchartsOption(): Promise<void> {
-    return readFile(DataCache.endpointKeywordsFilename, "utf-8").then(endpointKeywordsRawData => {
-
-        
-        let endpointKeywordData: Array<KeywordsEndpointDataObject> = JSON.parse(endpointKeywordsRawData);
-        // Endpoint and keywords graph
-        let linkArray: ChartsUtils.EchartsGraphLink[] = [];
-        let nodeArray: ChartsUtils.EchartsGraphNode[] = [];
-        let keywordSet: Set<string> = new Set();
-        let endpointSet: Set<string> = new Set();
-        endpointKeywordData.forEach((item, i) => {
-            let endpoint = item.endpoint;
-            let keywords = item.keywords;
-            if (keywords !== undefined) {
-                endpointSet.add(endpoint);
-                keywords.forEach(vocab => {
-                    keywordSet.add(vocab)
-
-                    linkArray.push({ source: endpoint, target: vocab })
-                })
-            }
-        });
-
-        endpointSet.forEach(endpoint => {
-            nodeArray.push({ name: endpoint, category: 'Endpoint', symbolSize: 5 })
-        })
-        keywordSet.forEach(vocab => {
-            nodeArray.push({ name: vocab, category: 'Keyword', symbolSize: 5 })
-        })
-        if (nodeArray.length > 0 && linkArray.length > 0) {
-            let content = JSON.stringify(ChartsUtils.getForceGraphOption('Endpoints and keywords of their vocabularies', [ "Keyword", "Endpoint" ], nodeArray, linkArray));
-            return writeFile(keywordEndpointEchartsOptionFilename, content);
-        } else {
-            return Promise.reject("No data to generate the keyword graph");
-        }
-    }).catch((error) => {
-        Logger.error("Error during keyword graph data reading", error)
-    });
-}
-
-export function endpointStandardVocabulariesGraphEchartsOption(): Promise<void> {
-    return readFile(DataCache.vocabEndpointFilename, "utf-8").then(vocabEndpointRawData => {
-        let vocabEndpointData: Array<VocabEndpointDataObject> = JSON.parse(vocabEndpointRawData);
-
-        let vocabStandardSet: Set<string> = new Set();
-        let vocabStandardNameMap: Map<string, string> = new Map([["http://www.w3.org/1999/02/22-rdf-syntax-ns#", "RDF"], ["http://www.w3.org/2000/01/rdf-schema#", "RDFS"], ["http://www.w3.org/ns/shacl#", "SHACL"], ["http://www.w3.org/2002/07/owl#", "OWL"], ["http://www.w3.org/2004/02/skos/core#", "SKOS"], ["http://spinrdf.org/spin#", "SPIN"], ["http://www.w3.org/2003/11/swrl#", "SWRL"]]);
-        vocabStandardNameMap.forEach((value, key, map) => {
-            vocabStandardSet.add(key);
-        });
-        // Endpoint and vocabularies graph
-        let linkArray: ChartsUtils.EchartsGraphLink[] = [];
-        let nodeArray: ChartsUtils.EchartsGraphNode[] = [];
-        let vocabSet: Set<string> = new Set();
-        let endpointSet: Set<string> = new Set();
-        vocabEndpointData.forEach((item, i) => {
-            let endpoint = item.endpoint;
-            let vocabularies = item.vocabularies;
-            if (vocabularies !== undefined) {
-                endpointSet.add(endpoint);
-                vocabularies.forEach(vocab => {
-                    if (vocabStandardSet.has(vocab)) {
-                        vocabSet.add(vocab)
-
-                        linkArray.push({ source: vocab, target: endpoint })
-                    }
-                })
-            }
-        });
-
-        endpointSet.forEach(endpoint => {
-            nodeArray.push({ name: endpoint, category: 'Endpoint', symbolSize: 5 })
-        })
-        vocabSet.forEach(vocab => {
-            nodeArray.push({ name: vocab, category: vocabStandardNameMap.get(vocab), symbolSize: 5 })
-        })
-
-        if (nodeArray.length > 0 && linkArray.length > 0) {
-            let categoryArray = [...vocabStandardSet].map(vocab => vocabStandardNameMap.get(vocab));
-            categoryArray.push("Endpoint")
-            let content = JSON.stringify(ChartsUtils.getCircularGraphOption('Endpoints and meta-vocabularies', categoryArray, nodeArray, linkArray));
-            return writeFile(standardVocabulariesEndpointGraphEchartsOptionFilename, content);
-        } else {
-            return Promise.reject("No data to generate the vocabulary graph ");
-        }
-    }).catch((error) => {
-        Logger.error("Error during vocab graph data reading", error)
-    });
-}
 
 export function triplesEchartsOption(): Promise<void> {
     return readFile(DataCache.tripleCountFilename, "utf-8").then(tripleCountRawData => {
         tripleCountData = JSON.parse(tripleCountRawData);
-        if(tripleCountData.length > 0) {
+        if (tripleCountData.length > 0) {
             tripleCountData = tripleCountData.sort((to1, to2) => (to1.triples - to2.triples));
-            // {
-            //     x: [1, 2, 3, 4],
-            //     y: [12, 9, 15, 12],
-            //     mode: 'lines+markers',
-            //     type: 'scatter'
-            //   };
-    
+
             let triplesXArray: number[] = []
             let triplesYArray: number[] = []
             let triplesTextArray: string[] = []
@@ -433,13 +98,23 @@ export function triplesEchartsOption(): Promise<void> {
                 triplesTextArray.push(tripleObject.endpoint)
             })
             let triplesChartOption = {
-                    mode: 'lines+markers',
-                    type: 'scatter',
-                    x: triplesXArray,
-                    y: triplesYArray,
-                    text: triplesTextArray
+                mode: 'lines+markers',
+                type: 'scatter',
+                x: triplesXArray,
+                y: triplesYArray,
+                text: triplesTextArray,
+                xaxis: {
+                    type: "linear",
+                    showticklabels: false,
+                    ticks: "",
+                    autorange: true
+                },
+                yaxis: {
+                    type: 'log',
+                    autorange: true
+                }
             }
-            return Global.writeFile(triplesEchartOptionFilename, JSON.stringify(triplesChartOption));
+            return Global.writeFile(triplesOptionFilename, JSON.stringify(triplesChartOption));
         } else {
             return Promise.reject("No data to generate the triples graph");
         }
@@ -467,7 +142,7 @@ export function classesEchartsOption(): Promise<void> {
 
         if (endpointDataSerieMap.size > 0) {
             let classesSeries = ChartsUtils.getScatterDataSeriesFromMap(endpointDataSerieMap);
-            return writeFile(classesEchartOptionFilename, JSON.stringify(ChartsUtils.getTimeScatterOption("Number of classes in the datasets", classesSeries))).then(() => {
+            return writeFile(classesOptionFilename, JSON.stringify(ChartsUtils.getTimeScatterOption("Number of classes in the datasets", classesSeries))).then(() => {
                 Logger.info("Class chart data generated");
             });
 
@@ -498,12 +173,12 @@ export function propertiesEchartsOption(): Promise<void> {
 
         if (endpointDataSerieMap.size > 0) {
             let propertiesSeries = ChartsUtils.getScatterDataSeriesFromMap(endpointDataSerieMap);
-            return writeFile(propertiesEchartOptionFilename, JSON.stringify(ChartsUtils.getTimeScatterOption("Number of properties in the datasets", propertiesSeries))).then(() => {
+            return writeFile(propertiesOptionFilename, JSON.stringify(ChartsUtils.getTimeScatterOption("Number of properties in the datasets", propertiesSeries))).then(() => {
                 Logger.info("Property chart data generated");
             });
 
         } else {
-            return Promise.reject("No data to generate the properties graph " );
+            return Promise.reject("No data to generate the properties graph ");
         }
     }).catch((error) => {
         Logger.error("Error during properties data reading", error)
@@ -528,7 +203,7 @@ export function shortUrisEchartsOption(): Promise<void> {
 
         if (endpointDataSerieMap.size > 0) {
             let shortUrisSeries = ChartsUtils.getScatterDataSeriesFromMap(endpointDataSerieMap);
-            return writeFile(shortUrisEchartOptionFilename, JSON.stringify(ChartsUtils.getTimeScatterOption("Proportion of short URIs in the datasets", shortUrisSeries))).then(() => {
+            return writeFile(shortUrisOptionFilename, JSON.stringify(ChartsUtils.getTimeScatterOption("Proportion of short URIs in the datasets", shortUrisSeries))).then(() => {
                 Logger.info("Short URIs chart data generated");
             });
 
@@ -558,7 +233,7 @@ export function rdfDataStructuresEchartsOption(): Promise<void> {
 
         if (endpointDataSerieMap.size > 0) {
             let rdfDataStructuresSeries = ChartsUtils.getScatterDataSeriesFromMap(endpointDataSerieMap);
-            return writeFile(rdfDataStructuresEchartOptionFilename, JSON.stringify(ChartsUtils.getTimeScatterOption("Proportion of RDF data structures in the datasets", rdfDataStructuresSeries))).then(() => {
+            return writeFile(rdfDataStructuresOptionFilename, JSON.stringify(ChartsUtils.getTimeScatterOption("Proportion of RDF data structures in the datasets", rdfDataStructuresSeries))).then(() => {
                 Logger.info("RDF data structures chart data generated");
             });
 
@@ -588,7 +263,7 @@ export function readableLabelsEchartsOption(): Promise<void> {
 
         if (endpointDataSerieMap.size > 0) {
             let readableLabelsSeries = ChartsUtils.getScatterDataSeriesFromMap(endpointDataSerieMap);
-            return writeFile(readableLabelsEchartOptionFilename, JSON.stringify(ChartsUtils.getTimeScatterOption("Proportion of resources with readable labels in the datasets", readableLabelsSeries))).then(() => {
+            return writeFile(readableLabelsOptionFilename, JSON.stringify(ChartsUtils.getTimeScatterOption("Proportion of resources with readable labels in the datasets", readableLabelsSeries))).then(() => {
                 Logger.info("Readable labels chart data");
             });
 
@@ -618,7 +293,7 @@ export function blankNodesEchartsOption(): Promise<void> {
 
         if (endpointDataSerieMap.size > 0) {
             let blankNodesSeries = ChartsUtils.getScatterDataSeriesFromMap(endpointDataSerieMap);
-            return writeFile(blankNodesEchartOptionFilename, JSON.stringify(ChartsUtils.getTimeScatterOption("Proportion of blank nodes in the datasets", blankNodesSeries))).then(() => {
+            return writeFile(blankNodesOptionFilename, JSON.stringify(ChartsUtils.getTimeScatterOption("Proportion of blank nodes in the datasets", blankNodesSeries))).then(() => {
                 Logger.info("Blank nodes chart data");
             });
 
@@ -808,7 +483,7 @@ export function datasetDescriptionEchartsOption() {
         return datasetDescriptionEchartOption;
     }).then((datasetDescriptionEchartOption) => {
         let content = JSON.stringify(datasetDescriptionEchartOption);
-        return writeFile(datasetDescriptionEchartOptionFilename, content).then(() => {
+        return writeFile(datasetDescriptionOptionFilename, content).then(() => {
             Logger.info("Dataset description chart option for generation ended");
             return Promise.resolve();
         });

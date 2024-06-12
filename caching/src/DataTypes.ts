@@ -1,6 +1,7 @@
 import { Dayjs } from "dayjs"
 
 export type JSONValue =
+    Object
     | string
     | number
     | boolean
@@ -13,7 +14,7 @@ export interface JSONObject {
 
 export interface JSONArray extends Array<JSONValue> { }
 
-export type SPARQLJSONResult = {
+export interface SPARQLJSONResult extends JSONObject {
     head: {
         vars: string[]
     },
@@ -107,8 +108,6 @@ export type PropertyCountDataObject = {
 
 export type TripleCountDataObject = {
     endpoint: string,
-    graph: string,
-    date: Dayjs,
     triples: number
 }
 

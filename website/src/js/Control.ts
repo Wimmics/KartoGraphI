@@ -4,21 +4,21 @@ import { setButtonAsToggleCollapse } from "./ViewUtils";
 import { cachePromise, xhrJSONPromise } from "./DataConnexion";
 import { KartoChart } from './ViewClasses';
 
-export const sparqlCoverageEchartsOptionFilename = "sparqlCoverageEchartsOption.json";
-export const sparql10CoverageEchartsOptionFilename = "sparql10CoverageEchartsOption.json";
-export const sparql11CoverageEchartsOptionFilename = "sparql11CoverageEchartsOption.json";
-export const vocabEndpointEchartsOptionFilename = "vocabEndpointEchartsOption.json";
-export const triplesEchartsOptionFilename = "triplesEchartOption.json";
-export const classesEchartsOptionFilename = "classesEchartOption.json";
-export const propertiesEchartsOptionFilename = "propertiesEchartOption.json";
-export const shortUrisEchartsOptionFilename = "shortUrisEchartOption.json";
-export const rdfDataStructuresEchartsOptionFilename = "rdfDataStructuresEchartOption.json";
-export const readableLabelsEchartsOptionFilename = "readableLabelsEchartOption.json";
-export const blankNodesEchartsOptionFilename = "blankNodesEchartOption.json";
-export const datasetDescriptionEchartsOptionFilename = "datasetDescriptionEchartOption.json";
-export const totalRuntimeEchartsOptionFilename = "totalRuntimeEchartsOption.json";
-export const keywordEndpointEchartsOptionFilename = "keywordEndpointEchartsOption.json";
-export const standardVocabulariesEndpointGraphEchartsOptionFilename = "standardVocabulariesEndpointGraphEchartsOption.json";
+// export const vocabEndpointEchartsOptionFilename = "vocabEndpointOption.json";
+// export const keywordEndpointEchartsOptionFilename = "keywordEndpointOption.json";
+// export const standardVocabulariesEndpointGraphEchartsOptionFilename = "standardVocabulariesEndpointGraphOption.json";
+export const sparqlCoverageOptionFilename = "sparqlCoverageOption.json";
+export const sparql10CoverageOptionFilename = "sparql10CoverageOption.json";
+export const sparql11CoverageOptionFilename = "sparql11CoverageOption.json";
+export const triplesOptionFilename = "triplesOption.json";
+export const classesOptionFilename = "classesOption.json";
+export const propertiesOptionFilename = "propertiesOption.json";
+export const shortUrisOptionFilename = "shortUrisOption.json";
+export const rdfDataStructuresOptionFilename = "rdfDataStructuresOption.json";
+export const readableLabelsOptionFilename = "readableLabelsOption.json";
+export const blankNodesOptionFilename = "blankNodesOption.json";
+export const datasetDescriptionOptionFilename = "datasetDescriptionOption.json";
+export const totalRuntimeOptionFilename = "totalRuntimeOption.json";
 
 // Cached files
 export const geolocDataFilename = 'geolocData.json';
@@ -159,8 +159,8 @@ export class Control {
             // classCountDataFilename,
             // classPropertyDataFilename,
             // propertyCountDataFilename,
-            // sparqlCoverCountFilename,
-            // sparqlFeaturesDataFilename,
+            sparqlCoverCountFilename,
+            sparqlFeaturesDataFilename,
             // datasetDescriptionDataFilename,
             // shortUriDataFilename,
             // rdfDataStructureDataFilename,
@@ -168,15 +168,15 @@ export class Control {
             // blankNodesDataFilename,
 
             // // Echarts options
-            vocabEndpointEchartsOptionFilename,
-            keywordEndpointEchartsOptionFilename,
-            standardVocabulariesEndpointGraphEchartsOptionFilename,
-            triplesEchartsOptionFilename,
+            // vocabEndpointEchartsOptionFilename,
+            // keywordEndpointEchartsOptionFilename,
+            // standardVocabulariesEndpointGraphEchartsOptionFilename,
+            triplesOptionFilename,
             // classesEchartsOptionFilename,
             // propertiesEchartsOptionFilename,
-            // sparqlCoverageEchartsOptionFilename,
-            // sparql10CoverageEchartsOptionFilename,
-            // sparql11CoverageEchartsOptionFilename,
+            sparqlCoverageOptionFilename,
+            sparql10CoverageOptionFilename,
+            sparql11CoverageOptionFilename,
             // shortUrisEchartsOptionFilename,
             // rdfDataStructuresEchartsOptionFilename,
             // readableLabelsEchartsOptionFilename,

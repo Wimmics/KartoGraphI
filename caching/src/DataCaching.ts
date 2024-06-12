@@ -10,7 +10,7 @@ import md5 from 'md5';
 import * as Global from "./GlobalUtils.js";
 import * as Logger from "./LogUtils.js";
 import * as Sparql from "./SparqlUtils.js";
-import { ClassCountDataObject, EndpointItem, EndpointTestObject, JSONValue, JSONObject, JSONArray, KeywordsEndpointDataObject, SPARQLJSONResult, TripleCountDataObject, VocabEndpointDataObject } from './DataTypes.js';
+import { EndpointItem, JSONValue, JSONObject, JSONArray, KeywordsEndpointDataObject, TripleCountDataObject, VocabEndpointDataObject, SPARQLFeatureDataObject } from './DataTypes.js';
 
 const dataFilePrefix = "./data/";
 export const dataCachedFilePrefix = "./data/cache/";
@@ -327,129 +327,58 @@ export function allVocabFill(): Promise<void> {
         })
 }
 
-// export function SPARQLCoverageFill() {
-//     Logger.info("SPARQLCoverageFill START")
-//     // Create an histogram of the SPARQLES rules passed by endpoint.
-//     let sparqlesFeatureQuery = `SELECT DISTINCT ?endpoint ?sparqlNorm (COUNT(DISTINCT ?activity) AS ?count) { 
-//                 { ?curated <http://www.w3.org/ns/sparql-service-description#endpoint> ?endpoint . }
-//                 UNION { ?curated <http://rdfs.org/ns/void#sparqlEndpoint> ?endpoint . }
-//                 UNION { ?curated <http://www.w3.org/ns/dcat#endpointURL> ?endpoint . }
-//                 ?metadata <http://ns.inria.fr/kg/index#curated> ?curated, ?dataset .
-//                 #OPTIONAL { 
-//                     { ?dataset <http://www.w3.org/ns/prov#wasGeneratedBy> ?activity . }
-//                     UNION { ?metadata <http://www.w3.org/ns/prov#wasGeneratedBy> ?activity .}
-//                     FILTER(CONTAINS(str(?activity), ?sparqlNorm)) 
-//                     VALUES ?sparqlNorm { "SPARQL10" "SPARQL11" } 
-//                 #} 
-//         } 
-//         GROUP BY ?endpoint ?sparqlNorm `;
-//     let jsonBaseFeatureSparqles = [];
-//     let sparqlFeaturesDataArray = [];
-//     return Sparql.paginatedSparqlQueryToIndeGxPromise(sparqlesFeatureQuery)
-//         .then(json => {
-//             let endpointSet = new Set();
-//             let sparql10Map = new Map();
-//             let sparql11Map = new Map();
-//             (json as JSONValue[]).forEach((bindingItem, i) => {
-//                 let endpointUrl = bindingItem["endpoint"].value;
-//                 endpointSet.add(endpointUrl);
-//                 let feature = undefined;
-//                 if (bindingItem["sparqlNorm"] != undefined) {
-//                     feature = bindingItem["sparqlNorm"].value;
-//                 }
-//                 let count = bindingItem["count"].value;
-//                 if (feature == undefined || feature.localeCompare("SPARQL10") == 0) {
-//                     sparql10Map.set(endpointUrl, Number(count));
-//                 }
-//                 if (feature == undefined || feature.localeCompare("SPARQL11") == 0) {
-//                     sparql11Map.set(endpointUrl, Number(count));
-//                 }
-//             });
+export function SPARQLCoverageFill() {
+    Logger.info("SPARQLCoverageFill START")
+    // Create an histogram of the SPARQLES rules passed by endpoint.
+    let sparqleFeaturesQuery = `PREFIX kgi: <http://ns.inria.fr/kg/index#>
+    PREFIX sd: <http://www.w3.org/ns/sparql-service-description#>
+    SELECT DISTINCT ?endpoint ?feature {
+      {
+        { ?dataset <http://www.w3.org/ns/sparql-service-description#endpoint> ?endpoint . }
+        UNION { ?dataset <http://rdfs.org/ns/void#sparqlEndpoint> ?endpoint . }
+        UNION { ?dataset <http://www.w3.org/ns/dcat#endpointURL> ?endpoint . }
+        ?dataset sd:feature ?feature . 
+      } UNION {
+        ?endpoint sd:feature ?feature . 
+      }
+      FILTER(isIRI(?endpoint))
+      FILTER(STRSTARTS( STR(?feature), "https://sparqles.ai.wu.ac.at/#" ))
+      FILTER(! STRSTARTS(STR(?endpoint), STR(kgi:)))
+    }`
+    return Sparql.paginatedSparqlQueryToIndeGxPromise(sparqleFeaturesQuery)
+        .then(sparqlFeaturesResults => {
+            let sparqlFeaturesDataArray: SPARQLFeatureDataObject[] = [];
+            let sparqlFeaturesMap: Map<string, string[]> = new Map();
+            (sparqlFeaturesResults as JSONValue[]).forEach((itemResult, i) => {
+                let endpoint = itemResult["endpoint"].value;
+                let feature = itemResult["feature"].value;
+                if (!sparqlFeaturesMap.has(endpoint)) {
+                    sparqlFeaturesMap.set(endpoint, []);
+                }
+                sparqlFeaturesMap.get(endpoint).push(feature);
+            });
+            sparqlFeaturesMap.forEach((featuresArray, endpoint) => {
+                sparqlFeaturesDataArray.push({ endpoint: endpoint, features: featuresArray });
+            });
+            return Promise.resolve(sparqlFeaturesDataArray);
 
-//             endpointSet.forEach((item) => {
-//                 let sparql10 = sparql10Map.get(item);
-//                 let sparql11 = sparql11Map.get(item);
-//                 if (sparql10 == undefined) {
-//                     sparql10 = 0;
-//                 }
-//                 if (sparql11 == undefined) {
-//                     sparql11 = 0;
-//                 }
-//                 let sparqlJSONObject = { 'endpoint': item, 'sparql10': sparql10, 'sparql11': sparql11, 'sparqlTotal': (sparql10 + sparql11) };
-//                 jsonBaseFeatureSparqles.push(sparqlJSONObject);
-//             });
+        }).then(sparqlFeaturesDataArray => {
 
-
-//         })
-//         .then(() => {
-//             const sparqlFeatureQuery = `SELECT DISTINCT ?endpoint ?activity { 
-//                     { ?curated <http://www.w3.org/ns/sparql-service-description#endpoint> ?endpoint . }
-//                     UNION { ?curated <http://rdfs.org/ns/void#sparqlEndpoint> ?endpoint . }
-//                     UNION { ?curated <http://www.w3.org/ns/dcat#endpointURL> ?endpoint . }
-//                     ?metadata <http://ns.inria.fr/kg/index#curated> ?curated, ?dataset .
-//                     #OPTIONAL { 
-//                         { ?dataset <http://www.w3.org/ns/prov#wasGeneratedBy> ?activity . }
-//                         UNION { ?metadata <http://www.w3.org/ns/prov#wasGeneratedBy> ?activity .}
-//                         FILTER(CONTAINS(str(?activity), ?sparqlNorm)) 
-//                         VALUES ?sparqlNorm { "SPARQL10" "SPARQL11" } 
-//                     #} 
-//             } GROUP BY ?endpoint ?activity `;
-//             let endpointFeatureMap = new Map();
-//             let featuresShortName = new Map();
-//             return Sparql.paginatedSparqlQueryToIndeGxPromise(sparqlFeatureQuery)
-//                 .then(json => {
-//                     endpointFeatureMap = new Map();
-//                     let featuresSet = new Set();
-//                     (json as JSONValue[]).forEach(bindingItem => {
-//                         const endpointUrl = bindingItem["endpoint"].value;
-//                         if (!endpointFeatureMap.has(endpointUrl)) {
-//                             endpointFeatureMap.set(endpointUrl, new Set());
-//                         }
-//                         if (bindingItem["activity"] != undefined) {
-//                             const activity = bindingItem["activity"].value;
-//                             if (!endpointFeatureMap.has(endpointUrl)) {
-//                                 endpointFeatureMap.set(endpointUrl, new Set());
-//                             }
-//                             featuresSet.add(activity);
-//                             if (featuresShortName.get(activity) == undefined) {
-//                                 featuresShortName.set(activity, activity.replace("https://raw.githubusercontent.com/Wimmics/dekalog/master/rules/sparqles/SPARQL10/SPARQLES_", "sparql10:").replace("https://raw.githubusercontent.com/Wimmics/dekalog/master/rules/sparqles/SPARQL11/SPARQLES_", "sparql11:").replace(".ttl#activity", ""))
-//                             }
-//                             endpointFeatureMap.get(endpointUrl).add(featuresShortName.get(activity));
-//                         }
-//                     });
-//                     endpointFeatureMap.forEach((featureSet, endpointUrl, map) => {
-//                         let sortedFeatureArray = [...featureSet].sort((a, b) => a.localeCompare(b));
-//                         sparqlFeaturesDataArray.push({ endpoint: endpointUrl, features: sortedFeatureArray });
-//                     });
-
-//                     sparqlFeaturesDataArray.sort((a, b) => {
-//                         return a.endpoint.localeCompare(b.endpoint);
-//                     });
-//                 })
-//         })
-//         .finally(() => {
-//             if (jsonBaseFeatureSparqles.length > 0) {
-//                 try {
-//                     let content = JSON.stringify(jsonBaseFeatureSparqles);
-//                     fs.writeFileSync(Global.getCachedFilenameForRunset(sparqlCoverageFilename), content)
-//                 } catch (err) {
-//                     Logger.error(err)
-//                 }
-//             }
-//             if (sparqlFeaturesDataArray.length > 0) {
-//                 try {
-//                     let content = JSON.stringify(sparqlFeaturesDataArray);
-//                     fs.writeFileSync(Global.getCachedFilenameForRunset(sparqlFeaturesFilename), content)
-//                 } catch (err) {
-//                     Logger.error(err)
-//                 }
-//             }
-//             Logger.info("SPARQLCoverageFill END")
-//         })
-//         .catch(error => {
-//             Logger.error(error)
-//         })
-// }
+            if (sparqlFeaturesDataArray.length > 0) {
+                try {
+                    let content = JSON.stringify(sparqlFeaturesDataArray);
+                    Logger.info("SPARQLCoverageFill END")
+                    return Global.writeFile(sparqlFeaturesFilename, content)
+                } catch (err) {
+                    Logger.error(err)
+                    return Promise.reject(err);
+                }
+            }
+        })
+        .catch(error => {
+            Logger.error(error)
+        })
+}
 
 export function tripleDataFill() {
     Logger.info("tripleDataFill START")

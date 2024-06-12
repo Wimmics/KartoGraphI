@@ -10,12 +10,7 @@ export let nbFetchRetries = 10;
 export let millisecondsBetweenRetries = 5000;
 let countConcurrentQueries = 0;
 export let maxConccurentQueries = 300;
-export let delayMillisecondsTimeForConccurentQuery = 1000
-
-export function getCachedFilename(filename: string) {
-    return DataCache.dataCachedFilePrefix + filename + ".json";
-}
-
+export let delayMillisecondsTimeForConccurentQuery = 1000;
 
 // Parse the date in any format
 export function parseDate(input: string, format: string = "YYYY-MM-DD'T'HH:mm:ss.SSS'Z'") {

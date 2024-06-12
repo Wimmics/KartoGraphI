@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 
-export function intersection(setA, setB) {
-    let intersection = new Set();
+export function intersection<A>(setA: Set<A>, setB: Set<A>): Set<A> {
+    let intersection = new Set<A>();
     for (let elem of setB) {
         if (setA.has(elem)) {
             intersection.add(elem);
@@ -10,7 +10,7 @@ export function intersection(setA, setB) {
     return intersection;
 }
 
-export function haveIntersection(setA, setB) {
+export function haveIntersection<A>(setA: Set<A>, setB: Set<A>) {
     return intersection(setA, setB).size > 0;
 }
 

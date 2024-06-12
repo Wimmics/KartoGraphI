@@ -62,43 +62,13 @@
                 </div>
             </div>
 
-            <!-- <div class="row border border-grey rounded">
-                <ul class="card-header nav nav-tabs nav-fill" id="tab" role="tablist">
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link " id="vocabRelatedContent-tab" type="button">Graph of the vocabularies
-                            used
-                        </button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link " id="description-tab" role="tab">Datasets
-                            descriptions
-                        </button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link " id="population-tab" type="button">Datasets
-                            populations
-                        </button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link " id="sparql-tab" type="button">SPARQL coverage of the
-                            endpoints
-                        </button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link " id="quality-tab" type="button">Data quality
-                        </button>
-                    </li>
-                </ul>
-            </div> -->
-
-            <!-- <div class="tab-content" id="tabContent"> -->
-
-                <div class="row border border-grey justify-content-center" id="vocabRelatedContent"
-                    role="tabpanel" aria-labelledby="vocabRelatedContent-tab">
+                <div class="row border border-grey justify-content-center" id="vocabRelatedContent">
                     <div class="col-12 justify-content-center gy-5">
                         <div class="row justify-content-center border-top border-bottom my-5 py-2">
-                            <div id="vocabs"></div>
-                            <div id="vocabsExplainText"></div>
+                            <div id="vocabulariesEndpointsCol" class="col-12">
+                                <div id="vocabs"></div>
+                                <div id="vocabsExplainText"></div>
+                            </div>
                         </div>
                         <div class="row justify-content-center border-top border-bottom my-5 py-2">
                             <div id="endpointKeywords"></div>
@@ -150,43 +120,17 @@
                             shown.</small></span>
                 </div>
 
-                <div class="row border border-grey justify-content-center" id="sparql" role="tabpanel"
-                    aria-labelledby="sparql-tab">
+                <div class="row border border-grey justify-content-center" id="sparql">
                     <div class="col-12 justify-content-center gy-5">
                         <h3 class='mb-4 text-center'>Estimation of the SPARQL features covered by the endpoints</h3>
                         <div class="row">
                             <div class="col-12 justify-content-center" id="SPARQLCoverageHisto">
-                                <h5>SPARQL</h5>
+                                <h5>SPARQL coverage</h5>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-6 justify-content-center" id="SPARQL10histo">
-                                <h5>SPARQL 1.0</h5>
-                            </div>
-                            <div class="col-6 justify-content-center" id="SPARQL11histo">
-                                <h5>SPARQL 1.1</h5>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <button id="tableSPARQLFeaturesStatsDetails" type="button" class="btn btn-link">Details of
-                                the statistics</button>
                             <button id="tableSPARQLFeaturesDetails" type="button" class="btn btn-link">Details of the
                                 supported features</button>
-                        </div>
-                        <div class="row collapse" id="SPARQLFeaturesCountDatatable">
-                            <table id="SPARQLFeaturesCountTable" class="table table-responsive table-hover">
-                                <thead>
-                                    <tr>
-                                        <th id="SPARQLFeaturesCountTableEndpointHeader" scope="col">Endpoint</th>
-                                        <th id="SPARQL10FeaturesTableRuleHeader" scope="col">Percentage of SPARQL 1.0
-                                            features</th>
-                                        <th id="SPARQL11FeaturesTableRuleHeader" scope="col">Percentage of SPARQL 1.1
-                                            features</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="SPARQLFeaturesCountTableBody">
-                                </tbody>
-                            </table>
                         </div>
                         <div class="row collapse" id="SPARQLFeaturesDatatable">
                             <table id="SPARQLFeaturesTable" class="table table-responsive table-hover">
@@ -203,8 +147,7 @@
                     </div>
                 </div>
 
-                <div class="row border border-grey justify-content-center" id="population" role="tabpanel"
-                    aria-labelledby="population-tab">
+                <div class="row border border-grey justify-content-center" id="population">
                     <div class="col-12 justify-content-center gy-5">
                         <div class="row mb-4">
                             <h3 class='text-center'>Datasets populations</h3>
@@ -267,8 +210,7 @@
                     </div>
                 </div>
 
-                <div class="row border border-grey justify-content-center" id="description"
-                    role="tabpanel" aria-labelledby="description-tab">
+                <div class="row border border-grey justify-content-center" id="description">
                     <div class="col-12 justify-content-center gy-5">
                         <h3 class='mb-4 text-center'>Datasets Descriptions</h3>
                         <div class='row justify-content-left' id='datasetDescriptionExplainText'>
@@ -303,8 +245,7 @@
                     </div>
                 </div>
 
-                <div class="row border border-grey justify-content-center" id="quality" role="tabpanel"
-                    aria-labelledby="quality-tab">
+                <div class="row border border-grey justify-content-center" id="quality">
                     <div class="col-12 gy-5">
                         <h4 class='text-center'>Quality measures</h4>
                         <table class="table table-responsive">
