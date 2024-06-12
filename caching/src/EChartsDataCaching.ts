@@ -9,21 +9,21 @@ import * as echarts from "echarts";
 
 const numberOfVocabulariesLimit = 1000;
 
-export const sparqlCoverageEchartsOptionFilename = "sparqlCoverageEchartsOption";
-export const sparql10CoverageEchartsOptionFilename = "sparql10CoverageEchartsOption";
-export const sparql11CoverageEchartsOptionFilename = "sparql11CoverageEchartsOption";
-export const vocabEndpointEchartsOptionFilename = "vocabEndpointEchartsOption";
-export const triplesEchartOptionFilename = "triplesEchartOption";
-export const classesEchartOptionFilename = "classesEchartOption";
-export const propertiesEchartOptionFilename = "propertiesEchartOption";
-export const shortUrisEchartOptionFilename = "shortUrisEchartOption";
-export const rdfDataStructuresEchartOptionFilename = "rdfDataStructuresEchartOption";
-export const readableLabelsEchartOptionFilename = "readableLabelsEchartOption";
-export const blankNodesEchartOptionFilename = "blankNodesEchartOption";
-export const datasetDescriptionEchartOptionFilename = "datasetDescriptionEchartOption";
-export const totalRuntimeEchartsOptionFilename = "totalRuntimeEchartsOption";
-export const keywordEndpointEchartsOptionFilename = "keywordEndpointEchartsOption";
-export const standardVocabulariesEndpointGraphEchartsOptionFilename = "standardVocabulariesEndpointGraphEchartsOption";
+export const sparqlCoverageEchartsOptionFilename = DataCache.dataCachedFilePrefix + "sparqlCoverageEchartsOption.json";
+export const sparql10CoverageEchartsOptionFilename = DataCache.dataCachedFilePrefix + "sparql10CoverageEchartsOption.json";
+export const sparql11CoverageEchartsOptionFilename = DataCache.dataCachedFilePrefix + "sparql11CoverageEchartsOption.json";
+export const vocabEndpointEchartsOptionFilename = DataCache.dataCachedFilePrefix + "vocabEndpointEchartsOption.json";
+export const triplesEchartOptionFilename = DataCache.dataCachedFilePrefix + "triplesEchartOption.json";
+export const classesEchartOptionFilename = DataCache.dataCachedFilePrefix + "classesEchartOption.json";
+export const propertiesEchartOptionFilename = DataCache.dataCachedFilePrefix + "propertiesEchartOption.json";
+export const shortUrisEchartOptionFilename = DataCache.dataCachedFilePrefix + "shortUrisEchartOption.json";
+export const rdfDataStructuresEchartOptionFilename = DataCache.dataCachedFilePrefix + "rdfDataStructuresEchartOption.json";
+export const readableLabelsEchartOptionFilename = DataCache.dataCachedFilePrefix + "readableLabelsEchartOption.json";
+export const blankNodesEchartOptionFilename = DataCache.dataCachedFilePrefix + "blankNodesEchartOption.json";
+export const datasetDescriptionEchartOptionFilename = DataCache.dataCachedFilePrefix + "datasetDescriptionEchartOption.json";
+export const totalRuntimeEchartsOptionFilename = DataCache.dataCachedFilePrefix + "totalRuntimeEchartsOption.json";
+export const keywordEndpointEchartsOptionFilename = DataCache.dataCachedFilePrefix + "keywordEndpointEchartsOption.json";
+export const standardVocabulariesEndpointGraphEchartsOptionFilename = DataCache.dataCachedFilePrefix + "standardVocabulariesEndpointGraphEchartsOption.json";
 
 
 let whiteListData: Map<string, Array<string>>;
@@ -415,22 +415,23 @@ export function endpointStandardVocabulariesGraphEchartsOption(): Promise<void> 
 export function triplesEchartsOption(): Promise<void> {
     return readFile(DataCache.tripleCountFilename, "utf-8").then(tripleCountRawData => {
         tripleCountData = JSON.parse(tripleCountRawData);
+        tripleCountData = tripleCountData.sort((to1, to2) => (to1.triples - to2.triples));
+        Logger.log(JSON.stringify(tripleCountData));
         // Scatter plot of the number of triples through time
-        let endpointDataSerieMap = new Map<string, Map<string, Number[]>>();
+        let endpointDataSerieMap = new Map<string, string[][]>();
+        
+        const endpointSerieMapKey = "Endpoint size";
+        endpointDataSerieMap.set(endpointSerieMapKey, []);
         tripleCountData.forEach((itemResult, i) => {
-            let endpointUrl = itemResult.endpoint;
-            endpointDataSerieMap.set(endpointUrl, []);
-        });
-        tripleCountData.forEach((itemResult, i) => {
-            let date = itemResult.date;
             let endpointUrl = itemResult.endpoint;
             let triples = itemResult.triples;
-            endpointDataSerieMap.get(endpointUrl).push([date, triples])
+            endpointDataSerieMap.get(endpointSerieMapKey).push([i.toString(), triples.toString()])
         });
+        Logger.log(endpointDataSerieMap.size, "points for triple count");
 
         if (endpointDataSerieMap.size > 0) {
-            let triplesSeries = ChartsUtils.getScatterDataSeriesFromMap(endpointDataSerieMap);
-            return writeFile(triplesEchartOptionFilename, JSON.stringify(ChartsUtils.getTimeScatterOption("Size of the datasets", triplesSeries))).then(() => {
+            let triplesSeries = ChartsUtils.getScatterLineDataSeriesFromMap(endpointDataSerieMap);
+            return writeFile(triplesEchartOptionFilename, JSON.stringify(ChartsUtils.getLogScatterOption("Size of the datasets", triplesSeries))).then(() => {
                 Logger.info("Triple chart data generated");
             });
 

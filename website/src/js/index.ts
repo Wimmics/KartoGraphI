@@ -1,7 +1,6 @@
 import dayjs from 'dayjs';
 import * as gridjs from "gridjs";
 import "gridjs/dist/theme/mermaid.css";
-import * as d3 from "d3"
 import duration from 'dayjs/plugin/duration';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import relativeTime from 'dayjs/plugin/relativeTime';
@@ -207,15 +206,20 @@ window.onload = (() => {
     // Metavocabularies and endpoints
     Control.Control.getCacheFile(Control.vocabEndpointDataFilename).then(vocabEndpointData => {
         vocabEndpointData = vocabEndpointData as Datatype.VocabEndpointDataObject[];
-        let vocabEndpointsElement = document.getElementById("standardVocabs");
-        if (vocabEndpointsElement) {
+        let vocabEndpointsElementRDF = document.getElementById("standardVocabsRDF");
+        let vocabEndpointsElementRDFS = document.getElementById("standardVocabsRDFS");
+        let vocabEndpointsElementOWL = document.getElementById("standardVocabsOWL");
+        let vocabEndpointsElementSHACL = document.getElementById("standardVocabsSHACL");
+        let vocabEndpointsElementSKOS = document.getElementById("standardVocabsSKOS");
+        let vocabEndpointsElementSWRL = document.getElementById("standardVocabsSWRL");
+        let vocabEndpointsElementSPIN = document.getElementById("standardVocabsSPIN");
+        if (vocabEndpointsElementRDF && vocabEndpointsElementRDFS && vocabEndpointsElementOWL && vocabEndpointsElementSHACL && vocabEndpointsElementSKOS && vocabEndpointsElementSWRL && vocabEndpointsElementSPIN) {
             let endpointSet = new Set<string>();
             let nodeIdMap = new Map<string, Number>();
             let edgeArray: Set<Datatype.JSONObject> = new Set<Datatype.JSONObject>;
 
             // RDF, RDFS, OWL, SHACL, OWL, SKOS, SPIN, SWRL
-            const metavocabularies: string[] = ["https://www.w3.org/1999/02/22-rdf-syntax-ns#", "http://www.w3.org/2000/01/rdf-schema#", "http://www.w3.org/2002/07/owl#", "http://www.w3.org/ns/shacl#", "http://www.w3.org/2004/02/skos/core#", "http://spinrdf.org/spin#", "http://www.w3.org/2003/11/swrl#"];
-            const colorPalette: string[] = ["#00E646", "#E3B507", "#000FE0", "#E60300", "#ACE600", "#ACE600", "#00CFE0", "#9E00E6"];
+            const metavocabularies: string[] = ["http://www.w3.org/1999/02/22-rdf-syntax-ns#", "http://www.w3.org/2000/01/rdf-schema#", "http://www.w3.org/2002/07/owl#", "http://www.w3.org/ns/shacl#", "http://www.w3.org/2004/02/skos/core#", "http://spinrdf.org/spin#", "http://www.w3.org/2003/11/swrl#"];
 
             (vocabEndpointData as Datatype.VocabEndpointDataObject[]).forEach(vocabEndpointDataElement => {
                 endpointSet.add(vocabEndpointDataElement.endpoint);
@@ -226,27 +230,82 @@ window.onload = (() => {
                     });
                 }
             })
-            const graph = new Graph();
+            const graphRDF = new Graph();
+            const graphRDFS = new Graph();
+            const graphOWL = new Graph();
+            const graphSHACL = new Graph();
+            const graphSKOS = new Graph();
+            const graphSWRL = new Graph();
+            const graphSPIN = new Graph();
             let idNumber = 0;
             endpointSet.forEach(endpointName => {
                 nodeIdMap.set(endpointName, idNumber);
-                graph.addNode(idNumber.toString(), { label: endpointName, x: Math.random() * 100, y: Math.random() * 100, size: 3, color: "#A2A3B0" });
+                graphRDF.addNode(idNumber.toString(), { label: endpointName, x: Math.random() * 100, y: Math.random() * 100, size: 3, color: "#A2A3B0" });
+                graphRDFS.addNode(idNumber.toString(), { label: endpointName, x: Math.random() * 100, y: Math.random() * 100, size: 3, color: "#A2A3B0" });
+                graphOWL.addNode(idNumber.toString(), { label: endpointName, x: Math.random() * 100, y: Math.random() * 100, size: 3, color: "#A2A3B0" });
+                graphSHACL.addNode(idNumber.toString(), { label: endpointName, x: Math.random() * 100, y: Math.random() * 100, size: 3, color: "#A2A3B0" });
+                graphSKOS.addNode(idNumber.toString(), { label: endpointName, x: Math.random() * 100, y: Math.random() * 100, size: 3, color: "#A2A3B0" });
+                graphSWRL.addNode(idNumber.toString(), { label: endpointName, x: Math.random() * 100, y: Math.random() * 100, size: 3, color: "#A2A3B0" });
+                graphSPIN.addNode(idNumber.toString(), { label: endpointName, x: Math.random() * 100, y: Math.random() * 100, size: 3, color: "#A2A3B0" });
                 idNumber++;
             })
-            metavocabularies.forEach((vocabularyName, metavocabIndex) => {
-                nodeIdMap.set(vocabularyName, idNumber);
-                graph.addNode(idNumber.toString(), { label: vocabularyName, x: Math.random() * 100, y: Math.random() * 100, size: 3, color: colorPalette[metavocabIndex] });
-                idNumber++;
-            })
+            graphRDF.addNode(idNumber.toString(), { label: "http://www.w3.org/1999/02/22-rdf-syntax-ns#", x: Math.random() * 100, y: Math.random() * 100, size: 3, color: "#00E646" });
+            nodeIdMap.set("http://www.w3.org/1999/02/22-rdf-syntax-ns#", idNumber++);
+            graphRDFS.addNode(idNumber.toString(), { label: "http://www.w3.org/2000/01/rdf-schema#", x: Math.random() * 100, y: Math.random() * 100, size: 3, color: "#E3B507" });
+            nodeIdMap.set("http://www.w3.org/2000/01/rdf-schema#", idNumber++);
+            graphOWL.addNode(idNumber.toString(), { label: "http://www.w3.org/2002/07/owl#", x: Math.random() * 100, y: Math.random() * 100, size: 3, color: "#000FE0" });
+            nodeIdMap.set("http://www.w3.org/2002/07/owl#", idNumber++);
+            graphSHACL.addNode(idNumber.toString(), { label: "http://www.w3.org/ns/shacl#", x: Math.random() * 100, y: Math.random() * 100, size: 3, color: "#E60300" });
+            nodeIdMap.set("http://www.w3.org/ns/shacl#", idNumber++);
+            graphSKOS.addNode(idNumber.toString(), { label: "http://www.w3.org/2004/02/skos/core#", x: Math.random() * 100, y: Math.random() * 100, size: 3, color: "#ACE600" });
+            nodeIdMap.set("http://www.w3.org/2004/02/skos/core#", idNumber++);
+            graphSWRL.addNode(idNumber.toString(), { label: "http://www.w3.org/2003/11/swrl#", x: Math.random() * 100, y: Math.random() * 100, size: 3, color: "#ACE600" });
+            nodeIdMap.set("http://www.w3.org/2003/11/swrl#", idNumber++);
+            graphSPIN.addNode(idNumber.toString(), { label: "http://spinrdf.org/spin#", x: Math.random() * 100, y: Math.random() * 100, size: 3, color: "#00CFE0" });
+            nodeIdMap.set("http://spinrdf.org/spin#", idNumber++);
+            
             edgeArray.forEach(edgeObject => {
                 let endpointId = nodeIdMap.get(edgeObject.endpoint as string);
                 let vocabularyId = nodeIdMap.get(edgeObject.vocabulary as string);
-                graph.addEdge(endpointId?.toString(), vocabularyId?.toString(), { size: 1, color: "black" });
+                if(edgeObject.vocabulary === "http://www.w3.org/1999/02/22-rdf-syntax-ns#") {
+                    graphRDF.addEdge(endpointId?.toString(), vocabularyId?.toString(), { size: 1, color: "black" });
+                }
+                if(edgeObject.vocabulary === "http://www.w3.org/2000/01/rdf-schema#") {
+                    graphRDFS.addEdge(endpointId?.toString(), vocabularyId?.toString(), { size: 1, color: "black" });
+                }
+                if(edgeObject.vocabulary === "http://www.w3.org/2002/07/owl#") {
+                    graphOWL.addEdge(endpointId?.toString(), vocabularyId?.toString(), { size: 1, color: "black" });
+                }
+                if(edgeObject.vocabulary === "http://www.w3.org/ns/shacl#") {
+                    graphSHACL.addEdge(endpointId?.toString(), vocabularyId?.toString(), { size: 1, color: "black" });
+                }
+                if(edgeObject.vocabulary === "http://www.w3.org/2004/02/skos/core#") {
+                    graphSKOS.addEdge(endpointId?.toString(), vocabularyId?.toString(), { size: 1, color: "black" });
+                }
+                if(edgeObject.vocabulary === "http://www.w3.org/2003/11/swrl#") {
+                    graphSWRL.addEdge(endpointId?.toString(), vocabularyId?.toString(), { size: 1, color: "black" });
+                }
+                if(edgeObject.vocabulary === "http://spinrdf.org/spin#") {
+                    graphSPIN.addEdge(endpointId?.toString(), vocabularyId?.toString(), { size: 1, color: "black" });
+                }
             })
 
             // const positions = circular(graph);
-            circular.assign(graph);
-            const sigmaInstance = new Sigma(graph, vocabEndpointsElement);
+            circular.assign(graphRDF);
+            circular.assign(graphRDFS);
+            circular.assign(graphOWL);
+            circular.assign(graphSHACL);
+            circular.assign(graphSKOS);
+            circular.assign(graphSWRL);
+            circular.assign(graphSPIN);
+
+            const sigmaInstanceRDF = new Sigma(graphRDF, vocabEndpointsElementRDF);
+            const sigmaInstanceRDFS = new Sigma(graphRDFS, vocabEndpointsElementRDFS);
+            const sigmaInstanceOWL = new Sigma(graphOWL, vocabEndpointsElementOWL);
+            const sigmaInstanceSHACL = new Sigma(graphSHACL, vocabEndpointsElementSHACL);
+            const sigmaInstanceSKOS = new Sigma(graphSKOS, vocabEndpointsElementSKOS);
+            const sigmaInstanceSWRL = new Sigma(graphSWRL, vocabEndpointsElementSWRL);
+            const sigmaInstanceSPIN = new Sigma(graphSPIN, vocabEndpointsElementSPIN);
         }
     });
 
@@ -261,6 +320,35 @@ window.onload = (() => {
         }
 
         console.log("SPARQL coverage chart filled")
+    })
+
+    // SPARQL Features Table
+    console.log("Filling SPARQL features table ...")
+    Control.Control.getCacheFile(Control.sparqlFeaturesDataFilename).then(sparqlFeatureData => {
+        let sparqlFeaturesElement = document.getElementById("SPARQLFeaturesTable");
+        if (sparqlFeaturesElement) {
+            sparqlFeaturesElement.innerHTML = "";
+            let gridJSColumns = [
+                { name: 'Endpoint', sort: 'asc' },
+                'Features'
+            ];
+            let gridJSData = (sparqlFeatureData as Datatype.SPARQLFeatureDataObject[]).map(item => {
+                return [item.endpoint, item.features.join(", ")];
+            });
+            let gridJS = new gridjs.Grid({
+                columns: gridJSColumns,
+                data: gridJSData,
+                sort: true,
+                search: true,
+                pagination: {
+                    limit: 10,
+                    summary: false
+                }
+            });
+            gridJS.render(sparqlFeaturesElement);
+        }
+
+        console.log("SPARQL features table filled")
     })
 
     // Triple Scatter Chart

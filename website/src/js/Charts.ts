@@ -246,7 +246,7 @@ export let sparqlCoverCharts = new KartoChart({
             this.redraw();
 
             function fillTestTable() {
-                let tableHTML = document.querySelector('#SPARQLFeaturesCountTable');
+                let tableHTML = document.getElementById('SPARQLFeaturesCountTable');
                 if (tableHTML) {
                     tableHTML.innerHTML = "";
                 }
@@ -260,7 +260,6 @@ export let sparqlCoverCharts = new KartoChart({
                     {
                         name: 'SPARQL 1.0',
                         attributes: (cell) => {
-                            // add these attributes to the td elements only
                             if (cell) {
                                 return {
                                     'data-cell-content': cell,

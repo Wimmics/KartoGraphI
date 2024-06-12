@@ -5,19 +5,20 @@ import * as PlotlyCache from './PlotlyDataCaching.js';
 
 
 Promise.allSettled([
-    DataCache.allVocabFill().then(() =>
-        Promise.allSettled([
-            EChartsCache.endpointVocabsGraphEchartsOption(),
-            EChartsCache.endpointKeywordsGraphEchartsOption(),
-            EChartsCache.endpointStandardVocabulariesGraphEchartsOption()
-        ])
-    ),
-    DataCache.endpointMapfill(),
+    // DataCache.allVocabFill().then(() =>
+    //     Promise.allSettled([
+    //         EChartsCache.endpointVocabsGraphEchartsOption(),
+    //         EChartsCache.endpointKeywordsGraphEchartsOption(),
+    //         EChartsCache.endpointStandardVocabulariesGraphEchartsOption()
+    //     ])
+    // ),
+    // DataCache.endpointMapfill(),
 
-    DataCache.tripleDataFill().then(() =>
-        // EChartsCache.triplesEchartsOption().then(() => 
-            PlotlyCache.triplesEchartsOption()
-        // )
+    // DataCache.tripleDataFill().then(() =>
+    //         PlotlyCache.triplesEchartsOption()
+    // ),
+    DataCache.SPARQLCoverageFill().then(() =>
+        PlotlyCache.sparqlCoverageEchartsOption()
     ),
     // DataCache.classDataFill().then(() =>
     //     EChartsCache.classesEchartsOption()
@@ -36,9 +37,6 @@ Promise.allSettled([
     // ),
     // DataCache.blankNodeDataFill().then(() =>
     //     EChartsCache.blankNodesEchartsOption()
-    // ),
-    // DataCache.SPARQLCoverageFill().then(() =>
-    //     EChartsCache.sparqlCoverageEchartsOption()
     // ),
     // DataCache.datasetDescriptionDataFill().then(() =>
     //     EChartsCache.datasetDescriptionEchartsOption()

@@ -4,8 +4,6 @@ import { AverageRuntimeDataObject, ClassCountDataObject, DatasetDescriptionDataO
 import * as Logger from "./LogUtils.js";
 import * as ChartsUtils from "./ChartsUtils.js";
 import * as Global from "./GlobalUtils.js";
-import dayjs from "dayjs";
-import * as echarts from "echarts";
 
 const numberOfVocabulariesLimit = 1000;
 
@@ -52,7 +50,7 @@ export function sparqlCoverageEchartsOption(): Promise<void> {
             let featureCountTextArray: string[] = [];
             (sparqlFeaturesData as Array<SPARQLFeatureDataObject>).forEach((featureObject, index) => {
                 featureCountXArray.push(index);
-                featureCountYArray.push(featureObject.features.length);
+                featureCountYArray.push(featureObject.features.length / 41 * 100);
                 featureCountTextArray.push(featureObject.endpoint);
             })
             let featureCountChartOption = {

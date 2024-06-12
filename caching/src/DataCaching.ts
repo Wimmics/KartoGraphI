@@ -6,7 +6,6 @@ dayjs.extend(duration);
 dayjs.extend(relativeTime)
 dayjs.extend(customParseFormat)
 dayjs.extend(duration)
-import md5 from 'md5';
 import * as Global from "./GlobalUtils.js";
 import * as Logger from "./LogUtils.js";
 import * as Sparql from "./SparqlUtils.js";

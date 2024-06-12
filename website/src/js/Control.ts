@@ -1,8 +1,5 @@
-import url from 'url';
 import * as Datatype from "./Datatypes";
-import { setButtonAsToggleCollapse } from "./ViewUtils";
 import { cachePromise, xhrJSONPromise } from "./DataConnexion";
-import { KartoChart } from './ViewClasses';
 
 // export const vocabEndpointEchartsOptionFilename = "vocabEndpointOption.json";
 // export const keywordEndpointEchartsOptionFilename = "keywordEndpointOption.json";
@@ -42,69 +39,9 @@ const sparqlFeatureDescFile = cachePromise("SPARQLFeatureDescriptions.json");
 export class Control {
 
     static ControlInstance: Control;
-
-    geolocData(): Array<Datatype.GeolocDataObject> {
-        return this.retrieveFileFromVault(geolocDataFilename) as Array<Datatype.GeolocDataObject>;
-    };
-    sparqlCoverCountData(): Array<Datatype.SPARQLCoverageDataObject> {
-        return this.retrieveFileFromVault(sparqlCoverCountFilename) as Array<Datatype.SPARQLCoverageDataObject>;
-    };
-    sparqlFeaturesData(): Array<Datatype.SPARQLFeatureDataObject> {
-        return this.retrieveFileFromVault(sparqlFeaturesDataFilename) as Array<Datatype.SPARQLFeatureDataObject>;
-    };
-    vocabEndpointData(): Array<Datatype.VocabEndpointDataObject> {
-        return this.retrieveFileFromVault(vocabEndpointDataFilename) as Array<Datatype.VocabEndpointDataObject>;
-    };
-    endpointKeywordData(): Array<Datatype.VocabKeywordsDataObject> {
-        return this.retrieveFileFromVault(endpointKeywordDataFilename) as Array<Datatype.VocabKeywordsDataObject>;
-    };
-    classCountData(): Array<Datatype.ClassCountDataObject> {
-        return this.retrieveFileFromVault(classCountDataFilename) as Array<Datatype.ClassCountDataObject>;
-    };
-    propertyCountData(): Array<Datatype.PropertyCountDataObject> {
-        return this.retrieveFileFromVault(propertyCountDataFilename) as Array<Datatype.PropertyCountDataObject>;
-    };
-    tripleCountData(): Array<Datatype.TripleCountDataObject> {
-        return this.retrieveFileFromVault(tripleCountDataFilename) as Array<Datatype.TripleCountDataObject>;
-    };
-    classPropertyData(): Array<Datatype.ClassPropertyDataObject> {
-        return this.retrieveFileFromVault(classPropertyDataFilename) as Array<Datatype.ClassPropertyDataObject>;
-    };
-    datasetDescriptionData(): Array<Datatype.DatasetDescriptionDataObject> {
-        return this.retrieveFileFromVault(datasetDescriptionDataFilename) as Array<Datatype.DatasetDescriptionDataObject>;
-    };
-    shortUriData(): Array<Datatype.ShortUriDataObject> {
-        return this.retrieveFileFromVault(shortUriDataFilename) as Array<Datatype.ShortUriDataObject>;
-    };
-    rdfDataStructureData(): Array<Datatype.QualityMeasureDataObject> {
-        return this.retrieveFileFromVault(rdfDataStructureDataFilename) as Array<Datatype.QualityMeasureDataObject>;
-    };
-    readableLabelData(): Array<Datatype.QualityMeasureDataObject> {
-        return this.retrieveFileFromVault(readableLabelDataFilename) as Array<Datatype.QualityMeasureDataObject>;
-    };
-    blankNodesData(): Array<Datatype.QualityMeasureDataObject> {
-        return this.retrieveFileFromVault(blankNodesDataFilename) as Array<Datatype.QualityMeasureDataObject>;
-    };
     textElements: Array<Datatype.TextElement>;
     sparqlFeatureDesc: Array<Datatype.SPARQLFeatureDescriptionDataObject>;
-
-    // geolocContent: KartoChart[] = [
-    //     geolocChart
-    // ];
-    // sparqlCoverContent: KartoChart[] = [sparqlCoverCharts, sparql10Chart, sparql11Chart, sparqlFeaturesContent]
-    // vocabRelatedContent: KartoChart[] = [vocabKeywordChart, endpointVocabsChart, standardVocabCharts];
-    // datasetDescriptionContent: KartoChart[] = [descriptionElementChart];
-    // dataQualityContent: KartoChart[] = [blankNodesChart, readableLabelsChart, rdfDataStructureChart, shortUriChart];
-    // datasetPopulationsContent: KartoChart[] = [tripleChart, classNumberChart, propertyNumberChart, classAndPropertiesContent];
-    // allContent: KartoChart[] = this.geolocContent//.concat(this.sparqlCoverContent)
-    //     // .concat(this.datasetDescriptionContent)
-    //     // .concat(this.dataQualityContent)
-    //     // .concat(this.datasetPopulationsContent)
-    //     .concat(this.vocabRelatedContent);
-
-    // Contains the files for each component (key: filename, value: fileContent)
-    fileBank: Map<string, Datatype.JSONValue> = new Map();
-
+    
     constructor() {
         if (Control.ControlInstance !== undefined) {
             throw new Error("Control already instantiated");
@@ -126,16 +63,6 @@ export class Control {
 
     static getCacheFile(filename: string) {
         return cachePromise(filename);
-    }
-
-    retrieveFileFromVault(filename: string): Datatype.JSONValue {
-        console.log("Retrieving file " + filename)
-        const fileFromVault = this.fileBank.get(filename);
-        if (fileFromVault !== undefined) {
-            return fileFromVault;
-        } else {
-            throw new Error("File " + filename + " not found in the bank");
-        }
     }
 
     insertTextElements() {
@@ -175,8 +102,6 @@ export class Control {
             // classesEchartsOptionFilename,
             // propertiesEchartsOptionFilename,
             sparqlCoverageOptionFilename,
-            sparql10CoverageOptionFilename,
-            sparql11CoverageOptionFilename,
             // shortUrisEchartsOptionFilename,
             // rdfDataStructuresEchartsOptionFilename,
             // readableLabelsEchartsOptionFilename,
@@ -184,17 +109,8 @@ export class Control {
             // datasetDescriptionEchartsOptionFilename,
         ];
 
-        let fileRetrievalPromiseArray = filenameList.map(filename => cachePromise(filename)
-            .then(jsonContent => {
-                console.log(filename, "retrieved")
-                this.fileBank.set(filename, jsonContent);
-                return;
-            })
-        );
-
         // Loading all the data files into the bank
-        return Promise.allSettled(fileRetrievalPromiseArray)
-            .then(() => textElementsFile)
+        return textElementsFile
             .then((data) => {
                 this.textElements = (data as Array<Datatype.TextElement>);
                 this.insertTextElements();
@@ -210,7 +126,6 @@ export class Control {
     }
 
     hideLoadingSpinner() {
-
         document.getElementById('loadingSpinner')?.classList.replace('collapse', 'show');
         document.getElementById('tabContent')?.classList.replace('visible', 'invisible');
     }
