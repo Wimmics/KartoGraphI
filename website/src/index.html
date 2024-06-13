@@ -30,7 +30,7 @@
             <div class="row border border-grey justify-content-center" id="geoloc">
                 <div class="col-12 gy-5 justify-content-center">
                     <div class="row justify-content-center">
-                        <p class="text-center fs-1">Geolocation of known endpoints</p>
+                        <p class="text-center fs-1">Geolocation of <a href="https://github.com/Wimmics/IndeGx/blob/endpoint_status/catalogs/catalog.latest-status.ttl">known endpoints</a></p>
                     </div>
                     <div class="row justify-content-center" id="map"></div>
                 </div>
@@ -217,7 +217,13 @@
                         </div>
                         <div class="col-6 mb-4">
                             <p class='text-center fs-2'>Number of languages</p>
-                            <div id="propertyScatter"></div>
+                            <div id="languagesScatter"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 mb-4">
+                            <p class='text-center fs-2'>Server name in HTTP headers</p>
+                            <div id="endpointServerChart"></div>
                         </div>
                     </div>
                     <div class="row border border-gray">
@@ -269,7 +275,7 @@
                 </div>
             </div>
 
-            <div class="row border border-grey justify-content-center" id="description">
+            <!-- <div class="row border border-grey justify-content-center" id="description">
                 <div class="col-12 justify-content-center gy-5">
                     <h3 class='mb-4 text-center'>Datasets Descriptions</h3>
                     <div class='row justify-content-left' id='datasetDescriptionExplainText'>
@@ -302,190 +308,30 @@
                         </table>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
             <div class="row border border-grey justify-content-center" id="quality">
                 <div class="col-12 gy-5">
                     <h4 class='text-center'>Quality measures</h4>
-                    <table class="table table-responsive">
-                        <thead>
-                            <tr>
-                                <th scope="col">Measure</th>
-                                <th scope="col">Value</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr id="shortUriMeasureRow">
-                                <th scope="row" title="Proportion of URIs under 80 characters and without parameters">
-                                    Short URIs</th>
-                                <td id="shortUrisMeasure"> TBD</td>
-                                <td><button id="shortUrisDetails" type="button" class="btn btn-link">Details</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
                     <div class="row">
-                        <div id="shortUrisScatter" class="col"></div>
+                        <div class="col-6 mb-4">
+                            <p class='text-center fs-2'>Readable labels</p>
+                            <div id="readableLabelsScatter"></div>
+                        </div>
+                        <div class="col-6 mb-4">
+                            <p class='text-center fs-2'>Short URIs</p>
+                            <div id="shortUrisScatter"></div>
+                        </div>
                     </div>
-                    <div class="row collapse" id="shortUrisDatatable">
-                        <table class="table table-responsive table-hover" id="shortUrisTable">
-                            <thead>
-                                <tr>
-                                    <td colspan="2" id='shortUrisQueryCell'>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th id="shortUrisEndpointHeader" scope="col">Endpoint</th>
-                                    <th id="shortUrisMeasureHeader" scope="col">Score</th>
-                                </tr>
-                            </thead>
-                            <tbody id="shortUrisTableBody">
-                            </tbody>
-                        </table>
-                    </div>
-                    <table class="table table-responsive">
-                        <thead>
-                            <tr>
-                                <th scope="col">Measure</th>
-                                <th scope="col">Value</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr id="rdfDataStructureMeasureRow">
-                                <th scope="row" title="Minimal usage of RDF data structures such as sets, bags, etc.">
-                                    Minimal usage of RDF data structures</th>
-                                <td id="rdfDataStructuresMeasure"></td>
-                                <td><button id="rdfDataStructuresDetails" type="button"
-                                        class="btn btn-link">Details</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
                     <div class="row">
-                        <div id="rdfDataStructuresScatter" colspan="3"></div>
-                    </div>
-                    <div class="row collapse" id="rdfDataStructuresDatatable">
-                        <table class="table table-responsive table-hover" id="rdfDataStructuresTable">
-                            <thead>
-                                <tr>
-                                    <td colspan="2" id='rdfDataStructuresQueryCell'>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th id="rdfDataStructuresEndpointHeader" scope="col">Endpoint</th>
-                                    <th id="rdfDataStructuresMeasureHeader" scope="col">Score</th>
-                                </tr>
-                            </thead>
-                            <tbody id="rdfDataStructuresTableBody">
-                            </tbody>
-                        </table>
-                    </div>
-                    <table class="table table-responsive">
-                        <thead>
-                            <tr>
-                                <th scope="col">Measure</th>
-                                <th scope="col">Value</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr id="knowVocabEndpointMeasureRow">
-                                <td scope="row"
-                                    title="Use of vocabularies registered in the Linked Open Vocabularies repository.">
-                                    Use of known vocabularies*</td>
-                                <td id="KnownVocabulariesMeasure"></td>
-                                <td><button id="KnownVocabulariesDetails" type="button"
-                                        class="btn btn-link">Details</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div class="row collapse" id="knowVocabEndpointDatatable">
-                        <table class="table table-responsive table-hover" id="knowVocabEndpointTable">
-                            <thead>
-                                <tr>
-                                    <td colspan="2" id='knownVocabQueryCell'>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th id="knownVocabEndpointHeader" scope="col">Endpoint</th>
-                                    <th id="knownVocabMeasureHeader" scope="col">Score</th>
-                                </tr>
-                            </thead>
-                            <tbody id="endpointKnownVocabsTableBody">
-                            </tbody>
-                        </table>
-                    </div>
-                    <table class="table table-responsive">
-                        <thead>
-                            <tr>
-                                <th scope="col">Measure</th>
-                                <th scope="col">Value</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr id="readableLabelsMeasureRow">
-                                <th scope="row" title="Presence of readable labels connected to each resources.">
-                                    Readable labels</th>
-                                <td id="readableLabelsMeasure"></td>
-                                <td><button id="readableLabelsDetails" type="button"
-                                        class="btn btn-link">Details</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div class="row">
-                        <div id="readableLabelsScatter" class="col"></div>
-                    </div>
-                    <div class="row collapse" id="readableLabelsDatatable">
-                        <table class="table table-responsive table-hover" id="readableLabelsTable">
-                            <thead>
-                                <!-- <tr>
-                                            <td colspan="2" id='readableLabelsQueryCell'>
-                                            </td>
-                                        </tr> -->
-                                <tr>
-                                    <th id="readableLabelsEndpointHeader" scope="col">Endpoint</th>
-                                    <th id="readableLabelsMeasureHeader" scope="col">Score</th>
-                                </tr>
-                            </thead>
-                            <tbody id="readableLabelsTableBody">
-                            </tbody>
-                        </table>
-                    </div>
-                    <table class="table table-responsive">
-                        <thead>
-                            <tr>
-                                <th scope="col">Measure</th>
-                                <th scope="col">Value</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr id="blankNodesMeasureRow">
-                                <th scope="row" title="usage of blank node.">Blank node usage</th>
-                                <td id="blankNodesMeasure"></td>
-                                <td><button id="blankNodesDetails" type="button" class="btn btn-link">Details</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div class="row">
-                        <div id="blankNodesScatter" colspan="3"></div>
-                    </div>
-                    <div class="collapse row" id="blankNodesDatatable">
-                        <table class="table table-responsive table-hover" id="blankNodesTable">
-                            <thead>
-                                <tr>
-                                    <td colspan="2" id='blankNodesQueryCell'>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th id="blankNodesEndpointHeader" scope="col">Endpoint</th>
-                                    <th id="blankNodesMeasureHeader" scope="col">Score</th>
-                                </tr>
-                            </thead>
-                            <tbody id="blankNodesTableBody">
-                            </tbody>
-                        </table>
+                        <div class="col-6 mb-4">
+                            <p class='text-center fs-2'>RDF data structures</p>
+                            <div id="rdfDataStructuresScatter"></div>
+                        </div>
+                        <div class="col-6 mb-4">
+                            <p class='text-center fs-2'>Usage of blank nodes</p>
+                            <div id="blankNodesScatter"></div>
+                        </div>
                     </div>
                     <span>*: This measure can only be computed for the endpoints that have returned their list of
                         used vocabularies.</span>

@@ -16,6 +16,7 @@ export const readableLabelsOptionFilename = "readableLabelsOption.json";
 export const blankNodesOptionFilename = "blankNodesOption.json";
 export const datasetDescriptionOptionFilename = "datasetDescriptionOption.json";
 export const totalRuntimeOptionFilename = "totalRuntimeOption.json";
+export const endpointServerOptionFilename = "endpointServerChartOption.json"
 
 // Cached files
 export const geolocDataFilename = 'geolocData.json';
@@ -32,6 +33,7 @@ export const shortUriDataFilename = "shortUriData.json";
 export const rdfDataStructureDataFilename = "rdfDataStructureData.json";
 export const readableLabelDataFilename = "readableLabelData.json";
 export const blankNodesDataFilename = "blankNodesData.json";
+export const endpointServerDataFilename = "endpointServerData.json";
 
 const textElementsFile = xhrJSONPromise("https://raw.githubusercontent.com/Wimmics/dekalog/master/LODMap/src/data/cache/textElements.json");
 const sparqlFeatureDescFile = cachePromise("SPARQLFeatureDescriptions.json");
@@ -82,12 +84,13 @@ export class Control {
             geolocDataFilename,
             vocabEndpointDataFilename,
             endpointKeywordDataFilename,
+            sparqlFeaturesDataFilename,
+            sparqlCoverCountFilename,
+            endpointServerDataFilename,
             tripleCountDataFilename,
             // classCountDataFilename,
             // classPropertyDataFilename,
             // propertyCountDataFilename,
-            sparqlCoverCountFilename,
-            sparqlFeaturesDataFilename,
             // datasetDescriptionDataFilename,
             // shortUriDataFilename,
             // rdfDataStructureDataFilename,
@@ -95,13 +98,11 @@ export class Control {
             // blankNodesDataFilename,
 
             // // Echarts options
-            // vocabEndpointEchartsOptionFilename,
-            // keywordEndpointEchartsOptionFilename,
-            // standardVocabulariesEndpointGraphEchartsOptionFilename,
             triplesOptionFilename,
+            sparqlCoverageOptionFilename,
+            endpointServerOptionFilename,
             // classesEchartsOptionFilename,
             // propertiesEchartsOptionFilename,
-            sparqlCoverageOptionFilename,
             // shortUrisEchartsOptionFilename,
             // rdfDataStructuresEchartsOptionFilename,
             // readableLabelsEchartsOptionFilename,

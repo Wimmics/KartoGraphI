@@ -9,7 +9,7 @@ dayjs.extend(duration)
 import * as Global from "./GlobalUtils.js";
 import * as Logger from "./LogUtils.js";
 import * as Sparql from "./SparqlUtils.js";
-import { EndpointItem, JSONValue, JSONObject, JSONArray, KeywordsEndpointDataObject, TripleCountDataObject, VocabEndpointDataObject, SPARQLFeatureDataObject } from './DataTypes.js';
+import { EndpointItem, JSONValue, JSONObject, JSONArray, KeywordsEndpointDataObject, TripleCountDataObject, VocabEndpointDataObject, SPARQLFeatureDataObject, SPARQLJSONResult, EndpointServerDataObject, SPARQLJSONResultBinding, ClassCountDataObject, PropertyCountDataObject, QualityMeasureDataObject } from './DataTypes.js';
 
 const dataFilePrefix = "./data/";
 export const dataCachedFilePrefix = "./data/cache/";
@@ -35,6 +35,7 @@ export const shortUriDataFilename = dataCachedFilePrefix + "shortUriData.json";
 export const rdfDataStructureDataFilename = dataCachedFilePrefix + "rdfDataStructureData.json";
 export const readableLabelDataFilename = dataCachedFilePrefix + "readableLabelData.json";
 export const blankNodesDataFilename = dataCachedFilePrefix + "blankNodesData.json";
+export const endpointServerDataFilename = dataCachedFilePrefix + "endpointServerData.json";
 const vocabKeywordsMapFilename = dataFilePrefix + "vocabularyKeywordMap.json";
 const endpointKeywordsMapFilename = dataFilePrefix + "endpointKeywordMap.json";
 
@@ -423,231 +424,344 @@ export function tripleDataFill() {
         });
 }
 
-// export function classDataFill() {
-//     Logger.info("classDataFill START")
-//     // Scatter plot of the number of classes through time
-//     let classesSPARQLquery = `SELECT DISTINCT ?endpointUrl ?date (MAX(?rawO) AS ?o) { 
-//             { ?curated <http://www.w3.org/ns/sparql-service-description#endpoint> ?endpointUrl . }
-//             UNION { ?curated <http://rdfs.org/ns/void#sparqlEndpoint> ?endpointUrl . }
-//             UNION { ?curated <http://www.w3.org/ns/dcat#endpointURL> ?endpointUrl . }
-//             ?metadata <http://ns.inria.fr/kg/index#curated> ?curated .
-//             ?curated <http://rdfs.org/ns/void#classes> ?rawO .
-//     } GROUP BY ?endpointUrl ?date`;
-//     // {?metadata <http://purl.org/dc/terms/modified> ?date .}
-//     // UNION { ?curated <http://purl.org/dc/terms/modified> ?date . }
-//     type EndpointClassesIndexItem = { date: Dayjs, classes: number };
-//     let endpointClassesDataIndex: Map<string, Map<string, EndpointClassesIndexItem>> = new Map();
-//     return Sparql.paginatedSparqlQueryToIndeGxPromise(classesSPARQLquery)
-//         .then(json => {
-//             let endpointClassCountData: ClassCountDataObject[] = [];
-//             (json as JSONValue[]).forEach((itemResult, i) => {
-//                 let graph = itemResult["g"].value.replace('http://ns.inria.fr/indegx#', '');
-//                 let date: Dayjs;//= Global.parseDate(itemResult["date"].value);
-//                 let rawDateUnderscoreIndex = graph.lastIndexOf("_"); // Cheating on the date of the indexation
-//                 if (rawDateUnderscoreIndex != -1) {
-//                     let rawDate = graph.substring(rawDateUnderscoreIndex, graph.length);
-//                     date = Global.parseDate(rawDate, "YYYYMMDD");
-//                 }
-//                 let endpointUrl = itemResult["endpointUrl"].value;
-//                 let classes = Number.parseInt(itemResult["o"].value);
-//                 if (endpointClassesDataIndex.get(endpointUrl) == undefined) {
-//                     endpointClassesDataIndex.set(endpointUrl, new Map());
-//                 }
-//                 if (endpointClassesDataIndex.get(endpointUrl).get(graph) == undefined) {
-//                     endpointClassesDataIndex.get(endpointUrl).set(graph, { date: date, classes: classes });
-//                 } else {
-//                     let previousDate = endpointClassesDataIndex.get(endpointUrl).get(graph).date;
-//                     if (date.isBefore(previousDate) && date.year() != previousDate.year() && date.month() != previousDate.month() && date.date() != previousDate.date()) {
-//                         endpointClassesDataIndex.get(endpointUrl).set(graph, { date: date, classes: classes });
-//                     }
-//                 }
-//             });
-//             endpointClassesDataIndex.forEach((graphClassesMap, endpointUrl) => {
-//                 graphClassesMap.forEach((classesData, graph) => {
-//                     endpointClassCountData.push({ endpoint: endpointUrl, graph: graph, date: classesData.date, classes: classesData.classes })
-//                 })
-//             });
-//             return Promise.resolve(endpointClassCountData);
-//         })
-//         .then(endpointClassCountData => {
-//             try {
-//                 let content = JSON.stringify(endpointClassCountData);
-//                 return Global.writeFile(Global.getCachedFilenameForRunset(classCountFilename), content).then(() => {
-//                     Logger.info("classDataFill END")
-//                     return Promise.resolve();
-//                 })
-//             } catch (err) {
-//                 Logger.error(err);
-//                 return Promise.reject(err);
-//             }
-//         })
-//         .catch(error => {
-//             Logger.error(error)
-//             return Promise.reject(error);
-//         });
-// }
+export function serverHeadersFill(): Promise<void> {
+    Logger.info("serverHeadersFill START")
+    // Retrieves the shortest server name for one endpoint, to avoid names with version number
+    const serverHeaderQuery = `PREFIX kgi: <http://ns.inria.fr/kg/index#>
+    SELECT DISTINCT ?endpoint ?serverName {
+      ?endpoint kgi:server ?serverName .
+      FILTER(NOT EXISTS {
+          ?endpoint kgi:server ?otherServerName .
+        FILTER(?otherServerName != ?serverName)
+        FILTER(STRLEN(?otherServerName) < STRLEN(?serverName))
+        })
+    }`;
+    return Sparql.paginatedSparqlQueryToIndeGxPromise(serverHeaderQuery)
+        .then((serverHeadersResult: SPARQLJSONResultBinding[]) => {
+            if (serverHeadersResult.length > 0) {
+                try {
+                    let endpointServerArray: EndpointServerDataObject[] = [];
+                    serverHeadersResult.forEach(binding => {
+                        if (binding.serverName != undefined && binding.endpoint != undefined) {
+                            endpointServerArray.push({ endpoint: binding.endpoint.value as string, server: binding.serverName.value as string })
+                        }
+                    })
+                    return Global.writeFile(endpointServerDataFilename, JSON.stringify(endpointServerArray)).then(() => {
+                        Logger.info("serverHeadersFill END");
+                        return;
+                    });
+                } catch (error) {
+                    Logger.error(error)
+                    Promise.reject(error)
+                }
+            } else {
+                Promise.reject("No result found to the query for server names")
+            }
+        })
+        .catch(error => {
+            Logger.error(error)
+            return Promise.reject(error);
+        });
+}
 
-// export function propertyDataFill() {
-//     Logger.info("propertyDataFill START")
-//     // scatter plot of the number of properties through time
-//     let propertiesSPARQLquery = `SELECT DISTINCT ?date ?endpointUrl (MAX(?rawO) AS ?o) {
-//             { ?curated <http://www.w3.org/ns/sparql-service-description#endpoint> ?endpointUrl . }
-//             UNION { ?curated <http://rdfs.org/ns/void#sparqlEndpoint> ?endpointUrl . }
-//             UNION { ?curated <http://www.w3.org/ns/dcat#endpointURL> ?endpointUrl . }
-//             ?metadata <http://ns.inria.fr/kg/index#curated> ?curated .
-//             ?curated <http://rdfs.org/ns/void#properties> ?rawO .
-//     } GROUP BY ?endpointUrl ?date`;
-//     // {?metadata <http://purl.org/dc/terms/modified> ?date .}
-//     // UNION { ?curated <http://purl.org/dc/terms/modified> ?date . }
-//     type EndpointPropertiesIndexItem = { date: Dayjs, properties: number };
-//     let endpointPropertiesDataIndex = new Map<string, EndpointPropertiesIndexItem[]>();
-//     return Sparql.paginatedSparqlQueryToIndeGxPromise(propertiesSPARQLquery)
-//         .then(json => {
-//             let endpointPropertyCountData = [];
-//             (json as JSONValue[]).forEach((itemResult, i) => {
-//                 let endpointUrl = itemResult["endpointUrl"].value;
-//                 let properties = Number.parseInt(itemResult["o"].value);
-//                 let date: Dayjs = Global.parseDate(itemResult["date"].value);
+export function classDataFill() {
+    Logger.info("classDataFill START")
+    // Scatter plot of the number of classes through time
+    let classesSPARQLquery = `SELECT DISTINCT ?endpointUrl (MAX(?rawO) AS ?count) { 
+        { ?curated <http://www.w3.org/ns/sparql-service-description#endpoint> ?endpointUrl . }
+        UNION { ?curated <http://rdfs.org/ns/void#sparqlEndpoint> ?endpointUrl . }
+        UNION { ?curated <http://www.w3.org/ns/dcat#endpointURL> ?endpointUrl . }
+        ?curated <http://rdfs.org/ns/void#classes> ?rawO .
+} GROUP BY ?endpointUrl`;
+    return Sparql.paginatedSparqlQueryToIndeGxPromise(classesSPARQLquery)
+        .then(classCountQueryresults => {
+            try {
+                let classCountData: ClassCountDataObject[] = [];
+                if ((classCountQueryresults as SPARQLJSONResultBinding[]).length > 0) {
+                    (classCountQueryresults as SPARQLJSONResultBinding[]).forEach(classCountBinding => {
+                        classCountData.push({ classes: Number.parseInt(classCountBinding.count.value), endpoint: classCountBinding.endpointUrl.value })
+                    })
+                    return Global.writeFile(classCountFilename, JSON.stringify(classCountData))
+                        .then(() => {
+                            Logger.info("classDataFill END");
+                            return;
+                        })
+                } else {
+                    return Promise.reject("No class count data found")
+                }
+            } catch (error) {
+                return Promise.reject(error)
+            }
+        })
+        .catch(error => {
+            Logger.error(error)
+            return Promise.reject(error);
+        });
+}
 
-//                 if (endpointPropertiesDataIndex.get(endpointUrl) == undefined) {
-//                     endpointPropertiesDataIndex.set(endpointUrl, []);
-//                 }
-//                 if (endpointPropertiesDataIndex.get(endpointUrl) != undefined) {
-//                     endpointPropertiesDataIndex.get(endpointUrl).push({ date: date, properties: properties });
-//                 }
-//             });
-//             endpointPropertiesDataIndex.forEach((propertiesDataArray, endpointUrl) => {
-//                 propertiesDataArray.forEach(propertiesData => {
-//                     endpointPropertyCountData.push({ endpoint: endpointUrl, date: propertiesData.date, properties: propertiesData.properties })
-//                 })
-//             });
-//             return Promise.resolve(endpointPropertyCountData);
-//         })
-//         .then(endpointPropertyCountData => {
-//             try {
-//                 let content = JSON.stringify(endpointPropertyCountData);
-//                 return Global.writeFile(Global.getCachedFilenameForRunset(propertyCountFilename), content).then(() => {
-//                     Logger.info("propertyDataFill END")
-//                     return Promise.resolve();
-//                 })
-//             } catch (err) {
-//                 Logger.error(err)
-//                 return Promise.reject(err);
-//             }
-//         })
-//         .catch(error => {
-//             Logger.error(error)
-//             return Promise.reject(error);
-//         });
-// }
+export function propertyDataFill() {
+    Logger.info("propertyDataFill START")
+    // Scatter plot of the number of classes through time
+    let propertiesSPARQLquery = `SELECT DISTINCT ?endpointUrl (MAX(?rawO) AS ?count) { 
+        { ?curated <http://www.w3.org/ns/sparql-service-description#endpoint> ?endpointUrl . }
+        UNION { ?curated <http://rdfs.org/ns/void#sparqlEndpoint> ?endpointUrl . }
+        UNION { ?curated <http://www.w3.org/ns/dcat#endpointURL> ?endpointUrl . }
+        ?curated <http://rdfs.org/ns/void#properties> ?rawO .
+} GROUP BY ?endpointUrl`;
+    return Sparql.paginatedSparqlQueryToIndeGxPromise(propertiesSPARQLquery)
+        .then(propertyCountQueryresults => {
+            try {
+                let propertyCountData: PropertyCountDataObject[] = [];
+                if ((propertyCountQueryresults as SPARQLJSONResultBinding[]).length > 0) {
+                    (propertyCountQueryresults as SPARQLJSONResultBinding[]).forEach(propertyCountBinding => {
+                        propertyCountData.push({ properties: Number.parseInt(propertyCountBinding.count.value), endpoint: propertyCountBinding.endpointUrl.value })
+                    })
+                    return Global.writeFile(propertyCountFilename, JSON.stringify(propertyCountData))
+                        .then(() => {
+                            Logger.info("propertyDataFill END");
+                            return;
+                        })
+                } else {
+                    return Promise.reject("No propertyDataFill count data found")
+                }
+            } catch (error) {
+                return Promise.reject(error)
+            }
+        })
+        .catch(error => {
+            Logger.error(error)
+            return Promise.reject(error);
+        });
+}
 
-// export function categoryTestCountFill() {
-//     Logger.info("categoryTestCountFill START")
-//     let testCategoryData = [];
-//     // Number of tests passed by test categories
-//     let testCategoryQuery = `SELECT DISTINCT ?date ?category (count(DISTINCT ?test) AS ?count) ?endpointUrl { 
-//             ?metadata <http://ns.inria.fr/kg/index#curated> ?curated .
-//             ?metadata <http://ns.inria.fr/kg/index#trace> ?trace . 
-//             { ?curated <http://www.w3.org/ns/sparql-service-description#endpoint> ?endpointUrl . } 
-//             UNION { ?curated <http://rdfs.org/ns/void#sparqlEndpoint> ?endpointUrl . } 
-//             UNION { ?curated <http://www.w3.org/ns/dcat#endpointURL> ?endpointUrl . }
-//             ?trace <http://www.w3.org/ns/earl#test> ?test . 
-//             ?trace <http://www.w3.org/ns/earl#result> ?result .
-//             ?result <http://www.w3.org/ns/earl#outcome> <http://www.w3.org/ns/earl#passed> .
-//             FILTER(STRSTARTS(str(?test), ?category))
-//             VALUES ?category { 
-//                 'https://raw.githubusercontent.com/Wimmics/dekalog/master/rules/check/' 
-//                 'https://raw.githubusercontent.com/Wimmics/dekalog/master/rules/extraction/asserted/' 
-//                 'https://raw.githubusercontent.com/Wimmics/dekalog/master/rules/extraction/computed/' 
-//                 'https://raw.githubusercontent.com/Wimmics/dekalog/master/rules/sportal/' 
-//                 'https://raw.githubusercontent.com/Wimmics/dekalog/master/rules/sparqles/SPARQL10/'
-//                 'https://raw.githubusercontent.com/Wimmics/dekalog/master/rules/sparqles/SPARQL11/' 
-//             }
-//     } GROUP BY ?date ?category ?endpointUrl`;
-//     // {?metadata <http://purl.org/dc/terms/modified> ?date .}
-//     // UNION { ?curated <http://purl.org/dc/terms/modified> ?date . }
-//     return Sparql.paginatedSparqlQueryToIndeGxPromise(testCategoryQuery)
+export function shortUrisDataFill() {
+    Logger.info("shortUrisDataFill START")
+    // Scatter plot of the number of classes through time
+    let shortUrisSPARQLquery = `SELECT DISTINCT ?endpointUrl (MAX(?measureRaw) as ?measure) {
+        { ?curated <http://www.w3.org/ns/sparql-service-description#endpoint> ?endpointUrl . } 
+        UNION { ?curated <http://rdfs.org/ns/void#sparqlEndpoint> ?endpointUrl . } 
+        ?metadata <http://ns.inria.fr/kg/index#curated> ?curated .
+        ?metadata <http://www.w3.org/ns/dqv#hasQualityMeasurement> ?measureNode .
+        ?measureNode <http://www.w3.org/ns/dqv#isMeasurementOf> <https://raw.githubusercontent.com/Wimmics/dekalog/master/rules/check/shortUris.ttl> .
+        ?measureNode <http://www.w3.org/ns/dqv#value> ?measureRaw .
+} GROUP BY ?endpointUrl ?measure`;
+    return Sparql.paginatedSparqlQueryToIndeGxPromise(shortUrisSPARQLquery)
+        .then(shortUrisCountQueryresults => {
+            try {
+                let shortUrisCountData: QualityMeasureDataObject[] = [];
+                if ((shortUrisCountQueryresults as SPARQLJSONResultBinding[]).length > 0) {
+                    (shortUrisCountQueryresults as SPARQLJSONResultBinding[]).forEach(propertyCountBinding => {
+                        shortUrisCountData.push({ measure: Number.parseFloat(propertyCountBinding.measure.value), endpoint: propertyCountBinding.endpointUrl.value })
+                    })
+                    return Global.writeFile(shortUriDataFilename, JSON.stringify(shortUrisCountData))
+                        .then(() => {
+                            Logger.info("shortUrisDataFill END");
+                            return;
+                        })
+                } else {
+                    return Promise.reject("No short URIs count data found")
+                }
+            } catch (error) {
+                return Promise.reject(error)
+            }
+        })
+        .catch(error => {
+            Logger.error(error)
+            return Promise.reject(error);
+        });
+}
+
+export function readableLabelsDataFill() {
+    Logger.info("readableLabelsDataFill START")
+    // Scatter plot of the number of classes through time
+    let readableLabelsSPARQLquery = `SELECT DISTINCT ?endpointUrl (MAX(?measureRaw) as ?measure) {
+        { ?curated <http://www.w3.org/ns/sparql-service-description#endpoint> ?endpointUrl . } 
+        UNION { ?curated <http://rdfs.org/ns/void#sparqlEndpoint> ?endpointUrl . } 
+        ?metadata <http://ns.inria.fr/kg/index#curated> ?curated .
+        ?metadata <http://www.w3.org/ns/dqv#hasQualityMeasurement> ?measureNode .
+        ?measureNode <http://www.w3.org/ns/dqv#isMeasurementOf> <https://raw.githubusercontent.com/Wimmics/dekalog/master/rules/check/readableLabels.ttl> .
+        ?measureNode <http://www.w3.org/ns/dqv#value> ?measureRaw .
+} GROUP BY ?endpointUrl ?measure`;
+    return Sparql.paginatedSparqlQueryToIndeGxPromise(readableLabelsSPARQLquery)
+        .then(readableLabelsCountQueryresults => {
+            try {
+                let readableLabelsCountData: QualityMeasureDataObject[] = [];
+                if ((readableLabelsCountQueryresults as SPARQLJSONResultBinding[]).length > 0) {
+                    (readableLabelsCountQueryresults as SPARQLJSONResultBinding[]).forEach(readableLabelsBinding => {
+                        readableLabelsCountData.push({ measure: Number.parseFloat(readableLabelsBinding.measure.value), endpoint: readableLabelsBinding.endpointUrl.value })
+                    })
+                    return Global.writeFile(readableLabelDataFilename, JSON.stringify(readableLabelsCountData))
+                        .then(() => {
+                            Logger.info("readableLabelsDataFill END");
+                            return;
+                        })
+                } else {
+                    return Promise.reject("No readable labels count data found")
+                }
+            } catch (error) {
+                return Promise.reject(error)
+            }
+        })
+        .catch(error => {
+            Logger.error(error)
+            return Promise.reject(error);
+        });
+}
+
+// export function readableLabelsDataFill() {
+//     Logger.info("readableLabelsDataFill START")
+//     let readableLabelsQuery = `SELECT DISTINCT ?date ?endpointUrl ?measure { 
+//                 { ?curated <http://www.w3.org/ns/sparql-service-description#endpoint> ?endpointUrl . }
+//                 UNION { ?curated <http://rdfs.org/ns/void#sparqlEndpoint> ?endpointUrl . } 
+//                 ?metadata <http://ns.inria.fr/kg/index#curated> ?curated . 
+//                 ?metadata <http://www.w3.org/ns/dqv#hasQualityMeasurement> ?measureNode . 
+//                 ?measureNode <http://www.w3.org/ns/dqv#isMeasurementOf> <https://raw.githubusercontent.com/Wimmics/dekalog/master/rules/check/readableLabels.ttl> . 
+//                 ?measureNode <http://www.w3.org/ns/dqv#value> ?measure . 
+//         } GROUP BY ?date ?endpointUrl ?measure`;
+//     // ?metadata <http://purl.org/dc/terms/modified> ?date . 
+
+//     return Sparql.paginatedSparqlQueryToIndeGxPromise(readableLabelsQuery)
 //         .then(json => {
-//             (json as JSONValue[]).forEach((itemResult, i) => {
-//                 let category = itemResult["category"].value;
-//                 let count = itemResult["count"].value;
-//                 let endpoint = itemResult["endpointUrl"].value;
-//                 let date: Dayjs = Global.parseDate(itemResult["date"].value);
-//                 testCategoryData.push({ category: category, date: date, endpoint: endpoint, count: count });
+//             let readableLabelData = [];
+//             (json as JSONValue[]).forEach((jsonItem, i) => {
+//                 let endpoint = jsonItem["endpointUrl"].value;
+//                 let readableLabelMeasure = Number.parseFloat(Global.precise(Number.parseFloat(jsonItem["measure"].value) * 100));
+//                 let date: Dayjs = Global.parseDate(jsonItem["date"].value);
+
+//                 readableLabelData.push({ date: date, endpoint: endpoint, measure: readableLabelMeasure })
 //             });
-//             return Promise.resolve();
+//             return Promise.resolve(readableLabelData);
 //         })
-//         .then(() => {
-//             if (testCategoryData.length > 0) {
+//         .then(readableLabelData => {
+//             if (readableLabelData.length > 0) {
 //                 try {
-//                     let content = JSON.stringify(testCategoryData);
-//                     return Global.writeFile(Global.getCachedFilenameForRunset(categoryTestCountFilename), content).then(() => {
-//                         Logger.info("categoryTestCountFill END")
+//                     let content = JSON.stringify(readableLabelData);
+//                     return Global.writeFile(Global.getCachedFilenameForRunset(readableLabelDataFilename), content).then(() => {
+//                         Logger.info("readableLabelsDataFill END")
 //                         return Promise.resolve();
 //                     });
 //                 } catch (err) {
 //                     Logger.error(err)
 //                 }
 //             }
+//             return Promise.resolve();
 //         })
 //         .catch(error => {
-//             Logger.error(error)
+//             Logger.error(error);
 //             return Promise.reject(error);
 //         });
 // }
 
-// export function totalCategoryTestCountFill() {
-//     Logger.info("totalCategoryTestCountFill START")
-//     // Number of tests passed by test categories
-//     let testCategoryQuery = `SELECT DISTINCT ?category ?date (count(DISTINCT ?test) AS ?count) ?endpointUrl { 
-//             ?metadata <http://ns.inria.fr/kg/index#curated> ?curated .
-//             ?metadata <http://ns.inria.fr/kg/index#trace> ?trace .
-//             { ?curated <http://www.w3.org/ns/sparql-service-description#endpoint> ?endpointUrl . }
-//             UNION { ?curated <http://rdfs.org/ns/void#sparqlEndpoint> ?endpointUrl . }
-//             UNION { ?curated <http://www.w3.org/ns/dcat#endpointURL> ?endpointUrl . }
-//             ?trace <http://www.w3.org/ns/earl#test> ?test .
-//             ?trace <http://www.w3.org/ns/earl#result> ?result .
-//             ?result <http://www.w3.org/ns/earl#outcome> <http://www.w3.org/ns/earl#passed> .
-//             FILTER(STRSTARTS(str(?test), str(?category))) 
-//             VALUES ?category {
-//                 <https://raw.githubusercontent.com/Wimmics/dekalog/master/rules/check/> 
-//                 <https://raw.githubusercontent.com/Wimmics/dekalog/master/rules/extraction/asserted/> 
-//                 <https://raw.githubusercontent.com/Wimmics/dekalog/master/rules/extraction/computed/> 
-//                 <https://raw.githubusercontent.com/Wimmics/dekalog/master/rules/sportal/>
-//                 <https://raw.githubusercontent.com/Wimmics/dekalog/master/rules/sparqles/SPARQL10/> 
-//                 <https://raw.githubusercontent.com/Wimmics/dekalog/master/rules/sparqles/SPARQL11/> 
-//             } 
-//     } 
-//     GROUP BY ?date ?category ?endpointUrl 
-//     ORDER BY ?category `;
-//     // ?metadata <http://purl.org/dc/terms/modified> ?date .
-//     return Sparql.paginatedSparqlQueryToIndeGxPromise(testCategoryQuery).then(json => {
-//         let totalTestCategoryData = [];
-//         (json as JSONValue[]).forEach((itemResult, i) => {
-//             let category = itemResult["category"].value;
-//             let count = itemResult["count"].value;
-//             let endpoint = itemResult["endpointUrl"].value;
-//             let date: Dayjs = Global.parseDate(itemResult["date"].value);
+// export function rdfDataStructureDataFill() {
+//     Logger.info("rdfDataStructureDataFill START")
+//     let rdfDataStructureQuery = `SELECT DISTINCT ?date ?endpointUrl ?measure { 
+//                 { ?curated <http://www.w3.org/ns/sparql-service-description#endpoint> ?endpointUrl . } 
+//                 UNION { ?curated <http://rdfs.org/ns/void#sparqlEndpoint> ?endpointUrl . } 
+//                 ?metadata <http://ns.inria.fr/kg/index#curated> ?curated . 
+//                 ?metadata <http://www.w3.org/ns/dqv#hasQualityMeasurement> ?measureNode . 
+//                 ?measureNode <http://www.w3.org/ns/dqv#isMeasurementOf> <https://raw.githubusercontent.com/Wimmics/dekalog/master/rules/check/RDFDataStructures.ttl> . 
+//                 ?measureNode <http://www.w3.org/ns/dqv#value> ?measure . 
+//             }
+//         GROUP BY ?date ?endpointUrl ?measure` ;
+//     // ?metadata <http://purl.org/dc/terms/modified> ?date . 
 
-//             totalTestCategoryData.push({ category: category, endpoint: endpoint, date: date, count: count })
-//             return Promise.resolve(totalTestCategoryData);
+//     return Sparql.paginatedSparqlQueryToIndeGxPromise(rdfDataStructureQuery).then(json => {
+//         let rdfDataStructureData = [];
+//         (json as JSONValue[]).forEach((jsonItem, i) => {
+//             let endpoint = jsonItem["endpointUrl"].value;
+//             let rdfDataStructureMeasure = Number.parseFloat(Global.precise(Number.parseFloat(jsonItem["measure"].value) * 100));
+//             let date: Dayjs = Global.parseDate(jsonItem["date"].value);
+
+//             rdfDataStructureData.push({ date: date, endpoint: endpoint, measure: rdfDataStructureMeasure })
 //         });
+//         return Promise.resolve(rdfDataStructureData);
 //     })
-//         .then(totalTestCategoryData => {
+//         .then(rdfDataStructureData => {
 //             try {
-//                 let content = JSON.stringify(totalTestCategoryData);
-//                 return Global.writeFile(Global.getCachedFilenameForRunset(totalCategoryTestCountFilename), content).then(() => {
-//                     Logger.info("totalCategoryTestCountFill END")
+//                 let content = JSON.stringify(rdfDataStructureData);
+//                 return Global.writeFile(Global.getCachedFilenameForRunset(rdfDataStructureDataFilename), content).then(() => {
+//                     Logger.info("rdfDataStructureDataFill END");
+//                     return;
+//                 })
+
+//             } catch (err) {
+//                 Logger.error(err)
+//             }
+//             return Promise.resolve();
+//         })
+//         .catch(error => {
+//             Logger.error(error);
+//         });
+// }
+
+// export function blankNodeDataFill() {
+//     Logger.info("blankNodeDataFill START")
+//     let blankNodeQuery = `PREFIX dcat: <http://www.w3.org/ns/dcat#>
+//         PREFIX dct: <http://purl.org/dc/terms/>
+//         PREFIX sd: <http://www.w3.org/ns/sparql-service-description#>
+//         PREFIX void: <http://rdfs.org/ns/void#>
+//         PREFIX kgi: <http://ns.inria.fr/kg/index#>
+//         PREFIX dqv: <http://www.w3.org/ns/dqv#>
+//         SELECT DISTINCT ?date ?endpointUrl ?measure { 
+//                 ?metadata kgi:curated ?curated . 
+//                 { ?curated sd:endpoint ?endpointUrl . } 
+//                 UNION { ?curated void:sparqlEndpoint ?endpointUrl . } 
+//                 UNION { ?curated dcat:endpointURL ?endpointUrl . } 
+//     			{ ?metadata dqv:hasQualityMeasurement ?measureNode . }
+//     			UNION { ?curated dqv:hasQualityMeasurement ?measureNode . }
+//                 ?measureNode dqv:isMeasurementOf <https://raw.githubusercontent.com/Wimmics/dekalog/master/rules/check/blankNodeUsage.ttl> . 
+//                 ?measureNode dqv:value ?measure . 
+//         } 
+//         GROUP BY ?date ?endpointUrl ?measure` ;
+//     // { ?metadata dct:modified ?date . }
+//     // UNION { ?curated dct:modified ?date }
+//     return Sparql.sparqlQueryToIndeGxPromise(blankNodeQuery).then(json => {
+
+//         let blankNodeData = []
+//         let graphSet = new Set();
+//         let endpointDateMeasureMap: Map<string, Map<string, number>> = new Map();
+//         let jsonResult = (json as SPARQLJSONResult);
+//         if (jsonResult != undefined && jsonResult.results != undefined && jsonResult.results.bindings != undefined) {
+//             jsonResult.results.bindings.forEach((jsonItem, i) => {
+//                 let endpoint = jsonItem.endpointUrl.value;
+//                 let blankNodeMeasure = Number.parseFloat(Global.precise(Number.parseFloat(jsonItem.measure.value) * 100));
+//                 let rawDate: Dayjs = Global.parseDate(jsonItem.date.value);
+//                 let date = rawDate.format("YYYY-MM-DD");
+
+//                 if (!endpointDateMeasureMap.has(endpoint)) {
+//                     endpointDateMeasureMap.set(endpoint, new Map());
+//                 }
+//                 if (!endpointDateMeasureMap.get(endpoint).has(date)) {
+//                     endpointDateMeasureMap.get(endpoint).set(date, blankNodeMeasure);
+//                 }
+//                 if (endpointDateMeasureMap.get(endpoint).has(date) && endpointDateMeasureMap.get(endpoint).get(date) < blankNodeMeasure) {
+//                     endpointDateMeasureMap.get(endpoint).set(date, blankNodeMeasure);
+//                 }
+//             });
+//         }
+
+//         endpointDateMeasureMap.forEach((dateMeasureMap, endpoint) => {
+//             dateMeasureMap.forEach((measure, date) => {
+//                 blankNodeData.push({ date: date, endpoint: endpoint, measure: measure })
+//             })
+//         })
+
+//         return Promise.resolve(blankNodeData);
+//     })
+//         .then(blankNodeData => {
+//             try {
+//                 let content = JSON.stringify(blankNodeData);
+//                 return Global.writeFile(Global.getCachedFilenameForRunset(blankNodesDataFilename), content).then(() => {
+//                     Logger.info("blankNodeDataFill END");
 //                     return Promise.resolve();
 //                 })
 //             } catch (err) {
 //                 Logger.error(err)
-//                 return Promise.reject(err);
 //             }
+//             return Promise.reject();
 //         })
 //         .catch(error => {
 //             Logger.error(error)
-//             return Promise.reject();
 //         });
 // }
 
@@ -1007,202 +1121,5 @@ export function tripleDataFill() {
 //         .catch(error => {
 //             Logger.error(error)
 //             return Promise.reject(error);
-//         });
-// }
-
-// export function shortUrisDataFill() {
-//     Logger.info("shortUrisDataFill START")
-//     let shortUrisMeasureQuery = `SELECT DISTINCT ?date ?endpointUrl ?measure {
-//                 { ?curated <http://www.w3.org/ns/sparql-service-description#endpoint> ?endpointUrl . } 
-//                 UNION { ?curated <http://rdfs.org/ns/void#sparqlEndpoint> ?endpointUrl . } 
-//                 ?metadata <http://ns.inria.fr/kg/index#curated> ?curated .
-//                 ?metadata <http://www.w3.org/ns/dqv#hasQualityMeasurement> ?measureNode .
-//                 ?measureNode <http://www.w3.org/ns/dqv#isMeasurementOf> <https://raw.githubusercontent.com/Wimmics/dekalog/master/rules/check/shortUris.ttl> .
-//                 ?measureNode <http://www.w3.org/ns/dqv#value> ?measure .
-//         } GROUP BY ?date ?endpointUrl ?measure`;
-//     // ?metadata <http://purl.org/dc/terms/modified> ?date . 
-//     return Sparql.paginatedSparqlQueryToIndeGxPromise(shortUrisMeasureQuery)
-//         .then(json => {
-//             let shortUriData = [];
-//             (json as JSONValue[]).forEach((jsonItem, i) => {
-//                 let endpoint = jsonItem["endpointUrl"].value;
-//                 let shortUriMeasure = Number.parseFloat(Global.precise(Number.parseFloat(jsonItem["measure"].value) * 100));
-//                 let date: Dayjs = Global.parseDate(jsonItem["date"].value);
-//                 shortUriData.push({ date: date, endpoint: endpoint, measure: shortUriMeasure })
-//             });
-//             return Promise.resolve(shortUriData);
-//         })
-//         .then(shortUriData => {
-//             if (shortUriData.length > 0) {
-//                 try {
-//                     let content = JSON.stringify(shortUriData);
-//                     fs.writeFileSync(Global.getCachedFilenameForRunset(shortUriDataFilename), content)
-//                 } catch (err) {
-//                     Logger.error(err)
-//                 }
-//             }
-//             Logger.info("shortUrisDataFill END")
-//             return Promise.resolve();
-//         })
-//         .catch(error => {
-//             Logger.error(error)
-//             return Promise.reject(error);
-//         });
-// }
-
-// export function readableLabelsDataFill() {
-//     Logger.info("readableLabelsDataFill START")
-//     let readableLabelsQuery = `SELECT DISTINCT ?date ?endpointUrl ?measure { 
-//                 { ?curated <http://www.w3.org/ns/sparql-service-description#endpoint> ?endpointUrl . }
-//                 UNION { ?curated <http://rdfs.org/ns/void#sparqlEndpoint> ?endpointUrl . } 
-//                 ?metadata <http://ns.inria.fr/kg/index#curated> ?curated . 
-//                 ?metadata <http://www.w3.org/ns/dqv#hasQualityMeasurement> ?measureNode . 
-//                 ?measureNode <http://www.w3.org/ns/dqv#isMeasurementOf> <https://raw.githubusercontent.com/Wimmics/dekalog/master/rules/check/readableLabels.ttl> . 
-//                 ?measureNode <http://www.w3.org/ns/dqv#value> ?measure . 
-//         } GROUP BY ?date ?endpointUrl ?measure`;
-//     // ?metadata <http://purl.org/dc/terms/modified> ?date . 
-
-//     return Sparql.paginatedSparqlQueryToIndeGxPromise(readableLabelsQuery)
-//         .then(json => {
-//             let readableLabelData = [];
-//             (json as JSONValue[]).forEach((jsonItem, i) => {
-//                 let endpoint = jsonItem["endpointUrl"].value;
-//                 let readableLabelMeasure = Number.parseFloat(Global.precise(Number.parseFloat(jsonItem["measure"].value) * 100));
-//                 let date: Dayjs = Global.parseDate(jsonItem["date"].value);
-
-//                 readableLabelData.push({ date: date, endpoint: endpoint, measure: readableLabelMeasure })
-//             });
-//             return Promise.resolve(readableLabelData);
-//         })
-//         .then(readableLabelData => {
-//             if (readableLabelData.length > 0) {
-//                 try {
-//                     let content = JSON.stringify(readableLabelData);
-//                     return Global.writeFile(Global.getCachedFilenameForRunset(readableLabelDataFilename), content).then(() => {
-//                         Logger.info("readableLabelsDataFill END")
-//                         return Promise.resolve();
-//                     });
-//                 } catch (err) {
-//                     Logger.error(err)
-//                 }
-//             }
-//             return Promise.resolve();
-//         })
-//         .catch(error => {
-//             Logger.error(error);
-//             return Promise.reject(error);
-//         });
-// }
-
-// export function rdfDataStructureDataFill() {
-//     Logger.info("rdfDataStructureDataFill START")
-//     let rdfDataStructureQuery = `SELECT DISTINCT ?date ?endpointUrl ?measure { 
-//                 { ?curated <http://www.w3.org/ns/sparql-service-description#endpoint> ?endpointUrl . } 
-//                 UNION { ?curated <http://rdfs.org/ns/void#sparqlEndpoint> ?endpointUrl . } 
-//                 ?metadata <http://ns.inria.fr/kg/index#curated> ?curated . 
-//                 ?metadata <http://www.w3.org/ns/dqv#hasQualityMeasurement> ?measureNode . 
-//                 ?measureNode <http://www.w3.org/ns/dqv#isMeasurementOf> <https://raw.githubusercontent.com/Wimmics/dekalog/master/rules/check/RDFDataStructures.ttl> . 
-//                 ?measureNode <http://www.w3.org/ns/dqv#value> ?measure . 
-//             }
-//         GROUP BY ?date ?endpointUrl ?measure` ;
-//     // ?metadata <http://purl.org/dc/terms/modified> ?date . 
-
-//     return Sparql.paginatedSparqlQueryToIndeGxPromise(rdfDataStructureQuery).then(json => {
-//         let rdfDataStructureData = [];
-//         (json as JSONValue[]).forEach((jsonItem, i) => {
-//             let endpoint = jsonItem["endpointUrl"].value;
-//             let rdfDataStructureMeasure = Number.parseFloat(Global.precise(Number.parseFloat(jsonItem["measure"].value) * 100));
-//             let date: Dayjs = Global.parseDate(jsonItem["date"].value);
-
-//             rdfDataStructureData.push({ date: date, endpoint: endpoint, measure: rdfDataStructureMeasure })
-//         });
-//         return Promise.resolve(rdfDataStructureData);
-//     })
-//         .then(rdfDataStructureData => {
-//             try {
-//                 let content = JSON.stringify(rdfDataStructureData);
-//                 return Global.writeFile(Global.getCachedFilenameForRunset(rdfDataStructureDataFilename), content).then(() => {
-//                     Logger.info("rdfDataStructureDataFill END");
-//                     return;
-//                 })
-
-//             } catch (err) {
-//                 Logger.error(err)
-//             }
-//             return Promise.resolve();
-//         })
-//         .catch(error => {
-//             Logger.error(error);
-//         });
-// }
-
-// export function blankNodeDataFill() {
-//     Logger.info("blankNodeDataFill START")
-//     let blankNodeQuery = `PREFIX dcat: <http://www.w3.org/ns/dcat#>
-//         PREFIX dct: <http://purl.org/dc/terms/>
-//         PREFIX sd: <http://www.w3.org/ns/sparql-service-description#>
-//         PREFIX void: <http://rdfs.org/ns/void#>
-//         PREFIX kgi: <http://ns.inria.fr/kg/index#>
-//         PREFIX dqv: <http://www.w3.org/ns/dqv#>
-//         SELECT DISTINCT ?date ?endpointUrl ?measure { 
-//                 ?metadata kgi:curated ?curated . 
-//                 { ?curated sd:endpoint ?endpointUrl . } 
-//                 UNION { ?curated void:sparqlEndpoint ?endpointUrl . } 
-//                 UNION { ?curated dcat:endpointURL ?endpointUrl . } 
-//     			{ ?metadata dqv:hasQualityMeasurement ?measureNode . }
-//     			UNION { ?curated dqv:hasQualityMeasurement ?measureNode . }
-//                 ?measureNode dqv:isMeasurementOf <https://raw.githubusercontent.com/Wimmics/dekalog/master/rules/check/blankNodeUsage.ttl> . 
-//                 ?measureNode dqv:value ?measure . 
-//         } 
-//         GROUP BY ?date ?endpointUrl ?measure` ;
-//     // { ?metadata dct:modified ?date . }
-//     // UNION { ?curated dct:modified ?date }
-//     return Sparql.sparqlQueryToIndeGxPromise(blankNodeQuery).then(json => {
-
-//         let blankNodeData = []
-//         let graphSet = new Set();
-//         let endpointDateMeasureMap: Map<string, Map<string, number>> = new Map();
-//         let jsonResult = (json as SPARQLJSONResult);
-//         if (jsonResult != undefined && jsonResult.results != undefined && jsonResult.results.bindings != undefined) {
-//             jsonResult.results.bindings.forEach((jsonItem, i) => {
-//                 let endpoint = jsonItem.endpointUrl.value;
-//                 let blankNodeMeasure = Number.parseFloat(Global.precise(Number.parseFloat(jsonItem.measure.value) * 100));
-//                 let rawDate: Dayjs = Global.parseDate(jsonItem.date.value);
-//                 let date = rawDate.format("YYYY-MM-DD");
-
-//                 if (!endpointDateMeasureMap.has(endpoint)) {
-//                     endpointDateMeasureMap.set(endpoint, new Map());
-//                 }
-//                 if (!endpointDateMeasureMap.get(endpoint).has(date)) {
-//                     endpointDateMeasureMap.get(endpoint).set(date, blankNodeMeasure);
-//                 }
-//                 if (endpointDateMeasureMap.get(endpoint).has(date) && endpointDateMeasureMap.get(endpoint).get(date) < blankNodeMeasure) {
-//                     endpointDateMeasureMap.get(endpoint).set(date, blankNodeMeasure);
-//                 }
-//             });
-//         }
-
-//         endpointDateMeasureMap.forEach((dateMeasureMap, endpoint) => {
-//             dateMeasureMap.forEach((measure, date) => {
-//                 blankNodeData.push({ date: date, endpoint: endpoint, measure: measure })
-//             })
-//         })
-
-//         return Promise.resolve(blankNodeData);
-//     })
-//         .then(blankNodeData => {
-//             try {
-//                 let content = JSON.stringify(blankNodeData);
-//                 return Global.writeFile(Global.getCachedFilenameForRunset(blankNodesDataFilename), content).then(() => {
-//                     Logger.info("blankNodeDataFill END");
-//                     return Promise.resolve();
-//                 })
-//             } catch (err) {
-//                 Logger.error(err)
-//             }
-//             return Promise.reject();
-//         })
-//         .catch(error => {
-//             Logger.error(error)
 //         });
 // }

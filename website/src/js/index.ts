@@ -356,10 +356,65 @@ window.onload = (() => {
     Control.Control.getCacheFile(Control.triplesOptionFilename).then(tripleChartData => {
         let triplesScatterElement = document.getElementById("tripleScatter");
         if (triplesScatterElement) {
-            Plotly.newPlot("tripleScatter", [tripleChartData])
+            Plotly.newPlot("tripleScatter", tripleChartData)
         }
 
         console.log("Triples chart filled");
+    })
+
+    // Classes Scatter Chart
+    console.log("Filling classes chart ...");
+    Control.Control.getCacheFile(Control.classesOptionFilename).then(classChartData => {
+        let classesScatterElement = document.getElementById("classScatter");
+        if (classesScatterElement) {
+            Plotly.newPlot("classScatter", classChartData)
+        }
+
+        console.log("Classes chart filled");
+    })
+
+    // Properties Scatter Chart
+    console.log("Filling properties chart ...");
+    Control.Control.getCacheFile(Control.propertiesOptionFilename).then(propertyChartData => {
+        let propertiesScatterElement = document.getElementById("propertyScatter");
+        if (propertiesScatterElement) {
+            Plotly.newPlot("propertyScatter", propertyChartData)
+        }
+
+        console.log("Properties chart filled");
+    })
+
+    // Short URIs Scatter Chart
+    console.log("Filling short URIs chart ...");
+    Control.Control.getCacheFile(Control.shortUrisOptionFilename).then(shortUrisChartData => {
+        let shortURIScatterElement = document.getElementById("shortUrisScatter");
+        if (shortURIScatterElement) {
+            Plotly.newPlot("shortUrisScatter", shortUrisChartData)
+        }
+
+        console.log("Short URIs chart filled");
+    })
+
+    // Short URIs Scatter Chart
+    console.log("Filling readable labels chart ...");
+    Control.Control.getCacheFile(Control.readableLabelsOptionFilename).then(shortUrisChartData => {
+        let readableLabelScatterElement = document.getElementById("readableLabelsScatter");
+        if (readableLabelScatterElement) {
+            Plotly.newPlot("readableLabelsScatter", shortUrisChartData)
+        }
+
+        console.log("Readable labels chart filled");
+    })
+
+    // Endpoint/server Scatter Chart
+    console.log("Filling endpoint/server chart ...");
+    Control.Control.getCacheFile(Control.endpointServerOptionFilename).then(endpointServerChartData => {
+        let endpointServerChartElement = document.getElementById("endpointServerChart");
+        if (endpointServerChartElement) {
+            Plotly.newPlot("endpointServerChart", endpointServerChartData)
+        }
+
+        console.log("endpoint/server chart filled");
     })
 
 

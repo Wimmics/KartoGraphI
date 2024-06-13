@@ -19,14 +19,16 @@ export interface SPARQLJSONResult extends JSONObject {
         vars: string[]
     },
     results: {
-        bindings: {
+        bindings: SPARQLJSONResultBinding[]
+    }
+}
+
+export interface SPARQLJSONResultBinding extends JSONObject {
             [x: string]: {
                 type: string,
                 value: string
             }
-        }[]
-    }
-}
+        }
 
 export type RunSetObject = {
     id: string,
@@ -94,15 +96,11 @@ export type KeywordsEndpointDataObject = {
 
 export type ClassCountDataObject = {
     endpoint: string,
-    graph: string,
-    date: Dayjs,
     classes: number
 }
 
 export type PropertyCountDataObject = {
     endpoint: string,
-    graph: string,
-    date: Dayjs,
     properties: number
 }
 
@@ -147,16 +145,7 @@ export type DatasetDescriptionDataObject = {
     who: boolean
 }
 
-export type ShortUriDataObject = {
-    graph: string,
-    date: Dayjs,
-    endpoint: string,
-    measure: number
-}
-
 export type QualityMeasureDataObject = {
-    graph: string,
-    date: Dayjs,
     endpoint: string,
     measure: number
 }
@@ -170,4 +159,9 @@ export type SPARQLFeatureDescriptionDataObject = {
     feature: string,
     description: string,
     query: string
+}
+
+export type EndpointServerDataObject = {
+    endpoint: string,
+    server: string,
 }

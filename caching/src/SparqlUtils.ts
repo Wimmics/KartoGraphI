@@ -3,7 +3,7 @@ import * as $rdf from "rdflib";
 import { fetchGETPromise, fetchJSONPromise, fetchPOSTPromise } from "./GlobalUtils.js";
 import * as RDFUtils from "./RDFUtils.js";
 import * as Logger from "./LogUtils.js"
-import { JSONValue, SPARQLJSONResult } from "./DataTypes.js";
+import { JSONObject, JSONValue, SPARQLJSONResult, SPARQLJSONResultBinding } from "./DataTypes.js";
 
 export let defaultQueryTimeout = 60000;
 
@@ -89,7 +89,7 @@ export function sparqlQueryToIndeGxPromise(query: string, timeout: number = defa
 }
 
 
-function paginatedSparqlQueryPromise(endpointUrl: string, query: string, pageSize: number, iteration?: number, timeout?: number, finalResult?: $rdf.Formula | Array<JSONValue>): Promise<$rdf.Formula | Array<JSONValue>> {
+function paginatedSparqlQueryPromise(endpointUrl: string, query: string, pageSize: number, iteration?: number, timeout?: number, finalResult?: $rdf.Formula | Array<SPARQLJSONResultBinding>): Promise<$rdf.Formula | Array<SPARQLJSONResultBinding>> {
     let generator = new sparqljs.Generator();
     let parser = new sparqljs.Parser();
     if (iteration == undefined) {
@@ -101,7 +101,7 @@ function paginatedSparqlQueryPromise(endpointUrl: string, query: string, pageSiz
     let queryObject = parser.parse(query);
     if (isSparqlSelect(query)) {
         if (finalResult == undefined) {
-            finalResult = [] as Array<JSONValue>;
+            finalResult = [] as Array<SPARQLJSONResultBinding>;
         }
     } else if (isSparqlConstruct(query)) {
         if (finalResult == undefined) {
@@ -122,8 +122,8 @@ function paginatedSparqlQueryPromise(endpointUrl: string, query: string, pageSiz
                 let parsedSelectQueryResult: SPARQLJSONResult = generatedQueryResult as SPARQLJSONResult;
                 try {
                     if (parsedSelectQueryResult != undefined && parsedSelectQueryResult.results != undefined && parsedSelectQueryResult.results.bindings != undefined) {
-                        (finalResult as Array<JSONValue>) = (finalResult as Array<JSONValue>).concat(parsedSelectQueryResult["results"].bindings as JSONValue[]);
-                        if ((parsedSelectQueryResult as JSONValue)["results"].bindings.length > 0) {
+                        (finalResult as Array<SPARQLJSONResultBinding>) = (finalResult as Array<SPARQLJSONResultBinding>).concat(parsedSelectQueryResult["results"].bindings as SPARQLJSONResultBinding[]);
+                        if ((parsedSelectQueryResult as SPARQLJSONResult)["results"].bindings.length > 0) {
                             return paginatedSparqlQueryPromise(endpointUrl, query, pageSize, iteration + 1, timeout, finalResult);
                         } else {
                             return finalResult;
@@ -157,6 +157,6 @@ function paginatedSparqlQueryPromise(endpointUrl: string, query: string, pageSiz
         });
 }
 
-export function paginatedSparqlQueryToIndeGxPromise(query, pageSize = 100): Promise<$rdf.Formula | Array<JSONValue>> {
+export function paginatedSparqlQueryToIndeGxPromise(query, pageSize = 100): Promise<$rdf.Formula | SPARQLJSONResultBinding[]> {
     return paginatedSparqlQueryPromise("http://prod-dekalog.inria.fr/sparql", query, pageSize);
 }

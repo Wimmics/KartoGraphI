@@ -1,40 +1,36 @@
 import * as DataCache from './DataCaching.js';
 import * as Logger from './LogUtils.js';
-import * as EChartsCache from './EChartsDataCaching.js';
 import * as PlotlyCache from './PlotlyDataCaching.js';
 
 
 Promise.allSettled([
-    // DataCache.allVocabFill().then(() =>
-    //     Promise.allSettled([
-    //         EChartsCache.endpointVocabsGraphEchartsOption(),
-    //         EChartsCache.endpointKeywordsGraphEchartsOption(),
-    //         EChartsCache.endpointStandardVocabulariesGraphEchartsOption()
-    //     ])
-    // ),
+    DataCache.allVocabFill(),
     // DataCache.endpointMapfill(),
 
-    // DataCache.tripleDataFill().then(() =>
-    //         PlotlyCache.triplesEchartsOption()
-    // ),
-    DataCache.SPARQLCoverageFill().then(() =>
-        PlotlyCache.sparqlCoverageEchartsOption()
+    DataCache.tripleDataFill().then(() =>
+            PlotlyCache.triplesChartOption()
     ),
-    // DataCache.classDataFill().then(() =>
-    //     EChartsCache.classesEchartsOption()
+    // DataCache.SPARQLCoverageFill().then(() =>
+    //     PlotlyCache.sparqlCoverageChartOption()
     // ),
-    // DataCache.propertyDataFill().then(() =>
-    //     EChartsCache.propertiesEchartsOption()
-    // ),
-    // DataCache.shortUrisDataFill().then(() =>
-    //     EChartsCache.shortUrisEchartsOption()
-    // ),
+    DataCache.serverHeadersFill().then(() => 
+        PlotlyCache.endpointServerChartOption()
+    ),
+    DataCache.classDataFill().then(() =>
+        PlotlyCache.classesChartOption()
+    ),
+    DataCache.propertyDataFill().then(() =>
+        PlotlyCache.propertiesChartOption()
+    ),
+    DataCache.shortUrisDataFill().then(() =>
+        PlotlyCache.shortUrisChartOption()
+    ),
     // DataCache.rdfDataStructureDataFill().then(() =>
     //     EChartsCache.rdfDataStructuresEchartsOption()
     // ),
-    // DataCache.readableLabelsDataFill().then(() =>
-    //     EChartsCache.readableLabelsEchartsOption()
-    // ),
+    DataCache.readableLabelsDataFill().then(() =>
+        PlotlyCache.readableLabelsChartOption()
+    ),
     // DataCache.blankNodeDataFill().then(() =>
     //     EChartsCache.blankNodesEchartsOption()
     // ),
