@@ -13,16 +13,21 @@
    },
    "devDependencies": {
       "@types/node-fetch": "^2.6.2",
+      "assert": "^2.1.0",
+      "constants-browserify": "^1.0.0",
       "crypto-browserify": "^3.12.0",
       "dayjs": "latest",
       "echarts": "^5.5.0",
       "jquery": "^3.6.4",
       "leaflet": "latest",
+      "os-browserify": "^0.3.0",
       "parcel": "^2.3.1",
+      "path-browserify": "^1.0.1",
       "punycode": "^1.4.1",
       "querystring-es3": "^0.2.1",
       "stream-browserify": "^3.0.0",
-      "url": "^0.11.3"
+      "url": "^0.11.3",
+      "util": "^0.12.5"
    },
    "dependencies": {
       "@types/bootstrap": "^5.2.6",
@@ -50,7 +55,7 @@
       "leaflet-providers": "^1.13.0",
       "md5": "^2.3.0",
       "npm": "^10.8.0",
-      "plotly.js-dist": "^2.33.0",
+      "plotly.js-dist-min": "^2.33.0",
       "process": "^0.11.10",
       "sigma": "^3.0.0-beta.19",
       "typescript": "^4.9.5",

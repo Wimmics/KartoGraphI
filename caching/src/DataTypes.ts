@@ -150,6 +150,11 @@ export type QualityMeasureDataObject = {
     measure: number
 }
 
+export type LanguageListDataObject = {    
+    endpoint: string,
+    languages: Array<string>
+}
+
 export type GraphListDataObject = {    
     name: string,
     graphs: Array<string>

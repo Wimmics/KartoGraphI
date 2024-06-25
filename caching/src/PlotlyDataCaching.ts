@@ -1,45 +1,30 @@
 import * as DataCache from "./DataCaching.js";
 import { readFile, writeFile } from "fs/promises";
-import { AverageRuntimeDataObject, ClassCountDataObject, DatasetDescriptionDataObject, EndpointServerDataObject, EndpointTestDataObject, GeolocDataObject, GraphListDataObject, JSONArray, KeywordsEndpointDataObject, PropertyCountDataObject, QualityMeasureDataObject, SPARQLCoverageDataObject, SPARQLFeatureDataObject, SPARQLFeatureDescriptionDataObject, TotalRuntimeDataObject, TripleCountDataObject, VocabEndpointDataObject, VocabKeywordsDataObject } from "./DataTypes.js";
+import { AverageRuntimeDataObject, ClassCountDataObject, DatasetDescriptionDataObject, EndpointServerDataObject, EndpointTestDataObject, GeolocDataObject, GraphListDataObject, JSONArray, KeywordsEndpointDataObject, LanguageListDataObject, PropertyCountDataObject, QualityMeasureDataObject, SPARQLCoverageDataObject, SPARQLFeatureDataObject, SPARQLFeatureDescriptionDataObject, TotalRuntimeDataObject, TripleCountDataObject, VocabEndpointDataObject, VocabKeywordsDataObject } from "./DataTypes.js";
 import * as Logger from "./LogUtils.js";
 import * as ChartsUtils from "./ChartsUtils.js";
 import * as Global from "./GlobalUtils.js";
+import * as Plotly from "plotly.js";
 
 const numberOfVocabulariesLimit = 1000;
 
-export const sparqlCoverageOptionFilename = DataCache.dataCachedFilePrefix + "sparqlCoverageOption.json";
-export const sparql10CoverageOptionFilename = DataCache.dataCachedFilePrefix + "sparql10CoverageOption.json";
-export const sparql11CoverageOptionFilename = DataCache.dataCachedFilePrefix + "sparql11CoverageOption.json";
-export const vocabEndpointOptionFilename = DataCache.dataCachedFilePrefix + "vocabEndpointOption.json";
-export const triplesOptionFilename = DataCache.dataCachedFilePrefix + "triplesOption.json";
-export const classesOptionFilename = DataCache.dataCachedFilePrefix + "classesOption.json";
-export const propertiesOptionFilename = DataCache.dataCachedFilePrefix + "propertiesOption.json";
-export const shortUrisOptionFilename = DataCache.dataCachedFilePrefix + "shortUrisOption.json";
-export const rdfDataStructuresOptionFilename = DataCache.dataCachedFilePrefix + "rdfDataStructuresOption.json";
-export const readableLabelsOptionFilename = DataCache.dataCachedFilePrefix + "readableLabelsOption.json";
-export const blankNodesOptionFilename = DataCache.dataCachedFilePrefix + "blankNodesOption.json";
-export const datasetDescriptionOptionFilename = DataCache.dataCachedFilePrefix + "datasetDescriptionOption.json";
-export const totalRuntimeOptionFilename = DataCache.dataCachedFilePrefix + "totalRuntimeOption.json";
-export const keywordEndpointOptionFilename = DataCache.dataCachedFilePrefix + "keywordEndpointOption.json";
-export const standardVocabulariesEndpointGraphOptionFilename = DataCache.dataCachedFilePrefix + "standardVocabulariesEndpointGraphOption.json";
-export const endpointServerChartOptionFilename = DataCache.dataCachedFilePrefix + "endpointServerChartOption.json";
-
-
-let whiteListData: Map<string, Array<string>>;
-let geolocData: Array<GeolocDataObject>;
-let sparqlFeaturesData: Array<SPARQLFeatureDataObject>;
-let knownVocabData: Array<string>;
-let vocabKeywordData: Array<VocabKeywordsDataObject>;
-let classCountData: Array<ClassCountDataObject>;
-let propertyCountData: Array<PropertyCountDataObject>;
-let tripleCountData: Array<TripleCountDataObject>;
-let shortUrisData: Array<QualityMeasureDataObject>;
-let rdfDataStructureData: Array<QualityMeasureDataObject>;
-let readableLabelData: Array<QualityMeasureDataObject>;
-let blankNodesData: Array<QualityMeasureDataObject>;
-let classPropertyData: any;
-let datasetDescriptionData: Array<DatasetDescriptionDataObject>;
-let sparqlFeatureDesc: Array<SPARQLFeatureDescriptionDataObject>;
+export const sparqlCoveragePlotlyDataFilename = DataCache.dataCachedFilePrefix + "sparqlCoveragePlotlyData.json";
+export const sparql10CoveragePlotlyDataFilename = DataCache.dataCachedFilePrefix + "sparql10CoveragePlotlyData.json";
+export const sparql11CoveragePlotlyDataFilename = DataCache.dataCachedFilePrefix + "sparql11CoveragePlotlyData.json";
+export const vocabEndpointPlotlyDataFilename = DataCache.dataCachedFilePrefix + "vocabEndpointPlotlyData.json";
+export const triplesPlotlyDataFilename = DataCache.dataCachedFilePrefix + "triplesPlotlyData.json";
+export const classesPlotlyDataFilename = DataCache.dataCachedFilePrefix + "classesPlotlyData.json";
+export const propertiesPlotlyDataFilename = DataCache.dataCachedFilePrefix + "propertiesPlotlyData.json";
+export const shortUrisPlotlyDataFilename = DataCache.dataCachedFilePrefix + "shortUrisPlotlyData.json";
+export const rdfDataStructuresPlotlyDataFilename = DataCache.dataCachedFilePrefix + "rdfDataStructuresPlotlyData.json";
+export const readableLabelsPlotlyDataFilename = DataCache.dataCachedFilePrefix + "readableLabelsPlotlyData.json";
+export const blankNodesPlotlyDataFilename = DataCache.dataCachedFilePrefix + "blankNodesPlotlyData.json";
+export const endpointLanguagesPlotlyDataFilename = DataCache.dataCachedFilePrefix + "endpointLanguagesPlotlyData.json";
+export const datasetDescriptionPlotlyDataFilename = DataCache.dataCachedFilePrefix + "datasetDescriptionPlotlyData.json";
+export const totalRuntimePlotlyDataFilename = DataCache.dataCachedFilePrefix + "totalRuntimePlotlyData.json";
+export const keywordEndpointPlotlyDataFilename = DataCache.dataCachedFilePrefix + "keywordEndpointPlotlyData.json";
+export const standardVocabulariesEndpointGraphPlotlyDataFilename = DataCache.dataCachedFilePrefix + "standardVocabulariesEndpointGraphPlotlyData.json";
+export const endpointServerChartPlotlyDataFilename = DataCache.dataCachedFilePrefix + "endpointServerChartPlotlyData.json";
 
 
 export function sparqlCoverageChartOption(): Promise<void> {
@@ -54,24 +39,14 @@ export function sparqlCoverageChartOption(): Promise<void> {
                 featureCountYArray.push(featureObject.features.length / 41 * 100);
                 featureCountTextArray.push(featureObject.endpoint);
             })
-            let featureCountChartOption = {
+            let featureCountChartOption: Partial<Plotly.ScatterData> = {
                 mode: 'markers',
                 type: 'scatter',
                 x: featureCountXArray,
                 y: featureCountYArray,
                 text: featureCountTextArray,
-                xaxis: {
-                    type: "linear",
-                    showticklabels: false,
-                    ticks: "",
-                    autorange: true
-                },
-                yaxis: {
-                    type: 'linear',
-                    autorange: true
-                }
             };
-            return Global.writeFile(sparqlCoverageOptionFilename, JSON.stringify(featureCountChartOption));
+            return Global.writeFile(sparqlCoveragePlotlyDataFilename, JSON.stringify(featureCountChartOption));
         } else {
             return Promise.reject("No data to generate the SPARQL coverage graph");
         }
@@ -95,24 +70,14 @@ export function triplesChartOption(): Promise<void> {
                 triplesYArray.push(tripleObject.triples)
                 triplesTextArray.push(tripleObject.endpoint)
             })
-            let triplesChartOption = [{
+            let triplesChartOption = {
                 mode: 'markers',
                 type: 'scatter',
                 x: triplesXArray,
                 y: triplesYArray,
                 text: triplesTextArray,
-                xaxis: {
-                    type: "linear",
-                    showticklabels: false,
-                    ticks: "",
-                    autorange: true
-                },
-                yaxis: {
-                    type: 'log',
-                    autorange: true
-                }
-            }]
-            return Global.writeFile(triplesOptionFilename, JSON.stringify(triplesChartOption));
+            };
+            return Global.writeFile(triplesPlotlyDataFilename, JSON.stringify(triplesChartOption));
         } else {
             return Promise.reject("No data to generate the triples graph");
         }
@@ -138,24 +103,14 @@ export function classesChartOption(): Promise<void> {
                 classesYArray.push(classObject.classes)
                 classesTextArray.push(classObject.endpoint)
             })
-            let classesChartOption = [{
+            let classesChartOption = {
                 mode: 'markers',
                 type: 'scatter',
                 x: classesXArray,
                 y: classesYArray,
                 text: classesTextArray,
-                xaxis: {
-                    type: "linear",
-                    showticklabels: false,
-                    ticks: "",
-                    autorange: true
-                },
-                yaxis: {
-                    type: 'log',
-                    autorange: true
-                }
-            }]
-            return Global.writeFile(classesOptionFilename, JSON.stringify(classesChartOption));
+            }
+            return Global.writeFile(classesPlotlyDataFilename, JSON.stringify(classesChartOption));
 
         } else {
             return Promise.reject("No data to generate the classes chart");
@@ -182,24 +137,14 @@ export function propertiesChartOption(): Promise<void> {
                 propertiesYArray.push(propertyObject.properties)
                 propertiesTextArray.push(propertyObject.endpoint)
             })
-            let propertiesChartOption = [{
+            let propertiesChartOption = {
                 mode: 'markers',
                 type: 'scatter',
                 x: propertiesXArray,
                 y: propertiesYArray,
                 text: propertiesTextArray,
-                xaxis: {
-                    type: "linear",
-                    showticklabels: false,
-                    ticks: "",
-                    autorange: true,
-                },
-                yaxis: {
-                    type: 'log',
-                    autorange: true
-                }
-            }]
-            return Global.writeFile(propertiesOptionFilename, JSON.stringify(propertiesChartOption));
+            }
+            return Global.writeFile(propertiesPlotlyDataFilename, JSON.stringify(propertiesChartOption));
 
         } else {
             return Promise.reject("No data to generate the properties chart");
@@ -225,24 +170,14 @@ export function shortUrisChartOption(): Promise<void> {
                 shortUriYArray.push(shortUriObject.measure)
                 shortUriTextArray.push(shortUriObject.endpoint)
             })
-            let shortUriChartOption = [{
+            let shortUriChartOption = {
                 mode: 'markers',
                 type: 'scatter',
                 x: shortUriXArray,
                 y: shortUriYArray,
                 text: shortUriTextArray,
-                xaxis: {
-                    type: "linear",
-                    showticklabels: false,
-                    ticks: "",
-                    autorange: true,
-                },
-                yaxis: {
-                    type: 'log',
-                    autorange: true
-                }
-            }]
-            return Global.writeFile(shortUrisOptionFilename, JSON.stringify(shortUriChartOption));
+            };
+            return Global.writeFile(shortUrisPlotlyDataFilename, JSON.stringify(shortUriChartOption));
 
         } else {
             return Promise.reject("No data to generate the short URI chart");
@@ -268,24 +203,14 @@ export function readableLabelsChartOption(): Promise<void> {
                 readableLabelsYArray.push(readableLabelsObject.measure)
                 readableLabelsTextArray.push(readableLabelsObject.endpoint)
             })
-            let readableLabelsChartOption = [{
+            let readableLabelsChartOption = {
                 mode: 'markers',
                 type: 'scatter',
                 x: readableLabelsXArray,
                 y: readableLabelsYArray,
                 text: readableLabelsTextArray,
-                xaxis: {
-                    type: "linear",
-                    showticklabels: false,
-                    ticks: "",
-                    autorange: true,
-                },
-                yaxis: {
-                    type: 'log',
-                    autorange: true
-                }
-            }]
-            return Global.writeFile(readableLabelsOptionFilename, JSON.stringify(readableLabelsChartOption));
+            };
+            return Global.writeFile(readableLabelsPlotlyDataFilename, JSON.stringify(readableLabelsChartOption));
 
         } else {
             return Promise.reject("No data to generate the readable label chart");
@@ -295,69 +220,102 @@ export function readableLabelsChartOption(): Promise<void> {
     });
 }
 
-// export function rdfDataStructuresChartOption(): Promise<void> {
-//     return readFile(DataCache.rdfDataStructureDataFilename, "utf-8").then(rdfDataStructuresCountRawData => {
-//         rdfDataStructureData = JSON.parse(rdfDataStructuresCountRawData);
-//         // Scatter plot of the number of classes through time
-//         let endpointDataSerieMap = new Map();
-//         rdfDataStructureData.forEach((itemResult, i) => {
-//             let endpointUrl = itemResult.endpoint;
-//             endpointDataSerieMap.set(endpointUrl, []);
-//         });
-//         rdfDataStructureData.forEach((itemResult, i) => {
-//             let date = itemResult.date;
-//             let endpointUrl = itemResult.endpoint;
-//             let rdfDatastructures = itemResult.measure;
-//             endpointDataSerieMap.get(endpointUrl).push([date, rdfDatastructures])
-//         });
+export function rdfDataStructuresChartOption(): Promise<void> {
+    return Global.readJSONFile(DataCache.rdfDataStructureDataFilename).then(rdfDataStructuresData => {
 
-//         if (endpointDataSerieMap.size > 0) {
-//             let rdfDataStructuresSeries = ChartsUtils.getScatterDataSeriesFromMap(endpointDataSerieMap);
-//             return writeFile(rdfDataStructuresOptionFilename, JSON.stringify(ChartsUtils.getTimeScatterOption("Proportion of RDF data structures in the datasets", rdfDataStructuresSeries))).then(() => {
-//                 Logger.info("RDF data structures chart data generated");
-//             });
+        if ((rdfDataStructuresData as QualityMeasureDataObject[]).length > 0) {
+            // Scatter plot of the number of properties through time
 
-//         } else {
-//             return Promise.reject("No data to generate the RDF data structures chart");
-//         }
-//     }).catch((error) => {
-//         Logger.error("Error during RDF data structures data reading", error)
-//     });
-// }
+            rdfDataStructuresData = (rdfDataStructuresData as QualityMeasureDataObject[]).sort((to1, to2) => (to1.measure - to2.measure));
 
-// export function blankNodesChartOption(): Promise<void> {
-//     return readFile(DataCache.blankNodesDataFilename, "utf-8").then(blankNodesCountRawData => {
-//         blankNodesData = JSON.parse(blankNodesCountRawData);
-//         // Scatter plot of the number of classes through time
-//         let endpointDataSerieMap = new Map();
-//         blankNodesData.forEach((itemResult, i) => {
-//             let endpointUrl = itemResult.endpoint;
-//             endpointDataSerieMap.set(endpointUrl, []);
-//         });
-//         blankNodesData.forEach((itemResult, i) => {
-//             let date = itemResult.date;
-//             let endpointUrl = itemResult.endpoint;
-//             let blankNodes = itemResult.measure;
-//             endpointDataSerieMap.get(endpointUrl).push([date, blankNodes])
-//         });
+            let rdfDataStructuresXArray: number[] = [];
+            let rdfDataStructuresYArray: number[] = [];
+            let rdfDataStructuresTextArray: string[] = [];
+            (rdfDataStructuresData as QualityMeasureDataObject[]).forEach((rdfDataStructuresObject, index) => {
+                rdfDataStructuresXArray.push(index);
+                rdfDataStructuresYArray.push(rdfDataStructuresObject.measure)
+                rdfDataStructuresTextArray.push(rdfDataStructuresObject.endpoint)
+            })
+            let rdfDataStructuresChartOption = {
+                mode: 'markers',
+                type: 'scatter',
+                x: rdfDataStructuresXArray,
+                y: rdfDataStructuresYArray,
+                text: rdfDataStructuresTextArray,
+            };
+            return Global.writeFile(rdfDataStructuresPlotlyDataFilename, JSON.stringify(rdfDataStructuresChartOption));
 
-//         if (endpointDataSerieMap.size > 0) {
-//             let blankNodesSeries = ChartsUtils.getScatterDataSeriesFromMap(endpointDataSerieMap);
-//             return writeFile(blankNodesOptionFilename, JSON.stringify(ChartsUtils.getTimeScatterOption("Proportion of blank nodes in the datasets", blankNodesSeries))).then(() => {
-//                 Logger.info("Blank nodes chart data");
-//             });
+        } else {
+            return Promise.reject("No data to generate the RDF data structures chart");
+        }
+    }).catch((error) => {
+        Logger.error("Error during RDF data structures data reading", error)
+    });
+}
 
-//         } else {
-//             return Promise.reject("No data to generate the blank nodes chart");
-//         }
-//     }).catch((error) => {
-//         Logger.error("Error during blank nodes data reading", error)
-//     });
-// }
+export function blankNodesChartOption(): Promise<void> {
+    return Global.readJSONFile(DataCache.blankNodesDataFilename).then(blankNodesData => {
+
+        if ((blankNodesData as QualityMeasureDataObject[]).length > 0) {
+            // Scatter plot of the number of properties through time
+
+            blankNodesData = (blankNodesData as QualityMeasureDataObject[]).sort((to1, to2) => (to1.measure - to2.measure));
+
+            let blankNodesXArray: number[] = [];
+            let blankNodesYArray: number[] = [];
+            let blankNodesTextArray: string[] = [];
+            (blankNodesData as QualityMeasureDataObject[]).forEach((blankNodesObject, index) => {
+                blankNodesXArray.push(index);
+                blankNodesYArray.push(blankNodesObject.measure)
+                blankNodesTextArray.push(blankNodesObject.endpoint)
+            })
+            let blankNodesChartOption = {
+                mode: 'markers',
+                type: 'scatter',
+                x: blankNodesXArray,
+                y: blankNodesYArray,
+                text: blankNodesTextArray,
+            };
+            return Global.writeFile(blankNodesPlotlyDataFilename, JSON.stringify(blankNodesChartOption));
+
+        } else {
+            return Promise.reject("No data to generate the blank nodes chart");
+        }
+    }).catch((error) => {
+        Logger.error("Error during blank nodes data reading", error)
+    });
+}
+
+export function endpointLanguagesChartOption(): Promise<void> {
+    return Global.readJSONFile(DataCache.languageListDataFilename).then(rawLanguagesData => {
+        if ((rawLanguagesData as LanguageListDataObject[]).length > 0) {
+            let languagesDataArray = (rawLanguagesData as LanguageListDataObject[]).sort((to1, to2) => (to1.languages.length - to2.languages.length));
+            let endpointLanguageValueXArray: number[] = [];
+            let endpointLanguageValueYArray: number[] = [];
+            let endpointLanguageTextArray: string[] = [];
+            languagesDataArray.forEach((languageDataObject, index) => {
+                endpointLanguageValueXArray.push(index);
+                endpointLanguageValueYArray.push(languageDataObject.languages.length)
+                endpointLanguageTextArray.push(languageDataObject.endpoint)
+            })
+
+            let content = {
+                mode: 'markers',
+                type: 'scatter',
+                x: endpointLanguageValueXArray,
+                y: endpointLanguageValueYArray,
+                text: endpointLanguageTextArray,
+            };
+            return Global.writeFile(endpointLanguagesPlotlyDataFilename, JSON.stringify(content))
+        } else {
+            return Promise.reject("No language data found")
+        }
+    });
+}
 
 // export function datasetDescriptionChartOption() {
 //     Logger.info("Dataset description chart data for generation started")
-//     return readFile(DataCache.datasetDescriptionDataFilename, "utf-8").then(datasetDescriptionRawData => {
+//     return readFile(DataCache.datasetDescriptionPlotlyDataFilename, "utf-8").then(datasetDescriptionRawData => {
 //         datasetDescriptionData = JSON.parse(datasetDescriptionRawData);
 
 //         let whoDataScore = 0;
@@ -563,14 +521,12 @@ export function endpointServerChartOption(): Promise<void> {
                 }
             })
 
-            let content = [
-                {
-                    values: values,
-                    labels: labels,
-                    type: 'pie'
-                }
-            ]
-            return Global.writeFile(endpointServerChartOptionFilename, JSON.stringify(content))
+            let content = {
+                values: values,
+                labels: labels,
+                type: 'pie'
+            };
+            return Global.writeFile(endpointServerChartPlotlyDataFilename, JSON.stringify(content))
         } else {
             return Promise.reject("No endpoint/server data found")
         }

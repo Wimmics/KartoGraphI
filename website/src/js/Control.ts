@@ -1,22 +1,23 @@
 import * as Datatype from "./Datatypes";
 import { cachePromise, xhrJSONPromise } from "./DataConnexion";
 
-// export const vocabEndpointEchartsOptionFilename = "vocabEndpointOption.json";
-// export const keywordEndpointEchartsOptionFilename = "keywordEndpointOption.json";
-// export const standardVocabulariesEndpointGraphEchartsOptionFilename = "standardVocabulariesEndpointGraphOption.json";
-export const sparqlCoverageOptionFilename = "sparqlCoverageOption.json";
-export const sparql10CoverageOptionFilename = "sparql10CoverageOption.json";
-export const sparql11CoverageOptionFilename = "sparql11CoverageOption.json";
-export const triplesOptionFilename = "triplesOption.json";
-export const classesOptionFilename = "classesOption.json";
-export const propertiesOptionFilename = "propertiesOption.json";
-export const shortUrisOptionFilename = "shortUrisOption.json";
-export const rdfDataStructuresOptionFilename = "rdfDataStructuresOption.json";
-export const readableLabelsOptionFilename = "readableLabelsOption.json";
-export const blankNodesOptionFilename = "blankNodesOption.json";
-export const datasetDescriptionOptionFilename = "datasetDescriptionOption.json";
-export const totalRuntimeOptionFilename = "totalRuntimeOption.json";
-export const endpointServerOptionFilename = "endpointServerChartOption.json"
+// export const vocabEndpointEchartsPlotlyDataFilename = "vocabEndpointPlotlyData.json";
+// export const keywordEndpointEchartsPlotlyDataFilename = "keywordEndpointPlotlyData.json";
+// export const standardVocabulariesEndpointGraphEchartsPlotlyDataFilename = "standardVocabulariesEndpointGraphPlotlyData.json";
+export const sparqlCoveragePlotlyDataFilename = "sparqlCoveragePlotlyData.json";
+export const sparql10CoveragePlotlyDataFilename = "sparql10CoveragePlotlyData.json";
+export const sparql11CoveragePlotlyDataFilename = "sparql11CoveragePlotlyData.json";
+export const triplesPlotlyDataFilename = "triplesPlotlyData.json";
+export const classesPlotlyDataFilename = "classesPlotlyData.json";
+export const propertiesPlotlyDataFilename = "propertiesPlotlyData.json";
+export const shortUrisPlotlyDataFilename = "shortUrisPlotlyData.json";
+export const rdfDataStructuresPlotlyDataFilename = "rdfDataStructuresPlotlyData.json";
+export const readableLabelsPlotlyDataFilename = "readableLabelsPlotlyData.json";
+export const blankNodesPlotlyDataFilename = "blankNodesPlotlyData.json";
+export const datasetDescriptionPlotlyDataFilename = "datasetDescriptionPlotlyData.json";
+export const totalRuntimePlotlyDataFilename = "totalRuntimePlotlyData.json";
+export const endpointServerPlotlyDataFilename = "endpointServerChartPlotlyData.json"
+export const endpointLanguagesPlotlyDataFilename = "endpointLanguagesPlotlyData.json"
 
 // Cached files
 export const geolocDataFilename = 'geolocData.json';
@@ -34,6 +35,7 @@ export const rdfDataStructureDataFilename = "rdfDataStructureData.json";
 export const readableLabelDataFilename = "readableLabelData.json";
 export const blankNodesDataFilename = "blankNodesData.json";
 export const endpointServerDataFilename = "endpointServerData.json";
+export const languageListDataFilename = "languagesData.json";
 
 const textElementsFile = xhrJSONPromise("https://raw.githubusercontent.com/Wimmics/dekalog/master/LODMap/src/data/cache/textElements.json");
 const sparqlFeatureDescFile = cachePromise("SPARQLFeatureDescriptions.json");
@@ -92,22 +94,24 @@ export class Control {
             // classPropertyDataFilename,
             // propertyCountDataFilename,
             // datasetDescriptionDataFilename,
-            // shortUriDataFilename,
-            // rdfDataStructureDataFilename,
-            // readableLabelDataFilename,
-            // blankNodesDataFilename,
+            shortUriDataFilename,
+            rdfDataStructureDataFilename,
+            readableLabelDataFilename,
+            blankNodesDataFilename,
+            languageListDataFilename,
 
             // // Echarts options
-            triplesOptionFilename,
-            sparqlCoverageOptionFilename,
-            endpointServerOptionFilename,
-            // classesEchartsOptionFilename,
-            // propertiesEchartsOptionFilename,
-            // shortUrisEchartsOptionFilename,
-            // rdfDataStructuresEchartsOptionFilename,
-            // readableLabelsEchartsOptionFilename,
-            // blankNodesEchartsOptionFilename,
-            // datasetDescriptionEchartsOptionFilename,
+            triplesPlotlyDataFilename,
+            sparqlCoveragePlotlyDataFilename,
+            endpointServerPlotlyDataFilename,
+            classesPlotlyDataFilename,
+            propertiesPlotlyDataFilename,
+            shortUrisPlotlyDataFilename,
+            rdfDataStructuresPlotlyDataFilename,
+            readableLabelsPlotlyDataFilename,
+            blankNodesPlotlyDataFilename,
+            endpointLanguagesPlotlyDataFilename,
+            // datasetDescriptionEchartsPlotlyDataFilename,
         ];
 
         // Loading all the data files into the bank

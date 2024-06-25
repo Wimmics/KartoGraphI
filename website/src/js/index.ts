@@ -7,16 +7,16 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 dayjs.extend(relativeTime)
 dayjs.extend(customParseFormat)
 dayjs.extend(duration)
-import * as Control from './Control';
-import * as View from './ViewUtils';
-import * as Datatype from "./Datatypes";
-import * as Utils from "./Utils";
-import * as Plotly from 'plotly.js-dist';
+import * as Plotly from 'plotly.js-dist-min';
 import Graph from "graphology";
 import FA2Layout from 'graphology-layout-forceatlas2/worker';
 import circular from 'graphology-layout/circular';
 import Sigma from "sigma";
 import forceAtlas2 from 'graphology-layout-forceatlas2';
+import * as Control from './Control';
+import * as View from './ViewUtils';
+import * as Datatype from "./Datatypes";
+import * as Utils from "./Utils";
 
 window.onload = (() => {
 
@@ -249,43 +249,43 @@ window.onload = (() => {
                 graphSPIN.addNode(idNumber.toString(), { label: endpointName, x: Math.random() * 100, y: Math.random() * 100, size: 3, color: "#A2A3B0" });
                 idNumber++;
             })
-            graphRDF.addNode(idNumber.toString(), { label: "http://www.w3.org/1999/02/22-rdf-syntax-ns#", x: Math.random() * 100, y: Math.random() * 100, size: 3, color: "#00E646" });
+            graphRDF.addNode(idNumber.toString(), { label: "RDF", x: Math.random() * 100, y: Math.random() * 100, size: 6, color: "#00E646" });
             nodeIdMap.set("http://www.w3.org/1999/02/22-rdf-syntax-ns#", idNumber++);
-            graphRDFS.addNode(idNumber.toString(), { label: "http://www.w3.org/2000/01/rdf-schema#", x: Math.random() * 100, y: Math.random() * 100, size: 3, color: "#E3B507" });
+            graphRDFS.addNode(idNumber.toString(), { label: "RDFS", x: Math.random() * 100, y: Math.random() * 100, size: 6, color: "#E3B507" });
             nodeIdMap.set("http://www.w3.org/2000/01/rdf-schema#", idNumber++);
-            graphOWL.addNode(idNumber.toString(), { label: "http://www.w3.org/2002/07/owl#", x: Math.random() * 100, y: Math.random() * 100, size: 3, color: "#000FE0" });
+            graphOWL.addNode(idNumber.toString(), { label: "OWL", x: Math.random() * 100, y: Math.random() * 100, size: 6, color: "#000FE0" });
             nodeIdMap.set("http://www.w3.org/2002/07/owl#", idNumber++);
-            graphSHACL.addNode(idNumber.toString(), { label: "http://www.w3.org/ns/shacl#", x: Math.random() * 100, y: Math.random() * 100, size: 3, color: "#E60300" });
+            graphSHACL.addNode(idNumber.toString(), { label: "SHACL", x: Math.random() * 100, y: Math.random() * 100, size: 6, color: "#E60300" });
             nodeIdMap.set("http://www.w3.org/ns/shacl#", idNumber++);
-            graphSKOS.addNode(idNumber.toString(), { label: "http://www.w3.org/2004/02/skos/core#", x: Math.random() * 100, y: Math.random() * 100, size: 3, color: "#ACE600" });
+            graphSKOS.addNode(idNumber.toString(), { label: "SKOS", x: Math.random() * 100, y: Math.random() * 100, size: 6, color: "#ACE600" });
             nodeIdMap.set("http://www.w3.org/2004/02/skos/core#", idNumber++);
-            graphSWRL.addNode(idNumber.toString(), { label: "http://www.w3.org/2003/11/swrl#", x: Math.random() * 100, y: Math.random() * 100, size: 3, color: "#ACE600" });
+            graphSWRL.addNode(idNumber.toString(), { label: "SWRL", x: Math.random() * 100, y: Math.random() * 100, size: 6, color: "#ACE600" });
             nodeIdMap.set("http://www.w3.org/2003/11/swrl#", idNumber++);
-            graphSPIN.addNode(idNumber.toString(), { label: "http://spinrdf.org/spin#", x: Math.random() * 100, y: Math.random() * 100, size: 3, color: "#00CFE0" });
+            graphSPIN.addNode(idNumber.toString(), { label: "SPIN", x: Math.random() * 100, y: Math.random() * 100, size: 6, color: "#00CFE0" });
             nodeIdMap.set("http://spinrdf.org/spin#", idNumber++);
-            
+
             edgeArray.forEach(edgeObject => {
                 let endpointId = nodeIdMap.get(edgeObject.endpoint as string);
                 let vocabularyId = nodeIdMap.get(edgeObject.vocabulary as string);
-                if(edgeObject.vocabulary === "http://www.w3.org/1999/02/22-rdf-syntax-ns#") {
+                if (edgeObject.vocabulary === "http://www.w3.org/1999/02/22-rdf-syntax-ns#") {
                     graphRDF.addEdge(endpointId?.toString(), vocabularyId?.toString(), { size: 1, color: "black" });
                 }
-                if(edgeObject.vocabulary === "http://www.w3.org/2000/01/rdf-schema#") {
+                if (edgeObject.vocabulary === "http://www.w3.org/2000/01/rdf-schema#") {
                     graphRDFS.addEdge(endpointId?.toString(), vocabularyId?.toString(), { size: 1, color: "black" });
                 }
-                if(edgeObject.vocabulary === "http://www.w3.org/2002/07/owl#") {
+                if (edgeObject.vocabulary === "http://www.w3.org/2002/07/owl#") {
                     graphOWL.addEdge(endpointId?.toString(), vocabularyId?.toString(), { size: 1, color: "black" });
                 }
-                if(edgeObject.vocabulary === "http://www.w3.org/ns/shacl#") {
+                if (edgeObject.vocabulary === "http://www.w3.org/ns/shacl#") {
                     graphSHACL.addEdge(endpointId?.toString(), vocabularyId?.toString(), { size: 1, color: "black" });
                 }
-                if(edgeObject.vocabulary === "http://www.w3.org/2004/02/skos/core#") {
+                if (edgeObject.vocabulary === "http://www.w3.org/2004/02/skos/core#") {
                     graphSKOS.addEdge(endpointId?.toString(), vocabularyId?.toString(), { size: 1, color: "black" });
                 }
-                if(edgeObject.vocabulary === "http://www.w3.org/2003/11/swrl#") {
+                if (edgeObject.vocabulary === "http://www.w3.org/2003/11/swrl#") {
                     graphSWRL.addEdge(endpointId?.toString(), vocabularyId?.toString(), { size: 1, color: "black" });
                 }
-                if(edgeObject.vocabulary === "http://spinrdf.org/spin#") {
+                if (edgeObject.vocabulary === "http://spinrdf.org/spin#") {
                     graphSPIN.addEdge(endpointId?.toString(), vocabularyId?.toString(), { size: 1, color: "black" });
                 }
             })
@@ -313,10 +313,23 @@ window.onload = (() => {
 
     // SPARQL Coverage Charts
     console.log("Filling SPARQL coverage chart ...")
-    Control.Control.getCacheFile(Control.sparqlCoverageOptionFilename).then(sparqlCoverageOption => {
+    Control.Control.getCacheFile(Control.sparqlCoveragePlotlyDataFilename).then(rawSparqlCoverageOption => {
         let sparqlCoverageElement = document.getElementById("SPARQLCoverageHisto");
-        if(sparqlCoverageElement) {
-            Plotly.newPlot("SPARQLCoverageHisto", [sparqlCoverageOption])
+        if (sparqlCoverageElement) {
+            const sparqlCoverageOption = [rawSparqlCoverageOption] as Plotly.Data[];
+            const sparqlCoverageLayout: Partial<Plotly.Layout> = {
+                xaxis: {
+                    type: "linear",
+                    showticklabels: false,
+                    ticks: "",
+                    autorange: true
+                },
+                yaxis: {
+                    type: 'linear',
+                    autorange: true
+                }
+            };
+            Plotly.newPlot("SPARQLCoverageHisto", sparqlCoverageOption, sparqlCoverageLayout)
         }
 
         console.log("SPARQL coverage chart filled")
@@ -353,10 +366,23 @@ window.onload = (() => {
 
     // Triple Scatter Chart
     console.log("Filling triples chart ...");
-    Control.Control.getCacheFile(Control.triplesOptionFilename).then(tripleChartData => {
+    Control.Control.getCacheFile(Control.triplesPlotlyDataFilename).then(rawTripleChartData => {
         let triplesScatterElement = document.getElementById("tripleScatter");
         if (triplesScatterElement) {
-            Plotly.newPlot("tripleScatter", tripleChartData)
+            const tripleChartData = [rawTripleChartData] as Plotly.Data[];
+            const tripleChartLayout: Partial<Plotly.Layout> = {
+                xaxis: {
+                    type: "linear",
+                    showticklabels: false,
+                    ticks: "",
+                    autorange: true
+                },
+                yaxis: {
+                    type: 'log',
+                    autorange: true
+                }
+            };
+            Plotly.newPlot("tripleScatter", tripleChartData, tripleChartLayout)
         }
 
         console.log("Triples chart filled");
@@ -364,10 +390,23 @@ window.onload = (() => {
 
     // Classes Scatter Chart
     console.log("Filling classes chart ...");
-    Control.Control.getCacheFile(Control.classesOptionFilename).then(classChartData => {
+    Control.Control.getCacheFile(Control.classesPlotlyDataFilename).then(rawClassChartData => {
         let classesScatterElement = document.getElementById("classScatter");
         if (classesScatterElement) {
-            Plotly.newPlot("classScatter", classChartData)
+            const classChartData = [rawClassChartData] as Plotly.Data[];
+            const classChartLayout: Partial<Plotly.Layout> = {
+                xaxis: {
+                    type: "linear",
+                    showticklabels: false,
+                    ticks: "",
+                    autorange: true
+                },
+                yaxis: {
+                    type: 'log',
+                    autorange: true
+                }
+            };
+            Plotly.newPlot("classScatter", classChartData, classChartLayout)
         }
 
         console.log("Classes chart filled");
@@ -375,43 +414,159 @@ window.onload = (() => {
 
     // Properties Scatter Chart
     console.log("Filling properties chart ...");
-    Control.Control.getCacheFile(Control.propertiesOptionFilename).then(propertyChartData => {
+    Control.Control.getCacheFile(Control.propertiesPlotlyDataFilename).then(rawPropertyChartData => {
         let propertiesScatterElement = document.getElementById("propertyScatter");
         if (propertiesScatterElement) {
-            Plotly.newPlot("propertyScatter", propertyChartData)
+            const propertyChartData = [rawPropertyChartData] as Plotly.Data[];
+            const propertyChartLayout: Partial<Plotly.Layout> = {
+                xaxis: {
+                    type: "linear",
+                    showticklabels: false,
+                    ticks: "",
+                    autorange: true,
+                },
+                yaxis: {
+                    type: 'log',
+                    autorange: true
+                }
+            };
+            Plotly.newPlot("propertyScatter", propertyChartData, propertyChartLayout)
         }
 
         console.log("Properties chart filled");
     })
 
+    // Languages Scatter Chart
+    console.log("Filling languages chart ...");
+    Control.Control.getCacheFile(Control.endpointLanguagesPlotlyDataFilename).then(rawLanguageListData => {
+        let languagesScatterElement = document.getElementById("languagesScatter");
+        if (languagesScatterElement) {
+            const languageListData = [rawLanguageListData] as Plotly.Data[];
+            const languageListLayout: Partial<Plotly.Layout> = {
+                xaxis: {
+                    type: "linear",
+                    showticklabels: false,
+                    ticks: "",
+                    autorange: true,
+                },
+                yaxis: {
+                    type: 'linear',
+                    autorange: true
+                }
+            };
+            Plotly.newPlot("languagesScatter", languageListData, languageListLayout)
+        }
+
+        console.log("Languages chart filled");
+    })
+
     // Short URIs Scatter Chart
     console.log("Filling short URIs chart ...");
-    Control.Control.getCacheFile(Control.shortUrisOptionFilename).then(shortUrisChartData => {
+    Control.Control.getCacheFile(Control.shortUrisPlotlyDataFilename).then(rawShortUrisChartData => {
         let shortURIScatterElement = document.getElementById("shortUrisScatter");
         if (shortURIScatterElement) {
+            const shortUrisChartData = [rawShortUrisChartData] as Plotly.Data[];
+            const shortUrisChartLayout: Partial<Plotly.Layout> = {
+                xaxis: {
+                    type: "linear",
+                    showticklabels: false,
+                    ticks: "",
+                    autorange: true,
+                },
+                yaxis: {
+                    type: 'linear',
+                    autorange: true
+                }
+            };
             Plotly.newPlot("shortUrisScatter", shortUrisChartData)
         }
 
         console.log("Short URIs chart filled");
     })
 
-    // Short URIs Scatter Chart
+    // Readable labels Scatter Chart
     console.log("Filling readable labels chart ...");
-    Control.Control.getCacheFile(Control.readableLabelsOptionFilename).then(shortUrisChartData => {
+    Control.Control.getCacheFile(Control.readableLabelsPlotlyDataFilename).then(rawReadableLabelsChartData => {
         let readableLabelScatterElement = document.getElementById("readableLabelsScatter");
         if (readableLabelScatterElement) {
-            Plotly.newPlot("readableLabelsScatter", shortUrisChartData)
+            const readableLabelsChartData = [rawReadableLabelsChartData] as Plotly.Data[];
+            const readableLabelsChartLayout: Partial<Plotly.Layout> = {
+                xaxis: {
+                    type: "linear",
+                    showticklabels: false,
+                    ticks: "",
+                    autorange: true,
+                },
+                yaxis: {
+                    type: 'linear',
+                    autorange: true
+                }
+            };
+            Plotly.newPlot("readableLabelsScatter", readableLabelsChartData, readableLabelsChartLayout)
         }
 
         console.log("Readable labels chart filled");
     })
 
-    // Endpoint/server Scatter Chart
+    // Blank Nodes Scatter Chart
+    console.log("Filling blank nodes chart ...");
+    Control.Control.getCacheFile(Control.blankNodesPlotlyDataFilename).then(rawBlankNodesChartData => {
+        let blankNodesScatterElement = document.getElementById("blankNodesScatter");
+        if (blankNodesScatterElement) {
+            const blankNodesChartData = [rawBlankNodesChartData] as Plotly.Data[];
+            const blankNodesChartLayout: Partial<Plotly.Layout> = {
+                xaxis: {
+                    type: "linear",
+                    showticklabels: false,
+                    ticks: "",
+                    autorange: true,
+                },
+                yaxis: {
+                    type: 'linear',
+                    autorange: true
+                }
+            };
+            Plotly.newPlot("blankNodesScatter", blankNodesChartData, blankNodesChartLayout)
+        }
+
+        console.log("Blank nodes chart filled");
+    })
+
+    // RDF Data Structures Scatter Chart
+    console.log("Filling RDF data structures chart ...");
+    Control.Control.getCacheFile(Control.rdfDataStructuresPlotlyDataFilename).then(rawRdfDataStructuresScatterData => {
+        let rdfDataStructuresScatterElement = document.getElementById("rdfDataStructuresScatter");
+        if (rdfDataStructuresScatterElement) {
+            const rdfDataStructuresScatterData = [rawRdfDataStructuresScatterData] as Plotly.Data[];
+            const rdfDataStructuresScatterLayout: Partial<Plotly.Layout> = {
+                xaxis: {
+                    type: "linear",
+                    showticklabels: false,
+                    ticks: "",
+                    autorange: true,
+                },
+                yaxis: {
+                    type: 'linear',
+                    autorange: true
+                }
+            };
+            Plotly.newPlot("rdfDataStructuresScatter", rdfDataStructuresScatterData, rdfDataStructuresScatterLayout)
+        }
+
+        console.log("RDF data structures chart filled");
+    })
+
+
+    
+    // Endpoint/server Pie Chart
     console.log("Filling endpoint/server chart ...");
-    Control.Control.getCacheFile(Control.endpointServerOptionFilename).then(endpointServerChartData => {
+    Control.Control.getCacheFile(Control.endpointServerPlotlyDataFilename).then(rawEndpointServerChartData => {
         let endpointServerChartElement = document.getElementById("endpointServerChart");
         if (endpointServerChartElement) {
-            Plotly.newPlot("endpointServerChart", endpointServerChartData)
+            const endpointServerChartData = [rawEndpointServerChartData] as Plotly.Data[];
+            const endpointServerChartLayout: Partial<Plotly.Layout> = {
+            };
+            Plotly.newPlot("endpointServerChart", endpointServerChartData, endpointServerChartLayout)
         }
 
         console.log("endpoint/server chart filled");
