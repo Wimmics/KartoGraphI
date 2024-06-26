@@ -39,19 +39,6 @@
                 </div>
                 <div class="row justify-content-center collapse" id="endpointGeolocDatatable">
                     <table id="endpointGeolocTable" class="table table-responsive table-hover">
-                        <thead>
-                            <tr>
-                                <th id="endpointGeolocTableEndpointHeader" scope="col">Endpoint</th>
-                                <th id="endpointGeolocTableLatHeader" scope="col">Latitude</th>
-                                <th id="endpointGeolocTableLonHeader" scope="col">Longitude</th>
-                                <th id="endpointGeolocTableCountryHeader" scope="col">Country</th>
-                                <th id="endpointGeolocTableRegionHeader" scope="col">Region</th>
-                                <th id="endpointGeolocTableCityHeader" scope="col">City</th>
-                                <th id="endpointGeolocTableOrgHeader" scope="col">Org</th>
-                            </tr>
-                        </thead>
-                        <tbody id="endpointGeolocTableBody">
-                        </tbody>
                     </table>
                 </div>
             </div>
@@ -64,6 +51,13 @@
                                 <p class="text-center fs-1">Links between SPARQL endpoints and their vocabularies</p>
                             </div>
                             <div class="row" id="vocabs"></div>
+                            <div class="row justify-content-center">
+                                <button id="endpointVocabsDetails" type="button" class="btn btn-link">Details</button>
+                            </div>
+                            <div class="row justify-content-center collapse" id="endpointVocabsDatatable">
+                                <table id="endpointVocabsTable" class="table table-responsive table-hover">
+                                </table>
+                            </div>
                             <div class="row" id="vocabsExplainText"></div>
                             <span class="fs-6"> *: Only the vocabularies listed in <a
                                     href="https://lov.linkeddata.es/dataset/lov">Linked Open Vocabularies</a> and <a
@@ -84,39 +78,11 @@
                                 href='http://prefix.cc'>prefix.cc</a> are
                             shown.
                         </span>
-                        <div class="row">
+                        <div class="row justify-content-center">
                             <button id="endpointKeywordsDetails" type="button" class="btn btn-link">Details</button>
                         </div>
-                        <div class="row collapse" id="endpointKeywordsDatatable">
-                            <table id="endpointKeywordsQueries" class="table table-responsive table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>
-                                            Query for the list of vocabularies
-                                        </th>
-                                        <th id="endpointVocabularyQueryCell">
-                                        </th>
-                                    </tr>
-                                    <tr>
-                                        <th>
-                                            Query for the list of keywords
-                                        </th>
-                                        <th id="endpointKeywordQueryCell">
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody id="endpointKeywordsQueriesBody">
-                                </tbody>
-                            </table>
+                        <div class="row justify-content-center collapse" id="endpointKeywordsDatatable">
                             <table id="endpointKeywordsTable" class="table table-responsive table-hover">
-                                <thead>
-                                    <tr>
-                                        <th id="endpointKeywordsTableEndpointHeader" scope="col">Endpoint</th>
-                                        <th id="endpointKeywordsTableKeywordHeader" scope="col">Keywords</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="endpointKeywordsTableBody">
-                                </tbody>
                             </table>
                         </div>
                     </div>

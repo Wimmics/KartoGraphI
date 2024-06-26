@@ -1,4 +1,5 @@
 import * as Datatype from "./Datatypes";
+import * as Utils from "./Utils";
 import { cachePromise, xhrJSONPromise } from "./DataConnexion";
 
 // export const vocabEndpointEchartsPlotlyDataFilename = "vocabEndpointPlotlyData.json";
@@ -45,7 +46,8 @@ export class Control {
     static ControlInstance: Control;
     textElements: Array<Datatype.TextElement>;
     sparqlFeatureDesc: Array<Datatype.SPARQLFeatureDescriptionDataObject>;
-    
+    vocabularyPrefixes: Map<string, string> = new Map<string, string>();
+
     constructor() {
         if (Control.ControlInstance !== undefined) {
             throw new Error("Control already instantiated");
@@ -55,7 +57,7 @@ export class Control {
     }
 
     init() {
-        return this.loadDataFiles();
+        return this.loadDataFiles().then(() => this.loadPrefixes());
     }
 
     static getInstance() {
@@ -82,38 +84,6 @@ export class Control {
     loadDataFiles() {
         this.showLoadingSpinner()
 
-        let filenameList = [
-            geolocDataFilename,
-            vocabEndpointDataFilename,
-            endpointKeywordDataFilename,
-            sparqlFeaturesDataFilename,
-            sparqlCoverCountFilename,
-            endpointServerDataFilename,
-            tripleCountDataFilename,
-            // classCountDataFilename,
-            // classPropertyDataFilename,
-            // propertyCountDataFilename,
-            // datasetDescriptionDataFilename,
-            shortUriDataFilename,
-            rdfDataStructureDataFilename,
-            readableLabelDataFilename,
-            blankNodesDataFilename,
-            languageListDataFilename,
-
-            // // Echarts options
-            triplesPlotlyDataFilename,
-            sparqlCoveragePlotlyDataFilename,
-            endpointServerPlotlyDataFilename,
-            classesPlotlyDataFilename,
-            propertiesPlotlyDataFilename,
-            shortUrisPlotlyDataFilename,
-            rdfDataStructuresPlotlyDataFilename,
-            readableLabelsPlotlyDataFilename,
-            blankNodesPlotlyDataFilename,
-            endpointLanguagesPlotlyDataFilename,
-            // datasetDescriptionEchartsPlotlyDataFilename,
-        ];
-
         // Loading all the data files into the bank
         return textElementsFile
             .then((data) => {
@@ -128,6 +98,32 @@ export class Control {
                     return;
                 })
             })
+    }
+
+    loadPrefixes(): Promise<void> {
+        if (this.vocabularyPrefixes.size == 0) {
+            return xhrJSONPromise("https://prefix.cc/context").then(rawJsonLDPrefixDeclaration => {
+                let jsonLDPrefixDeclaration = (rawJsonLDPrefixDeclaration as Datatype.JSONObject)["@context"];
+                for (let key in jsonLDPrefixDeclaration as Datatype.JSONObject) {
+                    console.log(key, jsonLDPrefixDeclaration[key])
+                    this.vocabularyPrefixes.set(jsonLDPrefixDeclaration[key], key);
+                }
+                console.log("Prefixes loaded")
+                console.log(Utils.mapToJSON(this.vocabularyPrefixes))
+                return;
+            }).catch(error => {
+                console.error("Error loading prefixes", error);
+                return;
+            })
+        } else {
+            console.log("Prefixes already loaded")
+            console.log(Utils.mapToJSON(this.vocabularyPrefixes))
+            return Promise.resolve();
+        }
+    }
+
+    getPrefixes(): Map<string, string> {
+        return this.vocabularyPrefixes;
     }
 
     hideLoadingSpinner() {
