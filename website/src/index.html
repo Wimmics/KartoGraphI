@@ -30,9 +30,15 @@
             <div class="row border border-grey justify-content-center" id="geoloc">
                 <div class="col-12 gy-5 justify-content-center">
                     <div class="row justify-content-center">
-                        <p class="text-center fs-1">Geolocation of <a href="https://github.com/Wimmics/IndeGx/blob/endpoint_status/catalogs/catalog.latest-status.ttl">known endpoints</a></p>
+                        <p class="text-center fs-1">Geolocation of <a
+                                href="https://github.com/Wimmics/IndeGx/blob/endpoint_status/catalogs/catalog.latest-status.ttl">known
+                                endpoints</a></p>
                     </div>
                     <div class="row justify-content-center" id="map"></div>
+                </div>
+                <div class="row justify-content-center">
+                    <p class="text-center">This map shows the geolocation obtained using a reverse DNS on their URLs.
+                    </p>
                 </div>
                 <div class="row justify-content-center">
                     <button id="endpointGeolocDetails" type="button" class="btn btn-link">Details</button>
@@ -52,18 +58,20 @@
                             </div>
                             <div class="row" id="vocabs"></div>
                             <div class="row justify-content-center">
+                                <p class="text-center">This graph shows links between vocabularies and the SPARQL
+                                    endpoints that contains at least one element (class or property) in their namespace.
+                                </p>
+                                <p class="text-center">Only the vocabularies listed in <a
+                                        href="https://lov.linkeddata.es/dataset/lov">Linked Open Vocabularies</a> and <a
+                                        href='http://prefix.cc'>prefix.cc</a> are shown.</p>
+                            </div>
+                            <div class="row justify-content-center">
                                 <button id="endpointVocabsDetails" type="button" class="btn btn-link">Details</button>
                             </div>
                             <div class="row justify-content-center collapse" id="endpointVocabsDatatable">
                                 <table id="endpointVocabsTable" class="table table-responsive table-hover">
                                 </table>
                             </div>
-                            <div class="row" id="vocabsExplainText"></div>
-                            <span class="fs-6"> *: Only the vocabularies listed in <a
-                                    href="https://lov.linkeddata.es/dataset/lov">Linked Open Vocabularies</a> and <a
-                                    href='http://prefix.cc'>prefix.cc</a> are
-                                shown.
-                            </span>
                         </div>
                     </div>
                     <div class="row justify-content-center border-top border-bottom my-5 py-2">
@@ -72,12 +80,12 @@
                             </p>
                         </div>
                         <div class="row" id="endpointKeywords"></div>
-                        <div class="row" id="endpointKeywordsExplainText"></div>
-                        <span class="fs-6"> *: Only the vocabularies listed in <a
-                                href="https://lov.linkeddata.es/dataset/lov">Linked Open Vocabularies</a> and <a
-                                href='http://prefix.cc'>prefix.cc</a> are
-                            shown.
-                        </span>
+                        <div class="row justify-content-center">
+                            <p class="text-center">This graph shows links between SPARQL endpoints and the keywords
+                                associated with the vocabularies that they contain. The keywords of each vocabulary are
+                                extracted from <a href="https://lov.linkeddata.es/dataset/lov">Linked Open
+                                    Vocabularies</a>.</p>
+                        </div>
                         <div class="row justify-content-center">
                             <button id="endpointKeywordsDetails" type="button" class="btn btn-link">Details</button>
                         </div>
@@ -91,47 +99,57 @@
                             <div class="row justify-content-center">
                                 <p class="text-center fs-1">Links between endpoints and meta-vocabularies</p>
                             </div>
+                            <div class="row justify-content-center">
+                                <p class="text-center">The graphs below show the endpoints connected to the different
+                                    vocabularies most often used to define other vocabularies, hence
+                                    \"meta-vocabularies\".</p>
+                            </div>
                             <div class="row ">
                                 <div class="col-4 justify-content-center">
                                     <div class="row justify-content-center">
                                         <p class="text-center fs-1">RDF</p>
                                     </div>
-                                    <div class="row" id="standardVocabsRDF" style="height: 500px;"></div>
+                                    <div class="row ratio ratio-16x9" id="standardVocabsRDF"></div>
                                 </div>
-                                <div id="standardVocabsRDFS" class="col-4 justify-content-center"
-                                    style="height: 500px;">
+                                <div class="col-4 justify-content-center">
                                     <div class="row justify-content-center">
                                         <p class="text-center fs-1">RDFS</p>
                                     </div>
+                                    <div class="row ratio ratio-16x9" id="standardVocabsRDFS"></div>
                                 </div>
-                                <div id="standardVocabsOWL" class="col-4 justify-content-center" style="height: 500px;">
+                                <div class="col-4 justify-content-center">
                                     <div class="row justify-content-center">
                                         <p class="text-center fs-1">OWL</p>
                                     </div>
+                                    <div class="row ratio ratio-16x9" id="standardVocabsOWL"></div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row justify-content-center border-top border-bottom my-5 py-2">
-                        <div id="standardVocabsSKOS" class="col-3 justify-content-center" style="height: 500px;">
+                        <div class="col-3 justify-content-center">
                             <div class="row justify-content-center">
                                 <p class="text-center fs-1">SKOS</p>
                             </div>
+                            <div class="row ratio ratio-16x9" id="standardVocabsSKOS"></div>
                         </div>
-                        <div id="standardVocabsSHACL" class="col-3 justify-content-center" style="height: 500px;">
+                        <div class="col-3 justify-content-center">
                             <div class="row justify-content-center">
                                 <p class="text-center fs-1">SHACL</p>
                             </div>
+                            <div class="row ratio ratio-16x9" id="standardVocabsSHACL"></div>
                         </div>
-                        <div id="standardVocabsSWRL" class="col-3 justify-content-center" style="height: 500px;">
+                        <div class="col-3 justify-content-center">
                             <div class="row justify-content-center">
                                 <p class="text-center fs-1">SWRL</p>
                             </div>
+                            <div class="row ratio ratio-16x9" id="standardVocabsSWRL"></div>
                         </div>
-                        <div id="standardVocabsSPIN" class="col-3 justify-content-center" style="height: 500px;">
+                        <div class="col-3 justify-content-center">
                             <div class="row justify-content-center">
                                 <p class="text-center fs-1">SPIN</p>
                             </div>
+                            <div class="row ratio ratio-16x9" id="standardVocabsSPIN"></div>
                         </div>
                         <div id="standardVocabsExplainText"></div>
                     </div>
@@ -141,8 +159,9 @@
             <div class="row border border-grey justify-content-center" id="sparql">
                 <div class="col-12 justify-content-center gy-5">
                     <h3 class='mb-4 text-center'>Estimation of the SPARQL features covered by the endpoints</h3>
-                    <div class="row">
-                        <div class="col-12 justify-content-center" id="SPARQLCoverageHisto"></div>
+                    <div class="row justify-content-center h-auto ratio ratio-21x9" id="SPARQLCoverageHisto"></div>
+                    <div class="row justify-content-center">
+                        <p class="text-center">This charts shows the number of SPARQL features supported by endpoints amog 41 tested features. The tests are inspired by <a href="https://sparqles.ai.wu.ac.at/">SPARQLES</a>.</p>
                     </div>
                     <div class="row">
                         <button id="tableSPARQLFeaturesDetails" type="button" class="btn btn-link">Details of the
@@ -150,14 +169,6 @@
                     </div>
                     <div class="row collapse" id="SPARQLFeaturesDatatable">
                         <table id="SPARQLFeaturesTable" class="table table-responsive table-hover">
-                            <thead>
-                                <tr>
-                                    <th id="SPARQLFeaturesTableEndpointHeader" scope="col">Endpoint</th>
-                                    <th id="SPARQLFeaturesTableFeaturesHeader" scope="col">Feature</th>
-                                </tr>
-                            </thead>
-                            <tbody id="SPARQLFeaturesTableBody">
-                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -165,75 +176,83 @@
 
             <div class="row border border-grey justify-content-center" id="population">
                 <div class="col-12 justify-content-center gy-5">
+                    <div class="row justify-content-center">
+                        <p class="text-center">The following charts show differnet statistics on the content of SPARQL endpoints. As the counting of elements is resource-intensive, not all endpoints have returned results for each statistic. </p>
+                    </div>
                     <div class="row">
                         <div class="col-6 mb-4">
-                            <p class='text-center fs-2'>Datasets populations</h3>
-                            <div id="tripleScatter"></div>
+                            <div class="row"><p class='text-center fs-2'>Datasets populations</p></div>
+                            <div class="row h-auto ratio ratio-16x9" id="tripleScatter"></div>
+                            <div class="row justify-content-center">
+                                <p class="text-center">Number of triples in endpoints. </p>
+                            </div>
+                            <div class="row justify-content-center">
+                                <button id="datasetPopulationDetails" type="button"
+                                    class="btn btn-link">Details</button>
+                            </div>
+                            <div class="row justify-content-center collapse" id="datasetPopulationDatatable">
+                                <table id="datasetPopulationTable" class="table table-responsive table-hover">
+                                </table>
+                            </div>
                         </div>
                         <div class="col-6 mb-4">
-                            <p class='text-center fs-2'>Number of classes</p>
-                            <div id="classScatter">
+                            <div class="row"><p class='text-center fs-2'>Number of classes</p></div>
+                            <div class="row h-auto ratio ratio-16x9" id="classScatter"></div>
+                            <div class="row justify-content-center">
+                                <p class="text-center">Number of classes in endpoints. </p>
+                            </div>
+                            <div class="row justify-content-center">
+                                <button id="classPopulationDetails" type="button" class="btn btn-link">Details</button>
+                            </div>
+                            <div class="row justify-content-center collapse" id="classPopulationDatatable">
+                                <table id="classPopulationTable" class="table table-responsive table-hover">
+                                </table>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-6 mb-4">
-                            <p class='text-center fs-2'>Number of properties</p>
-                            <div id="propertyScatter"></div>
+                            <div class="row"><p class='text-center fs-2'>Number of properties</p></div>
+                            <div class="row h-auto ratio ratio-16x9" id="propertyScatter"></div>
+                            <div class="row justify-content-center">
+                                <p class="text-center">Number of properties in endpoints. </p>
+                            </div>
+                            <div class="row justify-content-center">
+                                <button id="propertyPopulationDetails" type="button"
+                                    class="btn btn-link">Details</button>
+                            </div>
+                            <div class="row justify-content-center collapse" id="propertyPopulationDatatable">
+                                <table id="propertyPopulationTable" class="table table-responsive table-hover">
+                                </table>
+                            </div>
                         </div>
                         <div class="col-6 mb-4">
-                            <p class='text-center fs-2'>Number of languages</p>
-                            <div id="languagesScatter"></div>
+                            <div class="row"><p class='text-center fs-2'>Number of languages</p></div>
+                            <div class="row h-auto ratio ratio-16x9" id="languagesScatter"></div>
+                            <div class="row justify-content-center">
+                                <p class="text-center">Number of languages used on the literals in endpoints. </p>
+                            </div>
+                            <div class="row justify-content-center">
+                                <button id="languagesDetails" type="button" class="btn btn-link">Details</button>
+                            </div>
+                            <div class="row justify-content-center collapse" id="languagesDatatable">
+                                <table id="languagesTable" class="table table-responsive table-hover">
+                                </table>
+                            </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-6 mb-4">
-                            <p class='text-center fs-2'>Server name in HTTP headers</p>
-                            <div id="endpointServerChart"></div>
-                        </div>
-                    </div>
-                    <div class="row border border-gray">
-                        <div class="col-12">
-                            <div class="row">
-                                <button id="classDescriptionDetails" type="button" class="btn btn-link">
-                                    Details about the classes
-                                </button>
+                            <div class="row justify-content-center">
+                                <p class='text-center fs-2'>Server name in HTTP headers</p>
                             </div>
-                            <div class="row collapse" id="classDescriptionDatatable">
-                                <table id="classDescriptionTable" class="table table-responsive table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th id="classDescriptionTableClassHeader" scope="col">Class</th>
-                                            <th id="classDescriptionTableTriplesHeader" scope="col">Number of
-                                                instances</th>
-                                            <th id="classDescriptionTableClassesHeader" scope="col">Number of
-                                                classes used
-                                                conjointly
-                                            </th>
-                                            <th id="classDescriptionTablePropertiesHeader" scope="col">Number of
-                                                properties
-                                                used
-                                                conjointly
-                                            </th>
-                                            <th id="classDescriptionTableDistinctSubjectsHeader" scope="col">Number
-                                                of
-                                                distinct
-                                                subjects linked to instances
-                                            </th>
-                                            <th id="classDescriptionTableDistinctObjectsHeader" scope="col">Number
-                                                of
-                                                distinct
-                                                objects linked to instances
-                                            </th>
-                                            <th id="classDescriptionTableEndpointsHeader" scope="col">Number of
-                                                endpoints
-                                                using this
-                                                class
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="classDescriptionTableBody">
-                                    </tbody>
+                            <div class="row h-auto ratio ratio-16x9" id="endpointServerChart"></div>
+                            <div class="row justify-content-center">
+                                <button id="endpointServerDetails" type="button"
+                                    class="btn btn-link">Details</button>
+                            </div>
+                            <div class="row justify-content-center collapse" id="endpointServerDatatable">
+                                <table id="endpointServerTable" class="table table-responsive table-hover">
                                 </table>
                             </div>
                         </div>
@@ -241,70 +260,71 @@
                 </div>
             </div>
 
-            <!-- <div class="row border border-grey justify-content-center" id="description">
-                <div class="col-12 justify-content-center gy-5">
-                    <h3 class='mb-4 text-center'>Datasets Descriptions</h3>
-                    <div class='row justify-content-left' id='datasetDescriptionExplainText'>
-                    </div>
-
-                    <div class="row" id="datasetdescriptionRadar"></div>
-                    <div class="row justify-content-center">
-                        <div class="'col-4"></div>
-                        <div class="col-2">
-                            <button id="datasetDescriptionStatDetails" type="button"
-                                class="btn btn-link justify-content-center">
-                                Details about the dataset description elements
-                            </button>
-                        </div>
-                        <div class="'col-4"></div>
-                    </div>
-                    <div class="row collapse" id="datasetDescriptionDatatable">
-                        <table id="datasetDescriptionTable" class="table table-responsive table-hover">
-                            <thead>
-                                <tr>
-                                    <th id="datasetDescriptionTableEndpointHeader" scope="col">Endpoint</th>
-                                    <th id="datasetDescriptionTableWhoHeader" scope="col">Who ?</th>
-                                    <th id="datasetDescriptionTableLicenseHeader" scope="col">License</th>
-                                    <th id="datasetDescriptionTableDateHeader" scope="col">Date</th>
-                                    <th id="datasetDescriptionTableSourceHeader" scope="col">Source</th>
-                                </tr>
-                            </thead>
-                            <tbody id="datasetDescriptionTableBody">
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div> -->
-
             <div class="row border border-grey justify-content-center" id="quality">
                 <div class="col-12 gy-5">
                     <p class='text-center fs-2'>Quality measures</p>
                     <div class="row">
                         <div class="col-6 mb-4">
-                            <p class='text-center fs-3'>Readable labels</p>
-                            <div id="readableLabelsScatter"></div>
+                            <div class="row justify-content-center">
+                                <p class='text-center fs-3'>Readable labels</p>
+                            </div>
+                            <div class="row h-auto ratio ratio-16x9" id="readableLabelsScatter"></div>
+                            <div class="row justify-content-center">
+                                <button id="readableLabelsDetails" type="button"
+                                    class="btn btn-link">Details</button>
+                            </div>
+                            <div class="row justify-content-center collapse" id="readableLabelsDatatable">
+                                <table id="readableLabelsTable" class="table table-responsive table-hover">
+                                </table>
+                            </div>
                         </div>
                         <div class="col-6 mb-4">
-                            <p class='text-center fs-3'>Short URIs</p>
-                            <div id="shortUrisScatter"></div>
+                            <div class="row justify-content-center">
+                                <p class='text-center fs-3'>Short URIs</p>
+                            </div>
+                            <div class="row h-auto ratio ratio-16x9" id="shortUrisScatter"></div>
+                            <div class="row justify-content-center">
+                                <button id="shortUrisDetails" type="button"
+                                    class="btn btn-link">Details</button>
+                            </div>
+                            <div class="row justify-content-center collapse" id="shortUrisDatatable">
+                                <table id="shortUrisTable" class="table table-responsive table-hover">
+                                </table>
+                            </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-6 mb-4">
-                            <p class='text-center fs-3'>RDF data structures</p>
-                            <div id="rdfDataStructuresScatter"></div>
+                            <div class="row justify-content-center">
+                                <p class='text-center fs-3'>RDF data structures</p>
+                            </div>
+                            <div class="row h-auto ratio ratio-16x9" id="rdfDataStructuresScatter"></div>
+                            <div class="row justify-content-center">
+                                <button id="rdfDataStructuresDetails" type="button"
+                                    class="btn btn-link">Details</button>
+                            </div>
+                            <div class="row justify-content-center collapse" id="rdfDataStructuresDatatable">
+                                <table id="rdfDataStructuresTable" class="table table-responsive table-hover">
+                                </table>
+                            </div>
                         </div>
                         <div class="col-6 mb-4">
-                            <p class='text-center fs-3'>Usage of blank nodes</p>
-                            <div id="blankNodesScatter"></div>
+                            <div class="row justify-content-center">
+                                <p class='text-center fs-3'>Usage of blank nodes</p>
+                            </div>
+                            <div class="row h-auto ratio ratio-16x9" id="blankNodesScatter"></div>
+                            <div class="row justify-content-center">
+                                <button id="blankNodesDetails" type="button"
+                                    class="btn btn-link">Details</button>
+                            </div>
+                            <div class="row justify-content-center collapse" id="blankNodesDatatable">
+                                <table id="blankNodesTable" class="table table-responsive table-hover">
+                                </table>
+                            </div>
                         </div>
                     </div>
-                    <span>*: This measure can only be computed for the endpoints that have returned their list of
-                        used vocabularies.</span>
                 </div>
             </div>
-
-            <!-- </div> -->
 
             <div>
                 <div class="text-center mt-3 ">

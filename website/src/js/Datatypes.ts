@@ -33,12 +33,6 @@ export type SPARQLJSONResult = {
     }
 }
 
-export type RunsetObject = {
-    id: string,
-    name: string,
-    graphs: string[]
-}
-
 export interface EndpointIpGeolocObject extends JSONObject {
     key: string,
     value: {
@@ -65,8 +59,6 @@ export interface EndpointIpGeolocObject extends JSONObject {
 export interface EndpointTestObject extends JSONObject { 
     endpoint: string, 
     activity: string, 
-    graph: string, 
-    date: Dayjs 
 }
 
 export interface GeolocDataObject extends JSONObject {
@@ -110,48 +102,17 @@ export interface VocabKeywordsDataObject extends JSONObject {
 
 export interface ClassCountDataObject extends JSONObject {
     endpoint: string,
-    graph: string,
-    date: Dayjs,
     classes: number
 }
 
 export interface PropertyCountDataObject extends JSONObject {
     endpoint: string,
-    graph: string,
-    date: Dayjs,
     properties: number
 }
 
 export interface TripleCountDataObject extends JSONObject {
     endpoint: string,
-    graph: string,
-    date: Dayjs,
     triples: number
-}
-
-export interface EndpointTestDataObject extends JSONObject {
-    endpoint: string,
-    graph: string,
-    date: Dayjs,
-    activity: string
-}
-
-export interface TotalRuntimeDataObject extends JSONObject {
-    graph: string,
-    endpoint: string,
-    date: Dayjs,
-    start: Dayjs,
-    end: Dayjs,
-    runtime: any
-}
-
-export interface AverageRuntimeDataObject extends JSONObject {
-    count: number,
-    start: Dayjs,
-    end: Dayjs,
-    runtime: any,
-    graph: string,
-    date: Dayjs
 }
 
 export interface ClassPropertyDataObject extends JSONObject {
@@ -166,15 +127,11 @@ export interface DatasetDescriptionDataObject extends JSONObject {
 }
 
 export interface ShortUriDataObject extends JSONObject {
-    graph: string,
-    date: Dayjs,
     endpoint: string,
     measure: number
 }
 
 export interface QualityMeasureDataObject extends JSONObject {
-    graph: string,
-    date: Dayjs,
     endpoint: string,
     measure: number
 }
@@ -183,4 +140,14 @@ export interface SPARQLFeatureDescriptionDataObject extends JSONObject {
     feature: string,
     description: string,
     query: string
+}
+
+export type LanguageListDataObject = {    
+    endpoint: string,
+    languages: Array<string>
+}
+
+export type EndpointServerDataObject = {
+    endpoint: string,
+    server: string,
 }

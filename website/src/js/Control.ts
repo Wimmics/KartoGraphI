@@ -1,5 +1,4 @@
 import * as Datatype from "./Datatypes";
-import * as Utils from "./Utils";
 import { cachePromise, xhrJSONPromise } from "./DataConnexion";
 
 // export const vocabEndpointEchartsPlotlyDataFilename = "vocabEndpointPlotlyData.json";
@@ -38,7 +37,6 @@ export const blankNodesDataFilename = "blankNodesData.json";
 export const endpointServerDataFilename = "endpointServerData.json";
 export const languageListDataFilename = "languagesData.json";
 
-const textElementsFile = xhrJSONPromise("https://raw.githubusercontent.com/Wimmics/dekalog/master/LODMap/src/data/cache/textElements.json");
 const sparqlFeatureDescFile = cachePromise("SPARQLFeatureDescriptions.json");
 
 export class Control {
@@ -85,31 +83,25 @@ export class Control {
         this.showLoadingSpinner()
 
         // Loading all the data files into the bank
-        return textElementsFile
-            .then((data) => {
-                this.textElements = (data as Array<Datatype.TextElement>);
-                this.insertTextElements();
-                return;
-            })
-            .then(() => {
-                return sparqlFeatureDescFile.then((data) => {
-                    this.sparqlFeatureDesc = (data as Array<Datatype.SPARQLFeatureDescriptionDataObject>);
-                    this.hideLoadingSpinner();
-                    return;
-                })
-            })
+        return sparqlFeatureDescFile.then((data) => {
+            this.sparqlFeatureDesc = (data as Array<Datatype.SPARQLFeatureDescriptionDataObject>);
+            this.hideLoadingSpinner();
+            return;
+        }).catch(error => {
+            console.error("Error loading data files", error);
+            return;
+        });
     }
 
     loadPrefixes(): Promise<void> {
+        console.log("Loading prefixes")
         if (this.vocabularyPrefixes.size == 0) {
             return xhrJSONPromise("https://prefix.cc/context").then(rawJsonLDPrefixDeclaration => {
                 let jsonLDPrefixDeclaration = (rawJsonLDPrefixDeclaration as Datatype.JSONObject)["@context"];
                 for (let key in jsonLDPrefixDeclaration as Datatype.JSONObject) {
-                    console.log(key, jsonLDPrefixDeclaration[key])
                     this.vocabularyPrefixes.set(jsonLDPrefixDeclaration[key], key);
                 }
                 console.log("Prefixes loaded")
-                console.log(Utils.mapToJSON(this.vocabularyPrefixes))
                 return;
             }).catch(error => {
                 console.error("Error loading prefixes", error);
@@ -117,7 +109,6 @@ export class Control {
             })
         } else {
             console.log("Prefixes already loaded")
-            console.log(Utils.mapToJSON(this.vocabularyPrefixes))
             return Promise.resolve();
         }
     }

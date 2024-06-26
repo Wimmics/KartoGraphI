@@ -27,15 +27,18 @@ window.onload = (() => {
 
 
     View.setButtonAsToggleCollapse('tableSPARQLFeaturesDetails', 'SPARQLFeaturesDatatable');
-    View.setButtonAsToggleCollapse('tableSPARQLFeaturesStatsDetails', 'SPARQLFeaturesCountDatatable');
-    View.setButtonAsToggleCollapse('tableRuleDetails', 'rulesDatatable');
-    View.setButtonAsToggleCollapse('classDescriptionDetails', 'classDescriptionDatatable');
-    View.setButtonAsToggleCollapse('classPropertiesDescriptionDetails', 'classPropertiesDescriptionDatatable');
-    View.setButtonAsToggleCollapse('datasetDescriptionStatDetails', 'datasetDescriptionDatatable');
+    View.setButtonAsToggleCollapse('datasetPopulationDetails', 'datasetPopulationDatatable');
+    View.setButtonAsToggleCollapse('classPopulationDetails', 'classPopulationDatatable');
+    View.setButtonAsToggleCollapse('propertyPopulationDetails', 'propertyPopulationDatatable');
+    View.setButtonAsToggleCollapse('languagesDetails', 'languagesDatatable');
     View.setButtonAsToggleCollapse('shortUrisDetails', 'shortUrisDatatable');
     View.setButtonAsToggleCollapse('rdfDataStructuresDetails', 'rdfDataStructuresDatatable');
-    View.setButtonAsToggleCollapse('readableLabelsDetails', 'readableLabelsDatatable');
     View.setButtonAsToggleCollapse('blankNodesDetails', 'blankNodesDatatable');
+
+
+    View.setButtonAsToggleCollapse('readableLabelsDetails', 'readableLabelsDatatable');
+    View.setButtonAsToggleCollapse('endpointServerDetails', 'endpointServerDatatable');
+    
 
     (new Control.Control()).init().then(() => {
 
@@ -135,7 +138,6 @@ window.onload = (() => {
                 vocabularySet.forEach(vocabularyName => {
                     nodeIdMap.set(vocabularyName, idNumber);
                     if (Control.Control.getInstance().getPrefixes().has(vocabularyName)) {
-                        console.log("Control does not know ", vocabularyName)
                         vocabularyName = Control.Control.getInstance().getPrefixes().get(vocabularyName) as string;
                     }
                     graph.addNode(idNumber.toString(), { label: vocabularyName, x: Math.random() * 100, y: Math.random() * 100, size: 3, color: "#E3BB07" });
@@ -372,8 +374,6 @@ window.onload = (() => {
             }
         });
 
-        // Vocabulary Table
-
         // SPARQL Coverage Charts
         console.log("Filling SPARQL coverage chart ...")
         Control.Control.getCacheFile(Control.sparqlCoveragePlotlyDataFilename).then(rawSparqlCoverageOption => {
@@ -408,7 +408,7 @@ window.onload = (() => {
                     { name: 'Endpoint', sort: 'asc' },
                     'Features'
                 ];
-                let gridJSData = (sparqlFeatureData as Datatype.SPARQLFeatureDataObject[]).map(item => {
+                let gridJSData = (sparqlFeatureData as Datatype.SPARQLFeatureDataObject[]).filter(item => item !== undefined && item.endpoint !== undefined && item.features !== undefined).map(item => {
                     return [item.endpoint, item.features.join(", ")];
                 });
                 let gridJS = new gridjs.Grid({
@@ -451,6 +451,35 @@ window.onload = (() => {
             console.log("Triples chart filled");
         })
 
+        // Triples Table
+        console.log("Filling triples table ...");
+        Control.Control.getCacheFile(Control.tripleCountDataFilename).then(triplesData => {
+            let triplesElement = document.getElementById("datasetPopulationDatatable");
+            if (triplesElement) {
+                triplesElement.innerHTML = "";
+                let gridJSColumns = [
+                    { name: 'Endpoint', sort: 'asc' },
+                    'Triples'
+                ];
+                let gridJSData = (triplesData as Datatype.TripleCountDataObject[]).filter(item => item !== undefined && item.endpoint !== undefined && item.triples !== undefined).map(item => {
+                    return [item.endpoint, item.triples];
+                });
+                let gridJS = new gridjs.Grid({
+                    columns: gridJSColumns,
+                    data: gridJSData,
+                    sort: true,
+                    search: true,
+                    pagination: {
+                        limit: 10,
+                        summary: false
+                    }
+                });
+                gridJS.render(triplesElement);
+            }
+
+            console.log("Triples table filled");
+        })
+
         // Classes Scatter Chart
         console.log("Filling classes chart ...");
         Control.Control.getCacheFile(Control.classesPlotlyDataFilename).then(rawClassChartData => {
@@ -473,6 +502,33 @@ window.onload = (() => {
             }
 
             console.log("Classes chart filled");
+        })
+
+        // Classes Table
+        console.log("Filling classes table ...");
+        Control.Control.getCacheFile(Control.classCountDataFilename).then(classesData => {
+            let classesElement = document.getElementById("classPopulationDatatable");
+            if (classesElement) {
+                classesElement.innerHTML = "";
+                let gridJSColumns = [
+                    { name: 'Endpoint', sort: 'asc' },
+                    'Classes'
+                ];
+                let gridJSData = (classesData as Datatype.ClassCountDataObject[]).filter(item => item !== undefined && item.endpoint !== undefined && item.classes !== undefined).map(item => [item.endpoint, item.classes]);
+                let gridJS = new gridjs.Grid({
+                    columns: gridJSColumns,
+                    data: gridJSData,
+                    sort: true,
+                    search: true,
+                    pagination: {
+                        limit: 10,
+                        summary: false
+                    }
+                });
+                gridJS.render(classesElement);
+            }
+
+            console.log("Classes table filled");
         })
 
         // Properties Scatter Chart
@@ -499,6 +555,33 @@ window.onload = (() => {
             console.log("Properties chart filled");
         })
 
+        // Properties Table
+        console.log("Filling properties table ...");
+        Control.Control.getCacheFile(Control.propertyCountDataFilename).then(propertiesData => {
+            let propertiesElement = document.getElementById("propertyPopulationDatatable");
+            if (propertiesElement) {
+                propertiesElement.innerHTML = "";
+                let gridJSColumns = [
+                    { name: 'Endpoint', sort: 'asc' },
+                    'Properties'
+                ];
+                let gridJSData = (propertiesData as Datatype.PropertyCountDataObject[]).filter(item => item !== undefined && item.endpoint !== undefined && item.properties !== undefined).map(item => [item.endpoint, item.properties]);
+                let gridJS = new gridjs.Grid({
+                    columns: gridJSColumns,
+                    data: gridJSData,
+                    sort: true,
+                    search: true,
+                    pagination: {
+                        limit: 10,
+                        summary: false
+                    }
+                });
+                gridJS.render(propertiesElement);
+            }
+
+            console.log("Properties table filled");
+        })
+
         // Languages Scatter Chart
         console.log("Filling languages chart ...");
         Control.Control.getCacheFile(Control.endpointLanguagesPlotlyDataFilename).then(rawLanguageListData => {
@@ -523,6 +606,33 @@ window.onload = (() => {
             console.log("Languages chart filled");
         })
 
+        // Languages Table
+        console.log("Filling languages table ...");
+        Control.Control.getCacheFile(Control.languageListDataFilename).then(languagesData => {
+            let languagesElement = document.getElementById("languagesDatatable");
+            if (languagesElement) {
+                languagesElement.innerHTML = "";
+                let gridJSColumns = [
+                    { name: 'Endpoint', sort: 'asc' },
+                    'Languages'
+                ];
+                let gridJSData = (languagesData as Datatype.LanguageListDataObject[]).filter(item => item !== undefined && item.endpoint !== undefined && item.languages !== undefined).map(item => [item.endpoint, item.languages.join(", ")]);
+                let gridJS = new gridjs.Grid({
+                    columns: gridJSColumns,
+                    data: gridJSData,
+                    sort: true,
+                    search: true,
+                    pagination: {
+                        limit: 10,
+                        summary: false
+                    }
+                });
+                gridJS.render(languagesElement);
+            }
+
+            console.log("Languages table filled");
+        })
+
         // Short URIs Scatter Chart
         console.log("Filling short URIs chart ...");
         Control.Control.getCacheFile(Control.shortUrisPlotlyDataFilename).then(rawShortUrisChartData => {
@@ -538,13 +648,41 @@ window.onload = (() => {
                     },
                     yaxis: {
                         type: 'linear',
-                        autorange: true
+                        autorange: false,
+                        range: [0, 1]
                     }
                 };
                 Plotly.newPlot("shortUrisScatter", shortUrisChartData, shortUrisChartLayout)
             }
 
             console.log("Short URIs chart filled");
+        })
+
+        // Short URIs Table
+        console.log("Filling short URIs table ...");
+        Control.Control.getCacheFile(Control.shortUriDataFilename).then(shortUrisData => {
+            let shortUrisElement = document.getElementById("shortUrisDatatable");
+            if (shortUrisElement) {
+                shortUrisElement.innerHTML = "";
+                let gridJSColumns = [
+                    { name: 'Endpoint', sort: 'asc' },
+                    'Short URIs'
+                ];
+                let gridJSData = (shortUrisData as Datatype.ShortUriDataObject[]).filter(item => item !== undefined && item.endpoint !== undefined && item.measure !== undefined).map(item => [item.endpoint, item.measure.toFixed(2)]);
+                let gridJS = new gridjs.Grid({
+                    columns: gridJSColumns,
+                    data: gridJSData,
+                    sort: true,
+                    search: true,
+                    pagination: {
+                        limit: 10,
+                        summary: false
+                    }
+                });
+                gridJS.render(shortUrisElement);
+            }
+
+            console.log("Short URIs table filled");
         })
 
         // Readable labels Scatter Chart
@@ -562,14 +700,42 @@ window.onload = (() => {
                     },
                     yaxis: {
                         type: 'linear',
-                        autorange: true
+                        autorange: false,
+                        range: [0, 1]
                     }
                 };
                 Plotly.newPlot("readableLabelsScatter", readableLabelsChartData, readableLabelsChartLayout)
             }
 
             console.log("Readable labels chart filled");
-        })
+        });
+
+        // Readable labels Table
+        console.log("Filling readable labels table ...");
+        Control.Control.getCacheFile(Control.readableLabelDataFilename).then(readableLabelsData => {
+            let readableLabelsElement = document.getElementById("readableLabelsDatatable");
+            if (readableLabelsElement) {
+                readableLabelsElement.innerHTML = "";
+                let gridJSColumns = [
+                    { name: 'Endpoint', sort: 'asc' },
+                    'Measure'
+                ];
+                let gridJSData = (readableLabelsData as Datatype.QualityMeasureDataObject[]).filter(item => item !== undefined && item.endpoint !== undefined && item.measure !== undefined).map(item => [item.endpoint, item.measure.toFixed(2)]);
+                let gridJS = new gridjs.Grid({
+                    columns: gridJSColumns,
+                    data: gridJSData,
+                    sort: true,
+                    search: true,
+                    pagination: {
+                        limit: 10,
+                        summary: false
+                    }
+                });
+                gridJS.render(readableLabelsElement);
+            }
+
+            console.log("Readable labels table filled");
+        });
 
         // Blank Nodes Scatter Chart
         console.log("Filling blank nodes chart ...");
@@ -586,13 +752,41 @@ window.onload = (() => {
                     },
                     yaxis: {
                         type: 'linear',
-                        autorange: true
+                        autorange: false,
+                        range: [0, 1]
                     }
                 };
                 Plotly.newPlot("blankNodesScatter", blankNodesChartData, blankNodesChartLayout)
             }
 
             console.log("Blank nodes chart filled");
+        })
+
+        // Blank Nodes Table
+        console.log("Filling blank nodes table ...");
+        Control.Control.getCacheFile(Control.blankNodesDataFilename).then(blankNodesData => {
+            let blankNodesElement = document.getElementById("blankNodesDatatable");
+            if (blankNodesElement) {
+                blankNodesElement.innerHTML = "";
+                let gridJSColumns = [
+                    { name: 'Endpoint', sort: 'asc' },
+                    'Blank Nodes'
+                ];
+                let gridJSData = (blankNodesData as Datatype.QualityMeasureDataObject[]).filter(item => item !== undefined && item.endpoint !== undefined && item.measure !== undefined).map(item => [item.endpoint, item.measure.toFixed(2)]);
+                let gridJS = new gridjs.Grid({
+                    columns: gridJSColumns,
+                    data: gridJSData,
+                    sort: true,
+                    search: true,
+                    pagination: {
+                        limit: 10,
+                        summary: false
+                    }
+                });
+                gridJS.render(blankNodesElement);
+            }
+
+            console.log("Blank nodes table filled");
         })
 
         // RDF Data Structures Scatter Chart
@@ -610,7 +804,8 @@ window.onload = (() => {
                     },
                     yaxis: {
                         type: 'linear',
-                        autorange: true
+                        autorange: false,
+                        range: [0, 1]
                     }
                 };
                 Plotly.newPlot("rdfDataStructuresScatter", rdfDataStructuresScatterData, rdfDataStructuresScatterLayout)
@@ -619,7 +814,32 @@ window.onload = (() => {
             console.log("RDF data structures chart filled");
         })
 
+        // RDF Data Structures Table
+        console.log("Filling RDF data structures table ...");
+        Control.Control.getCacheFile(Control.rdfDataStructureDataFilename).then(rdfDataStructuresData => {
+            let rdfDataStructuresElement = document.getElementById("rdfDataStructuresDatatable");
+            if (rdfDataStructuresElement) {
+                rdfDataStructuresElement.innerHTML = "";
+                let gridJSColumns = [
+                    { name: 'Endpoint', sort: 'asc' },
+                    'Data Structures'
+                ];
+                let gridJSData = (rdfDataStructuresData as Datatype.QualityMeasureDataObject[]).filter(item => item.endpoint !== undefined && item.measure !== undefined).map(item => [item.endpoint, item.measure.toFixed(2)]);
+                let gridJS = new gridjs.Grid({
+                    columns: gridJSColumns,
+                    data: gridJSData,
+                    sort: true,
+                    search: true,
+                    pagination: {
+                        limit: 10,
+                        summary: false
+                    }
+                });
+                gridJS.render(rdfDataStructuresElement);
+            }
 
+            console.log("RDF data structures table filled");
+        })
 
         // Endpoint/server Pie Chart
         console.log("Filling endpoint/server chart ...");
@@ -635,6 +855,32 @@ window.onload = (() => {
             console.log("endpoint/server chart filled");
         })
 
+        // Endpoint/server Table
+        console.log("Filling endpoint/server table ...");
+        Control.Control.getCacheFile(Control.endpointServerDataFilename).then(endpointServerData => {
+            let endpointServerElement = document.getElementById("endpointServerDatatable");
+            if (endpointServerElement) {
+                endpointServerElement.innerHTML = "";
+                let gridJSColumns = [
+                    { name: 'Endpoint', sort: 'asc' },
+                    'Server'
+                ];
+                let gridJSData = (endpointServerData as Datatype.EndpointServerDataObject[]).filter(item => item !== undefined && item.endpoint !== undefined && item.server !== undefined).map(item => [item.endpoint, item.server]);
+                let gridJS = new gridjs.Grid({
+                    columns: gridJSColumns,
+                    data: gridJSData,
+                    sort: true,
+                    search: true,
+                    pagination: {
+                        limit: 10,
+                        summary: false
+                    }
+                });
+                gridJS.render(endpointServerElement);
+            }
+
+            console.log("endpoint/server table filled");
+        })
 
 
     });
