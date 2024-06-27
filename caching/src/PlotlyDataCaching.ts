@@ -1,10 +1,9 @@
 import * as DataCache from "./DataCaching.js";
-import { readFile, writeFile } from "fs/promises";
-import { AverageRuntimeDataObject, ClassCountDataObject, DatasetDescriptionDataObject, EndpointServerDataObject, EndpointTestDataObject, GeolocDataObject, GraphListDataObject, JSONArray, KeywordsEndpointDataObject, LanguageListDataObject, PropertyCountDataObject, QualityMeasureDataObject, SPARQLCoverageDataObject, SPARQLFeatureDataObject, SPARQLFeatureDescriptionDataObject, TotalRuntimeDataObject, TripleCountDataObject, VocabEndpointDataObject, VocabKeywordsDataObject } from "./DataTypes.js";
+import { ClassCountDataObject, EndpointServerDataObject, FAIRDataObject, LanguageListDataObject, PropertyCountDataObject, QualityMeasureDataObject, SPARQLFeatureDataObject, TripleCountDataObject } from "./DataTypes.js";
 import * as Logger from "./LogUtils.js";
-import * as ChartsUtils from "./ChartsUtils.js";
 import * as Global from "./GlobalUtils.js";
 import * as Plotly from "plotly.js";
+import { text } from "stream/consumers";
 
 const numberOfVocabulariesLimit = 1000;
 
@@ -25,6 +24,7 @@ export const totalRuntimePlotlyDataFilename = DataCache.dataCachedFilePrefix + "
 export const keywordEndpointPlotlyDataFilename = DataCache.dataCachedFilePrefix + "keywordEndpointPlotlyData.json";
 export const standardVocabulariesEndpointGraphPlotlyDataFilename = DataCache.dataCachedFilePrefix + "standardVocabulariesEndpointGraphPlotlyData.json";
 export const endpointServerChartPlotlyDataFilename = DataCache.dataCachedFilePrefix + "endpointServerChartPlotlyData.json";
+export const fairnessChartPlotlyDataFilename = DataCache.dataCachedFilePrefix + "fairnessChartPlotlyData.json";
 
 
 export function sparqlCoverageChartOption(): Promise<void> {
@@ -310,193 +310,10 @@ export function endpointLanguagesChartOption(): Promise<void> {
         } else {
             return Promise.reject("No language data found")
         }
+    }).catch((error) => {
+        Logger.error("Error during language data reading", error)
     });
 }
-
-// export function datasetDescriptionChartOption() {
-//     Logger.info("Dataset description chart data for generation started")
-//     return readFile(DataCache.datasetDescriptionPlotlyDataFilename, "utf-8").then(datasetDescriptionRawData => {
-//         datasetDescriptionData = JSON.parse(datasetDescriptionRawData);
-
-//         let whoDataScore = 0;
-//         let licenseDataScore = 0;
-//         let timeDataScore = 0;
-//         let sourceDataScore = 0;
-
-//         datasetDescriptionData.forEach(dataItem => {
-//             let who = dataItem.who;
-//             if (who) {
-//                 whoDataScore++;
-//             }
-//             let license = dataItem.license;
-//             if (license) {
-//                 licenseDataScore++;
-//             }
-//             let time = dataItem.time;
-//             if (time) {
-//                 timeDataScore++;
-//             }
-//             let source = dataItem.source;
-//             if (source) {
-//                 sourceDataScore++;
-//             }
-//         });
-
-
-//         let whoTrueDataSerie: echarts.BarSeriesOption = {
-//             name: 'Description of author',
-//             type: 'bar',
-//             stack: 'who',
-//             colorBy: 'data',
-//             data: [
-//                 { value: whoDataScore, name: 'Presence of the description of creator/owner/contributor' },
-//             ]
-//         };
-//         if (whoDataScore > 0) {
-//             whoTrueDataSerie.label = {
-//                 show: true,
-//                 formatter: '{c} endpoints with author description'
-//             }
-//         };
-//         let whoFalseDataSerie: echarts.BarSeriesOption = {
-//             name: 'Description of author',
-//             type: 'bar',
-//             stack: 'who',
-//             colorBy: 'data',
-//             data: [
-//                 { value: (datasetDescriptionData.length - whoDataScore), name: 'Absence of the description of creator/owner/contributor' },
-//             ]
-//         };
-//         if ((datasetDescriptionData.length - whoDataScore) > 0) {
-//             whoFalseDataSerie.label = {
-//                 show: true,
-//                 formatter: '{c} endpoints without author description'
-//             }
-//         };
-//         let licenseTrueDataSerie: echarts.BarSeriesOption = {
-//             name: 'Licensing description',
-//             type: 'bar',
-//             stack: 'license',
-//             colorBy: 'data',
-//             data: [
-//                 { value: licenseDataScore, name: 'Presence of licensing information' },
-//             ]
-//         };
-//         if (licenseDataScore > 0) {
-//             licenseTrueDataSerie.label = {
-//                 show: true,
-//                 formatter: '{c} endpoints with licensing description'
-//             }
-//         }
-//         let licenseFalseDataSerie: echarts.BarSeriesOption = {
-//             name: 'Licensing description',
-//             type: 'bar',
-//             stack: 'license',
-//             colorBy: 'data',
-//             data: [
-//                 { value: (datasetDescriptionData.length - licenseDataScore), name: 'Absence of licensing description' },
-//             ]
-//         };
-//         if ((datasetDescriptionData.length - licenseDataScore) > 0) {
-//             licenseFalseDataSerie.label = {
-//                 show: true,
-//                 formatter: '{c} endpoints without licensing description'
-//             }
-//         }
-//         let timeTrueDataSerie: echarts.BarSeriesOption = {
-//             name: 'Time related description of the creation of the dataset',
-//             type: 'bar',
-//             stack: 'time',
-//             colorBy: 'data',
-//             data: [
-//                 { value: timeDataScore, name: 'Presence of time-related information' },
-//             ]
-//         };
-//         if (timeDataScore > 0) {
-//             timeTrueDataSerie.label = {
-//                 show: true,
-//                 formatter: '{c} endpoints with time-related description'
-//             }
-//         }
-//         let timeFalseDataSerie: echarts.BarSeriesOption = {
-//             name: 'Time related description of creation of the dataset',
-//             type: 'bar',
-//             stack: 'time',
-//             colorBy: 'data',
-//             data: [
-//                 { value: (datasetDescriptionData.length - timeDataScore), name: 'Absence of time-related description' },
-//             ]
-//         };
-//         if ((datasetDescriptionData.length - timeDataScore) > 0) {
-//             timeFalseDataSerie.label = {
-//                 show: true,
-//                 formatter: '{c} endpoints without time-related description'
-//             }
-//         }
-//         let sourceTrueDataSerie: echarts.BarSeriesOption = {
-//             name: 'Description of the source or the process at the origin of the dataset',
-//             type: 'bar',
-//             stack: 'source',
-//             colorBy: 'data',
-//             data: [
-//                 { value: sourceDataScore, name: 'Presence of description of the origin of the dataset' },
-//             ]
-//         };
-//         if (sourceDataScore > 0) {
-//             sourceTrueDataSerie.label = {
-//                 show: true,
-//                 formatter: '{c} endpoints with source description'
-//             }
-//         }
-//         let sourceFalseDataSerie: echarts.BarSeriesOption = {
-//             name: 'Description of the source or the process at the origin of the dataset',
-//             type: 'bar',
-//             stack: 'source',
-//             colorBy: 'data',
-//             data: [
-//                 { value: (datasetDescriptionData.length - sourceDataScore), name: 'Absence of description of the origin of the dataset' },
-//             ]
-//         };
-//         if ((datasetDescriptionData.length - sourceDataScore) > 0) {
-//             sourceFalseDataSerie.label = {
-//                 show: true,
-//                 formatter: '{c} endpoints without source description'
-//             }
-//         }
-//         let datasetDescriptionEchartOption = {
-//             title: {
-//                 text: 'Dataset description features in all endpoints',
-//                 left: 'center'
-//             },
-//             tooltip: {
-//                 confine: true
-//             },
-//             xAxis: {
-//                 type: 'value',
-//                 max: 'dataMax',
-//             },
-//             yAxis: {
-//                 type: 'category',
-//                 axisLabel: {
-//                     formatter: 'Dataset\n description\n elements',
-//                     overflow: 'breakAll'
-//                 }
-//             },
-//             legend: {
-//                 left: 'left',
-//                 show: false
-//             },
-//             series: [whoTrueDataSerie, whoFalseDataSerie, licenseTrueDataSerie, licenseFalseDataSerie, timeTrueDataSerie, timeFalseDataSerie, sourceTrueDataSerie, sourceFalseDataSerie]
-//         };
-//         return datasetDescriptionEchartOption;
-//     }).then((datasetDescriptionEchartOption) => {
-//         let content = JSON.stringify(datasetDescriptionEchartOption);
-//         return writeFile(datasetDescriptionOptionFilename, content).then(() => {
-//             Logger.info("Dataset description chart option for generation ended");
-//             return Promise.resolve();
-//         });
-//     });
-// }
 
 export function endpointServerChartOption(): Promise<void> {
     return Global.readJSONFile(DataCache.endpointServerDataFilename).then(endpointServerData => {
@@ -530,6 +347,120 @@ export function endpointServerChartOption(): Promise<void> {
         } else {
             return Promise.reject("No endpoint/server data found")
         }
+    }).catch((error) => {
+        Logger.error("Error during endpoint/server data reading", error)
     });
 
+}
+
+export function fairnessChartOption(): any {
+    return Global.readJSONFile(DataCache.fairnessDataFilename).then(rawFairnessData => {
+        if ((rawFairnessData as FAIRDataObject[]).length > 0) {
+            function calculateFairness(fairItem: FAIRDataObject) {
+                return fairItem.f1a + fairItem.f1b + fairItem.f2a + fairItem.f2b + fairItem.a11 + fairItem.a12 + fairItem.i1 + fairItem.i2 + fairItem.i3 + fairItem.r11 + fairItem.r12 + fairItem.r13;
+            }
+            const fairnessData = (rawFairnessData as FAIRDataObject[]).filter(item => calculateFairness(item) > 0).sort((fairItemA, fairItemB) => {
+                let fairA = calculateFairness(fairItemA);
+                let fairB = calculateFairness(fairItemB);
+                if(fairA != fairB) {
+                    return fairB - fairA;
+                } else if (fairItemA.endpoint != fairItemB.endpoint) {
+                    return fairItemA.endpoint.localeCompare(fairItemB.endpoint);
+                } else {
+                    return fairItemA.kg.localeCompare(fairItemB.kg);
+                }
+            })
+            let f1aChartData = {
+                x: fairnessData.map((fairItem, index) => index),
+                y: fairnessData.map((fairItem) => fairItem.f1a),
+                text: fairnessData.map((fairItem) => fairItem.endpoint + " - " + fairItem.kg + " - " + "Unique IDs"),
+                name: 'F1A',
+                type: 'bar'
+            };
+            let f1bChartData = {
+                x: fairnessData.map((fairItem, index) => index),
+                y: fairnessData.map((fairItem) => fairItem.f1b),
+                text: fairnessData.map((fairItem) => fairItem.endpoint + " - " + fairItem.kg + " - " + "Persistent IDs"),
+                name: 'F1B',
+                type: 'bar'
+            };
+            let f2aChartData = {
+                x: fairnessData.map((fairItem, index) => index),
+                y: fairnessData.map((fairItem) => fairItem.f2a),
+                text: fairnessData.map((fairItem) => fairItem.endpoint + " - " + fairItem.kg + " - " + "Structured metadata"),
+                name: 'F2A',
+                type: 'bar'
+            }
+            let f2bChartData = {
+                x: fairnessData.map((fairItem, index) => index),
+                y: fairnessData.map((fairItem) => fairItem.f2b),
+                text: fairnessData.map((fairItem) => fairItem.endpoint + " - " + fairItem.kg + " - " + "Shared vocabularies for metadata"),
+                name: 'F2B',
+                type: 'bar'
+            }
+            let a11ChartData = {
+                x: fairnessData.map((fairItem, index) => index),
+                y: fairnessData.map((fairItem) => fairItem.a11),
+                text: fairnessData.map((fairItem) => fairItem.endpoint + " - " + fairItem.kg + " - " + "Open resolution protocol"),
+                name: 'A11',
+                type: 'bar'
+            }
+            let a12ChartData = {
+                x: fairnessData.map((fairItem, index) => index),
+                y: fairnessData.map((fairItem) => fairItem.a12),
+                text: fairnessData.map((fairItem) => fairItem.endpoint + " - " + fairItem.kg + " - " + "Authorisation procedure or access rights"),
+                name: 'A12',
+                type: 'bar'
+            }
+            let i1ChartData = {
+                x: fairnessData.map((fairItem, index) => index),
+                y: fairnessData.map((fairItem) => fairItem.i1),
+                text: fairnessData.map((fairItem) => fairItem.endpoint + " - " + fairItem.kg + " - " + "Machine readable format"),
+                name: 'I1',
+                type: 'bar'
+            }
+            let i2ChartData = {
+                x: fairnessData.map((fairItem, index) => index),
+                y: fairnessData.map((fairItem) => fairItem.i2),
+                text: fairnessData.map((fairItem) => fairItem.endpoint + " - " + fairItem.kg + " - " + "Use shared ontologies"),
+                name: 'I2',
+                type: 'bar'
+            }
+            let i3ChartData = {
+                x: fairnessData.map((fairItem, index) => index),
+                y: fairnessData.map((fairItem) => fairItem.i3),
+                text: fairnessData.map((fairItem) => fairItem.endpoint + " - " + fairItem.kg + " - " + "External links"),
+                name: 'I3',
+                type: 'bar'
+            }
+            let r11ChartData = {
+                x: fairnessData.map((fairItem, index) => index),
+                y: fairnessData.map((fairItem) => fairItem.r11),
+                text: fairnessData.map((fairItem) => fairItem.endpoint + " - " + fairItem.kg + " - " + "Metadata includes license"),
+                name: 'R11',
+                type: 'bar'
+            }
+            let r12ChartData = {
+                x: fairnessData.map((fairItem, index) => index),
+                y: fairnessData.map((fairItem) => fairItem.r12),
+                text: fairnessData.map((fairItem) => fairItem.endpoint + " - " + fairItem.kg + " - " + "Metadata includes provenance"),
+                name: 'R12',
+                type: 'bar'
+            }
+            let r13ChartData = {
+                x: fairnessData.map((fairItem, index) => index),
+                y: fairnessData.map((fairItem) => fairItem.r13),
+                text: fairnessData.map((fairItem) => fairItem.endpoint + " - " + fairItem.kg + " - " + "Community standards"),
+                name: 'R13',
+                type: 'bar'
+            }
+
+            const fairChartData = [f1aChartData, f1bChartData, f2aChartData, f2bChartData, a11ChartData, a12ChartData, i1ChartData, i2ChartData, i3ChartData, r11ChartData, r12ChartData, r13ChartData]
+            return Global.writeFile(fairnessChartPlotlyDataFilename, JSON.stringify(fairChartData))
+        } else {
+            return Promise.reject("No fairness data found")
+        }
+    }).catch((error) => {
+        Logger.error("Error during fairness data reading", error)
+    });
 }

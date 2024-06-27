@@ -170,3 +170,20 @@ export type EndpointServerDataObject = {
     endpoint: string,
     server: string,
 }
+
+export type FAIRDataObject = {
+    kg: string,
+    endpoint: string,
+    f1a: number,
+    f1b: number,
+    f2a: number,
+    f2b: number,
+    a11: number,
+    a12: number,
+    i1: number,
+    i2: number,
+    i3: number,
+    r11: number,
+    r12: number,
+    r13: number
+}

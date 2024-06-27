@@ -9,7 +9,7 @@ dayjs.extend(duration)
 import * as Global from "./GlobalUtils.js";
 import * as Logger from "./LogUtils.js";
 import * as Sparql from "./SparqlUtils.js";
-import { EndpointItem, JSONValue, JSONObject, JSONArray, KeywordsEndpointDataObject, TripleCountDataObject, VocabEndpointDataObject, SPARQLFeatureDataObject, SPARQLJSONResult, EndpointServerDataObject, SPARQLJSONResultBinding, ClassCountDataObject, PropertyCountDataObject, QualityMeasureDataObject, LanguageListDataObject } from './DataTypes.js';
+import { EndpointItem, JSONValue, JSONObject, JSONArray, KeywordsEndpointDataObject, TripleCountDataObject, VocabEndpointDataObject, SPARQLFeatureDataObject, SPARQLJSONResult, EndpointServerDataObject, SPARQLJSONResultBinding, ClassCountDataObject, PropertyCountDataObject, QualityMeasureDataObject, LanguageListDataObject, FAIRDataObject } from './DataTypes.js';
 
 const dataFilePrefix = "./data/";
 export const dataCachedFilePrefix = "./data/cache/";
@@ -37,6 +37,7 @@ export const readableLabelDataFilename = dataCachedFilePrefix + "readableLabelDa
 export const blankNodesDataFilename = dataCachedFilePrefix + "blankNodesData.json";
 export const languageListDataFilename = dataCachedFilePrefix + "languagesData.json";
 export const endpointServerDataFilename = dataCachedFilePrefix + "endpointServerData.json";
+export const fairnessDataFilename = dataCachedFilePrefix + "fairnessData.json";
 const vocabKeywordsMapFilename = dataFilePrefix + "vocabularyKeywordMap.json";
 const endpointKeywordsMapFilename = dataFilePrefix + "endpointKeywordMap.json";
 
@@ -725,361 +726,183 @@ export function endpointLanguagesDataFill(): Promise<void> {
         });
 
 }
-// export function classAndPropertiesDataFill() {
-//     Logger.info("classAndPropertiesDataFill START")
-//     let classPartitionQuery = `CONSTRUCT { ?classPartition <http://www.w3.org/ns/sparql-service-description#endpoint> ?endpointUrl ;
-//             <http://rdfs.org/ns/void#class> ?c ;
-//             <http://rdfs.org/ns/void#triples> ?ct ;
-//             <http://rdfs.org/ns/void#classes> ?cc ;
-//             <http://rdfs.org/ns/void#properties> ?cp ;
-//             <http://rdfs.org/ns/void#distinctSubjects> ?cs ;
-//             <http://rdfs.org/ns/void#distinctObjects> ?co . 
-//     } WHERE { 
-//             ?metadata <http://ns.inria.fr/kg/index#curated> ?curated . 
-//             ?curated <http://www.w3.org/ns/sparql-service-description#endpoint> ?endpointUrl . 
-//             ?base <http://rdfs.org/ns/void#classPartition> ?classPartition . 
-//             ?classPartition <http://rdfs.org/ns/void#class> ?c . 
-//             OPTIONAL { ?classPartition <http://rdfs.org/ns/void#triples> ?ct . } 
-//             OPTIONAL { ?classPartition <http://rdfs.org/ns/void#classes> ?cc . }
-//             OPTIONAL { ?classPartition <http://rdfs.org/ns/void#properties> ?cp . } 
-//             OPTIONAL { ?classPartition <http://rdfs.org/ns/void#distinctSubjects> ?cs . } 
-//             OPTIONAL { ?classPartition <http://rdfs.org/ns/void#distinctObjects> ?co . } 
-//             FILTER(! isBlank(?c)) 
-//     }`
-//     let classSet = new Set();
-//     let classCountsEndpointsMap = new Map();
-//     let classPropertyCountsEndpointsMap = new Map();
-//     let classContentData = [];
-//     return Sparql.paginatedSparqlQueryToIndeGxPromise(classPartitionQuery)
-//         .then(classPartitionStore => {
-//             classPartitionStore = classPartitionStore as $rdf.Store;
-//             let classStatements: $rdf.Statement[] = classPartitionStore.statementsMatching(null, RDFUtils.VOID("class"), null);
-//             classStatements.forEach((classStatement, i) => {
-//                 let c = classStatement.subject.value; //item.c.value;
-//                 classSet.add(c);
-//                 (classPartitionStore as $rdf.Store).statementsMatching(classStatement.subject, RDFUtils.SD("endpoint"), null).forEach((classEndpointStatement, i) => {
-//                     let endpointUrl = classEndpointStatement.object.value;
-//                     if (classCountsEndpointsMap.get(c) == undefined) {
-//                         classCountsEndpointsMap.set(c, { class: c });
-//                     }
-//                     classCountsEndpointsMap.get(c).endpoints.add(endpointUrl);
-//                 });
-//                 (classPartitionStore as $rdf.Store).statementsMatching(classStatement.subject, RDFUtils.VOID("triples"), null).forEach((classTriplesStatement, i) => {
-//                     let ct = Number.parseInt(classTriplesStatement.object.value);
-//                     let currentClassItem = classCountsEndpointsMap.get(c);
-//                     if (classCountsEndpointsMap.get(c).triples == undefined) {
-//                         currentClassItem.triples = 0;
-//                         classCountsEndpointsMap.set(c, currentClassItem);
-//                     }
-//                     currentClassItem.triples = currentClassItem.triples + ct;
-//                     classCountsEndpointsMap.set(c, currentClassItem);
-//                 });
-//                 (classPartitionStore as $rdf.Store).statementsMatching(classStatement.subject, RDFUtils.VOID("classes"), null).forEach((classClassesStatement, i) => {
-//                     let cc = Number.parseInt(classClassesStatement.object.value);
-//                     let currentClassItem = classCountsEndpointsMap.get(c);
-//                     if (classCountsEndpointsMap.get(c).classes == undefined) {
-//                         currentClassItem.classes = 0;
-//                         classCountsEndpointsMap.set(c, currentClassItem);
-//                     }
-//                     currentClassItem.classes = currentClassItem.classes + cc;
-//                     classCountsEndpointsMap.set(c, currentClassItem);
-//                 });
-//                 (classPartitionStore as $rdf.Store).statementsMatching(classStatement.subject, RDFUtils.VOID("properties"), null).forEach((classPropertiesStatement, i) => {
-//                     let cp = Number.parseInt(classPropertiesStatement.object.value);
-//                     let currentClassItem = classCountsEndpointsMap.get(c);
-//                     if (classCountsEndpointsMap.get(c).properties == undefined) {
-//                         currentClassItem.properties = 0;
-//                         classCountsEndpointsMap.set(c, currentClassItem);
-//                     }
-//                     currentClassItem.properties = currentClassItem.properties + cp;
-//                     classCountsEndpointsMap.set(c, currentClassItem);
-//                 });
-//                 (classPartitionStore as $rdf.Store).statementsMatching(classStatement.subject, RDFUtils.VOID("distinctSubjects"), null).forEach((classDistinctSubjectsStatement, i) => {
-//                     let cs = Number.parseInt(classDistinctSubjectsStatement.object.value);
-//                     let currentClassItem = classCountsEndpointsMap.get(c);
-//                     if (classCountsEndpointsMap.get(c).distinctSubjects == undefined) {
-//                         currentClassItem.distinctSubjects = 0;
-//                         classCountsEndpointsMap.set(c, currentClassItem);
-//                     }
-//                     currentClassItem.distinctSubjects = currentClassItem.distinctSubjects + cs;
-//                     classCountsEndpointsMap.set(c, currentClassItem);
-//                 });
-//                 (classPartitionStore as $rdf.Store).statementsMatching(classStatement.subject, RDFUtils.VOID("distinctObjects"), null).forEach((classDistinctObjectsStatement, i) => {
-//                     let co = Number.parseInt(classDistinctObjectsStatement.object.value);
-//                     let currentClassItem = classCountsEndpointsMap.get(c);
-//                     if (classCountsEndpointsMap.get(c).distinctObjects == undefined) {
-//                         currentClassItem.distinctObjects = 0;
-//                         classCountsEndpointsMap.set(c, currentClassItem);
-//                     }
-//                     currentClassItem.distinctObjects = currentClassItem.distinctObjects + co;
-//                     classCountsEndpointsMap.set(c, currentClassItem);
-//                 });
-//                 if (classCountsEndpointsMap.get(c).endpoints == undefined) {
-//                     let currentClassItem = classCountsEndpointsMap.get(c);
-//                     currentClassItem.endpoints = new Set();
-//                     classCountsEndpointsMap.set(c, currentClassItem);
-//                 }
-//             });
-//             return Promise.resolve();
-//         })
-//         .then(() => {
-//             let classPropertyPartitionQuery = `CONSTRUCT {
-//                 ?classPropertyPartition <http://www.w3.org/ns/sparql-service-description#endpoint> ?endpointUrl  ;
-//                     <http://rdfs.org/ns/void#class> ?c ;
-//                     <http://rdfs.org/ns/void#property> ?p ;
-//                     <http://rdfs.org/ns/void#triples> ?pt ;
-//                     <http://rdfs.org/ns/void#distinctSubjects> ?ps ;
-//                     <http://rdfs.org/ns/void#distinctObjects> ?po .
-//             } { 
-//                     ?endpoint <http://www.w3.org/ns/sparql-service-description#endpoint> ?endpointUrl . 
-//                     ?metadata <http://ns.inria.fr/kg/index#curated> ?endpoint , ?base . 
-//                     ?base <http://rdfs.org/ns/void#classPartition> ?classPartition . 
-//                     ?classPartition <http://rdfs.org/ns/void#class> ?c . 
-//                     ?classPartition <http://rdfs.org/ns/void#propertyPartition> ?classPropertyPartition . 
-//                     ?classPropertyPartition <http://rdfs.org/ns/void#property> ?p . 
-//                     OPTIONAL { ?classPropertyPartition <http://rdfs.org/ns/void#triples> ?pt . } 
-//                     OPTIONAL { ?classPropertyPartition <http://rdfs.org/ns/void#distinctSubjects> ?ps . } 
-//                     OPTIONAL { ?classPropertyPartition <http://rdfs.org/ns/void#distinctObjects> ?po . } 
-//                     FILTER(! isBlank(?c)) 
-//             }`;
-//             return Sparql.paginatedSparqlQueryToIndeGxPromise(classPropertyPartitionQuery).then(classPropertyStore => {
-//                 classPropertyStore = classPropertyStore as $rdf.Store;
-//                 (classPropertyStore as $rdf.Store).statementsMatching(null, RDFUtils.VOID("class"), null).forEach((classPropertyStatement, i) => {
-//                     let partitionNode = classPropertyStatement.subject;
-//                     let c = classPropertyStatement.object.value;
-//                     classSet.add(c);
-//                     if (classPropertyCountsEndpointsMap.get(c) == undefined) {
-//                         classPropertyCountsEndpointsMap.set(c, new Map());
-//                     }
-//                     (classPropertyStore as $rdf.Store).statementsMatching(partitionNode, RDFUtils.VOID("property"), null).forEach((propertyStatement, i) => {
-//                         let p = propertyStatement.object.value;
-//                         if (classPropertyCountsEndpointsMap.get(c).get(p) == undefined) {
-//                             classPropertyCountsEndpointsMap.get(c).set(p, { property: p });
-//                         }
-//                         (classPropertyStore as $rdf.Store).statementsMatching(partitionNode, RDFUtils.SD("endpoint"), null).forEach((endpointStatement, i) => {
-//                             let endpointUrl = endpointStatement.object.value;
-//                             if (classPropertyCountsEndpointsMap.get(c).get(p).endpoints == undefined) {
-//                                 classPropertyCountsEndpointsMap.get(c).get(p).endpoints = new Set();
-//                             }
-//                             classPropertyCountsEndpointsMap.get(c).get(p).endpoints.add(endpointUrl);
-//                         });
-//                         (classPropertyStore as $rdf.Store).statementsMatching(partitionNode, RDFUtils.VOID("triples"), null).forEach((triplesStatement, i) => {
-//                             let pt = Number.parseInt(triplesStatement.object.value);
-//                             if (classPropertyCountsEndpointsMap.get(c).get(p).triples == undefined) {
-//                                 classPropertyCountsEndpointsMap.get(c).get(p).triples = 0;
-//                             }
-//                             classPropertyCountsEndpointsMap.get(c).get(p).triples = classPropertyCountsEndpointsMap.get(c).get(p).triples + pt;
-//                         });
-//                         (classPropertyStore as $rdf.Store).statementsMatching(partitionNode, RDFUtils.VOID("distinctSubjects"), null).forEach((distinctSubjectsStatement, i) => {
-//                             let ps = Number.parseInt(distinctSubjectsStatement.object.value);
-//                             if (classPropertyCountsEndpointsMap.get(c).get(p).distinctSubjects == undefined) {
-//                                 classPropertyCountsEndpointsMap.get(c).get(p).distinctSubjects = 0;
-//                             }
-//                             classPropertyCountsEndpointsMap.get(c).get(p).distinctSubjects = classPropertyCountsEndpointsMap.get(c).get(p).distinctSubjects + ps;
-//                         });
-//                         (classPropertyStore as $rdf.Store).statementsMatching(partitionNode, RDFUtils.VOID("distinctObjects"), null).forEach((distinctObjectsStatement, i) => {
-//                             let po = Number.parseInt(distinctObjectsStatement.object.value);
-//                             if (classPropertyCountsEndpointsMap.get(c).get(p).distinctObjects == undefined) {
-//                                 classPropertyCountsEndpointsMap.get(c).get(p).distinctObjects = 0;
-//                             }
-//                             classPropertyCountsEndpointsMap.get(c).get(p).distinctObjects = classPropertyCountsEndpointsMap.get(c).get(p).distinctObjects + po;
-//                         });
-//                     })
-//                 });
-//                 return Promise.resolve();
-//             });
-//         })
-//         .then(() => {
-//             classSet.forEach(className => {
-//                 let classCountItem = classCountsEndpointsMap.get(className);
-//                 let classItem = classCountItem;
-//                 if (classCountItem == undefined) {
-//                     classItem = { class: className };
-//                 }
-//                 if (classItem.endpoints != undefined) {
-//                     classItem.endpoints = [...classItem.endpoints]
-//                 }
-//                 let classPropertyItem = classPropertyCountsEndpointsMap.get(className);
-//                 if (classPropertyItem != undefined) {
-//                     classItem.propertyPartitions = [];
-//                     classPropertyItem.forEach((propertyPartitionItem, propertyName, map1) => {
-//                         propertyPartitionItem.endpoints = [...propertyPartitionItem.endpoints]
-//                         classItem.propertyPartitions.push(propertyPartitionItem);
-//                     });
-//                 }
-//                 classContentData.push(classItem)
-//             })
-//             try {
-//                 let content = JSON.stringify(classContentData);
-//                 return Global.writeFile(Global.getCachedFilenameForRunset(classPropertyDataFilename), content).then(() => {
-//                     Logger.info("classAndPropertiesDataFill END")
-//                     return Promise.resolve();
-//                 })
-//             } catch (err) {
-//                 Logger.error(err)
-//                 return Promise.reject(err);
-//             }
-//         })
-//         .catch(error => {
-//             Logger.error(error)
-//             return Promise.reject(error);
-//         })
-// }
 
-// export function datasetDescriptionDataFill() {
-//     Logger.info("datasetDescriptionDataDataFill START")
-//     let provenanceWhoCheckQuery = `SELECT DISTINCT ?endpointUrl ?o { 
-//             ?metadata <http://ns.inria.fr/kg/index#curated> ?dataset . 
-//             { ?dataset <http://www.w3.org/ns/sparql-service-description#endpoint> ?endpointUrl . } 
-//             UNION { ?dataset <http://www.w3.org/ns/dcat#endpointURL> ?endpointUrl }
-//             UNION { ?dataset <http://rdfs.org/ns/void#sparqlEndpoint> ?endpointUrl }
-//             OPTIONAL {
-//                 { ?dataset <http://purl.org/dc/terms/creator> ?o }
-//                 UNION { ?dataset <http://purl.org/dc/terms/contributor> ?o }
-//                 UNION { ?dataset <http://purl.org/dc/terms/publisher> ?o }
-//             }
-//     }`;
-//     let provenanceLicenseCheckQuery = `SELECT DISTINCT ?endpointUrl ?o { 
-//             ?metadata <http://ns.inria.fr/kg/index#curated> ?dataset .
-//             { ?dataset <http://www.w3.org/ns/sparql-service-description#endpoint> ?endpointUrl . }
-//             UNION { ?dataset <http://www.w3.org/ns/dcat#endpointURL> ?endpointUrl } 
-//             UNION { ?dataset <http://rdfs.org/ns/void#sparqlEndpoint> ?endpointUrl }
-//             OPTIONAL {
-//                 { ?dataset <http://purl.org/dc/terms/license> ?o } 
-//                 UNION {?dataset <http://purl.org/dc/terms/conformsTo> ?o }
-//             } 
-//     } `;
-//     let provenanceDateCheckQuery = `SELECT DISTINCT ?endpointUrl ?o { 
-//             ?metadata <http://ns.inria.fr/kg/index#curated> ?dataset . 
-//             { ?dataset <http://www.w3.org/ns/sparql-service-description#endpoint> ?endpointUrl . }
-//             UNION { ?dataset <http://www.w3.org/ns/dcat#endpointURL> ?endpointUrl }
-//             UNION { ?dataset <http://rdfs.org/ns/void#sparqlEndpoint> ?endpointUrl }
-//             OPTIONAL {
-//                 { ?dataset <http://purl.org/dc/terms/modified> ?o }
-//                 UNION { ?dataset <http://www.w3.org/ns/prov#wasGeneratedAtTime> ?o } 
-//                 UNION { ?dataset <http://purl.org/dc/terms/issued> ?o }
-//             }
-//     } `;
-//     let provenanceSourceCheckQuery = `SELECT DISTINCT ?endpointUrl ?o {
-//             ?metadata <http://ns.inria.fr/kg/index#curated> ?dataset .
-//             { ?dataset <http://www.w3.org/ns/sparql-service-description#endpoint> ?endpointUrl . }
-//             UNION { ?dataset <http://www.w3.org/ns/dcat#endpointURL> ?endpointUrl }
-//             UNION { ?dataset <http://rdfs.org/ns/void#sparqlEndpoint> ?endpointUrl }
-//             OPTIONAL {
-//                 { ?dataset <http://purl.org/dc/terms/source> ?o } 
-//                 UNION { ?dataset <http://www.w3.org/ns/prov#wasDerivedFrom> ?o }
-//                 UNION { ?dataset <http://purl.org/dc/terms/format> ?o }
-//             }
-//     } `;
-//     let endpointDescriptionElementMap = new Map();
-//     return Promise.allSettled([
-//         Sparql.paginatedSparqlQueryToIndeGxPromise(provenanceWhoCheckQuery)
-//             .then(json => {
-//                 (json as JSONValue[]).forEach((item, i) => {
-//                     let endpointUrl = item["endpointUrl"].value;
-//                     let who = (item["o"] != undefined);
-//                     let currentEndpointItem = endpointDescriptionElementMap.get(endpointUrl)
-//                     if (currentEndpointItem == undefined) {
-//                         endpointDescriptionElementMap.set(endpointUrl, { endpoint: endpointUrl })
-//                         currentEndpointItem = endpointDescriptionElementMap.get(endpointUrl);
-//                     }
-//                     currentEndpointItem.who = who;
-//                     if (who) {
-//                         currentEndpointItem.whoValue = item["o"].value;
-//                     }
-//                     endpointDescriptionElementMap.set(endpointUrl, currentEndpointItem);
-//                 })
-//                 return Promise.resolve();
-//             }),
-//         Sparql.paginatedSparqlQueryToIndeGxPromise(provenanceLicenseCheckQuery)
-//             .then(json => {
-//                 (json as JSONValue[]).forEach((item, i) => {
-//                     let endpointUrl = item["endpointUrl"].value;
-//                     let license = (item["o"] != undefined);
-//                     let currentEndpointItem = endpointDescriptionElementMap.get(endpointUrl)
-//                     if (currentEndpointItem == undefined) {
-//                         endpointDescriptionElementMap.set(endpointUrl, { endpoint: endpointUrl })
-//                         currentEndpointItem = endpointDescriptionElementMap.get(endpointUrl);
-//                     }
-//                     currentEndpointItem.license = license;
-//                     if (license) {
-//                         currentEndpointItem.licenseValue = item["o"].value;
-//                     }
-//                     endpointDescriptionElementMap.set(endpointUrl, currentEndpointItem);
-//                 })
-//                 return Promise.resolve();
-//             })
-//             .catch(error => {
-//                 Logger.error(error)
-//                 return Promise.reject(error);
-//             })
-//         ,
-//         Sparql.paginatedSparqlQueryToIndeGxPromise(provenanceDateCheckQuery)
-//             .then(json => {
-//                 (json as JSONValue[]).forEach((item, i) => {
-//                     let endpointUrl = item["endpointUrl"].value;
-//                     let time = (item["o"] != undefined);
-//                     let currentEndpointItem = endpointDescriptionElementMap.get(endpointUrl)
-//                     if (currentEndpointItem == undefined) {
-//                         endpointDescriptionElementMap.set(endpointUrl, { endpoint: endpointUrl })
-//                         currentEndpointItem = endpointDescriptionElementMap.get(endpointUrl);
-//                     }
-//                     currentEndpointItem.time = time;
-//                     if (time) {
-//                         currentEndpointItem.timeValue = item["o"].value;
-//                     }
-//                     endpointDescriptionElementMap.set(endpointUrl, currentEndpointItem);
-//                 })
-//                 return Promise.resolve();
-//             })
-//             .catch(error => {
-//                 Logger.error(error)
-//                 return Promise.reject(error);
-//             })
-//         ,
-//         Sparql.paginatedSparqlQueryToIndeGxPromise(provenanceSourceCheckQuery)
-//             .then(json => {
-//                 (json as JSONValue[]).forEach((item, i) => {
-//                     let endpointUrl = item["endpointUrl"].value;
-//                     let source = (item["o"] != undefined);
-//                     let currentEndpointItem = endpointDescriptionElementMap.get(endpointUrl)
-//                     if (currentEndpointItem == undefined) {
-//                         endpointDescriptionElementMap.set(endpointUrl, { endpoint: endpointUrl })
-//                         currentEndpointItem = endpointDescriptionElementMap.get(endpointUrl);
-//                     }
-//                     currentEndpointItem.source = source;
-//                     if (source) {
-//                         currentEndpointItem.sourceValue = item["o"].value;
-//                     }
-//                     endpointDescriptionElementMap.set(endpointUrl, currentEndpointItem);
-//                 });
-//                 return Promise.resolve();
-//             })
-//             .catch(error => {
-//                 Logger.error(error)
-//                 return Promise.reject(error);
-//             })
-//     ]).then(() => {
+export function fairnessDataFill() {
+    Logger.log("fairnessDataFill START")
+    const fairnessQuery = `PREFIX kgi: <http://ns.inria.fr/kg/index#>
+PREFIX dc: <http://purl.org/dc/elements/1.1/>
+PREFIX dataid: <http://dataid.dbpedia.org/ns/core#>
+PREFIX sd: <http://www.w3.org/ns/sparql-service-description#>
+PREFIX schema: <http://schema.org/>
+PREFIX dcmitype: <http://purl.org/dc/dcmitype/>
+PREFIX void: <http://rdfs.org/ns/void#>
+PREFIX dcat: <http://www.w3.org/ns/dcat#>
+PREFIX dqv: <http://www.w3.org/ns/dqv#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX prov: <http://www.w3.org/ns/prov#>
+PREFIX sin: <http://www.exemple.com/sin#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX dqv: <http://www.w3.org/ns/dqv#>
+PREFIX earl: <http://www.w3.org/ns/earl#>
+SELECT DISTINCT ?kg ?endpointUrl ?measureF1A ?measureF1B ?measureF2A ?measureF2B ?measureA11 ?measureA12 ?measureI1 ?measureI2 ?measureI3 ?measureR11 ?measureR12 ?measureR13 
+WHERE {
+  ?kg a ?datasetType .
+  VALUES ?datasetType { dcat:Dataset void:Dataset }.
+        { ?kg ?endpointLink ?endpointUrl . 
+            VALUES ?endpointLink {
+                dcat:endpointURL
+                void:sparqlEndpoint
+                sd:endpoint
+                dcat:accessURL
+            }
+        }
+        UNION {?kg dcat:accessService ?service .
+            ?service dcat:endpointURL ?endpointUrl .  }
+        UNION {?kg dcat:accessService ?service .
+            ?service sd:endpoint ?endpointUrl . }
+        UNION {?service dcat:servesDataset ?kg .
+            ?service dcat:endpointURL ?endpointUrl . }
+        UNION {?service dcat:servesDataset ?kg .
+            ?service sd:endpoint ?endpointUrl . }
+  
+  OPTIONAL {
+        ?kg dqv:hasQualityMeasurement ?measurementF1A, ?measurementF1B, ?measurementF2A, ?measurementF2B, ?measurementA11, ?measurementA12, ?measurementI1, ?measurementI2, ?measurementI3, ?measurementR11, ?measurementR12, ?measurementR13 .
+        
+        ?measurementF1A a dqv:QualityMeasurement ;
+            dqv:isMeasurementOf <https://w3id.org/fair/principles/latest/F1#F1A> ;
+            dqv:value ?measureF1A .
+            
+        ?measurementF1B a dqv:QualityMeasurement ;
+            dqv:isMeasurementOf <https://w3id.org/fair/principles/latest/F1#F1B> ;
+            dqv:value ?measureF1B .
+            
+        ?measurementF2A a dqv:QualityMeasurement ;
+            dqv:isMeasurementOf <https://w3id.org/fair/principles/latest/F2#F2A> ;
+            dqv:value ?measureF2A .
+            
+        ?measurementF2B a dqv:QualityMeasurement ;
+            dqv:isMeasurementOf <https://w3id.org/fair/principles/latest/F2#F2B> ;
+            dqv:value ?measureF2B .
+            
+        ?measurementA11 a dqv:QualityMeasurement ;
+            dqv:isMeasurementOf <https://w3id.org/fair/principles/latest/A1#A11> ;
+            dqv:value ?measureA11 .
+            
+        ?measurementA12 a dqv:QualityMeasurement ;
+            dqv:isMeasurementOf <https://w3id.org/fair/principles/latest/A1#A12> ;
+            dqv:value ?measureA12 .
+            
+        ?measurementI1 a dqv:QualityMeasurement ;
+            dqv:isMeasurementOf <https://w3id.org/fair/principles/latest/I1> ;
+            dqv:value ?measureI1 .
+            
+        ?measurementI2 a dqv:QualityMeasurement ;
+            dqv:isMeasurementOf <https://w3id.org/fair/principles/latest/I2> ;
+            dqv:value ?measureI2 .
+            
+        ?measurementI3 a dqv:QualityMeasurement ;
+            dqv:isMeasurementOf <https://w3id.org/fair/principles/latest/I3> ;
+            dqv:value ?measureI3 .
+            
+        ?measurementR11 a dqv:QualityMeasurement ;
+            dqv:isMeasurementOf <https://w3id.org/fair/principles/latest/R1#R11> ;
+            dqv:value ?measureR11 .
+            
+        ?measurementR12 a dqv:QualityMeasurement ;
+            dqv:isMeasurementOf <https://w3id.org/fair/principles/latest/R1#R12> ;
+            dqv:value ?measureR12 .
+            
+        ?measurementR13 a dqv:QualityMeasurement ;
+            dqv:isMeasurementOf <https://w3id.org/fair/principles/latest/R1#R13> ;
+            dqv:value ?measureR13 .
+  }
+  
+  FILTER(STRSTARTS(STR(?kg), "http"))
+  FILTER(! STRSTARTS(STR(?kg), STR(kgi:)))
+  FILTER(! STRSTARTS(STR(?endpointUrl), STR(kgi:)))
+} ORDER BY ?kg ?endpointUrl ?measureF1A ?measureF1B ?measureF2A ?measureF2B ?measureA11 ?measureA12 ?measureI1 ?measureI2 ?measureI3 ?measureR11 ?measureR12 ?measureR13 `
 
-//         let datasetDescriptionData = [];
-//         endpointDescriptionElementMap.forEach((prov, endpoint, map) => {
-//             datasetDescriptionData.push(prov)
-//         });
-//         return Promise.resolve(datasetDescriptionData);
-//     })
-//         .then(datasetDescriptionData => {
-//             try {
-//                 let content = JSON.stringify(datasetDescriptionData);
-//                 return Global.writeFile(Global.getCachedFilenameForRunset(datasetDescriptionDataFilename), content).then(() => {
-//                     Logger.info("datasetDescriptionDataDataFill END")
-//                     return Promise.resolve();
-//                 });
-//             } catch (err) {
-//                 Logger.error(err)
-//             }
-//         })
-//         .catch(error => {
-//             Logger.error(error)
-//             return Promise.reject(error);
-//         });
-// }
+    return Sparql.paginatedSparqlQueryToIndeGxPromise(fairnessQuery).then(fairnessResultArray => {
+        let fairnessDataArray: FAIRDataObject[] = [];
+        (fairnessResultArray as SPARQLJSONResultBinding[]).forEach(fairnessBinding => {
+            let itemF1A = 0;
+            if(fairnessBinding.measureF1A != undefined) {
+                itemF1A = Number.parseFloat(fairnessBinding.measureF1A.value);
+            }
+            let itemF1B = 0;
+            if(fairnessBinding.measureF1B != undefined) {
+                itemF1B = Number.parseFloat(fairnessBinding.measureF1B.value);
+            }
+            let itemF2A = 0;
+            if(fairnessBinding.measureF2A != undefined) {
+                itemF2A = Number.parseFloat(fairnessBinding.measureF2A.value);
+            }
+            let itemF2B = 0;
+            if(fairnessBinding.measureF2B != undefined) {
+                itemF2B = Number.parseFloat(fairnessBinding.measureF2B.value);
+            }
+            let itemA11 = 0;
+            if(fairnessBinding.measureA11 != undefined) {
+                itemA11 = Number.parseFloat(fairnessBinding.measureA11.value);
+            }
+            let itemA12 = 0;
+            if(fairnessBinding.measureA12 != undefined) {
+                itemA12 = Number.parseFloat(fairnessBinding.measureA12.value);
+            }
+            let itemI1 = 0;
+            if(fairnessBinding.measureI1 != undefined) {
+                itemI1 = Number.parseFloat(fairnessBinding.measureI1.value);
+            }
+            let itemI2 = 0;
+            if(fairnessBinding.measureI2 != undefined) {
+                itemI2 = Number.parseFloat(fairnessBinding.measureI2.value);
+            }
+            let itemI3 = 0;
+            if(fairnessBinding.measureI3 != undefined) {
+                itemI3 = Number.parseFloat(fairnessBinding.measureI3.value);
+            }
+            let itemR11 = 0;
+            if(fairnessBinding.measureR11 != undefined) {
+                itemR11 = Number.parseFloat(fairnessBinding.measureR11.value);
+            }
+            let itemR12 = 0;
+            if(fairnessBinding.measureR12 != undefined) {
+                itemR12 = Number.parseFloat(fairnessBinding.measureR12.value);
+            }
+            let itemR13 = 0;
+            if(fairnessBinding.measureR13 != undefined) {
+                itemR13 = Number.parseFloat(fairnessBinding.measureR13.value);
+            }
+            let fairResultObject: FAIRDataObject = {
+                endpoint: fairnessBinding.endpointUrl.value,
+                kg: fairnessBinding.kg.value,
+                f1a: itemF1A,
+                f1b: itemF1B,
+                f2a: itemF2A,
+                f2b: itemF2B,
+                a11: itemA11,
+                a12: itemA12,
+                i1: itemI1,
+                i2: itemI2,
+                i3: itemI3,
+                r11: itemR11,
+                r12: itemR12,
+                r13: itemR13
+            };
+            fairnessDataArray.push(fairResultObject);
+        })
+
+        return Global.writeFile(fairnessDataFilename, JSON.stringify(fairnessDataArray))
+        .then(() => {
+            Logger.info("fairnessDataFill END");
+            return;
+        })
+        .catch(error => {
+            Logger.error(error)
+        })
+    })
+    .catch(error => {
+        Logger.error(error);
+    });
+}

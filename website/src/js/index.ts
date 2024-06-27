@@ -38,6 +38,7 @@ window.onload = (() => {
 
     View.setButtonAsToggleCollapse('readableLabelsDetails', 'readableLabelsDatatable');
     View.setButtonAsToggleCollapse('endpointServerDetails', 'endpointServerDatatable');
+    View.setButtonAsToggleCollapse('fairnessDetails', 'fairnessDatatable');
     
 
     (new Control.Control()).init().then(() => {
@@ -880,6 +881,72 @@ window.onload = (() => {
             }
 
             console.log("endpoint/server table filled");
+        })
+
+        // FAIRness chart
+        console.log("Filling FAIRness chart ...");
+        Control.Control.getCacheFile(Control.fairnessChartPlotlyDataFilename).then(rawFairnessChartData => {
+            let fairnessChartElement = document.getElementById("fairnessChart");
+            if (fairnessChartElement) {
+                const fairnessChartData = rawFairnessChartData as Plotly.Data[];
+                const fairnessChartLayout: Partial<Plotly.Layout> = {
+                    xaxis: {
+                        type: "linear",
+                        showticklabels: false,
+                        // ticks: "",
+                        autorange: true,
+                    },
+                    yaxis: {
+                        type: 'linear',
+                        autorange: true,
+                        // range: [0, 1]
+                    },
+                    barmode: 'relative',
+                    title: 'FAIRness scores of datasets according to the FAIR-Checker evaluation tool',
+                };
+                Plotly.newPlot("fairnessChart", fairnessChartData, fairnessChartLayout)
+            }
+
+            console.log("FAIRness chart filled");
+        })
+
+        // FAIRness Table
+        console.log("Filling FAIRness table ...");
+        Control.Control.getCacheFile(Control.fairnessDataFilename).then(fairnessData => {
+            let fairnessElement = document.getElementById("fairnessDatatable");
+            if (fairnessElement) {
+                fairnessElement.innerHTML = "";
+                let gridJSColumns = [
+                    { name: 'Endpoint', sort: 'asc' },
+                    'Dataset',
+                    'F1A',
+                    'F1B',
+                    'F2A',
+                    'F2B',
+                    'A11',
+                    'A12',
+                    'I1',
+                    'I2',
+                    'I3',
+                    'R11',
+                    'R12',
+                    'R13',
+                ];
+                let gridJSData = (fairnessData as Datatype.FAIRDataObject[]).filter(item => item !== undefined).map(item => [item.endpoint, item.kg, item.f1a, item.f1b, item.f2a, item.f2b, item.a11, item.a12, item.i1, item.i2, item.i3, item.r11, item.r12, item.r13]);
+                let gridJS = new gridjs.Grid({
+                    columns: gridJSColumns,
+                    data: gridJSData,
+                    sort: true,
+                    search: true,
+                    pagination: {
+                        limit: 10,
+                        summary: false
+                    }
+                });
+                gridJS.render(fairnessElement);
+            }
+
+            console.log("FAIRness table filled");
         })
 
 

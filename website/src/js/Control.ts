@@ -18,6 +18,7 @@ export const datasetDescriptionPlotlyDataFilename = "datasetDescriptionPlotlyDat
 export const totalRuntimePlotlyDataFilename = "totalRuntimePlotlyData.json";
 export const endpointServerPlotlyDataFilename = "endpointServerChartPlotlyData.json"
 export const endpointLanguagesPlotlyDataFilename = "endpointLanguagesPlotlyData.json"
+export const fairnessChartPlotlyDataFilename = "fairnessChartPlotlyData.json"
 
 // Cached files
 export const geolocDataFilename = 'geolocData.json';
@@ -36,6 +37,7 @@ export const readableLabelDataFilename = "readableLabelData.json";
 export const blankNodesDataFilename = "blankNodesData.json";
 export const endpointServerDataFilename = "endpointServerData.json";
 export const languageListDataFilename = "languagesData.json";
+export const fairnessDataFilename = "fairnessData.json";
 
 const sparqlFeatureDescFile = cachePromise("SPARQLFeatureDescriptions.json");
 
