@@ -30,16 +30,16 @@ export function getForceGraphOption(title: string, categoryArray: string[], data
             confine: true,
         },
         legend: {
-                data: legendData,
-                top: 'bottom',
-            } ,
+            data: categoryArray,
+            top: 'bottom',
+        },
         series: [
             {
                 type: 'graph',
                 layout: 'force',
                 data: dataNodes,
                 links: dataLinks,
-                categories: categories,
+                categories: serieCategories,
                 roam: true,
                 draggable: true,
                 label: {
@@ -53,10 +53,10 @@ export function getForceGraphOption(title: string, categoryArray: string[], data
     };
 }
 
-export function getCircularGraphOption(title, legendData, dataNodes, dataLinks): EChartsOption {
-    let categories: any[] = [];
-    legendData.forEach((item, i) => {
-        categories.push({ name: item });
+export function getCircularGraphOption(title: string, categoryArray: string[], dataNodes: EchartsGraphNode[], dataLinks: EchartsGraphLink[]): echarts.EChartsOption {
+    let serieCategory: JSONObject[] = [];
+    categoryArray.forEach((item, i) => {
+        serieCategory.push({ name: item });
     });
     return {
         title: {
@@ -69,9 +69,9 @@ export function getCircularGraphOption(title, legendData, dataNodes, dataLinks):
             confine: true,
         },
         legend: {
-                data: legendData,
-                top: 'bottom',
-            } ,
+            data: categoryArray,
+            top: 'bottom',
+        },
         series: [
             {
                 type: 'graph',
@@ -81,7 +81,7 @@ export function getCircularGraphOption(title, legendData, dataNodes, dataLinks):
                 },
                 data: dataNodes,
                 links: dataLinks,
-                categories: categories,
+                categories: serieCategory,
                 roam: true,
                 draggable: true,
                 label: {
@@ -97,31 +97,31 @@ export function getCircularGraphOption(title, legendData, dataNodes, dataLinks):
     };
 }
 
-export function getCategoryScatterOption(title, categories, series): EChartsOption {
-    return {
-        title: {
-            left: 'center',
-            text: title,
-        },
-        xAxis: {
-            type: 'category',
-            data: categories,
-            axisLabel: {
-                show: true,
-                interval: 0,
-                rotate: 27
-            }
-        },
-        yAxis: {
-        },
-        series: series,
-        tooltip: {
-            show: true
-        }
-    };
-}
+// export function getCategoryScatterOption(title: string, categories: string[], series): echarts.EChartsOption {
+//     return {
+//         title: {
+//             left: 'center',
+//             text: title,
+//         },
+//         xAxis: {
+//             type: 'category',
+//             data: categories,
+//             axisLabel: {
+//                 show: true,
+//                 interval: 0,
+//                 rotate: 27
+//             }
+//         },
+//         yAxis: {
+//         },
+//         series: series,
+//         tooltip: {
+//             show: true
+//         }
+//     };
+// }
 
-export function getTimeScatterOption(title, series): EChartsOption {
+export function getTimeScatterOption(title: string, series: echarts.SeriesOption[]): echarts.EChartsOption {
     return {
         title: {
             left: 'center',
@@ -143,7 +143,48 @@ export function getTimeScatterOption(title, series): EChartsOption {
     };
 }
 
-export function getScatterDataSeriesFromMap(dataMap: Map<string, string[]>): any[] {
+export function getLogScatterOption(title: string, series: echarts.SeriesOption[]): echarts.EChartsOption {
+    return {
+        title: {
+            left: 'center',
+            text: title,
+        },
+        xAxis: {
+            type: 'value',
+            axisLabel: {
+                show: true
+            }
+        },
+        yAxis: {
+            type: 'log',
+            axisLabel: {
+                show: true,
+            }
+        },
+        series: series,
+        tooltip: {
+            show: true
+        }
+    };
+}
+
+export function getScatterLineDataSeriesFromMap(dataMap: Map<string, string[][]>): echarts.SeriesOption[] {
+    let series: any[] = [];
+    dataMap.forEach((value, key, map) => {
+        let chartSerie: any = {
+            name: key,
+            label: { show: false },
+            symbolSize: 5,
+            data: value,
+            type: 'line'
+        };
+
+        series.push(chartSerie);
+    });
+    return series;
+}
+
+export function getScatterDataSeriesFromMap(dataMap: Map<string, string[]>): echarts.SeriesOption[] {
     let series: any[] = [];
     dataMap.forEach((value, key, map) => {
         let chartSerie: any = {

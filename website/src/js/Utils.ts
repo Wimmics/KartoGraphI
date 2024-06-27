@@ -1,8 +1,8 @@
 import dayjs from 'dayjs';
-import $ from 'jquery';
+import { JSONObject } from './Datatypes';
 
-export function intersection(setA, setB) {
-    let intersection = new Set();
+export function intersection<A>(setA: Set<A>, setB: Set<A>): Set<A> {
+    let intersection = new Set<A>();
     for (let elem of setB) {
         if (setA.has(elem)) {
             intersection.add(elem);
@@ -11,7 +11,7 @@ export function intersection(setA, setB) {
     return intersection;
 }
 
-export function haveIntersection(setA, setB) {
+export function haveIntersection<A>(setA: Set<A>, setB: Set<A>) {
     return intersection(setA, setB).size > 0;
 }
 
@@ -23,4 +23,12 @@ export function precise(x: number, n = 3) {
 // Parse the date in any format
 export function parseDate(input, format?) {
     return dayjs(input, format);
+}
+
+export function mapToJSON(map: Map<any, any>): string {
+    return JSON.stringify(Object.fromEntries(map));
+}
+
+export function mapFromJSON(jsonString: JSONObject): Map<any, any> {
+    return new Map<any, any>(Object.entries(jsonString));
 }

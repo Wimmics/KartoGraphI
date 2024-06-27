@@ -1,0 +1,777 @@
+endpoint,lat,lon,country,continent,city,org
+http://13.125.246.132/sparql,37.5665,126.978,South Korea,Asia,Seoul,AWS EC2 (ap-northeast-2)
+http://156.35.82.103/sparql,43.4065,-5.8213,Spain,Europe,Lugones,Uniovi
+http://aemet.linkeddata.es/sparql,40.43,-3.6691,Spain,Europe,Madrid,UPM
+http://affymetrix.bio2rdf.org/sparql,50.8268,5.7116,The Netherlands,Europe,Maastricht,Universiteit Maastricht
+http://agencies.publicdata.eu/sparql,50.1187,8.6842,Germany,Europe,Frankfurt am Main,"Linode, LLC"
+http://alaska.eagle-i.net/sparqler/sparql,32.3895,-89.9562,United States,North America,Brandon,Ventrure Technologies - JAN LAN
+http://api.finto.fi/sparql,60.1797,24.9344,Finland,Europe,Helsinki,University of Helsinki
+http://api.kasabi.com/dataset/bricklink/apis/sparql,47.6222,-122.337,United States,North America,Seattle,AWS Global Accelerator (GLOBAL)
+http://api.kasabi.com/dataset/ecco-tcp-eighteenth-century-collections-online-texts/apis/sparql,47.6229,-122.337,United States,North America,Seattle,AWS Global Accelerator (GLOBAL)
+http://api.kasabi.com/dataset/foodista/apis/sparql,47.6229,-122.337,United States,North America,Seattle,AWS Global Accelerator (GLOBAL)
+http://api.kasabi.com/dataset/nasa/apis/sparql,47.6229,-122.337,United States,North America,Seattle,AWS Global Accelerator (GLOBAL)
+http://api.kasabi.com/dataset/pali-english-lexicon/apis/sparql,47.6222,-122.337,United States,North America,Seattle,AWS Global Accelerator (GLOBAL)
+http://api.kasabi.com/dataset/prelinger-archives/apis/sparql,47.6229,-122.337,United States,North America,Seattle,AWS Global Accelerator (GLOBAL)
+http://api.kasabi.com/dataset/renewable-energy-generators/apis/sparql,47.6229,-122.337,United States,North America,Seattle,AWS Global Accelerator (GLOBAL)
+http://api.kasabi.com/dataset/sanskrit-english-lexicon/apis/sparql,47.6222,-122.337,United States,North America,Seattle,AWS Global Accelerator (GLOBAL)
+http://api.kasabi.com/dataset/un-hazardous-material-numbers/apis/sparql,47.6229,-122.337,United States,North America,Seattle,AWS Global Accelerator (GLOBAL)
+http://api.kasabi.com/dataset/yahoo-geoplanet/apis/sparql,47.6222,-122.337,United States,North America,Seattle,AWS Global Accelerator (GLOBAL)
+http://apps.morelab.deusto.es/labman/sparql,42.8198,-1.6374,Spain,Europe,Pamplona,Deusto
+http://aseg.cs.concordia.ca/secold/sparqlendpoint,45.5075,-73.5887,Canada,North America,Montreal,Concordia University
+http://babelnet.org/sparql,42.4477,14.2212,Italy,Europe,Pescara,Netsons s.r.l.
+http://bbc.openlinksw.com/sparql,52.3676,4.90414,The Netherlands,Europe,Amsterdam,OpenLink Group Ltd
+http://bio2rdf.org/sparql,50.8268,5.7116,The Netherlands,Europe,Maastricht,Universiteit Maastricht
+http://biomodels.bio2rdf.org/sparql,50.8268,5.7116,The Netherlands,Europe,Maastricht,Universiteit Maastricht
+http://bioportal.bio2rdf.org/sparql,50.8268,5.7116,The Netherlands,Europe,Maastricht,Universiteit Maastricht
+http://biordf.net/sparql,43.4643,-80.5204,Canada,North America,Waterloo,Internet Names Business Inc
+http://bmrbpub.protein.osaka-u.ac.jp/search/rdf,34.8598,135.4675,Japan,Asia,Minoh,Osaka University
+http://bnb.data.bl.uk/sparql,53.4113,-2.9759,United Kingdom,Europe,Liverpool,British Library
+http://caligraph.org/sparql,49.5006,8.4944,Germany,Europe,Mannheim,UNI-MANNHEIM
+http://canlink.library.ualberta.ca/sparql,45.5048,-73.5749,Canada,North America,Montreal,McGill University
+http://cau.eagle-i.net/sparqler/sparql,32.3895,-89.9562,United States,North America,Brandon,Ventrure Technologies - JAN LAN
+http://ccny-cuny.eagle-i.net/sparqler/sparql,32.3895,-89.9562,United States,North America,Brandon,Ventrure Technologies - JAN LAN
+http://cdrewu.eagle-i.net/sparqler/sparql,32.3895,-89.9562,United States,North America,Brandon,Ventrure Technologies - JAN LAN
+http://chemdb.semweb.csdb.cn/sparql,39.1488,117.1762,China,Asia,Tianjin,
+http://clara.univ-nantes.fr/sparql,47.2145,-1.5512,France,Europe,Nantes,Universite de Nantes
+http://clinicaltrials.bio2rdf.org/sparql,50.8268,5.7116,The Netherlands,Europe,Maastricht,Universiteit Maastricht
+http://colil.dbcls.jp/sparql,35.6916,139.768,Japan,Asia,Chiyoda,
+http://collection.britishmuseum.org/Sparql,51.5153,-0.10931,United Kingdom,Europe,London,Jisc Services Limited
+http://collection.britishmuseum.org/sparql,51.5153,-0.10931,United Kingdom,Europe,London,Jisc Services Limited
+http://commons.dbpedia.org/sparql,52.3826,13.0934,Germany,Europe,Potsdam,UNI Potsdam
+http://core.kmi.open.ac.uk/squery,52.0361,-0.7006,United Kingdom,Europe,Milton Keynes,Open University
+http://cr.eionet.europa.eu/sparql,56.0843,12.1451,Denmark,Europe,Vejby,European Environment Agency
+http://crtm.linkeddata.es/sparql,40.3765,-3.7592,Spain,Europe,Madrid,UPM
+http://cs.dbpedia.org/sparql,50.7748,14.9508,Czechia,Europe,Liberec,"University of Economics, Prague"
+http://ct-linkdata.aegean.gr/gcam/sparql,39.0974,26.5463,Greece,Europe,Mytilene,
+http://ctd.bio2rdf.org/sparql,50.8268,5.7116,The Netherlands,Europe,Maastricht,Universiteit Maastricht
+http://cultura.linkeddata.es/sparql,40.43,-3.6691,Spain,Europe,Madrid,UPM
+http://d2kab.i3s.unice.fr/sparql,43.5866,7.1242,France,Europe,Antibes,Universite de Nice
+http://dartmouth.eagle-i.net/sparqler/sparql,43.7019,-72.2827,United States,North America,Hanover,Dartmouth College
+http://data.aalto.fi/sparql,62.8357,27.6763,Finland,Europe,Kuopio,Cloud services
+http://data.allie.dbcls.jp/sparql,35.6916,139.768,Japan,Asia,Chiyoda,
+http://data.archaeologydataservice.ac.uk/sparql/repositories/archives,53.9573,-1.0837,United Kingdom,Europe,York,University of York
+http://data.archiveshub.ac.uk/sparql,53.3498,-6.26031,Ireland,Europe,Dublin,AWS EC2 (eu-west-1)
+http://data.bib.uni-mannheim.de/sparql,47.9863,8.819,Germany,Europe,Tuttlingen,Universitaet Mannheim
+http://data.bibliotheken.nl/sparql,53.2567,6.45972,The Netherlands,Europe,Aduard,Wirewizard Management BV
+http://data.bnf.fr/sparql,48.8323,2.4075,France,Europe,Paris,BNF
+http://data.cervantesvirtual.com/bvmc-lod/repositories/data,37.5599,-1.8075,Spain,Europe,Puerto Lumbreras,Asac Comunicaciones S.L.
+http://data.cervantesvirtual.com/openrdf-sesame/repositories/data,37.5599,-1.8075,Spain,Europe,Puerto Lumbreras,Asac Comunicaciones S.L.
+http://data.cervantesvirtual.com/sparql,37.5599,-1.8075,Spain,Europe,Puerto Lumbreras,Asac Comunicaciones S.L.
+http://data.cnr.it/sparql-proxy,41.8904,12.5126,Italy,Europe,Rome,Consiglio Nazionale delle Ricerche
+http://data.consilium.europa.eu/sparql,50.8344,4.368,Belgium,Europe,Brussels,"Council of the EU, General Secretariat"
+http://data.culture.fr/thesaurus/sparql,48.9105,2.36801,France,Europe,Aubervilliers,Ministere de la Culture
+http://data.digitalculture.tw/taichung/sparql,48.1446,11.5895,Germany,Europe,Munich,TEAM-INTERNET
+http://data.doremus.org/sparql,43.6319,7.0043,France,Europe,Valbonne,Eurecom Sophia
+http://data.europa.eu/euodp/sparqlep,43.2965,5.36978,France,Europe,Marseille,AWS CloudFront (GLOBAL)
+http://data.fondazionezeri.unibo.it/sparql/,44.2251,12.047,Italy,Europe,Forlì,Alma Mater Studiorum Universita' di Bologna
+http://data.fundacionctic.org/sparql,43.3549,-5.8529,Spain,Europe,Oviedo,
+http://data.hnm.hu/sparql,47.5636,19.0947,Hungary,Europe,Budapest,
+http://data.legilux.public.lu/sparql,49.6113,6.1294,Luxembourg,Europe,Luxembourg,Public Services
+http://data.lenka.no/sparql,59.8348,10.4277,Norway,Europe,Asker,Nextgentel
+http://data.lider-project.eu/usage/sparql,40.43,-3.6691,Spain,Europe,Madrid,UPM
+http://data.linkededucation.org/request/lak-conference/sparql,52.3872,9.7054,Germany,Europe,Hanover,UNI Hannover
+http://data.linkedmdb.org/sparql,43.6387,-79.4262,Canada,North America,Toronto,Tucows.com Co
+http://data.logainm.ie/sparql,53.3598,-6.4905,Ireland,Europe,Leixlip,Trinity College Dublin
+http://data.mimo-db.eu/sparql,48.855,2.4836,France,Europe,Fontenay-sous-Bois,Cite Musique Paris
+http://data.nobelprize.org/,60.342,25.0293,Finland,Europe,Tuusula,Hetzner Online GmbH
+http://data.nobelprize.org/sparql,60.342,25.0293,Finland,Europe,Tuusula,Hetzner Online GmbH
+http://data.oceandrilling.org/sparql,43.6532,-79.3832,Canada,North America,Toronto,"Cloudflare, Inc."
+http://data.odw.tw/sparql,25.0104,121.4684,Taiwan,Asia,Banqiao,
+http://data.open.ac.uk/query,52.0361,-0.7006,United Kingdom,Europe,Milton Keynes,Open University
+http://data.ordnancesurvey.co.uk/datasets/os-linked-data/apis/sparql,40.7128,-74.006,United States,North America,New York,"Defense.Net, Inc"
+http://data.ox.ac.uk/sparql,51.7665,-1.2829,United Kingdom,Europe,Oxford,Oxford University
+http://data.persee.fr/explorer/sparql-endpoint,45.748,4.85,France,Europe,Lyon,Ecole Normale Superieure De Lyon
+http://data.persee.fr/sparql,45.748,4.85,France,Europe,Lyon,Ecole Normale Superieure De Lyon
+http://data.plan4all.eu/sparql,50.0883,14.4124,Czechia,Europe,Prague,Lesprojekt sluby s.r.o.
+http://data.rism.info/sparql,48.1663,11.5683,Germany,Europe,Munich,LRZ-MUNICH
+http://data.semanticweb.org/sparql,53.2689,-9.0533,Ireland,Europe,Galway,University College
+http://data.szepmuveszeti.hu/sparql,47.5636,19.0947,Hungary,Europe,Budapest,
+http://data.utpl.edu.ec/ecuadorresearch/lod/sparql,-3.9909,-79.202,Ecuador,South America,Loja,Universidad Tecnica Particular de Loja
+http://data.utpl.edu.ec/utpl/lod/sparql,-3.9909,-79.202,Ecuador,South America,Loja,Universidad Tecnica Particular de Loja
+http://dati.beniculturali.it/sparql,41.8904,12.5126,Italy,Europe,Rome,Vodafone
+http://dati.camera.it/sparql,41.8904,12.5126,Italy,Europe,Rome,Camera dei deputati
+http://dati.isprambiente.it/sparql,41.8904,12.5126,Italy,Europe,Rome,Istituto Superiore per la protezione e la ricerca ambientale
+http://dati.senato.it/sparql,43.2965,5.36978,France,Europe,Marseille,AWS CloudFront (GLOBAL)
+http://datos.artium.org/sparql,40.4272,-3.71347,Spain,Europe,Madrid,OVH Hispano
+http://datos.bcn.cl/sparql,-33.0479,-71.6055,Chile,South America,Valparaíso,Congreso Nacional
+http://datos.bne.es/sparql,40.4519,-3.711,Spain,Europe,Madrid,BNE
+http://db.artsdata.ca/repositories/artsdata,43.6532,-79.3832,Canada,North America,Toronto,AWS EC2 (ca-central-1)
+http://dbkwik.webdatacommons.org/sparql,49.4922,8.464,Germany,Europe,Mannheim,UNI-MANNHEIM
+http://dblp.l3s.de/d2r/sparql,52.3872,9.7054,Germany,Europe,Hanover,UNI Hannover
+http://dbpedia-live.openlinksw.com/sparql,52.3667,4.89454,The Netherlands,Europe,Amsterdam,OpenLink Group Ltd
+http://dbpedia.org/sparql,52.3667,4.89454,The Netherlands,Europe,Amsterdam,XS4ALL Internet BV
+http://dbsnp.bio2rdf.org/sparql,50.8268,5.7116,The Netherlands,Europe,Maastricht,Universiteit Maastricht
+http://dbtune.org/bbc/peel/sparql,51.6486,0.0495,United Kingdom,Europe,Loughton,"Queen Mary and Westfield College, University of London"
+http://dbtune.org/classical/sparql,51.6486,0.0495,United Kingdom,Europe,Loughton,"Queen Mary and Westfield College, University of London"
+http://dbtune.org/jamendo/sparql,51.6486,0.0495,United Kingdom,Europe,Loughton,"Queen Mary and Westfield College, University of London"
+http://dbtune.org/magnatune/sparql,51.6486,0.0495,United Kingdom,Europe,Loughton,"Queen Mary and Westfield College, University of London"
+http://dbtune.org/musicbrainz/sparql,51.6486,0.0495,United Kingdom,Europe,Loughton,"Queen Mary and Westfield College, University of London"
+http://dbtune.org/myspace/sparql,51.6486,0.0495,United Kingdom,Europe,Loughton,"Queen Mary and Westfield College, University of London"
+http://de.dbpedia.org/sparql,49.0917,8.42838,Germany,Europe,Eggenstein-Leopoldshafen,FIZ Karlsruhe - Leibniz Institute Information Infrastructure
+http://demo.openlinksw.com/sparql,52.3676,4.90414,The Netherlands,Europe,Amsterdam,OpenLink Group Ltd
+http://demo.spraakdata.gu.se/ltlod/test/,57.7065,11.967,Sweden,Europe,Gothenburg,Goteborgs universitet
+http://deploy.rkbexplorer.com/sparql,51.5072,-0.127586,United Kingdom,Europe,London,Cloudflarenet EU
+http://dewey.info/sparql.php,40.0181,-83.0117,United States,North America,Columbus,"OCLC, Inc."
+http://digital-agenda-data.eu/data/sparql,48.8566,2.35222,France,Europe,Paris,Netim CIV
+http://digital-agenda-data.eu/sparql,48.8566,2.35222,France,Europe,Paris,Netim CIV
+http://digitale.bncf.firenze.sbn.it/openrdf-workbench/repositories/NS/query,41.4616,15.5564,Italy,Europe,Foggia,Biblioteca Nazionale Centrale
+http://drugbank.bio2rdf.org/sparql,50.8268,5.7116,The Netherlands,Europe,Maastricht,Universiteit Maastricht
+http://dskg.org/sparql,52.5234,13.3224,Germany,Europe,Berlin,Strato AG
+http://dutchshipsandsailors.nl/data/sparql/,51.3692,5.2208,The Netherlands,Europe,Bladel,Internationaal Instituut voor Sociale Geschiedenis
+http://ecb.publicdata.eu/sparql,50.1187,8.6842,Germany,Europe,Frankfurt am Main,"Linode, LLC"
+http://edan.si.edu/saam/sparql,38.8863,-77.0209,United States,North America,Washington,Smithsonian Institution
+http://el.dbpedia.org/sparql,40.6439,22.9358,Greece,Europe,Thessaloniki,AUTH
+http://en.openei.org/sparql,45.5235,-122.676,United States,North America,Portland,AWS EC2 (us-west-2)
+http://enipedia.tudelft.nl/sparql,27.9433,-82.526,United States,North America,Tampa,"Bodis, LLC"
+http://environment.data.gov.uk/sparql/bwq/query,53.3478,-6.2597,Ireland,Europe,Dublin,Microsoft Azure Cloud (northeurope)
+http://es.dbpedia.org/sparql,40.43,-3.6691,Spain,Europe,Madrid,UPM
+http://eu.dbpedia.org/sparql,42.8198,-1.6374,Spain,Europe,Pamplona,Deusto
+http://eur-lex.publicdata.eu/sparql,50.1187,8.6842,Germany,Europe,Frankfurt am Main,"Linode, LLC"
+http://europeana.ontotext.com/sparql,42.6977,23.3219,Bulgaria,Europe,Sofia,Daticum Colo
+http://eventmedia.eurecom.fr/sparql,43.6319,7.0043,France,Europe,Valbonne,Eurecom Sophia
+http://example.org,40.7128,-74.006,United States,North America,New York,Edgecast Inc
+http://factforge.net/repositories/ff-news,50.475,12.365,Germany,Europe,Falkenstein,Hetzner
+http://factforge.net/sparql,50.475,12.365,Germany,Europe,Falkenstein,Hetzner
+http://famu.eagle-i.net/sparqler/sparql,32.3895,-89.9562,United States,North America,Brandon,Ventrure Technologies - JAN LAN
+http://fintrans.publicdata.eu/sparql,50.1187,8.6842,Germany,Europe,Frankfurt am Main,"Linode, LLC"
+http://fr.dbpedia.org/sparql,48.837,2.10292,France,Europe,Le Chesnay-Rocquencourt,
+http://ft.rkbexplorer.com/sparql,51.5072,-0.127586,United Kingdom,Europe,London,Cloudflarenet EU
+http://genage.bio2rdf.org/sparql,50.8268,5.7116,The Netherlands,Europe,Maastricht,Universiteit Maastricht
+http://gendr.bio2rdf.org/sparql,50.8268,5.7116,The Netherlands,Europe,Maastricht,Universiteit Maastricht
+http://genome.microbedb.jp/sparql,35.6916,139.768,Japan,Asia,Chiyoda,
+http://geo.linkeddata.es/sparql,40.43,-3.6691,Spain,Europe,Madrid,UPM
+http://geosparql.demo.openlinksw.com/sparql,52.3676,4.90414,The Netherlands,Europe,Amsterdam,OpenLink Group Ltd
+http://goa.bio2rdf.org/sparql,50.8268,5.7116,The Netherlands,Europe,Maastricht,Universiteit Maastricht
+http://govwild.org/sparql,52.3826,13.0934,Germany,Europe,Potsdam,UNI Potsdam
+http://greek-lod.auth.gr/fire-brigade/sparql,40.6439,22.9358,Greece,Europe,Thessaloniki,AUTH
+http://greek-lod.auth.gr/police/sparql,40.6439,22.9358,Greece,Europe,Thessaloniki,AUTH
+http://greek-lod.math.auth.gr/intervalue/sparql,40.6439,22.9358,Greece,Europe,Thessaloniki,AUTH
+http://greek-lod.math.auth.gr/kalikratis/sparql,40.6439,22.9358,Greece,Europe,Thessaloniki,AUTH
+http://harvard.eagle-i.net/sparqler/sparql,43.2965,5.36978,France,Europe,Marseille,AWS CloudFront (GLOBAL)
+http://hawaii.eagle-i.net/sparqler/sparql,32.3895,-89.9562,United States,North America,Brandon,Ventrure Technologies - JAN LAN
+http://helheim.deusto.es/hedatuz/sparql,42.8198,-1.6374,Spain,Europe,Pamplona,Deusto
+http://heritagedata.org/live/sparql,51.8613,-2.25056,United Kingdom,Europe,Gloucester,Fasthosts Internet Limited
+http://hgnc.bio2rdf.org/sparql,50.8268,5.7116,The Netherlands,Europe,Maastricht,Universiteit Maastricht
+http://hkcan.julac.org/lod/sparql,22.3361,114.1999,Hong Kong,Asia,Kowloon City,Hong Kong University of Science and Technology
+http://homologene.bio2rdf.org/sparql,50.8268,5.7116,The Netherlands,Europe,Maastricht,Universiteit Maastricht
+http://howard.eagle-i.net/sparqler/sparql,32.3895,-89.9562,United States,North America,Brandon,Ventrure Technologies - JAN LAN
+http://hunter-cuny.eagle-i.net/sparqler/sparql,32.3895,-89.9562,United States,North America,Brandon,Ventrure Technologies - JAN LAN
+http://id.eaufrance.fr/sparql,48.8323,2.4075,France,Europe,Paris,OIE Limoges
+http://id.ndl.go.jp/auth/ndla/,43.2965,5.36978,France,Europe,Marseille,AWS CloudFront (GLOBAL)
+http://id.ndl.go.jp/auth/ndlsh/,43.2965,5.36978,France,Europe,Marseille,AWS CloudFront (GLOBAL)
+http://id.nlm.nih.gov/mesh/sparql,39.0015,-77.0961,United States,North America,Bethesda,U.S. Dept. of Health and Human Services
+http://id.sgcb.mcu.es/sparql,40.4519,-3.711,Spain,Europe,Madrid,Mecd
+http://ieeevis.tw.rpi.edu/nosparql,42.6397,-73.5553,United States,North America,Averill Park,Rensselaer Polytechnic Institute
+http://integbio.jp/rdf/sparql,35.6906,139.77,Japan,Asia,Chiyoda,Japan Science and Technology Agency
+http://interpro.bio2rdf.org/sparql,50.8268,5.7116,The Netherlands,Europe,Maastricht,Universiteit Maastricht
+http://irefindex.bio2rdf.org/sparql,50.8268,5.7116,The Netherlands,Europe,Maastricht,Universiteit Maastricht
+http://iserve.kmi.open.ac.uk/iserve/sparql,52.0361,-0.7006,United Kingdom,Europe,Milton Keynes,Open University
+http://issa.i3s.unice.fr/sparql,43.5866,7.1242,France,Europe,Antibes,Universite de Nice
+http://ja.dbpedia.org/sparql,35.6916,139.768,Japan,Asia,Chiyoda,National Institute of Informatics
+http://jsu.eagle-i.net/sparqler/sparql,32.3895,-89.9562,United States,North America,Brandon,Ventrure Technologies - JAN LAN
+http://kaiko.getalp.org/sparql,45.1885,5.72452,France,Europe,Grenoble,Comue Grenoble Alpes
+http://kasabi.com/api/sparql-endpoint-foodista,47.6229,-122.337,United States,North America,Seattle,AWS Global Accelerator (GLOBAL)
+http://kdata.kr/sparql/endpoint.jsp,37.561,126.995,South Korea,Asia,Seoul,broadNnet
+http://kegg.bio2rdf.org/sparql,50.8268,5.7116,The Netherlands,Europe,Maastricht,Universiteit Maastricht
+http://km.aifb.kit.edu/services/xlike-lexicon/,48.9946,8.3758,Germany,Europe,Karlsruhe,Karlsruhe Institute of Technology
+http://lab.environment.data.gov.au/sparql,-28.0167,153.4,Australia,Oceania,Gold Coast,University of Queensland
+http://ldf.fi/corresp/sparql,62.8357,27.6763,Finland,Europe,Kuopio,Cloud services
+http://ldf.fi/folklore/sparql,62.8357,27.6763,Finland,Europe,Kuopio,Cloud services
+http://ldf.fi/kirjasampo/sparql,62.8357,27.6763,Finland,Europe,Kuopio,Cloud services
+http://ldf.fi/semparl/sparql,62.8357,27.6763,Finland,Europe,Kuopio,Cloud services
+http://ldf.fi/warsa/sparql,62.8357,27.6763,Finland,Europe,Kuopio,Cloud services
+http://ldf.fi/ww1lod/sparql,62.8357,27.6763,Finland,Europe,Kuopio,Cloud services
+http://lexinfo.net/corpora/alpino/query.php,37.7823,-122.391,United States,North America,San Francisco,"GitHub, Inc"
+http://libris.kb.se/sparql,59.3382,18.0721,Sweden,Europe,Stockholm,
+http://linguistic.linkeddata.es/sparql,40.43,-3.6691,Spain,Europe,Madrid,UPM
+http://linked-data.org/sparql,51.8615,-2.25094,United Kingdom,Europe,Gloucester,Fasthosts Internet Limited
+http://linked.opendata.cz/sparql,50.7748,14.9508,Czechia,Europe,Liberec,Charles University
+http://linkeddata.finki.ukim.mk/sparql,42.0041,21.4095,North Macedonia,Europe,Skopje,
+http://linkeddata.uriburner.com/sparql,52.3676,4.90414,The Netherlands,Europe,Amsterdam,OpenLink Group Ltd
+http://linkedgeodata.org/sparql,50.6811,10.9238,Germany,Europe,Ilmenau,"University of Leipzig, Augustusplatz 10/11, 04109 Leipzig"
+http://linkedlifedata.com/sparql,42.6977,23.3219,Bulgaria,Europe,Sofia,Daticum Colo
+http://linkedopencommerce.com/sparql,51.5072,-0.127586,United Kingdom,Europe,London,Cloudflarenet EU
+http://linkedspending.aksw.org/sparql,50.6811,10.9238,Germany,Europe,Ilmenau,"University of Leipzig, Augustusplatz 10/11, 04109 Leipzig"
+http://live.dbpedia.org/sparql,52.3667,4.89454,The Netherlands,Europe,Amsterdam,XS4ALL Internet BV
+http://lobid.org/sparql/,50.9341,6.93547,Germany,Europe,Cologne,Hochschulbibliothekszentrum des Landes Nordrhein-Westfalen
+http://lod.ac/bdls/sparql,35.6916,139.768,Japan,Asia,Chiyoda,National Institute of Informatics
+http://lod.b3kat.de/sparql,48.1663,11.5683,Germany,Europe,Munich,LRZ-MUNICH
+http://lod.gesis.org/thesoz/sparql,51.4295,7.3297,Germany,Europe,Witten,"GESIS - Leibniz-Institut fuer Sozialwissenschaften, Bonn / Berlin"
+http://lod.hebis.de/sparql,50.1235,8.6648,Germany,Europe,Frankfurt am Main,
+http://lod.kipo.kr/data/sparql,37.4818,127.1392,South Korea,Asia,Songpa-gu,Korea Institute of Patent Information
+http://lod.knps.or.kr/main/sparql.do,37.4723,126.6594,South Korea,Asia,Incheon,Kornet
+http://lod.nl.go.kr/sparql,37.6468,126.8843,South Korea,Asia,Goyang-si,broadNnet
+http://lod.openaire.eu/endpoint,52.2403,21.0186,Poland,Europe,Warsaw,ICM
+http://lod.openlinksw.com/sparql,52.3676,4.90414,The Netherlands,Europe,Amsterdam,OpenLink Group Ltd
+http://lod.sztaki.hu/sparql,47.5636,19.0947,Hungary,Europe,Budapest,Computer and Automation Institute
+http://lod.xdams.org/sparql,50.475,12.365,Germany,Europe,Falkenstein,cubetech.ch
+http://lofd.tw.rpi.edu/sparql,42.6397,-73.5553,United States,North America,Averill Park,Rensselaer Polytechnic Institute
+http://lov.okfn.org/dataset/lov/sparql,43.6532,-79.3832,Canada,North America,Toronto,"Cloudflare, Inc."
+http://lov.okfn.org/endpoint/lov,43.6532,-79.3832,Canada,North America,Toronto,"Cloudflare, Inc."
+http://lsd.dbcls.jp/sparql,35.6916,139.768,Japan,Asia,Chiyoda,
+http://lsr.bio2rdf.org/sparql,50.8268,5.7116,The Netherlands,Europe,Maastricht,Universiteit Maastricht
+http://meducator.open.ac.uk/resourcesrestapi/rest/meducator/sparql,52.0361,-0.7006,United Kingdom,Europe,Milton Keynes,Open University
+http://meharry.eagle-i.net/sparqler/sparql,32.3895,-89.9562,United States,North America,Brandon,Ventrure Technologies - JAN LAN
+http://mesh.bio2rdf.org/sparql,50.8268,5.7116,The Netherlands,Europe,Maastricht,Universiteit Maastricht
+http://metadb.riken.jp/sparql,35.7907,139.6203,Japan,Asia,Niikura,
+http://mgi.bio2rdf.org/sparql,50.8268,5.7116,The Netherlands,Europe,Maastricht,Universiteit Maastricht
+http://miuras.inf.um.es/sparql,37.942,-1.1377,Spain,Europe,Murcia,
+http://montana.eagle-i.net/sparqler/sparql,32.3895,-89.9562,United States,North America,Brandon,Ventrure Technologies - JAN LAN
+http://msm.eagle-i.net/sparqler/sparql,32.3895,-89.9562,United States,North America,Brandon,Ventrure Technologies - JAN LAN
+http://n-lex.publicdata.eu/sparql,50.1187,8.6842,Germany,Europe,Frankfurt am Main,"Linode, LLC"
+http://navi.first.lifesciencedb.jp/fanavi/sparql,35.6916,139.768,Japan,Asia,Chiyoda,
+http://ncbigene.bio2rdf.org/sparql,50.8268,5.7116,The Netherlands,Europe,Maastricht,Universiteit Maastricht
+http://ndb.publink.lod2.eu/sparql,51.5309,4.45292,The Netherlands,Europe,Roosendaal,bHosted.nl B.V.
+http://ndc.bio2rdf.org/sparql,50.8268,5.7116,The Netherlands,Europe,Maastricht,Universiteit Maastricht
+http://nl.dbpedia.org/sparql,51.342,12.3819,Germany,Europe,Leipzig,Universitaet Leipzig
+http://nlg.okfn.gr/sparql,51.5072,-0.127586,United Kingdom,Europe,London,Cloudflarenet EU
+http://nomisma.org/query,40.0992,-83.1141,United States,North America,Dublin,AWS EC2 (us-east-2)
+http://ohsu.eagle-i.net/sparqler/sparql,32.3895,-89.9562,United States,North America,Brandon,Ventrure Technologies - JAN LAN
+http://omim.bio2rdf.org/sparql,50.8268,5.7116,The Netherlands,Europe,Maastricht,Universiteit Maastricht
+http://onto.beef.org.pl/sparql,52.2297,21.0122,Poland,Europe,Warsaw,LH Genovo3
+http://onto.fel.cvut.cz/rdf4j-server/repositories/ufo-current,50.0853,14.4614,Czechia,Europe,Prague,Ceske vysoke uceni technicke v Praze
+http://opencitations.net/index/sparql,44.497,11.3565,Italy,Europe,Bologna,Alma Mater Studiorum Universita' di Bologna
+http://opencitations.net/sparql,44.497,11.3565,Italy,Europe,Bologna,Alma Mater Studiorum Universita' di Bologna
+http://opendata.aragon.es/sparql,41.6319,-0.8957,Spain,Europe,Zaragoza,AST network 81
+http://opendatacommunities.org/sparql,39.0997,-94.5785,United States,North America,Kansas City,Google Cloud
+http://orphanet.bio2rdf.org/sparql,50.8268,5.7116,The Netherlands,Europe,Maastricht,Universiteit Maastricht
+http://patho.phenomebrowser.net/sparql,1.35208,103.82,Singapore,Asia,Singapore,Incapsula Inc
+http://pharmgkb.bio2rdf.org/sparql,50.8268,5.7116,The Netherlands,Europe,Maastricht,Universiteit Maastricht
+http://platform.uberblic.org/api/v1/sparql,50.475,12.365,Germany,Europe,Falkenstein,Hetzner
+http://prelex.publicdata.eu/sparql,50.1187,8.6842,Germany,Europe,Frankfurt am Main,"Linode, LLC"
+http://premon.fbk.eu/sparql,46.0682,11.114,Italy,Europe,Trento,FBK RES
+http://psm.eagle-i.net/sparqler/sparql,32.3895,-89.9562,United States,North America,Brandon,Ventrure Technologies - JAN LAN
+http://pt.dbpedia.org/sparql,-16.561,-49.2063,Brazil,South America,Goiânia,Rede Nacional de Ensino e Pesquisa
+http://publications.europa.eu/webapi/rdf/sparql,47.6222,-122.337,United States,North America,Seattle,AWS Global Accelerator (GLOBAL)
+http://publicspending.medialab.ntua.gr/sparql,37.9842,23.7353,Greece,Europe,Athens,National Technical University of Athens
+http://pubmed.bio2rdf.org/sparql,50.8268,5.7116,The Netherlands,Europe,Maastricht,Universiteit Maastricht
+http://purl.org/twc/arrayexpress/virtuoso/sparql,37.7823,-122.472,United States,North America,San Francisco,Internet Archive
+http://purl.org/twc/hub/sparql,37.7823,-122.472,United States,North America,San Francisco,Internet Archive
+http://purl.org/weso/sparql,37.7823,-122.472,United States,North America,San Francisco,Internet Archive
+http://query.wikidata.org,37.7892,-122.402,United States,North America,San Francisco,"Wikimedia Foundation, Inc"
+http://rdf.disgenet.org/sparql,41.387,2.1701,Spain,Europe,Barcelona,
+http://rdf.farmbio.uu.se/chembl/sparql,59.8551,17.6343,Sweden,Europe,Uppsala,Uppsala University
+http://rdf.geneontology.org/blazegraph/sparql,45.5019,-73.5674,Canada,North America,Montreal,"Cloudflare, Inc."
+http://rdf.muninn-project.org/sparql,40.8229,-74.4592,United States,North America,Cedar Knolls,Linode
+http://rdf.pathwaycommons.org/sparql,43.6426,-79.4002,Canada,North America,Toronto,University of Toronto
+http://rdf.pubannotation.org/sparql,35.6916,139.768,Japan,Asia,Chiyoda,
+http://rdfabout.com/sparql,40.0992,-83.1141,United States,North America,Dublin,AWS EC2 (us-east-2)
+http://resource.geolba.ac.at/PoolParty/sparql/GeologicTimeScale,48.1992,16.3856,Austria,Europe,Vienna,
+http://resource.geolba.ac.at/PoolParty/sparql/GeologicUnit,48.1992,16.3856,Austria,Europe,Vienna,
+http://resource.geolba.ac.at/PoolParty/sparql/lithology,48.1992,16.3856,Austria,Europe,Vienna,
+http://resource.geolba.ac.at/PoolParty/sparql/tectonicunit,48.1992,16.3856,Austria,Europe,Vienna,
+http://river.styx.org/sparql,55.9403,-3.18244,United Kingdom,Europe,Edinburgh,Hacklab SH1
+http://semantic.eea.europa.eu/sparql,56.0843,12.1451,Denmark,Europe,Vejby,European Environment Agency
+http://semanticquran.aksw.org/sparql,50.6811,10.9238,Germany,Europe,Ilmenau,"University of Leipzig, Augustusplatz 10/11, 04109 Leipzig"
+http://semanticweb.cs.vu.nl/dss/sparql/,52.3111,4.861,The Netherlands,Europe,Amstelveen,Stichting VU
+http://semanticweb.cs.vu.nl/iati/sparql/,52.3111,4.861,The Netherlands,Europe,Amstelveen,Stichting VU
+http://semanticweb.cs.vu.nl/verrijktkoninkrijk/sparql/,52.3111,4.861,The Netherlands,Europe,Amstelveen,Stichting VU
+http://sensormeasurement.appspot.com/dataset/naturopathy-dataset,53.3498,-6.26031,Ireland,Europe,Dublin,GOOGLE 2a
+http://serendipity.utpl.edu.ec/lod/sparql,-3.9909,-79.202,Ecuador,South America,Loja,Universidad Tecnica Particular de Loja
+http://sgd.bio2rdf.org/sparql,50.8268,5.7116,The Netherlands,Europe,Maastricht,Universiteit Maastricht
+http://sider.bio2rdf.org/sparql,50.8268,5.7116,The Netherlands,Europe,Maastricht,Universiteit Maastricht
+http://slod.fiz-karlsruhe.de/sparql,49.0917,8.42838,Germany,Europe,Eggenstein-Leopoldshafen,FIZ Karlsruhe - Leibniz Institute Information Infrastructure
+http://smartlink.open.ac.uk/smartlink/sparql,52.0361,-0.7006,United Kingdom,Europe,Milton Keynes,Open University
+http://sociallink.futuro.media/sparql,50.1109,8.68213,Germany,Europe,Frankfurt am Main,AWS EC2 (eu-central-1)
+http://sparql.archives-ouvertes.fr/sparql,45.5674,5.9275,France,Europe,Chambéry,In2p3
+http://sparql.cwrc.ca/sparql,48.4265,-123.362,Canada,North America,Victoria,BCnet
+http://sparql.data.southampton.ac.uk/,50.9321,-1.3892,United Kingdom,Europe,Southampton,University of Southampton
+http://sparql.datao.net/sparql,50.9871,2.12554,France,Europe,Gravelines,OVH
+http://sparql.europeana.eu,50.475,12.365,Germany,Europe,Falkenstein,Hetzner
+http://sparql.hegroup.org/sparql,42.3068,-83.7059,United States,North America,Ann Arbor,The Regents of the University of Michigan
+http://sparql.kpath.khaos.uma.es/,37.1757,-3.5975,Spain,Europe,Granada,
+http://sparql.lynx-project.eu,40.43,-3.6691,Spain,Europe,Madrid,UPM
+http://sparql.nibb.ac.jp/sparql,35.179,136.8939,Japan,Asia,Sannomaru,
+http://sparql.odw.tw,25.0104,121.4684,Taiwan,Asia,Banqiao,
+http://sparql.orthodb.org/sparql,46.1911,6.1404,Switzerland,Europe,Geneva,Universite de Geneve
+http://sparql.proconsortium.org/virtuoso/sparql,39.7552,-75.5312,United States,North America,Wilmington,University of Delaware
+http://sparql.reegle.info/,51.2392,6.72489,Germany,Europe,Düsseldorf,CSL Computer Service Langenbach GmbH
+http://sparql.southgreen.fr,43.6108,3.87672,France,Europe,Montpellier,Cirad
+http://sparql.uniprot.org,46.1986,6.14277,Switzerland,Europe,Geneva,Universite de Geneve
+http://sparql.wikipathways.org,52.5234,13.3224,Germany,Europe,Berlin,Strato AG
+http://spatial.ucd.ie/lod/sparql,53.3097,-6.2853,Ireland,Europe,Terenure,University College Dublin
+http://statistics.data.gov.uk/sparql,39.0997,-94.5785,United States,North America,Kansas City,Google Cloud
+http://statistics.gov.scot/sparql,50.9009,4.4855,Belgium,Europe,Brussels,Google Cloud (europe-west1)
+http://taxonomy.bio2rdf.org/sparql,50.8268,5.7116,The Netherlands,Europe,Maastricht,Universiteit Maastricht
+http://taxref-graphdb.i3s.unice.fr/repositories/geco,43.5866,7.1242,France,Europe,Antibes,Universite de Nice
+http://taxref.mnhn.fr/sparql,48.8434,2.36349,France,Europe,Paris,Museum national d'histoire naturelle
+http://tcga.deri.ie,53.2689,-9.0533,Ireland,Europe,Galway,University College
+http://telegraphis.net/data/countries/sparql,37.5625,-122.0004,United States,North America,Fremont,Linode
+http://ts.opendata.inrae.fr/sparql,48.8033,2.2679,France,Europe,Clamart,"Institut national de recherche pour l'agriculture, l'alimentation et l'environnement"
+http://tsu.eagle-i.net/sparqler/sparql,32.3895,-89.9562,United States,North America,Brandon,Ventrure Technologies - JAN LAN
+http://tuskegee.eagle-i.net/sparqler/sparql,32.3895,-89.9562,United States,North America,Brandon,Ventrure Technologies - JAN LAN
+http://uccaribe.eagle-i.net/sparqler/sparql,32.3895,-89.9562,United States,North America,Brandon,Ventrure Technologies - JAN LAN
+http://unodc.publicdata.eu/sparql,50.1187,8.6842,Germany,Europe,Frankfurt am Main,"Linode, LLC"
+http://upr.eagle-i.net/sparqler/sparql,32.3895,-89.9562,United States,North America,Brandon,Ventrure Technologies - JAN LAN
+http://uriburner.com/sparql,52.3676,4.90414,The Netherlands,Europe,Amsterdam,OpenLink Group Ltd
+http://utep.eagle-i.net/sparqler/sparql,32.3895,-89.9562,United States,North America,Brandon,Ventrure Technologies - JAN LAN
+http://utsa.eagle-i.net/sparqler/sparql,32.3895,-89.9562,United States,North America,Brandon,Ventrure Technologies - JAN LAN
+http://virtuoso.plateforme.dipso.inrae.fr/sparql,48.8033,2.2679,France,Europe,Clamart,"Institut national de recherche pour l'agriculture, l'alimentation et l'environnement"
+http://visualdataweb.infor.uva.es/sparql,41.6547,-4.7344,Spain,Europe,Valladolid,UVA
+http://vocab.getty.edu/sparql,45.5235,-122.676,United States,North America,Portland,AWS EC2 (us-west-2)
+http://vocab.nerc.ac.uk/sparql/,51.2707,-0.7171,United Kingdom,Europe,Ash Vale,National Oceanography Centre
+http://vocabs.ands.org.au/repository/api/sparql/anzsrc-for,-35.2828,149.1283,Australia,Oceania,Canberra,Anunet
+http://vocabs.ands.org.au/repository/api/sparql/csiro_international-chronostratigraphic-chart_2018,-35.2828,149.1283,Australia,Oceania,Canberra,Anunet
+http://vocabs.ands.org.au/repository/api/sparql/csiro_international-chronostratigraphic-chart_international-chronostratigraphic-chart,-35.2828,149.1283,Australia,Oceania,Canberra,Anunet
+http://vocabs.ands.org.au/repository/api/sparql/ga_geologic-unit-type_v0-1,-35.2828,149.1283,Australia,Oceania,Canberra,Anunet
+http://vocabs.ardc.edu.au/repository/api/sparql/aas_the-unified-astronomy-thesaurus_4-0-1,-35.2828,149.1283,Australia,Oceania,Canberra,Anunet
+http://vocabs.ardc.edu.au/repository/api/sparql/csiro_international-chronostratigraphic-chart_geologic-time-scale-2020,-35.2828,149.1283,Australia,Oceania,Canberra,Anunet
+http://vocabulary.curriculum.edu.au/PoolParty/sparql/scot,-37.8171,144.96,Australia,Oceania,Melbourne,Education Services Australia Limited
+http://vocabulary.semantic-web.at/PoolParty/sparql/AustrianSkiTeam,48.1951,16.3483,Austria,Europe,Vienna,punkt. netServices GmbH
+http://vocabulary.semantic-web.at/PoolParty/sparql/OpenData,48.1951,16.3483,Austria,Europe,Vienna,punkt. netServices GmbH
+http://vocabulary.semantic-web.at/PoolParty/sparql/semweb,48.1951,16.3483,Austria,Europe,Vienna,punkt. netServices GmbH
+http://vocabulary.wolterskluwer.de/PoolParty/sparql/arbeitsrecht,48.4245,9.93958,Germany,Europe,Ulm,Wolters Kluwer Deutschland GmbH
+http://vocabulary.wolterskluwer.de/PoolParty/sparql/court,48.4245,9.93958,Germany,Europe,Ulm,Wolters Kluwer Deutschland GmbH
+http://vulcan.cs.uga.edu/sparql,33.9588,-83.4384,United States,North America,Athens,University of Georgia
+http://wasabi.inria.fr/sparql,48.837,2.10292,France,Europe,Le Chesnay-Rocquencourt,
+http://weakg.i3s.unice.fr/sparql,43.5866,7.1242,France,Europe,Antibes,Universite de Nice
+http://webenemasuno.linkeddata.es/sparql,40.43,-3.6691,Spain,Europe,Madrid,UPM
+http://webisa.webdatacommons.org/sparql,49.4922,8.464,Germany,Europe,Mannheim,UNI-MANNHEIM
+http://wikiba.se/ontology#around,60.1719,24.9347,Finland,Europe,Helsinki,Hetzner
+http://wikiba.se/ontology#aroundmwapi,60.1719,24.9347,Finland,Europe,Helsinki,Hetzner
+http://wikiba.se/ontology#box,60.1719,24.9347,Finland,Europe,Helsinki,Hetzner
+http://wikiba.se/ontology#label,60.1719,24.9347,Finland,Europe,Helsinki,Hetzner
+http://wikidata.demo.openlinksw.com/sparql,52.3676,4.90414,The Netherlands,Europe,Amsterdam,OpenLink Group Ltd
+http://wiktionary.dbpedia.org/sparql,51.342,12.3819,Germany,Europe,Leipzig,Universitaet Leipzig
+http://wormbase.bio2rdf.org/sparql,50.8268,5.7116,The Netherlands,Europe,Maastricht,Universiteit Maastricht
+http://ws.nju.edu.cn/lark/sparql,32.0568,118.779,China,Asia,Nanjing,
+http://www.archivesdefrance.culture.gouv.fr/thesaurus/sparql,48.9105,2.36801,France,Europe,Aubervilliers,Ministere de la Culture
+http://www.bgee.org/,46.5184,6.6436,Switzerland,Europe,Lausanne,University of Lausanne
+http://www.ebi.ac.uk/rdf/services/atlas/sparql,52.1932,0.1426,United Kingdom,Europe,Cambridge,European Bioinformatics Institute
+http://www.ebi.ac.uk/rdf/services/sparql,52.1932,0.1426,United Kingdom,Europe,Cambridge,European Bioinformatics Institute
+http://www.eclap.eu/sparql,43.8828,11.1008,Italy,Europe,Prato,Universita' degli Studi di Firenze
+http://www.europeandataportal.eu/sparql,43.2965,5.36978,France,Europe,Marseille,AWS CloudFront (GLOBAL)
+http://www.example.org,40.7128,-74.006,United States,North America,New York,Edgecast Inc
+http://www.genome.jp/sparql/linkdb,35.6916,139.768,Japan,Asia,Chiyoda,
+http://www.icane.es/opendata/sparql,43.4637,-3.79731,Spain,Europe,Santander,
+http://www.imagesnippets.com/sparql/images,42.6898,-84.6427,United States,North America,Lansing,SourceDNS
+http://www.open-biomed.org.uk/sparql/endpoint/bdgp_20081030,48.1446,11.5895,Germany,Europe,Munich,TEAM-INTERNET
+http://www.open-biomed.org.uk/sparql/endpoint/flyatlas,48.1446,11.5895,Germany,Europe,Munich,TEAM-INTERNET
+http://www.open-biomed.org.uk/sparql/endpoint/flybase,48.1446,11.5895,Germany,Europe,Munich,TEAM-INTERNET
+http://www.open-biomed.org.uk/sparql/endpoint/flyted,48.1446,11.5895,Germany,Europe,Munich,TEAM-INTERNET
+http://www.open-biomed.org.uk/sparql/endpoint/tcm,48.1446,11.5895,Germany,Europe,Munich,TEAM-INTERNET
+http://www.orpha.net/sparql,47.219,4.9968,France,Europe,Gevrey-Chambertin,Poittevin Jerome
+http://www.rdfabout.com/sparql,40.0992,-83.1141,United States,North America,Dublin,AWS EC2 (us-east-2)
+http://www.rechercheisidore.fr/sparql,45.1766,5.7205,France,Europe,Grenoble,CNRS Centre de Calcul de l'IN2P3
+http://www.scholarlydata.org/sparql,43.4631,11.8783,Italy,Europe,Arezzo,Aruba S.p.A.
+http://www.ss-framework.com/sparql,45.7148,16.069,Croatia,Europe,Velika Gorica,
+http://www.wikidata.org/.well-known/genid/a302edbaa0a8fae7307769ce7ec8a908,37.7892,-122.402,United States,North America,San Francisco,"Wikimedia Foundation, Inc"
+http://www.wikidata.org/.well-known/genid/d43fd94af6d220b91081eca1450ecba6,37.7892,-122.402,United States,North America,San Francisco,"Wikimedia Foundation, Inc"
+http://www4.wiwiss.fu-berlin.de/cordis/sparql,52.5422,13.3495,Germany,Europe,Berlin,Freie Universitaet Berlin
+http://www4.wiwiss.fu-berlin.de/dailymed/sparql,52.5422,13.3495,Germany,Europe,Berlin,Freie Universitaet Berlin
+http://www4.wiwiss.fu-berlin.de/dblp/sparql,52.5422,13.3495,Germany,Europe,Berlin,Freie Universitaet Berlin
+http://www4.wiwiss.fu-berlin.de/diseasome/sparql,52.5422,13.3495,Germany,Europe,Berlin,Freie Universitaet Berlin
+http://www4.wiwiss.fu-berlin.de/drugbank/sparql,52.5422,13.3495,Germany,Europe,Berlin,Freie Universitaet Berlin
+http://www4.wiwiss.fu-berlin.de/eccompetition/sparql,52.5422,13.3495,Germany,Europe,Berlin,Freie Universitaet Berlin
+http://www4.wiwiss.fu-berlin.de/euraxess/sparql,52.5422,13.3495,Germany,Europe,Berlin,Freie Universitaet Berlin
+http://www4.wiwiss.fu-berlin.de/eures/sparql,52.5422,13.3495,Germany,Europe,Berlin,Freie Universitaet Berlin
+http://www4.wiwiss.fu-berlin.de/eurostat/sparql,52.5422,13.3495,Germany,Europe,Berlin,Freie Universitaet Berlin
+http://www4.wiwiss.fu-berlin.de/factbook/sparql,52.5422,13.3495,Germany,Europe,Berlin,Freie Universitaet Berlin
+http://www4.wiwiss.fu-berlin.de/gutendata/sparql,52.5422,13.3495,Germany,Europe,Berlin,Freie Universitaet Berlin
+http://www4.wiwiss.fu-berlin.de/medicare/sparql,52.5422,13.3495,Germany,Europe,Berlin,Freie Universitaet Berlin
+http://www4.wiwiss.fu-berlin.de/sider/sparql,52.5422,13.3495,Germany,Europe,Berlin,Freie Universitaet Berlin
+http://www4.wiwiss.fu-berlin.de/stitch/sparql,52.5422,13.3495,Germany,Europe,Berlin,Freie Universitaet Berlin
+http://xula.eagle-i.net/sparqler/sparql,32.3895,-89.9562,United States,North America,Brandon,Ventrure Technologies - JAN LAN
+http://zbw.eu/beta/sparql/gnd/query,54.3308,10.1368,Germany,Europe,Kiel,UNI Kiel
+http://zbw.eu/beta/sparql/stw/query,54.3308,10.1368,Germany,Europe,Kiel,UNI Kiel
+http://zhishi.me/sparql,32.7203,-117.1552,United States,North America,San Diego,Trellian Pty. Limited
+https://3401.biogateway.eu/sparql,63.4277,10.4012,Norway,Europe,Trondheim,Norwegian University of Science and Technology
+https://3cixty.eurecom.fr/sparql,43.6319,7.0043,France,Europe,Valbonne,Eurecom Sophia
+https://affymetrix.bio2rdf.org/sparql,50.8268,5.7116,The Netherlands,Europe,Maastricht,Universiteit Maastricht
+https://agrold.southgreen.fr/sparql,43.6108,3.87672,France,Europe,Montpellier,Cirad
+https://agrovoc.fao.org/sparql,41.7092,12.6936,Italy,Europe,Genzano di Roma,Universita' degli Studi di Roma Tor Vergata
+https://agrovoc.uniroma2.it/sparql,41.7092,12.6936,Italy,Europe,Genzano di Roma,Universita' degli Studi di Roma Tor Vergata
+https://alaska.eagle-i.net/sparqler/sparql,32.3895,-89.9562,United States,North America,Brandon,Ventrure Technologies - JAN LAN
+https://alma.uni.lu/sparql,49.6113,6.1294,Luxembourg,Europe,Luxembourg,Fondation RESTENA
+https://aopwiki.rdf.bigcat-bioinformatics.org/sparql,52.5234,13.3224,Germany,Europe,Berlin,Strato AG
+https://api.aucklandmuseum.com/sparql,43.2965,5.36978,France,Europe,Marseille,AWS CloudFront (GLOBAL)
+https://api.data.muziekweb.nl/datasets/muziekweborganization/Muziekweb/services/Muziekweb/sparql,52.1827,4.4975,The Netherlands,Europe,Leiden,
+https://api.druid.datalegend.net/datasets/ATM-DEMO/ATM-CLARIAH-DEMO/sparql,52.1827,4.4975,The Netherlands,Europe,Leiden,
+https://api.druid.datalegend.net/datasets/AdamNet/Geography/sparql,52.1827,4.4975,The Netherlands,Europe,Leiden,
+https://api.druid.datalegend.net/datasets/AdamNet/Heritage/sparql,52.1827,4.4975,The Netherlands,Europe,Leiden,
+https://api.druid.datalegend.net/datasets/AdamNet/all/sparql,52.1827,4.4975,The Netherlands,Europe,Leiden,
+https://api.druid.datalegend.net/datasets/BotterK/ANDB-ADB-all/sparql,52.1827,4.4975,The Netherlands,Europe,Leiden,
+https://api.druid.datalegend.net/datasets/CLARIAH-VL/Ghent-Gazetteer/sparql,52.1827,4.4975,The Netherlands,Europe,Leiden,
+https://api.druid.datalegend.net/datasets/ESTA-DEMO/esta-demo-viz/sparql,52.1827,4.4975,The Netherlands,Europe,Leiden,
+https://api.druid.datalegend.net/datasets/HistoryOfWork/HISCO-latest/sparql,52.1827,4.4975,The Netherlands,Europe,Leiden,
+https://api.druid.datalegend.net/datasets/HistoryOfWork/historyOfWork-all-latest/services/historyOfWork-all-latest/sparql,52.1827,4.4975,The Netherlands,Europe,Leiden,
+https://api.druid.datalegend.net/datasets/HistoryOfWork/historyOfWork-all-latest/sparql,52.1827,4.4975,The Netherlands,Europe,Leiden,
+https://api.druid.datalegend.net/datasets/HistoryOfWork/jobHoard-latest/sparql,52.1827,4.4975,The Netherlands,Europe,Leiden,
+https://api.druid.datalegend.net/datasets/IISG-DA/Collectie-Interviews-Wim-Kok-deel-2/sparql,52.1827,4.4975,The Netherlands,Europe,Leiden,
+https://api.druid.datalegend.net/datasets/IISG-DA/ORCID-data/sparql,52.1827,4.4975,The Netherlands,Europe,Leiden,
+https://api.druid.datalegend.net/datasets/IISG/Images/sparql,52.1827,4.4975,The Netherlands,Europe,Leiden,
+https://api.druid.datalegend.net/datasets/IISG/Labourconflicts/sparql,52.1827,4.4975,The Netherlands,Europe,Leiden,
+https://api.druid.datalegend.net/datasets/IISG/VanMeerendonk/sparql,52.1827,4.4975,The Netherlands,Europe,Leiden,
+https://api.druid.datalegend.net/datasets/IISG/historic-maps/sparql,52.1827,4.4975,The Netherlands,Europe,Leiden,
+https://api.druid.datalegend.net/datasets/IISG/iisg-kg/sparql,52.1827,4.4975,The Netherlands,Europe,Leiden,
+https://api.druid.datalegend.net/datasets/IISG/jobHoard/sparql,52.1827,4.4975,The Netherlands,Europe,Leiden,
+https://api.druid.datalegend.net/datasets/IISG/sicada/sparql,52.1827,4.4975,The Netherlands,Europe,Leiden,
+https://api.druid.datalegend.net/datasets/MiconSchorsij/OnTheWaterfront/sparql,52.1827,4.4975,The Netherlands,Europe,Leiden,
+https://api.druid.datalegend.net/datasets/MiconSchorsij/thesaurus/sparql,52.1827,4.4975,The Netherlands,Europe,Leiden,
+https://api.druid.datalegend.net/datasets/Per-LOD-ad-Astra/Sleutelkastje/sparql,52.1827,4.4975,The Netherlands,Europe,Leiden,
+https://api.druid.datalegend.net/datasets/RubenS/marc21/sparql,52.1827,4.4975,The Netherlands,Europe,Leiden,
+https://api.druid.datalegend.net/datasets/andb/ANDB-ADB-all/sparql,52.1827,4.4975,The Netherlands,Europe,Leiden,
+https://api.druid.datalegend.net/datasets/andb/adb-leden/sparql,52.1827,4.4975,The Netherlands,Europe,Leiden,
+https://api.druid.datalegend.net/datasets/andb/andb-leden/sparql,52.1827,4.4975,The Netherlands,Europe,Leiden,
+https://api.druid.datalegend.net/datasets/andb/andb-leerlingen/sparql,52.1827,4.4975,The Netherlands,Europe,Leiden,
+https://api.druid.datalegend.net/datasets/andb/andb/sparql,52.1827,4.4975,The Netherlands,Europe,Leiden,
+https://api.druid.datalegend.net/datasets/dataLegend/Admissies-DH/sparql,52.1827,4.4975,The Netherlands,Europe,Leiden,
+https://api.druid.datalegend.net/datasets/dataLegend/Admissies-Haarlem/sparql,52.1827,4.4975,The Netherlands,Europe,Leiden,
+https://api.druid.datalegend.net/datasets/dataLegend/Baghdad-to-London/sparql,52.1827,4.4975,The Netherlands,Europe,Leiden,
+https://api.druid.datalegend.net/datasets/dataLegend/CEDAR-S/sparql,52.1827,4.4975,The Netherlands,Europe,Leiden,
+https://api.druid.datalegend.net/datasets/dataLegend/Catasto/sparql,52.1827,4.4975,The Netherlands,Europe,Leiden,
+https://api.druid.datalegend.net/datasets/dataLegend/Clio-Infra/sparql,52.1827,4.4975,The Netherlands,Europe,Leiden,
+https://api.druid.datalegend.net/datasets/dataLegend/deaths-1910-1920/sparql,52.1827,4.4975,The Netherlands,Europe,Leiden,
+https://api.druid.datalegend.net/datasets/dataLegend/gemeentegeschiedenis/sparql,52.1827,4.4975,The Netherlands,Europe,Leiden,
+https://api.druid.datalegend.net/datasets/dataLegend/jobHoard/sparql,52.1827,4.4975,The Netherlands,Europe,Leiden,
+https://api.druid.datalegend.net/datasets/dataLegend/microHeights/sparql,52.1827,4.4975,The Netherlands,Europe,Leiden,
+https://api.druid.datalegend.net/datasets/dataLegend/strikes/sparql,52.1827,4.4975,The Netherlands,Europe,Leiden,
+https://api.druid.datalegend.net/datasets/liliana/lippische-ziegler-folia-interpretations/sparql,52.1827,4.4975,The Netherlands,Europe,Leiden,
+https://api.druid.datalegend.net/datasets/mromanello/hucit/sparql,52.1827,4.4975,The Netherlands,Europe,Leiden,
+https://api.druid.datalegend.net/datasets/nlgis/cshapes/sparql,52.1827,4.4975,The Netherlands,Europe,Leiden,
+https://api.druid.datalegend.net/datasets/nlgis/gemeentegeschiedenis/sparql,52.1827,4.4975,The Netherlands,Europe,Leiden,
+https://api.druid.datalegend.net/datasets/nlgis/mint/sparql,52.1827,4.4975,The Netherlands,Europe,Leiden,
+https://api.finto.fi/rest/v1/yso-places/data,60.1797,24.9344,Finland,Europe,Helsinki,University of Helsinki
+https://api.finto.fi/sparql,60.1797,24.9344,Finland,Europe,Helsinki,University of Helsinki
+https://api.kunstmuseum.nl/query/proxy/wdqs/bigdata/namespace/wdq/sparql,49.4071,8.6879,Germany,Europe,Heidelberg,Hetzner
+https://api.nextprot.org/sparql,46.1986,6.14277,Switzerland,Europe,Geneva,Universite de Geneve
+https://api.parliament.uk/sparql,45.5019,-73.5674,Canada,North America,Montreal,"Cloudflare, Inc."
+https://apps.morelab.deusto.es/labman/sparql,42.8198,-1.6374,Spain,Europe,Pamplona,Deusto
+https://atted.jp/sparql,38.2988,141.0028,Japan,Asia,Chuo,Tohoku University
+https://beta.sparql.swisslipids.org/,46.1986,6.14277,Switzerland,Europe,Geneva,Universite de Geneve
+https://bgee.org/sparql,46.5184,6.6436,Switzerland,Europe,Lausanne,University of Lausanne
+https://bio2rdf.org/sparql,50.8268,5.7116,The Netherlands,Europe,Maastricht,Universiteit Maastricht
+https://bittich.be/sparql,43.6532,-79.3832,Canada,North America,Toronto,"Cloudflare, Inc."
+https://bmrbpub.pdbj.org/search/rdf,34.8598,135.4675,Japan,Asia,Minoh,Osaka University
+https://bnb.data.bl.uk/sparql,53.4113,-2.9759,United Kingdom,Europe,Liverpool,British Library
+https://caligraph.org/sparql,49.5006,8.4944,Germany,Europe,Mannheim,UNI-MANNHEIM
+https://catalog.digital-scriptorium.org/query/,50.1109,8.6821,Germany,Europe,Frankfurt,Google Cloud (europe-west3)
+https://cau.eagle-i.net/sparqler/sparql,32.3895,-89.9562,United States,North America,Brandon,Ventrure Technologies - JAN LAN
+https://ccny-cuny.eagle-i.net/sparqler/sparql,32.3895,-89.9562,United States,North America,Brandon,Ventrure Technologies - JAN LAN
+https://cdrewu.eagle-i.net/sparqler/sparql,32.3895,-89.9562,United States,North America,Brandon,Ventrure Technologies - JAN LAN
+https://cedropendata.mfcr.cz/c3lod/cedr/sparql,50.0892,14.4072,Czechia,Europe,Prague,
+https://chemblmirror.rdf.bigcat-bioinformatics.org/sparql,52.5234,13.3224,Germany,Europe,Berlin,Strato AG
+https://clara.univ-nantes.fr/sparql,47.2145,-1.5512,France,Europe,Nantes,Universite de Nantes
+https://colil.dbcls.jp/sparql,35.6916,139.768,Japan,Asia,Chiyoda,
+https://commons-query.wikimedia.org/,37.7892,-122.402,United States,North America,San Francisco,"Wikimedia Foundation, Inc"
+https://commons-query.wikimedia.org/sparql,37.7892,-122.402,United States,North America,San Francisco,"Wikimedia Foundation, Inc"
+https://covidontheweb.inria.fr/sparql,48.837,2.10292,France,Europe,Le Chesnay-Rocquencourt,
+https://coxpresdb.jp/sparql,38.2988,141.0028,Japan,Asia,Chuo,Tohoku University
+https://cr.eionet.europa.eu/sparql,56.0843,12.1451,Denmark,Europe,Vejby,European Environment Agency
+https://cs.dbpedia.org/sparql,50.7748,14.9508,Czechia,Europe,Liberec,"University of Economics, Prague"
+https://ct-linkdata.aegean.gr/gcam/sparql,39.0974,26.5463,Greece,Europe,Mytilene,
+https://cultura.linkeddata.es/sparql,40.43,-3.6691,Spain,Europe,Madrid,UPM
+https://d2kab.i3s.unice.fr/sparql,43.5866,7.1242,France,Europe,Antibes,Universite de Nice
+https://data.allie.dbcls.jp/sparql,35.6916,139.768,Japan,Asia,Chiyoda,
+https://data.archiveshub.ac.uk/sparql,53.3498,-6.26031,Ireland,Europe,Dublin,AWS EC2 (eu-west-1)
+https://data.ascdc.tw/en/sparql.php,25.0504,121.5324,Taiwan,Asia,Taipei,
+https://data.bnf.fr/current/sparql.html,48.8323,2.4075,France,Europe,Paris,BNF
+https://data.bnf.fr/sparql,48.8323,2.4075,France,Europe,Paris,BNF
+https://data.cervantesvirtual.com/sparql,37.5599,-1.8075,Spain,Europe,Puerto Lumbreras,Asac Comunicaciones S.L.
+https://data.cinematheque.qc.ca/sparql,40.8364,-74.1403,United States,North America,Clifton,"DigitalOcean, LLC"
+https://data.cssz.cz/sparql,50.039,14.4759,Czechia,Europe,Prague,GTSCE
+https://data.culture.fr/thesaurus/sparql,48.9105,2.36801,France,Europe,Aubervilliers,Ministere de la Culture
+https://data.dia.gov.cz/sparql,53.3478,-6.2597,Ireland,Europe,Dublin,Microsoft Azure Cloud (northeurope)
+https://data.entice.eu/sparql,40.6439,22.9358,Greece,Europe,Thessaloniki,AUTH
+https://data.epo.org/linked-data/query,39.0997,-94.5785,United States,North America,Kansas City,Google Cloud
+https://data.escr.fr/sparql,48.8219,2.3709,France,Europe,Paris,
+https://data.europa.eu/euodp/sparqlep,43.2965,5.36978,France,Europe,Marseille,AWS CloudFront (GLOBAL)
+https://data.europa.eu/sparql,43.2965,5.36978,France,Europe,Marseille,AWS CloudFront (GLOBAL)
+https://data.gesis.org/claimskg/sparql,51.4295,7.3297,Germany,Europe,Witten,"GESIS - Leibniz-Institut fuer Sozialwissenschaften, Bonn / Berlin"
+https://data.gov.cz/sparql,53.3478,-6.2597,Ireland,Europe,Dublin,Microsoft Azure Cloud (northeurope)
+https://data.gov.uz/en/docs/do,41.2952,69.2271,Uzbekistan,Asia,Tashkent,"""Uzbektelekom"" Joint Stock Company"
+https://data.gov.uz/uz/docs/do/view/usage,41.2952,69.2271,Uzbekistan,Asia,Tashkent,"""Uzbektelekom"" Joint Stock Company"
+https://data.idref.fr/endpoint.html,48.8323,2.4075,France,Europe,Paris,Abes
+https://data.idref.fr/sparql,48.8323,2.4075,France,Europe,Paris,Abes
+https://data.legilux.public.lu/sparql,49.6113,6.1294,Luxembourg,Europe,Luxembourg,Public Services
+https://data.library.sh.cn/sparql,31.2222,121.4581,China,Asia,Shanghai,Chinanet SH
+https://data.logainm.ie/sparql,53.3598,-6.4905,Ireland,Europe,Leixlip,Trinity College Dublin
+https://data.mff.cuni.cz/sparql,50.7748,14.9508,Czechia,Europe,Liberec,Charles University
+https://data.mimo-db.eu/sparql,48.855,2.4836,France,Europe,Fontenay-sous-Bois,Cite Musique Paris
+https://data.mpsv.cz/sparql/,50.039,14.4759,Czechia,Europe,Prague,GTSCE
+https://data.muziekweb.nl/MuziekwebOrganization/Muziekweb/sparql/Muziekweb,52.1827,4.4975,The Netherlands,Europe,Leiden,
+https://data.mvcr.gov.cz/sparql,50.0695,14.4633,Czechia,Europe,Prague,
+https://data.nationallibrary.fi/bib/sparql,60.2018,25.0512,Finland,Europe,Helsinki,University of Helsinki
+https://data.nlg.gr/query,37.9875,23.7618,Greece,Europe,Athens,Greek Research and Technology Network (GRNET) S.A.
+https://data.nobelprize.org/sparql,60.342,25.0293,Finland,Europe,Tuusula,Hetzner Online GmbH
+https://data.nobelprize.org/store/sparql,60.342,25.0293,Finland,Europe,Tuusula,Hetzner Online GmbH
+https://data.norge.no/sparql,39.0997,-94.5785,United States,North America,Kansas City,Google Cloud
+https://data.odw.tw/sparql,25.0104,121.4684,Taiwan,Asia,Banqiao,
+https://data.ordnancesurvey.co.uk/datasets/50k-gazetteer/apis/sparql,40.7128,-74.006,United States,North America,New York,"Defense.Net, Inc"
+https://data.ordnancesurvey.co.uk/datasets/boundary-line/apis/sparql,40.7128,-74.006,United States,North America,New York,"Defense.Net, Inc"
+https://data.ordnancesurvey.co.uk/datasets/code-point-open/apis/sparql,40.7128,-74.006,United States,North America,New York,"Defense.Net, Inc"
+https://data.ordnancesurvey.co.uk/datasets/opennames/apis/sparql,40.7128,-74.006,United States,North America,New York,"Defense.Net, Inc"
+https://data.ordnancesurvey.co.uk/datasets/os-linked-data/apis/sparql,40.7128,-74.006,United States,North America,New York,"Defense.Net, Inc"
+https://data.persee.fr/sparql,45.748,4.85,France,Europe,Lyon,Ecole Normale Superieure De Lyon
+https://data.wu.ac.at/sparql,48.2372,16.3771,Austria,Europe,Vienna,WU (Wirtschaftsuniversitaet Wien) - Vienna University of Economics and Business
+https://database.factgrid.de/query/,50.9965,11.0144,Germany,Europe,Erfurt,"Universitaet Erfurt, Rechenzentrum"
+https://dati.beniculturali.it/sparql,41.8904,12.5126,Italy,Europe,Rome,Vodafone
+https://dati.camera.it/sparql,41.8904,12.5126,Italy,Europe,Rome,Camera dei deputati
+https://dati.cultura.gov.it/sparql,41.8904,12.5126,Italy,Europe,Rome,Vodafone
+https://dati.isprambiente.it/sparql,41.8904,12.5126,Italy,Europe,Rome,Istituto Superiore per la protezione e la ricerca ambientale
+https://datos-abertos.galiciana.gal/pt/sparql,42.8769,-8.5471,Spain,Europe,Santiago de Compostela,
+https://datos.bcn.cl/sparql,-33.0479,-71.6055,Chile,South America,Valparaíso,Congreso Nacional
+https://datos.bne.es/sparql,40.4519,-3.711,Spain,Europe,Madrid,BNE
+https://datos.gob.es/en/sparql,40.4479,-3.69409,Spain,Europe,Madrid,Entidad Publica Empresarial Red.es
+https://datos.gob.es/es/sparql,40.4479,-3.69409,Spain,Europe,Madrid,Entidad Publica Empresarial Red.es
+https://datos.gob.es/virtuoso/sparql,40.4479,-3.69409,Spain,Europe,Madrid,Entidad Publica Empresarial Red.es
+https://db.project-hobbit.eu/sparql,51.7324,8.771,Germany,Europe,Paderborn,Universitaet Paderborn
+https://dba-rdf.biosciencedbc.jp/sparql,35.6906,139.77,Japan,Asia,Chiyoda,Japan Science and Technology Agency
+https://dbkwik.webdatacommons.org/sparql,49.4922,8.464,Germany,Europe,Mannheim,UNI-MANNHEIM
+https://dbmi-icode-01.dbmi.pitt.edu/dikb/sparql,40.4442,-79.9557,United States,North America,Pittsburgh,University of Pittsburgh
+https://dbmi-icode-01.dbmi.pitt.edu/sparql,40.4442,-79.9557,United States,North America,Pittsburgh,University of Pittsburgh
+https://dbpedia-ca.upf.edu/sparql,41.387,2.1701,Spain,Europe,Barcelona,
+https://dbpedia.org/page/Summer_Olympic_Games,52.3667,4.89454,The Netherlands,Europe,Amsterdam,XS4ALL Internet BV
+https://dbpedia.org/sparql,52.3667,4.89454,The Netherlands,Europe,Amsterdam,XS4ALL Internet BV
+https://dbtune.org/bbc/peel/sparql,51.6486,0.0495,United Kingdom,Europe,Loughton,"Queen Mary and Westfield College, University of London"
+https://dbtune.org/jamendo/sparql,51.6486,0.0495,United Kingdom,Europe,Loughton,"Queen Mary and Westfield College, University of London"
+https://dbtune.org/magnatune/sparql,51.6486,0.0495,United Kingdom,Europe,Loughton,"Queen Mary and Westfield College, University of London"
+https://dbtune.org/musicbrainz/sparql,51.6486,0.0495,United Kingdom,Europe,Loughton,"Queen Mary and Westfield College, University of London"
+https://de.dbpedia.org/sparql,49.0917,8.42838,Germany,Europe,Eggenstein-Leopoldshafen,FIZ Karlsruhe - Leibniz Institute Information Infrastructure
+https://digitaalerfgoed.poolparty.biz/PoolParty/sparql/term/id/cht,48.1951,16.3483,Austria,Europe,Vienna,punkt. netServices GmbH
+https://digital-agenda-data.eu/data/sparql,48.8566,2.35222,France,Europe,Paris,Netim CIV
+https://digitale.bncf.firenze.sbn.it/openrdf-workbench/repositories/NS/query,41.4616,15.5564,Italy,Europe,Foggia,Biblioteca Nazionale Centrale
+https://digits2.mainzed.org/covid19/sparql,55.6802,12.5892,Denmark,Europe,Copenhagen,Onecom Infra
+https://druid.datalegend.net/AdamNet/Heritage/sparql/Heritage,52.1827,4.4975,The Netherlands,Europe,Leiden,
+https://dydra.com/markw/polyadenylation-sites-in-magnaporthe-oryza/sparql,50.475,12.365,Germany,Europe,Falkenstein,Hetzner
+https://eagle-i.fredhutch.org/sparqler/sparql,47.6144,-122.3447,United States,North America,Seattle,The Fred Hutchinson Cancer Research Center
+https://eagle-i.itmat.upenn.edu/sparqler/sparql,39.9315,-75.3345,United States,North America,Springfield,University of Pennsylvania
+https://edan.si.edu/saam/sparql,38.8863,-77.0209,United States,North America,Washington,Smithsonian Institution
+https://edh-www.adw.uni-heidelberg.de/data/sparql,49.4193,8.7318,Germany,Europe,Heidelberg,UNI-HEIDELBERG
+https://el.dbpedia.org/sparql,40.6439,22.9358,Greece,Europe,Thessaloniki,AUTH
+https://es.dbpedia.org/sparql,40.43,-3.6691,Spain,Europe,Madrid,UPM
+https://eu.dbpedia.org/sparql,42.8198,-1.6374,Spain,Europe,Pamplona,Deusto
+https://famu.eagle-i.net/sparqler/sparql,32.3895,-89.9562,United States,North America,Brandon,Ventrure Technologies - JAN LAN
+https://forum.semantic-metabolomics.fr/sparql,48.8609,2.30617,France,Europe,Paris,"Institut national de recherche pour l'agriculture, l'alimentation et l'environnement"
+https://fr.dbpedia.org/sparql,48.837,2.10292,France,Europe,Le Chesnay-Rocquencourt,
+https://fuseki.gwascentral.org/gc/query,52.6049,-1.1488,United Kingdom,Europe,Leicester,"IT Services, University of Leicester"
+https://fuseki.kupferdigital.org/demonstrator/sparql,51.3235,12.4266,Germany,Europe,Leipzig,Universitaet Leipzig
+https://genome.microbedb.jp/sparql,35.6916,139.768,Japan,Asia,Chiyoda,
+https://geo.linkeddata.es/sparql,40.43,-3.6691,Spain,Europe,Madrid,UPM
+https://github.com/ArchanaPatel92/IBO-Covid19/blob/main/1.5%20Covid19-IBO.owl,50.1187,8.6842,Germany,Europe,Frankfurt am Main,"GitHub, Inc."
+https://global.eagle-i.net/sparqler/sparql,43.2965,5.36978,France,Europe,Marseille,AWS CloudFront (GLOBAL)
+https://glyconnect.expasy.org/sparql,46.1986,6.14277,Switzerland,Europe,Geneva,Universite de Geneve
+https://hamap.expasy.org/sparql,46.1986,6.14277,Switzerland,Europe,Geneva,Universite de Geneve
+https://harvard.eagle-i.net/sparqler/sparql,43.2965,5.36978,France,Europe,Marseille,AWS CloudFront (GLOBAL)
+https://hawaii.eagle-i.net/sparqler/sparql,32.3895,-89.9562,United States,North America,Brandon,Ventrure Technologies - JAN LAN
+https://hdt.lod.labs.vu.nl/?g=LOD-a-lot,52.3111,4.861,The Netherlands,Europe,Amstelveen,Stichting VU
+https://hitontology.eu/sparql,51.382,12.36,Germany,Europe,Leipzig,Universitaet Leipzig
+https://hkcan.julac.org/lod/sparql,22.3361,114.1999,Hong Kong,Asia,Kowloon City,Hong Kong University of Science and Technology
+https://hoathinhphatgroup.com/lien-he/,10.7771,106.689,Vietnam,Asia,Phường Bảy,"Super Online Data Co., Ltd"
+https://howard.eagle-i.net/sparqler/sparql,32.3895,-89.9562,United States,North America,Brandon,Ventrure Technologies - JAN LAN
+https://hu.dbpedia.org/sparql,47.5636,19.0947,Hungary,Europe,Budapest,Computer and Automation Institute
+https://hunter-cuny.eagle-i.net/sparqler/sparql,32.3895,-89.9562,United States,North America,Brandon,Ventrure Technologies - JAN LAN
+https://ico.iate.inra.fr/fuseki/annotation/query,48.8033,2.2679,France,Europe,Clamart,"Institut national de recherche pour l'agriculture, l'alimentation et l'environnement"
+https://ico.iate.inra.fr/fuseki/ontology/query,48.8033,2.2679,France,Europe,Clamart,"Institut national de recherche pour l'agriculture, l'alimentation et l'environnement"
+https://id.dbpedia.org/sparql,-6.3966,106.8164,Indonesia,Asia,Depok,University of Indonesia
+https://id.ndl.go.jp/auth/ndla,43.2965,5.36978,France,Europe,Marseille,AWS CloudFront (GLOBAL)
+https://id.ndl.go.jp/auth/ndla/sparql,43.2965,5.36978,France,Europe,Marseille,AWS CloudFront (GLOBAL)
+https://id.nlm.nih.gov/mesh/sparql,39.0015,-77.0961,United States,North America,Bethesda,U.S. Dept. of Health and Human Services
+https://id.sgcb.mcu.es/sparql,40.4519,-3.711,Spain,Europe,Madrid,Mecd
+https://ideal-rdf.dbcls.jp/sparql,35.6916,139.768,Japan,Asia,Chiyoda,
+https://identifiers.org/services/sparql,39.0997,-94.5785,United States,North America,Kansas City,Google Cloud
+https://idsm.elixir-czech.cz/sparql/,49.9661,15.8104,Czechia,Europe,Vestec,Czech Academy of Sciences
+https://idsm.elixir-czech.cz/sparql/endpoint/chebi,49.9661,15.8104,Czechia,Europe,Vestec,Czech Academy of Sciences
+https://idsm.elixir-czech.cz/sparql/endpoint/idsm,49.9661,15.8104,Czechia,Europe,Vestec,Czech Academy of Sciences
+https://imagesnippets.com/sparql/images,42.6898,-84.6427,United States,North America,Lansing,SourceDNS
+https://imagesnippets.com/sparql/imgtag,42.6898,-84.6427,United States,North America,Lansing,SourceDNS
+https://integbio.jp/rdf/bioportal/sparql,35.6906,139.77,Japan,Asia,Chiyoda,Japan Science and Technology Agency
+https://integbio.jp/rdf/ebi/sparql,35.6906,139.77,Japan,Asia,Chiyoda,Japan Science and Technology Agency
+https://integbio.jp/rdf/kero/sparql,35.6906,139.77,Japan,Asia,Chiyoda,Japan Science and Technology Agency
+https://integbio.jp/rdf/sparql,35.6906,139.77,Japan,Asia,Chiyoda,Japan Science and Technology Agency
+https://io.datascience-paris-saclay.fr/sparql,45.7826,4.86519,France,Europe,Villeurbanne,CNRS Centre de Calcul de l'IN2P3
+https://isidore.science/sparql,45.1766,5.7205,France,Europe,Grenoble,CNRS Centre de Calcul de l'IN2P3
+https://isidore.science/sqe,45.1766,5.7205,France,Europe,Grenoble,CNRS Centre de Calcul de l'IN2P3
+https://ja.dbpedia.org/sparql,35.6916,139.768,Japan,Asia,Chiyoda,National Institute of Informatics
+https://joinup.ec.europa.eu/sparql,47.6157,-122.336,United States,North America,Seattle,AWS CloudFront (GLOBAL)
+https://jpsearch.go.jp/rdf/sparql,43.2965,5.36978,France,Europe,Marseille,AWS CloudFront (GLOBAL)
+https://jsu.eagle-i.net/sparqler/sparql,32.3895,-89.9562,United States,North America,Brandon,Ventrure Technologies - JAN LAN
+https://kaiko.getalp.org/sparql,45.1885,5.72452,France,Europe,Grenoble,Comue Grenoble Alpes
+https://knowledge.brc.riken.jp/sparql,35.7907,139.6203,Japan,Asia,Niikura,
+https://ko.dbpedia.org/sparql,36.416,127.3664,South Korea,Asia,Yuseong-gu,Kaist
+https://labs.onb.ac.at/en/tool/sparql/,47.9972,16.0453,Austria,Europe,Neuhaus,
+https://landportal.org/sparql,60.1719,24.9347,Finland,Europe,Helsinki,HETZNER-DC
+https://landregistry.data.gov.uk/landregistry/query,53.3498,-6.26031,Ireland,Europe,Dublin,AWS EC2 (eu-west-1)
+https://ld.cultural.jp/sparql,39.0438,-77.4874,United States,North America,Ashburn,AWS EC2 (us-east-1)
+https://ld.ncl.edu.tw/fuseki/lod/query,25.0504,121.5324,Taiwan,Asia,Taipei,
+https://ldf.fi/folklore/sparql,62.8357,27.6763,Finland,Europe,Kuopio,Cloud services
+https://ldf.fi/kirjasampo/sparql,62.8357,27.6763,Finland,Europe,Kuopio,Cloud services
+https://ldf.fi/mmm/sparql,62.8357,27.6763,Finland,Europe,Kuopio,Cloud services
+https://ldf.fi/mufi/sparql,62.8357,27.6763,Finland,Europe,Kuopio,Cloud services
+https://ldf.fi/warsa/sparql,62.8357,27.6763,Finland,Europe,Kuopio,Cloud services
+https://ldf.fi/ww1lod/sparql,62.8357,27.6763,Finland,Europe,Kuopio,Cloud services
+https://libris.kb.se/sparql,59.3382,18.0721,Sweden,Europe,Stockholm,
+https://lila-erc.eu/sparql/,50.1169,8.6837,Germany,Europe,Frankfurt am Main,"DigitalOcean, LLC"
+https://lindas-data.ch/sparql-ui,47.3682,8.5671,Switzerland,Europe,Zurich,Akenes SA
+https://lingualibre.fr/bigdata/namespace/wdq/sparql,50.9871,2.12554,France,Europe,Gravelines,OVH
+https://lingualibre.org/bigdata/#query,50.9871,2.12554,France,Europe,Gravelines,OVH
+https://lingualibre.org/bigdata/namespace/wdq/sparql,50.9871,2.12554,France,Europe,Gravelines,OVH
+https://lingualibre.org/sparql,50.9871,2.12554,France,Europe,Gravelines,OVH
+https://linked.opendata.cz/sparql,50.7748,14.9508,Czechia,Europe,Liberec,Charles University
+https://linkedart.ascdc.tw/live_sparql.php,25.0504,121.5324,Taiwan,Asia,Taipei,
+https://linkeddata.cultureelerfgoed.nl/sparql,52.1827,4.4975,The Netherlands,Europe,Leiden,
+https://linkeddata.finki.ukim.mk/sparql,42.0041,21.4095,North Macedonia,Europe,Skopje,
+https://linkeddata.uriburner.com/sparql,52.3676,4.90414,The Netherlands,Europe,Amsterdam,OpenLink Group Ltd
+https://linkeddata1.calcul.u-psud.fr/sparql,48.8323,2.4075,France,Europe,Paris,Centre de Ressources Informatique
+https://linkedgeodata.org/sparql,50.6811,10.9238,Germany,Europe,Ilmenau,"University of Leipzig, Augustusplatz 10/11, 04109 Leipzig"
+https://linkedlifedata.com/sparql,42.6977,23.3219,Bulgaria,Europe,Sofia,Daticum Colo
+https://linkedopendata.comune.fi.it/sparql,43.7298,10.803,Italy,Europe,Fucecchio,Rete Telematica Regionale Toscana
+https://linkedspending.aksw.org/sparql,50.6811,10.9238,Germany,Europe,Ilmenau,"University of Leipzig, Augustusplatz 10/11, 04109 Leipzig"
+https://linkedwiki.com/sparql,48.8219,2.3709,France,Europe,Paris,
+https://lipidmaps.org/sparql,52.1312,0.205,United Kingdom,Europe,Cambridge,The Babraham Institute
+https://lod.abes.fr/sparql,48.8323,2.4075,France,Europe,Paris,Abes
+https://lod.nl.go.kr/sparql,37.6468,126.8843,South Korea,Asia,Goyang-si,broadNnet
+https://lod.openaire.eu/sparql,52.2403,21.0186,Poland,Europe,Warsaw,ICM
+https://lod.openlinksw.com/sparql,52.3676,4.90414,The Netherlands,Europe,Amsterdam,OpenLink Group Ltd
+https://lod.sztaki.hu/sparql,47.5636,19.0947,Hungary,Europe,Budapest,Computer and Automation Institute
+https://lod.tamtamresearch.com/sparql,52.352,4.9392,The Netherlands,Europe,Amsterdam,Digital Ocean
+https://lod.xdams.org/sparql,50.475,12.365,Germany,Europe,Falkenstein,cubetech.ch
+https://lov.linkeddata.es/dataset/lov/sparql,40.3765,-3.7592,Spain,Europe,Madrid,UPM
+https://lov.okfn.org/dataset/lov/sparql,43.6532,-79.3832,Canada,North America,Toronto,"Cloudflare, Inc."
+https://lsd.dbcls.jp/sparql,35.6916,139.768,Japan,Asia,Chiyoda,
+https://mb2.ddbj.nig.ac.jp/sparql,35.6916,139.768,Japan,Asia,Chiyoda,
+https://mediag.bunka.go.jp/madb_lab/lod/sparql/,35.6895,139.692,Japan,Asia,Tokyo,AWS EC2 (ap-northeast-1)
+https://meharry.eagle-i.net/sparqler/sparql,32.3895,-89.9562,United States,North America,Brandon,Ventrure Technologies - JAN LAN
+https://metadb.riken.jp/sparql,35.7907,139.6203,Japan,Asia,Niikura,
+https://mgkb.fiz-karlsruhe.de/sparql,49.0917,8.42838,Germany,Europe,Eggenstein-Leopoldshafen,FIZ Karlsruhe - Leibniz Institute Information Infrastructure
+https://mmisw.org/sparql,37.3931,-121.962,United States,North America,Santa Clara,"DigitalOcean, LLC"
+https://montana.eagle-i.net/sparqler/sparql,32.3895,-89.9562,United States,North America,Brandon,Ventrure Technologies - JAN LAN
+https://msm.eagle-i.net/sparqler/sparql,32.3895,-89.9562,United States,North America,Brandon,Ventrure Technologies - JAN LAN
+https://navi.first.lifesciencedb.jp/fanavi/sparql,35.6916,139.768,Japan,Asia,Chiyoda,
+https://nfdi4culture.de/sparql,51.4556,7.01156,Germany,Europe,Essen,IONOS SE
+https://nl.dbpedia.org/sparql,51.342,12.3819,Germany,Europe,Leipzig,Universitaet Leipzig
+https://obchodní-rejstřík.stirdata.opendata.cz/sparql,50.7748,14.9508,Czechia,Europe,Liberec,Charles University
+https://obchodní-rejstřík.stirdata.opendata.cz/vsparql,50.7748,14.9508,Czechia,Europe,Liberec,Charles University
+https://ohsu.eagle-i.net/sparqler/sparql,32.3895,-89.9562,United States,North America,Brandon,Ventrure Technologies - JAN LAN
+https://ontology.inrae.fr/bsv/sparql,45.7838,3.0966,France,Europe,Clermont-Ferrand,Inrae Multisite
+https://ontology.inrae.fr/bsv_test/sparql,45.7838,3.0966,France,Europe,Clermont-Ferrand,Inrae Multisite
+https://ontology.inrae.fr/frenchcropusage/query,45.7838,3.0966,France,Europe,Clermont-Ferrand,Inrae Multisite
+https://ontology.inrae.fr/frenchcropusage/sparql,45.7838,3.0966,France,Europe,Clermont-Ferrand,Inrae Multisite
+https://ontology.inrae.fr/ppdo/sparql,45.7838,3.0966,France,Europe,Clermont-Ferrand,Inrae Multisite
+https://ontology.inrae.fr/weather/sparql,45.7838,3.0966,France,Europe,Clermont-Ferrand,Inrae Multisite
+https://open.bydata.de/api/sparql,50.1109,8.6821,Germany,Europe,Frankfurt,Google Cloud (europe-west3)
+https://opencitations.net/sparql,44.497,11.3565,Italy,Europe,Bologna,Alma Mater Studiorum Universita' di Bologna
+https://opendata.aragon.es/sparql,41.6319,-0.8957,Spain,Europe,Zaragoza,AST network 81
+https://opendata.mfcr.cz/lod/sparql,50.0761,14.4479,Czechia,Europe,Prague,
+https://opendata.mfcr.cz/pages/sparql,50.0761,14.4479,Czechia,Europe,Prague,
+https://opendata1.opendata.u-psud.fr/sparql,48.8323,2.4075,France,Europe,Paris,Centre de Ressources Informatique
+https://opendatacommunities.org/sparql,39.0997,-94.5785,United States,North America,Kansas City,Google Cloud
+https://orkg.org/triplestore,50.9965,11.0144,Germany,Europe,Erfurt,"Technische Informationsbibliothek, Hannover"
+https://patho.phenomebrowser.net/sparql,1.35208,103.82,Singapore,Asia,Singapore,Incapsula Inc
+https://pgxlod.loria.fr/sparql,48.837,2.10312,France,Europe,Le Chesnay-Rocquencourt,
+https://premon.fbk.eu/sparql,46.0682,11.114,Italy,Europe,Trento,FBK RES
+https://psm.eagle-i.net/sparqler/sparql,32.3895,-89.9562,United States,North America,Brandon,Ventrure Technologies - JAN LAN
+https://publications.europa.eu/en/advanced-sparql-query-editor,47.6222,-122.337,United States,North America,Seattle,AWS Global Accelerator (GLOBAL)
+https://publications.europa.eu/webapi/rdf/sparql,47.6222,-122.337,United States,North America,Seattle,AWS Global Accelerator (GLOBAL)
+https://purl.org/whonto/onto,37.7823,-122.472,United States,North America,San Francisco,Internet Archive
+https://query.inventaire.io,49.4521,11.0767,Germany,Europe,Nuremberg,Hetzner
+https://query.linkedopendata.eu/sparql,50.1109,8.68213,Germany,Europe,Frankfurt am Main,AWS EC2 (eu-central-1)
+https://query.mimotext.uni-trier.de/,49.748,6.6263,Germany,Europe,Trier,UNI Trier
+https://query.portal.mardi4nfdi.de/proxy/wdqs/bigdata/namespace/wdq/sparql,52.4561,13.2983,Germany,Europe,Berlin,Konrad-Zuse-Zentrum fuer Informationstechnik Berlin
+https://query.wikidata.org,37.7892,-122.402,United States,North America,San Francisco,"Wikimedia Foundation, Inc"
+https://query.wikidata.org/bigdata/namespace/dcatap/sparql,37.7892,-122.402,United States,North America,San Francisco,"Wikimedia Foundation, Inc"
+https://query.wikidata.org/bigdata/namespace/wdq/sparql,37.7892,-122.402,United States,North America,San Francisco,"Wikimedia Foundation, Inc"
+https://query.wikidata.org/bigdata/namespace/wdq/sparql?query={SPARQL},37.7892,-122.402,United States,North America,San Francisco,"Wikimedia Foundation, Inc"
+https://query.wikidata.org/sparql,37.7892,-122.402,United States,North America,San Francisco,"Wikimedia Foundation, Inc"
+https://raw.githubusercontent.com/GVogeler/bookkeeping/master/bookkeeping.ttl,37.7823,-122.391,United States,North America,San Francisco,"GitHub, Inc"
+https://rdf.disgenet.org/sparql,41.387,2.1701,Spain,Europe,Barcelona,
+https://rdf.insee.fr/sparql,48.8096,2.4415,France,Europe,Maisons-Alfort,Insee
+https://rdf.metanetx.org/,46.5267,6.6243,Switzerland,Europe,Lausanne,University of Lausanne
+https://rdf.metanetx.org/sparql,46.5267,6.6243,Switzerland,Europe,Lausanne,University of Lausanne
+https://rdf.muninn-project.org/sparql,40.8229,-74.4592,United States,North America,Cedar Knolls,Linode
+https://rdf.pathwaycommons.org/sparql,43.6426,-79.4002,Canada,North America,Toronto,University of Toronto
+https://regulatorycircuits-lod.genouest.org/sparql/,48.11,-1.6744,France,Europe,Rennes,
+https://relate.racai.ro/datasets/legalnero/query,47.1281,22.9826,Romania,Europe,Meseșenii de Sus,
+https://relate.racai.ro/datasets/parseme/query,47.1281,22.9826,Romania,Europe,Meseșenii de Sus,
+https://relate.racai.ro/datasets/rolex/query,47.1281,22.9826,Romania,Europe,Meseșenii de Sus,
+https://relate.racai.ro/datasets/rtasc/sparql,47.1281,22.9826,Romania,Europe,Meseșenii de Sus,
+https://relate.racai.ro/datasets/simonero/query,47.1281,22.9826,Romania,Europe,Meseșenii de Sus,
+https://rpp-opendata.egon.gov.cz/odrpp/sparql,50.1133,14.4068,Czechia,Europe,Prague,CMS Customers11
+https://ruian.linked.opendata.cz/sparql,50.7748,14.9508,Czechia,Europe,Liberec,Charles University
+https://schema.gov.it/sparql,52.3667,4.9,Netherlands,Europe,Amsterdam,Microsoft Azure Cloud (westeurope)
+https://semantic.eea.europa.eu/sparql,56.0843,12.1451,Denmark,Europe,Vejby,European Environment Agency
+https://semanticweb.cs.vu.nl/dss/sparql,52.3111,4.861,The Netherlands,Europe,Amstelveen,Stichting VU
+https://semanticweb.cs.vu.nl/iati/sparql,52.3111,4.861,The Netherlands,Europe,Amstelveen,Stichting VU
+https://semanticweb.cs.vu.nl/verrijktkoninkrijk/sparql,52.3111,4.861,The Netherlands,Europe,Amstelveen,Stichting VU
+https://serendipity.utpl.edu.ec/lod/sparql,-3.9909,-79.202,Ecuador,South America,Loja,Universidad Tecnica Particular de Loja
+https://shared.eagle-i.net/sparqler/sparql,43.2965,5.36978,France,Europe,Marseille,AWS CloudFront (GLOBAL)
+https://sibils.text-analytics.ch/sparql,46.2261,6.1258,Switzerland,Europe,Geneva,Deckpoint S.A.
+https://slod.fiz-karlsruhe.de/sparql,49.0917,8.42838,Germany,Europe,Eggenstein-Leopoldshafen,FIZ Karlsruhe - Leibniz Institute Information Infrastructure
+https://smt.esante.gouv.fr/sparql,43.2965,5.36978,France,Europe,Marseille,AWS CloudFront (GLOBAL)
+https://sophox.org/sparql,50.475,12.365,Germany,Europe,Falkenstein,Hetzner
+https://sparql-noipa.mef.gov.it/sparql,41.8904,12.5126,Italy,Europe,Rome,Consip S.p.A.
+https://sparql.agroportal.lirmm.fr/sparql,42.4842,2.7526,France,Europe,Ceret,U Montpellier
+https://sparql.archives-ouvertes.fr/sparql,45.5674,5.9275,France,Europe,Chambéry,In2p3
+https://sparql.crssnky.xyz/spql/imas/query,34.7005,135.498,Japan,Asia,Osaka,SAKURA Internet Inc.
+https://sparql.crssnky.xyz/spql/imas/query?query=,34.7005,135.498,Japan,Asia,Osaka,SAKURA Internet Inc.
+https://sparql.geo.admin.ch/sparql,47.6157,-122.336,United States,North America,Seattle,AWS CloudFront (GLOBAL)
+https://sparql.glycoinfo.org/sparql,35.6837,139.6805,Japan,Asia,Tokyo,UCOMCorporation
+https://sparql.glyconavi.org/sparql,35.6837,139.6805,Japan,Asia,Tokyo,UCOMCorporation
+https://sparql.hegroup.org/sparql,42.3068,-83.7059,United States,North America,Ann Arbor,The Regents of the University of Michigan
+https://sparql.nextprot.org,46.1986,6.14277,Switzerland,Europe,Geneva,Universite de Geneve
+https://sparql.nibb.ac.jp/sparql,35.179,136.8939,Japan,Asia,Sannomaru,
+https://sparql.omabrowser.org/sparql,51.5224,-0.132647,United Kingdom,Europe,London,University College London
+https://sparql.orthodb.org/sparql,46.1911,6.1404,Switzerland,Europe,Geneva,Universite de Geneve
+https://sparql.proconsortium.org/virtuoso/sparql,39.7552,-75.5312,United States,North America,Wilmington,University of Delaware
+https://sparql.rhea-db.org/sparql,46.1986,6.14277,Switzerland,Europe,Geneva,Universite de Geneve
+https://sparql.string-db.org/,45.5019,-73.5674,Canada,North America,Montreal,"Cloudflare, Inc."
+https://sparql.uniprot.org/,46.1986,6.14277,Switzerland,Europe,Geneva,Universite de Geneve
+https://sparql.uniprot.org/sparql,46.1986,6.14277,Switzerland,Europe,Geneva,Universite de Geneve
+https://sparql.wikipathways.org/sparql,52.5234,13.3224,Germany,Europe,Berlin,Strato AG
+https://stirdata-semantic.ails.ece.ntua.gr/api/content/cy/sparql,37.9842,23.7353,Greece,Europe,Athens,National Technical University of Athens
+https://taxref.mnhn.fr/sparql,48.8434,2.36349,France,Europe,Paris,Museum national d'histoire naturelle
+https://tora.entryscape.net/snorql,60.342,25.0293,Finland,Europe,Tuusula,Hetzner Online GmbH
+https://triplestore.iccu.sbn.it/sparql,41.906,12.5078,Italy,Europe,Rome,Ist. Centr. per il Catalogo Unico delle Biblioteche Italiane
+https://ts.glycosmos.org/sparql,35.6517,139.3221,Japan,Asia,Hachiōji,Japan150
+https://ts.glytoucan.org/sparql,35.6517,139.3221,Japan,Asia,Hachiōji,Japan150
+https://ts.opendata.inrae.fr/sparql,48.8033,2.2679,France,Europe,Clamart,"Institut national de recherche pour l'agriculture, l'alimentation et l'environnement"
+https://tsu.eagle-i.net/sparqler/sparql,32.3895,-89.9562,United States,North America,Brandon,Ventrure Technologies - JAN LAN
+https://tuskegee.eagle-i.net/sparqler/sparql,32.3895,-89.9562,United States,North America,Brandon,Ventrure Technologies - JAN LAN
+https://uccaribe.eagle-i.net/sparqler/sparql,32.3895,-89.9562,United States,North America,Brandon,Ventrure Technologies - JAN LAN
+https://upr.eagle-i.net/sparqler/sparql,32.3895,-89.9562,United States,North America,Brandon,Ventrure Technologies - JAN LAN
+https://uriburner.com/sparql,52.3676,4.90414,The Netherlands,Europe,Amsterdam,OpenLink Group Ltd
+https://utep.eagle-i.net/sparqler/sparql,32.3895,-89.9562,United States,North America,Brandon,Ventrure Technologies - JAN LAN
+https://utsa.eagle-i.net/sparqler/sparql,32.3895,-89.9562,United States,North America,Brandon,Ventrure Technologies - JAN LAN
+https://virtuoso.plateforme.dipso.inrae.fr/sparql,48.8033,2.2679,France,Europe,Clamart,"Institut national de recherche pour l'agriculture, l'alimentation et l'environnement"
+https://vocab.getty.edu/sparql,45.5235,-122.676,United States,North America,Portland,AWS EC2 (us-west-2)
+https://vocab.nerc.ac.uk/sparql,51.2707,-0.7171,United Kingdom,Europe,Ash Vale,National Oceanography Centre
+https://vocabs.ardc.edu.au/repository/api/sparql/,-35.2828,149.1283,Australia,Oceania,Canberra,Anunet
+https://vocabularies.unesco.org/sparql,47.6489,3.30527,France,Europe,Fontenoy,"The United Nations Educational, Scientific and Cultural Organization"
+https://vocabularies.unesco.org/sparql-form,47.6489,3.30527,France,Europe,Fontenoy,"The United Nations Educational, Scientific and Cultural Organization"
+https://vulcan.cs.uga.edu/sparql,33.9588,-83.4384,United States,North America,Athens,University of Georgia
+https://wasabi.inria.fr/sparql,48.837,2.10292,France,Europe,Le Chesnay-Rocquencourt,
+https://wcqs-beta.wmflabs.org/,39.0438,-77.4874,United States,North America,Ashburn,Wikimedia Cloud eqiad
+https://weakg.i3s.unice.fr/sparql,43.5866,7.1242,France,Europe,Antibes,Universite de Nice
+https://webenemasuno.linkeddata.es/sparql,40.43,-3.6691,Spain,Europe,Madrid,UPM
+https://webisa.webdatacommons.org/sparql,49.4922,8.464,Germany,Europe,Mannheim,UNI-MANNHEIM
+https://www.bgee.org/sparql,46.5184,6.6436,Switzerland,Europe,Lausanne,University of Lausanne
+https://www.data.gouv.fr/catalog.rdf,50.9871,2.12554,France,Europe,Gravelines,OVH ISP
+https://www.dictionnairedesfrancophones.org/sparql,45.1766,5.7205,France,Europe,Grenoble,CNRS Centre de Calcul de l'IN2P3
+https://www.ebi.ac.uk/rdf/services/biomodels/sparql,52.1932,0.1426,United Kingdom,Europe,Cambridge,European Bioinformatics Institute
+https://www.ebi.ac.uk/rdf/services/biosamples/sparql,52.1932,0.1426,United Kingdom,Europe,Cambridge,European Bioinformatics Institute
+https://www.ebi.ac.uk/rdf/services/chembl/sparql,52.1932,0.1426,United Kingdom,Europe,Cambridge,European Bioinformatics Institute
+https://www.ebi.ac.uk/rdf/services/reactome/sparql,52.1932,0.1426,United Kingdom,Europe,Cambridge,European Bioinformatics Institute
+https://www.ebi.ac.uk/rdf/services/sparql,52.1932,0.1426,United Kingdom,Europe,Cambridge,European Bioinformatics Institute
+https://www.europeandataportal.eu/sparql,43.2965,5.36978,France,Europe,Marseille,AWS CloudFront (GLOBAL)
+https://www.foodie-cloud.org/sparql,52.4064,16.9252,Poland,Europe,Poznan,Pozman Internal KDM
+https://www.genome.jp/sparql/linkdb,35.6916,139.768,Japan,Asia,Chiyoda,
+https://www.govdata.de/sparql,49.4521,11.0767,Germany,Europe,Nuremberg,Hetzner
+https://www.icane.es/opendata/sparql,43.4637,-3.79731,Spain,Europe,Santander,
+https://www.imgt.org/fuseki/ImgtKg/sparql,49.4429,1.1003,France,Europe,Rouen,Cnrs Montpellier
+https://www.nakala.fr/sparql,45.1766,5.7205,France,Europe,Grenoble,CNRS Centre de Calcul de l'IN2P3
+https://www.orkg.org/orkg/triplestore,50.9965,11.0144,Germany,Europe,Erfurt,"Technische Informationsbibliothek, Hannover"
+https://www.orpha.net/sparql,47.219,4.9968,France,Europe,Gevrey-Chambertin,Poittevin Jerome
+https://www.performing-arts.ch/sparql,47.3566,8.55707,Switzerland,Europe,Zurich,Switch
+https://www.roceeh.uni-tuebingen.de/road/,48.5169,9.0536,Germany,Europe,Tübingen,UNI-TUEBINGEN
+https://www.scholarlydata.org/sparql,43.4631,11.8783,Italy,Europe,Arezzo,Aruba S.p.A.
+https://www.snik.eu/sparql,51.382,12.36,Germany,Europe,Leipzig,Universitaet Leipzig
+https://www.thegazette.co.uk/sparql,47.6157,-122.336,United States,North America,Seattle,AWS CloudFront (GLOBAL)
+https://xn--slovnk-7va.gov.cz/sparql,53.3478,-6.2597,Ireland,Europe,Dublin,Microsoft Azure Cloud (northeurope)
+https://xula.eagle-i.net/sparqler/sparql,32.3895,-89.9562,United States,North America,Brandon,Ventrure Technologies - JAN LAN
+https://yago-knowledge.org/sparql/query,48.7144,2.2463,France,Europe,Palaiseau,Telecom Paris site de Palaiseau
+https://zbw.eu/beta/sparql/econ_corp/query,54.3308,10.1368,Germany,Europe,Kiel,UNI Kiel
+https://zbw.eu/beta/sparql/econ_pers/query,54.3308,10.1368,Germany,Europe,Kiel,UNI Kiel
+https://zbw.eu/beta/sparql/gnd/query,54.3308,10.1368,Germany,Europe,Kiel,UNI Kiel
+https://zbw.eu/beta/sparql/pm20/query,54.3308,10.1368,Germany,Europe,Kiel,UNI Kiel
+https://zbw.eu/beta/sparql/stw/query,54.3308,10.1368,Germany,Europe,Kiel,UNI Kiel
+https://zbw.eu/beta/sparql/stwv/query,54.3308,10.1368,Germany,Europe,Kiel,UNI Kiel

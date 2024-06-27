@@ -1,6 +1,7 @@
 import { Dayjs } from "dayjs"
 
 export type JSONValue =
+    Object
     | string
     | number
     | boolean
@@ -13,19 +14,21 @@ export interface JSONObject {
 
 export interface JSONArray extends Array<JSONValue> { }
 
-export type SPARQLJSONResult = {
+export interface SPARQLJSONResult extends JSONObject {
     head: {
         vars: string[]
     },
     results: {
-        bindings: {
+        bindings: SPARQLJSONResultBinding[]
+    }
+}
+
+export interface SPARQLJSONResultBinding extends JSONObject {
             [x: string]: {
                 type: string,
                 value: string
             }
-        }[]
-    }
-}
+        }
 
 export type RunSetObject = {
     id: string,
@@ -93,22 +96,16 @@ export type KeywordsEndpointDataObject = {
 
 export type ClassCountDataObject = {
     endpoint: string,
-    graph: string,
-    date: Dayjs,
     classes: number
 }
 
 export type PropertyCountDataObject = {
     endpoint: string,
-    graph: string,
-    date: Dayjs,
     properties: number
 }
 
 export type TripleCountDataObject = {
     endpoint: string,
-    graph: string,
-    date: Dayjs,
     triples: number
 }
 
@@ -148,18 +145,14 @@ export type DatasetDescriptionDataObject = {
     who: boolean
 }
 
-export type ShortUriDataObject = {
-    graph: string,
-    date: Dayjs,
+export type QualityMeasureDataObject = {
     endpoint: string,
     measure: number
 }
 
-export type QualityMeasureDataObject = {
-    graph: string,
-    date: Dayjs,
+export type LanguageListDataObject = {    
     endpoint: string,
-    measure: number
+    languages: Array<string>
 }
 
 export type GraphListDataObject = {    
@@ -171,4 +164,26 @@ export type SPARQLFeatureDescriptionDataObject = {
     feature: string,
     description: string,
     query: string
+}
+
+export type EndpointServerDataObject = {
+    endpoint: string,
+    server: string,
+}
+
+export type FAIRDataObject = {
+    kg: string,
+    endpoint: string,
+    f1a: number,
+    f1b: number,
+    f2a: number,
+    f2b: number,
+    a11: number,
+    a12: number,
+    i1: number,
+    i2: number,
+    i3: number,
+    r11: number,
+    r12: number,
+    r13: number
 }
