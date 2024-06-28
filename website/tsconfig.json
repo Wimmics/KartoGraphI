@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "allowJs": true,
+        "sourceMap": true,
+        "target": "ES2022",
+        "moduleResolution": "Node",
+        "module": "ES2022",
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "pretty": true,
+        // "outFile": "script.js",
+        "typeRoots": [
+          "./node_modules/sparqljs-legacy-type/"
+        ]
+    },
+    "include": [
+        "./src/**/*"
+    ],
+}

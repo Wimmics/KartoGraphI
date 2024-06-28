@@ -8,12 +8,12 @@ Promise.allSettled([
     DataCache.endpointMapfill(),
 
     DataCache.tripleDataFill().then(() =>
-            PlotlyCache.triplesChartOption()
+        PlotlyCache.triplesChartOption()
     ),
     DataCache.SPARQLCoverageFill().then(() =>
         PlotlyCache.sparqlCoverageChartOption()
     ),
-    DataCache.serverHeadersFill().then(() => 
+    DataCache.serverHeadersFill().then(() =>
         PlotlyCache.endpointServerChartOption()
     ),
     DataCache.classDataFill().then(() =>
@@ -37,7 +37,7 @@ Promise.allSettled([
     DataCache.endpointLanguagesDataFill().then(() =>
         PlotlyCache.endpointLanguagesChartOption()
     ),
-    DataCache.fairnessDataFill().then(() => 
+    DataCache.fairnessDataFill().then(() =>
         PlotlyCache.fairnessChartOption()
     )
 ])

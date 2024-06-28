@@ -161,7 +161,9 @@
                     <h3 class='mb-4 text-center'>Estimation of the SPARQL features covered by the endpoints</h3>
                     <div class="row justify-content-center h-auto ratio ratio-21x9" id="SPARQLCoverageHisto"></div>
                     <div class="row justify-content-center">
-                        <p class="text-center">This charts shows the number of SPARQL features supported by endpoints amog 41 tested features. The tests are inspired by <a href="https://sparqles.ai.wu.ac.at/">SPARQLES</a>.</p>
+                        <p class="text-center">This charts shows the number of SPARQL features supported by endpoints
+                            amog 41 tested features. The tests are inspired by <a
+                                href="https://sparqles.ai.wu.ac.at/">SPARQLES</a>.</p>
                     </div>
                     <div class="row">
                         <button id="tableSPARQLFeaturesDetails" type="button" class="btn btn-link">Details of the
@@ -177,11 +179,15 @@
             <div class="row border border-grey justify-content-center" id="population">
                 <div class="col-12 justify-content-center gy-5">
                     <div class="row justify-content-center">
-                        <p class="text-center">The following charts show differnet statistics on the content of SPARQL endpoints. As the counting of elements is resource-intensive, not all endpoints have returned results for each statistic. </p>
+                        <p class="text-center">The following charts show differnet statistics on the content of SPARQL
+                            endpoints. As the counting of elements is resource-intensive, not all endpoints have
+                            returned results for each statistic. </p>
                     </div>
                     <div class="row">
                         <div class="col-6 mb-4">
-                            <div class="row"><p class='text-center fs-2'>Datasets populations</p></div>
+                            <div class="row">
+                                <p class='text-center fs-2'>Datasets populations</p>
+                            </div>
                             <div class="row h-auto ratio ratio-16x9" id="tripleScatter"></div>
                             <div class="row justify-content-center">
                                 <p class="text-center">Number of triples in endpoints. </p>
@@ -196,7 +202,9 @@
                             </div>
                         </div>
                         <div class="col-6 mb-4">
-                            <div class="row"><p class='text-center fs-2'>Number of classes</p></div>
+                            <div class="row">
+                                <p class='text-center fs-2'>Number of classes</p>
+                            </div>
                             <div class="row h-auto ratio ratio-16x9" id="classScatter"></div>
                             <div class="row justify-content-center">
                                 <p class="text-center">Number of classes in endpoints. </p>
@@ -212,7 +220,9 @@
                     </div>
                     <div class="row">
                         <div class="col-6 mb-4">
-                            <div class="row"><p class='text-center fs-2'>Number of properties</p></div>
+                            <div class="row">
+                                <p class='text-center fs-2'>Number of properties</p>
+                            </div>
                             <div class="row h-auto ratio ratio-16x9" id="propertyScatter"></div>
                             <div class="row justify-content-center">
                                 <p class="text-center">Number of properties in endpoints. </p>
@@ -227,7 +237,9 @@
                             </div>
                         </div>
                         <div class="col-6 mb-4">
-                            <div class="row"><p class='text-center fs-2'>Number of languages</p></div>
+                            <div class="row">
+                                <p class='text-center fs-2'>Number of languages</p>
+                            </div>
                             <div class="row h-auto ratio ratio-16x9" id="languagesScatter"></div>
                             <div class="row justify-content-center">
                                 <p class="text-center">Number of languages used on the literals in endpoints. </p>
@@ -248,8 +260,7 @@
                             </div>
                             <div class="row h-auto ratio ratio-16x9" id="endpointServerChart"></div>
                             <div class="row justify-content-center">
-                                <button id="endpointServerDetails" type="button"
-                                    class="btn btn-link">Details</button>
+                                <button id="endpointServerDetails" type="button" class="btn btn-link">Details</button>
                             </div>
                             <div class="row justify-content-center collapse" id="endpointServerDatatable">
                                 <table id="endpointServerTable" class="table table-responsive table-hover">
@@ -262,7 +273,7 @@
 
             <div class="row border border-grey justify-content-center" id="quality">
                 <div class="col-12 gy-5">
-                    <p class='text-center fs-2'>Quality measures</p>
+                    <p class='text-center fs-2'>Quality metrics</p>
                     <div class="row">
                         <div class="col-6 mb-4">
                             <div class="row justify-content-center">
@@ -270,8 +281,11 @@
                             </div>
                             <div class="row h-auto ratio ratio-16x9" id="readableLabelsScatter"></div>
                             <div class="row justify-content-center">
-                                <button id="readableLabelsDetails" type="button"
-                                    class="btn btn-link">Details</button>
+                                <p class="text-center">Proportion of resources with an human-readable label (i.e. using
+                                    rdfs:label or equivalent)</p>
+                            </div>
+                            <div class="row justify-content-center">
+                                <button id="readableLabelsDetails" type="button" class="btn btn-link">Details</button>
                             </div>
                             <div class="row justify-content-center collapse" id="readableLabelsDatatable">
                                 <table id="readableLabelsTable" class="table table-responsive table-hover">
@@ -284,8 +298,10 @@
                             </div>
                             <div class="row h-auto ratio ratio-16x9" id="shortUrisScatter"></div>
                             <div class="row justify-content-center">
-                                <button id="shortUrisDetails" type="button"
-                                    class="btn btn-link">Details</button>
+                                <p class="text-center">Proportion of resources with a with a short URI</p>
+                            </div>
+                            <div class="row justify-content-center">
+                                <button id="shortUrisDetails" type="button" class="btn btn-link">Details</button>
                             </div>
                             <div class="row justify-content-center collapse" id="shortUrisDatatable">
                                 <table id="shortUrisTable" class="table table-responsive table-hover">
@@ -299,6 +315,10 @@
                                 <p class='text-center fs-3'>RDF data structures</p>
                             </div>
                             <div class="row h-auto ratio ratio-16x9" id="rdfDataStructuresScatter"></div>
+                            <div class="row justify-content-center">
+                                <p class="text-center">Proportion of resources that are not a part of an RDF data
+                                    structure such as a List</p>
+                            </div>
                             <div class="row justify-content-center">
                                 <button id="rdfDataStructuresDetails" type="button"
                                     class="btn btn-link">Details</button>
@@ -314,8 +334,10 @@
                             </div>
                             <div class="row h-auto ratio ratio-16x9" id="blankNodesScatter"></div>
                             <div class="row justify-content-center">
-                                <button id="blankNodesDetails" type="button"
-                                    class="btn btn-link">Details</button>
+                                <p class="text-center">Proportion of resources that are blank nodes</p>
+                            </div>
+                            <div class="row justify-content-center">
+                                <button id="blankNodesDetails" type="button" class="btn btn-link">Details</button>
                             </div>
                             <div class="row justify-content-center collapse" id="blankNodesDatatable">
                                 <table id="blankNodesTable" class="table table-responsive table-hover">
@@ -330,11 +352,13 @@
                             </div>
                             <div class="row h-auto ratio ratio-16x9" id="fairnessChart"></div>
                             <div class="row justify-content-center">
-                                <p class="text-center">This bar charts display the evaluation of datasets described in SPARQL endpoints and evaluated using the <a href="https://fair-checker.france-bioinformatique.fr/">FAIR-Checker</a> method, reimplemented in IndeGx. </p>
+                                <p class="text-center">This bar charts display the evaluation of datasets described in
+                                    SPARQL endpoints and evaluated using the <a
+                                        href="https://fair-checker.france-bioinformatique.fr/">FAIR-Checker</a> method,
+                                    reimplemented in IndeGx. </p>
                             </div>
                             <div class="row justify-content-center">
-                                <button id="fairnessDetails" type="button"
-                                    class="btn btn-link">Details</button>
+                                <button id="fairnessDetails" type="button" class="btn btn-link">Details</button>
                             </div>
                             <div class="row justify-content-center collapse" id="fairnessDatatable">
                                 <table id="fairnessTable" class="table table-responsive table-hover">
