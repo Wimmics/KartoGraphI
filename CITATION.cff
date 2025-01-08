@@ -1,0 +1,29 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: KartoGraphI
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Pierre
+    family-names: Maillot
+    email: pierre.maillot@inria.fr
+    affiliation: INRIA
+    orcid: 'https://orcid.org/0000-0002-9814-439X'
+identifiers:
+  - type: url
+    value: 'https://hal.archives-ouvertes.fr/hal-03652865'
+    description: Poster publication at ESWC2022
+repository-code: 'https://github.com/Wimmics/KartoGraphI'
+url: 'https://prod-dekalog.inria.fr/'
+abstract: >-
+  Code for the KartoGraphI website retrieving statistics on
+  the state of public SPARQL endpoints.
+keywords:
+  - Semantic Web
+  - SPARQL
+  - Quality
+license: GPL-2.0+

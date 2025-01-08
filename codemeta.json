@@ -1,0 +1,24 @@
+{
+    "@context": "https://w3id.org/codemeta/3.0",
+    "type": "SoftwareSourceCode",
+    "applicationCategory": "Semantic Web",
+    "codeRepository": "git+https://github.com/Wimmics/KartoGraphI",
+    "description": "Code for the KartoGraphI website retrieving statistics on the state of public SPARQL endpoints.",
+    "funder": {
+        "type": "Organization",
+        "name": "INRIA"
+    },
+    "isPartOf": "https://github.com/Wimmics/IndeGx",
+    "keywords": [
+        "Semantic Web",
+        "SPARQL",
+        "Quality"
+    ],
+    "license": "https://spdx.org/licenses/GPL-2.0+",
+    "name": "KartoGraphI",
+    "programmingLanguage": "TypeScript",
+    "relatedLink": "https://prod-dekalog.inria.fr/",
+    "funding": "ANR-19-CE23-0014",
+    "issueTracker": "https://github.com/Wimmics/KartoGraphI/issues",
+    "referencePublication": "https://hal.archives-ouvertes.fr/hal-03652865"
+}
